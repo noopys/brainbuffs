@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-brainbuffs-staging-171706-authRole",
+      "UnauthRoleArn": "arn:aws:iam::859021319612:role/amplify-brainbuffs-staging-171706-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::859021319612:role/amplify-brainbuffs-staging-171706-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+      "UnauthRoleName": "amplify-brainbuffs-staging-171706-unauthRole",
+      "StackName": "amplify-brainbuffs-staging-171706",
+      "StackId": "arn:aws:cloudformation:us-east-1:859021319612:stack/amplify-brainbuffs-staging-171706/d7126340-e2c3-11ed-b43f-1268bb4f7a15",
+      "AmplifyAppId": "dabqp59i3znu6"
+    }
+  }
+}
