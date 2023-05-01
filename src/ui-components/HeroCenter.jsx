@@ -13,7 +13,7 @@ export default function HeroCenter(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="1440px"
+      width="100%"
       height="700px"
       display="block"
       gap="unset"
@@ -26,7 +26,7 @@ export default function HeroCenter(props) {
       {...rest}
     >
       <View
-        width="1440px"
+        width="100%"
         height="700px"
         display="block"
         gap="unset"
@@ -41,14 +41,14 @@ export default function HeroCenter(props) {
       ></View>
       <ButtonPrimary
         width="280px"
-        height="64px"
+        height="20px"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
         top="419px"
-        left="calc(50% - 140px - 0px)"
+        left="43%"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Button Primary")}
       ></ButtonPrimary>
@@ -71,7 +71,7 @@ export default function HeroCenter(props) {
         left="calc(50% - 220px - 0px)"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        children="Guaranteed score increase of 50 points or your money back."
         {...getOverrideProps(overrides, "Subtitle")}
       ></Text>
       <Text
@@ -89,11 +89,11 @@ export default function HeroCenter(props) {
         gap="unset"
         alignItems="unset"
         position="absolute"
-        top="185px"
+        top="100px"
         left="calc(50% - 393.5px - -0.5px)"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Value Proposition"
+        children="Proven SAT Tutoring To Get Into Your Dream School"
         {...getOverrideProps(overrides, "Title")}
       ></Text>
     </View>

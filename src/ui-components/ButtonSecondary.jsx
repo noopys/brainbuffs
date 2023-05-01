@@ -60,7 +60,7 @@ export default function ButtonSecondary(props) {
         right="16px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="See More"
+        children="Sign Up"
         {...getOverrideProps(overrides, "Text")}
       ></Text>
     </View>

@@ -60,7 +60,7 @@ export default function ButtonPrimary(props) {
         right="24px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="See More"
+        children="Learn More"
         {...getOverrideProps(overrides, "Text")}
       ></Text>
     </View>

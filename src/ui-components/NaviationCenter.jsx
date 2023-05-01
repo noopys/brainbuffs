@@ -168,6 +168,7 @@ export default function NaviationCenter(props) {
       <Text
         fontFamily="Roboto"
         fontSize="24px"
+        label="Trade"
         fontWeight="700"
         color="rgba(0,0,0,1)"
         textTransform="uppercase"
