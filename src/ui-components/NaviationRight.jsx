@@ -14,6 +14,9 @@ import {NavLink} from 'react-router-dom';
 
 export default function NaviationRight(props) {
   const { overrides, ...rest } = props;
+  const navLinkStyle = {
+    textDecoration: "none",
+  };
   return (
     <View
       width="1440px"
@@ -74,7 +77,7 @@ export default function NaviationRight(props) {
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Links")}
       >
-        <NavLink to="/about">
+        <NavLink to="/about" style={navLinkStyle}>
         <Text
           fontFamily="Roboto"
           fontSize="18px"
@@ -96,6 +99,7 @@ export default function NaviationRight(props) {
           children="About Us"
           {...getOverrideProps(overrides, "Link0204")}
         ></Text></NavLink>
+        <NavLink to="/references" style={navLinkStyle}>
         <Text
           fontFamily="Roboto"
           fontSize="18px"
@@ -117,6 +121,8 @@ export default function NaviationRight(props) {
           children="References"
           {...getOverrideProps(overrides, "Link0205")}
         ></Text>
+        </NavLink>
+        <NavLink to="/faq" style={navLinkStyle}>
         <Text
           fontFamily="Roboto"
           fontSize="18px"
@@ -138,8 +144,9 @@ export default function NaviationRight(props) {
           children="FAQ"
           {...getOverrideProps(overrides, "Link0206")}
         ></Text>
+        </NavLink>
       </Flex>
-      <NavLink to="/">
+      <NavLink to="/" style={navLinkStyle}>
       <Text
         fontFamily="Bahnschrift"
         fontSize="24px"

@@ -3,6 +3,7 @@ import './App.css';
 import NavigationRight from './ui-components/NaviationRight';
 import FeatureSplitLeft from './ui-components/FeatureSplitLeft';
 import HeroCenter from './ui-components/HeroCenter';
+import FAQ from './components/FAQ'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HeroCenter/>}/>
           <Route path="/about" element={<FeatureSplitLeft/>}/>
+          <Route path="/faq" element={<FAQ/>}/>
         </Routes>
       </Router>
       {/* <div style={{
