@@ -9,6 +9,7 @@ import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Flex, Text, View } from "@aws-amplify/ui-react";
 import ButtonSecondary from "./ButtonSecondary";
+import logo from '../resources/brainbuffs.png';
 export default function NaviationRight(props) {
   const { overrides, ...rest } = props;
   return (
@@ -24,6 +25,7 @@ export default function NaviationRight(props) {
       {...getOverrideProps(overrides, "NaviationRight")}
       {...rest}
     >
+      {/* <img src={logo} style={{ width: '200px', height: '20px' }}></img> */}
       <View
         width="1440px"
         height="64px"
@@ -135,9 +137,9 @@ export default function NaviationRight(props) {
         ></Text>
       </Flex>
       <Text
-        fontFamily="Roboto"
+        fontFamily="Bahnschrift"
         fontSize="24px"
-        fontWeight="700"
+        fontWeight="1000"
         color="rgba(0,0,0,1)"
         lineHeight="28.125px"
         textAlign="left"
@@ -155,9 +157,21 @@ export default function NaviationRight(props) {
         right="86.81%"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Brain Buffs"
+        children="BrainBuffs"
         {...getOverrideProps(overrides, "Logo")}
       ></Text>
+      <img
+        src={logo}
+        alt="Brain Buffs Logo"
+        style={{
+          width: '110px',
+          height: '60px',
+          position: 'absolute',
+          top: '80%',
+          left: 'calc(2.78% + 150px)', // Adjust the value based on your layout
+          transform: 'translateY(-50%)',
+        }}
+      />
     </View>
   );
 }
