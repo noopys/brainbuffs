@@ -10,6 +10,8 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Flex, Text, View } from "@aws-amplify/ui-react";
 import ButtonSecondary from "./ButtonSecondary";
 import logo from '../resources/brainbuffs.png';
+import {NavLink} from 'react-router-dom';
+
 export default function NaviationRight(props) {
   const { overrides, ...rest } = props;
   return (
@@ -72,6 +74,7 @@ export default function NaviationRight(props) {
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Links")}
       >
+        <NavLink to="/about">
         <Text
           fontFamily="Roboto"
           fontSize="18px"
@@ -92,7 +95,7 @@ export default function NaviationRight(props) {
           whiteSpace="pre-wrap"
           children="About Us"
           {...getOverrideProps(overrides, "Link0204")}
-        ></Text>
+        ></Text></NavLink>
         <Text
           fontFamily="Roboto"
           fontSize="18px"
@@ -136,6 +139,7 @@ export default function NaviationRight(props) {
           {...getOverrideProps(overrides, "Link0206")}
         ></Text>
       </Flex>
+      <NavLink to="/">
       <Text
         fontFamily="Bahnschrift"
         fontSize="24px"
@@ -172,6 +176,7 @@ export default function NaviationRight(props) {
           transform: 'translateY(-50%)',
         }}
       />
+      </NavLink>
     </View>
   );
 }

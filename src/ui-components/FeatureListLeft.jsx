@@ -93,7 +93,7 @@ export default function FeatureListLeft(props) {
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          children="and not monkeys so please buy our product i promise itll be worth your money"
           {...getOverrideProps(overrides, "Subtitle")}
         ></Text>
         <Text
@@ -117,7 +117,7 @@ export default function FeatureListLeft(props) {
           right="46.61%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Feature that is amazing"
+          children="We are smart"
           {...getOverrideProps(overrides, "Title")}
         ></Text>
         <View

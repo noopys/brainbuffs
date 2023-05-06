@@ -13,7 +13,7 @@ export default function FeatureSplitLeft(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="1440px"
+      width="110%"
       height="600px"
       display="block"
       gap="unset"
@@ -104,7 +104,7 @@ export default function FeatureSplitLeft(props) {
         right="61.32%"
         {...getOverrideProps(overrides, "Content")}
       >
-        <ButtonSecondary
+        {/* <ButtonSecondary
           width="200px"
           height="60px"
           display="block"
@@ -118,7 +118,7 @@ export default function FeatureSplitLeft(props) {
           right="52.61%"
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "Button Secondary")}
-        ></ButtonSecondary>
+        ></ButtonSecondary> */}
         <Text
           fontFamily="Roboto"
           fontSize="20px"
