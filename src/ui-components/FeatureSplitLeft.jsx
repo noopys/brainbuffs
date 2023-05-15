@@ -9,10 +9,12 @@ import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
 import ButtonSecondary from "./ButtonSecondary";
+import vab from '../resources/loganvab.jpg';
 export default function FeatureSplitLeft(props) {
   const { overrides, ...rest } = props;
   return (
     <View
+      overflowX="hidden"
       width="110%"
       height="600px"
       display="block"
@@ -68,7 +70,7 @@ export default function FeatureSplitLeft(props) {
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"
-          backgroundColor="rgba(0,0,0,1)"
+          backgroundColor="rgba(105,105,105,1)"
           {...getOverrideProps(overrides, "Media Background")}
         ></View>
         <View
@@ -85,9 +87,22 @@ export default function FeatureSplitLeft(props) {
           right="28.06%"
           borderRadius="8px"
           padding="0px 0px 0px 0px"
-          backgroundColor="rgba(255,255,255,1)"
+          backgroundColor="rgba(105,105,105,1)"
           {...getOverrideProps(overrides, "Media Object")}
-        ></View>
+        >
+          <img
+            src={vab}
+            alt="Brain Buffs Logo"
+            style={{
+              width: '320px',
+              height: '500px',
+              position: 'absolute',
+              top: '50%',
+              left: '0', // Adjust the value based on your layout
+              transform: 'translateY(-50%)',
+            }}
+          />
+        </View>
       </View>
       <View
         padding="0px 0px 0px 0px"
@@ -121,7 +136,7 @@ export default function FeatureSplitLeft(props) {
         ></ButtonSecondary> */}
         <Text
           fontFamily="Roboto"
-          fontSize="20px"
+          fontSize="16px"
           fontWeight="400"
           color="rgba(0,0,0,1)"
           lineHeight="28.125px"
@@ -134,13 +149,18 @@ export default function FeatureSplitLeft(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="30.45%"
+          top="20%"
           bottom="34.57%"
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          children="Logan is a motivated computer science student with a background as a
+           former NASA intern, who excelled on the SAT and is now dedicated to helping others
+            achieve the same success. Logan understands firsthand the strategies and techniques needed to excel in each section. Combined with his 
+            strong problem-solving, logical reasoning, and analytical skills, he brings a unique perspective to 
+            his tutoring approach. Logan provides students with the tools and 
+            guidance they need to achieve their own exceptional SAT scores. With his passion, expertise, Logan is committed to empowering students to reach their full potential on the SAT."
           {...getOverrideProps(overrides, "Subtitle")}
         ></Text>
         <Text
@@ -158,13 +178,13 @@ export default function FeatureSplitLeft(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="0%"
-          bottom="86.01%"
+          top="0"
+          bottom="90.01%"
           left="0%"
           right="39.81%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Feature that is amazing"
+          children="Meet Brain Buffs"
           {...getOverrideProps(overrides, "Title")}
         ></Text>
       </View>

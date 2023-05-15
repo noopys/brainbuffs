@@ -179,7 +179,7 @@ export default function NaviationRight(props) {
           height: '60px',
           position: 'absolute',
           top: '80%',
-          left: 'calc(2.78% + 150px)', // Adjust the value based on your layout
+          left: 'calc(2.78% + 125px)', // Adjust the value based on your layout
           transform: 'translateY(-50%)',
         }}
       />

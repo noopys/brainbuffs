@@ -9,16 +9,19 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{
+      overflowX: "hidden",
+    }}>
       <Router>
         <header style={{
             paddingBottom: "10px",
             height: "100px",
-            width: "100%"
+            width: "100%",
+            overflow: "hidden",
           }}>
           <NavigationRight/>
         </header>
-        <Routes>
+        <Routes className="App">
           <Route path="/" element={<HeroCenter/>}/>
           <Route path="/about" element={<FeatureSplitLeft/>}/>
           <Route path="/faq" element={<FAQ/>}/>
