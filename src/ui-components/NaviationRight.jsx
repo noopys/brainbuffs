@@ -107,7 +107,8 @@ export default function NaviationRight(props) {
           color="rgba(0,0,0,1)"
           lineHeight="21.09375px"
           textAlign="left"
-          display="block"
+          display="none"
+          //Change display none above back to block
           direction="column"
           justifyContent="unset"
           width="unset"

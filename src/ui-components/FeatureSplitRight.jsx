@@ -9,11 +9,13 @@ import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
 import ButtonSecondary from "./ButtonSecondary";
+import vab from '../resources/loganvab.jpg';
 export default function FeatureSplitRight(props) {
   const { overrides, ...rest } = props;
   return (
     <View
-      width="1440px"
+      overflowX="hidden"
+      width="110%"
       height="600px"
       display="block"
       gap="unset"
@@ -51,8 +53,8 @@ export default function FeatureSplitRight(props) {
         position="absolute"
         top="0%"
         bottom="0%"
-        left="0%"
-        right="50%"
+        left="50%"
+        right="0%"
         {...getOverrideProps(overrides, "Media")}
       >
         <View
@@ -68,7 +70,7 @@ export default function FeatureSplitRight(props) {
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"
-          backgroundColor="rgba(0,0,0,1)"
+          backgroundColor="rgba(105,105,105,1)"
           {...getOverrideProps(overrides, "Media Background")}
         ></View>
         <View
@@ -85,9 +87,23 @@ export default function FeatureSplitRight(props) {
           right="28.06%"
           borderRadius="8px"
           padding="0px 0px 0px 0px"
-          backgroundColor="rgba(255,255,255,1)"
+          backgroundColor="rgba(105,105,105,1)"
           {...getOverrideProps(overrides, "Media Object")}
-        ></View>
+        >
+          <img
+            src={vab}
+            alt="Brain Buffs Logo"
+            style={{
+              borderRadius:"10%",
+              width: '360px',
+              height: '500px',
+              position: 'absolute',
+              top: '50%',
+              left: '0', // Adjust the value based on your layout
+              transform: 'translateY(-50%)',
+            }}
+          />
+        </View>
       </View>
       <View
         padding="0px 0px 0px 0px"
@@ -100,11 +116,11 @@ export default function FeatureSplitRight(props) {
         position="absolute"
         top="29.83%"
         bottom="29.67%"
-        left="57.99%"
-        right="12.71%"
+        left="9.38%"
+        right="61.32%"
         {...getOverrideProps(overrides, "Content")}
       >
-        <ButtonSecondary
+        {/* <ButtonSecondary
           width="200px"
           height="60px"
           display="block"
@@ -118,10 +134,10 @@ export default function FeatureSplitRight(props) {
           right="52.61%"
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "Button Secondary")}
-        ></ButtonSecondary>
+        ></ButtonSecondary> */}
         <Text
           fontFamily="Roboto"
-          fontSize="20px"
+          fontSize="16px"
           fontWeight="400"
           color="rgba(0,0,0,1)"
           lineHeight="28.125px"
@@ -134,13 +150,13 @@ export default function FeatureSplitRight(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="30.45%"
+          top="20%"
           bottom="34.57%"
           left="0%"
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          children="Sandy is a monkey"
           {...getOverrideProps(overrides, "Subtitle")}
         ></Text>
         <Text
@@ -158,13 +174,13 @@ export default function FeatureSplitRight(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="0%"
-          bottom="86.01%"
+          top="0"
+          bottom="90.01%"
           left="0%"
           right="39.81%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Feature that is amazing"
+          children="Meet Brain Buffs"
           {...getOverrideProps(overrides, "Title")}
         ></Text>
       </View>

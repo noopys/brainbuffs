@@ -3,16 +3,16 @@ import React from "react";
 function FAQPage() {
   const faqData = [
     {
-      question: "What is React?",
+      question: "How much does it cost?",
       answer: "React is a JavaScript library for building user interfaces.",
     },
     {
-      question: "How do I install React?",
-      answer: "You can install React by using npm or yarn.",
+      question: "Can I do virtual sessions?",
+      answer: "Yes! We can do virtual sessions upon request.",
     },
     {
-      question: "What are React components?",
-      answer: "React components are reusable building blocks for UI elements.",
+      question: "How do I know my scores will increase?",
+      answer: "We offer a money back guarantee. If your SAT score doesn't increase, you get 100% money back",
     },
     // Add more FAQ items as needed
   ];

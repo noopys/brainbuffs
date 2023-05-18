@@ -94,7 +94,8 @@ export default function FeatureSplitLeft(props) {
             src={vab}
             alt="Brain Buffs Logo"
             style={{
-              width: '320px',
+              borderRadius:"10%",
+              width: '360px',
               height: '500px',
               position: 'absolute',
               top: '50%',
@@ -155,7 +156,7 @@ export default function FeatureSplitLeft(props) {
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Logan is a motivated computer science student with a background as a
+          children="Logan is a motivated computer science student and National Merit Scholar with a background as a
            former NASA intern, who excelled on the SAT and is now dedicated to helping others
             achieve the same success. Logan understands firsthand the strategies and techniques needed to excel in each section. Combined with his 
             strong problem-solving, logical reasoning, and analytical skills, he brings a unique perspective to 
