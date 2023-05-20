@@ -67,7 +67,7 @@ export default function FeatureSplitRight(props) {
             src={vab}
             alt="Brain Buffs Logo"
             style={{
-              paddingLeft:'20px',
+              paddingLeft:'10px',
               width: '100%',
               height: '100%',
             }}
@@ -115,7 +115,7 @@ export default function FeatureSplitRight(props) {
         ></Text>
         <Text
           fontFamily="Roboto"
-          fontSize="16px"
+          fontSize="20px"
           fontWeight="400"
           color="rgba(0,0,0,0,1)"
           lineHeight="28.125px"
@@ -128,7 +128,7 @@ export default function FeatureSplitRight(props) {
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="20%"
+          top="50%"
           bottom="34.57%"
           left="0%"
           right="0%"

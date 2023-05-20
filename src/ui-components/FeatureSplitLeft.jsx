@@ -67,7 +67,7 @@ export default function FeatureSplitLeft(props) {
             src={vab}
             alt="Brain Buffs Logo"
             style={{
-              paddingLeft:'20px',
+              paddingLeft:'10px',
               width: '100%',
               height: '100%',
             }}
@@ -115,7 +115,7 @@ export default function FeatureSplitLeft(props) {
         ></Text>
         <Text
           fontFamily="Roboto"
-          fontSize="16px"
+          fontSize="20px"
           fontWeight="400"
           color="rgba(0,0,0,0,1)"
           lineHeight="28.125px"
@@ -134,7 +134,7 @@ export default function FeatureSplitLeft(props) {
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Logan is a motivated computer science student and National Merit Scholar with a background as a former NASA intern, who excelled on the SAT and is now dedicated to helping others achieve the same success. Logan understands firsthand the strategies and techniques needed to excel in each section. Combined with his strong problem-solving, logical reasoning, and analytical skills, he brings a unique perspective to his tutoring approach. Logan provides students with the tools and guidance they need to achieve their own exceptional SAT scores. With his passion and expertise, Logan is committed to empowering students to reach their full potential on the SAT."
+          children="  Logan is a motivated computer science student and National Merit Scholar with a background as a former NASA intern, who excelled on the SAT and is now dedicated to helping others achieve the same success. Logan understands firsthand the strategies and techniques needed to excel in each section. Combined with his strong problem-solving, logical reasoning, and analytical skills, he brings a unique perspective to his tutoring approach. Logan provides students with the tools and guidance they need to achieve their own exceptional SAT scores. With his passion and expertise, Logan is committed to empowering students to reach their full potential on the SAT."
           {...getOverrideProps(overrides, "Subtitle")}
         ></Text>
         {/* Rest of the code... */}

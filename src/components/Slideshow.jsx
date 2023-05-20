@@ -1,19 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const Slideshow = ({ component1, component2, interval }) => {
+const Slideshow = ({ component1, component2 }) => {
   const [activeComponent, setActiveComponent] = useState(component1);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveComponent((prevComponent) =>
-        prevComponent === component1 ? component2 : component1
-      );
-    }, interval);
+  const goToNextSlide = () => {
+    setActiveComponent(activeComponent === component1 ? component2 : component1);
+  };
 
-    return () => clearInterval(timer);
-  }, [component1, component2, interval]);
+  const goToPreviousSlide = () => {
+    setActiveComponent(activeComponent === component1 ? component2 : component1);
+  };
 
-  return <div>{activeComponent}</div>;
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div>{activeComponent}</div>
+      <button
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '10px',
+          transform: 'translateY(-50%)',
+          fontSize: '32px',
+        }}
+        onClick={goToPreviousSlide}
+      >
+        &#8249;
+      </button>
+      <button
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '10px',
+          transform: 'translateY(-50%)',
+          fontSize: '32px',
+        }}
+        onClick={goToNextSlide}
+      >
+        &#8250;
+      </button>
+    </div>
+  );
 };
 
 export default Slideshow;

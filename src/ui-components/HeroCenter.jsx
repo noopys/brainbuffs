@@ -9,6 +9,8 @@ import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
 import ButtonPrimary from "./ButtonPrimary";
+import {NavLink} from 'react-router-dom';
+
 
 export default function HeroCenter(props) {
   const { overrides, ...rest } = props;
@@ -40,19 +42,21 @@ export default function HeroCenter(props) {
         backgroundColor="rgba(242,242,242,1)"
         {...getOverrideProps(overrides, "Background")}
       ></View>
-      <ButtonPrimary
-        width="280px"
-        height="20px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="419px"
-        left="43%"
-        padding="0px 0px 0px 0px"
-        {...getOverrideProps(overrides, "Button Primary")}
-      ></ButtonPrimary>
+      <NavLink to="/about">
+        <ButtonPrimary
+          width="280px"
+          height="20px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="419px"
+          left="43%"
+          padding="0px 0px 0px 0px"
+          {...getOverrideProps(overrides, "Button Primary")}
+        ></ButtonPrimary>
+      </NavLink>
       <Text
         fontFamily="Roboto"
         fontSize="20px"
