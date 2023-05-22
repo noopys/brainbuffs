@@ -76,7 +76,7 @@ export default function HeroCenter(props) {
         left="calc(50% - 220px - 0px)"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="Guaranteed score increase of 50 points or your money back."
+        children="Guaranteed score increase or your money back."
         {...getOverrideProps(overrides, "Subtitle")}
       ></Text>
       <Text

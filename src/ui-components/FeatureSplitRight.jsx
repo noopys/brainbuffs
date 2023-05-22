@@ -134,7 +134,7 @@ export default function FeatureSplitRight(props) {
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Sandy is a monkey"
+          children="  Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students striving to reach their full SAT potential."
           {...getOverrideProps(overrides, "Subtitle")}
         ></Text>
         {/* Rest of the code... */}
