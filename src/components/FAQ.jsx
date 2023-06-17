@@ -28,15 +28,22 @@ function FAQPage() {
     margin: "0 auto",
   };
 
+  const backgroundStyle = {
+    backgroundColor: "#f1f1f1",
+    width: '100%'
+  }
+
   return (
-    <div style={containerStyle}>
-      <h1>Frequently Asked Questions</h1>
-      {faqData.map((faq, index) => (
-        <div key={index}>
-          <h2>{faq.question}</h2>
-          <p>{faq.answer}</p>
-        </div>
-      ))}
+    <div style={backgroundStyle}>
+      <div style={containerStyle}>
+        <h1>Frequently Asked Questions</h1>
+        {faqData.map((faq, index) => (
+          <div key={index}>
+            <h2>{faq.question}</h2>
+            <p>{faq.answer}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

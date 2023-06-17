@@ -99,7 +99,7 @@ export default function NaviationRight(props) {
           children="About Us"
           {...getOverrideProps(overrides, "Link0204")}
         ></Text></NavLink>
-        <NavLink to="/references" style={navLinkStyle}>
+        <NavLink to="/pricing" style={navLinkStyle}>
         <Text
           fontFamily="Roboto"
           fontSize="18px"
@@ -107,7 +107,7 @@ export default function NaviationRight(props) {
           color="rgba(0,0,0,1)"
           lineHeight="21.09375px"
           textAlign="left"
-          display="none"
+          display="block"
           //Change display none above back to block
           direction="column"
           justifyContent="unset"
@@ -119,7 +119,7 @@ export default function NaviationRight(props) {
           position="relative"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="References"
+          children="Pricing"
           {...getOverrideProps(overrides, "Link0205")}
         ></Text>
         </NavLink>

@@ -23,7 +23,7 @@ export default function FeatureSplitLeft(props) {
       {...rest}
     >
       <View
-        width="1440px"
+        width="100%"
         height="600px"
         display="block"
         gap="unset"
@@ -49,7 +49,7 @@ export default function FeatureSplitLeft(props) {
         position="absolute"
         top="0%"
         bottom="0%"
-        left="55%"
+        left="50%"
         right="0%"
         {...getOverrideProps(overrides, "Media")}
       >
@@ -65,9 +65,9 @@ export default function FeatureSplitLeft(props) {
         >
           <img
             src={vab}
-            alt="Brain Buffs Logo"
+            alt="Logan's Picture "
             style={{
-              paddingLeft:'10px',
+              borderRadius: '5%',
               width: '100%',
               height: '100%',
             }}
@@ -91,7 +91,7 @@ export default function FeatureSplitLeft(props) {
       >
         <Text
           fontFamily="Roboto"
-          fontSize="24px"
+          fontSize="30px"
           fontWeight="700"
           color="rgba(0,0,0,1)"
           lineHeight="33.75px"
@@ -123,12 +123,12 @@ export default function FeatureSplitLeft(props) {
           display="block"
           direction="column"
           justifyContent="unset"
-          width="422px"
+          width="600px"
           height="unset"
           gap="unset"
           alignItems="unset"
           position="absolute"
-          top="50%"
+          top="35%"
           bottom="34.57%"
           left="0%"
           right="0%"
