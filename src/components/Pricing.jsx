@@ -6,17 +6,19 @@ const Pricing = () => {
     borderRadius: '20px',
     padding: '30px',
     margin: '50px',
-    width: '300px',
-    height: '400px', // Increase vertical size
+    width: '100%', // set the width to be 100% of the parent
+    maxWidth: '300px', // but don't let it grow beyond 300px
     textAlign: 'center',
     backgroundColor: '#f9f9f9', // Add background color
     boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)', // Add box shadow
+    wordWrap: 'break-word', // This makes sure your text stays in the box
+    boxSizing: 'border-box', // This makes sure the padding and border are included in the width and height
   };
 
   const listItemStyle = {
     textAlign: 'left',
+    //fontSize: '1.5vw',
   };
-
 
   const packageData = [
     {
@@ -40,13 +42,13 @@ const Pricing = () => {
         padding: '0',
         margin: '0',
         backgroundColor:"rgba(242,242,242,1)",
-      }}
-      >
+      }}>
           <div style={{
               display: 'flex',
               justifyContent: 'space-around',
-
-              width: '65%',
+              flexWrap: 'wrap', // This will allow the boxes to stack on top of each other in smaller screens
+              width: '100%',
+              maxWidth: '65%',
           }}>
               {packageData.map((pkg, index) => (
                   <div key={index} style={pricingBoxStyle}>
