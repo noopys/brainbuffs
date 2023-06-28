@@ -1,145 +1,54 @@
-/* eslint-disable */
-import React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Text, View } from "@aws-amplify/ui-react";
-import ButtonSecondary from "./ButtonSecondary";
+
+import React from 'react';
 import vab from '../resources/sandy_headshot.jpg';
 
-export default function FeatureSplitRight(props) {
-  const { overrides, ...rest } = props;
-
+const FeatureSplitRight = () => {
   return (
-    <View
-      overflowX="hidden"
-      width="110%"
-      height="600px"
-      display="flex"
-      gap="unset"
-      alignItems="unset"
-      justifyContent="unset"
-      position="relative"
-      padding="0px 0px 0px 0px"
-      {...getOverrideProps(overrides, "FeatureSplitRight")}
-      {...rest}
-    >
-      <View
-        width="100%"
-        height="600px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="0%"
-        bottom="0%"
-        left="0%"
-        right="0%"
-        padding="0px 0px 0px 0px"
-        backgroundColor="rgba(242,242,242,1)"
-        {...getOverrideProps(overrides, "Background")}
-      ></View>
-      <View
-        padding="0px 0px 0px 0px"
-        width="720px"
-        height="600px"
-        display="flex"
-        gap="unset"
-        alignItems="center"
-        justifyContent="center"
-        position="absolute"
-        top="0%"
-        bottom="0%"
-        left="50%"
-        right="0%"
-        {...getOverrideProps(overrides, "Media")}
-      >
-        <div
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      backgroundColor: 'rgba(242,242,242,1)'
+    }}>
+      <div style={{
+        flex: '50%',
+        height: '600px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+      }}>
+        <img 
+          src={vab} 
+          alt="Sandy's Picture"
           style={{
-            //width: '100%',
-            // maxWidth: '100%',
-            height: '600px',
-            //maxHeight: '100%',
-            // borderRadius: '8px',
-            overflow: 'hidden',
-          }}
-        >
-          <img
-            src={vab}
-            alt="Brain Buffs Logo"
-            style={{
-              borderRadius: '5%',
-              paddingLeft:'10px',
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </div>
-      </View>
-      <View
-        padding="0px 0px 0px 0px"
-        width="422px"
-        height="243px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="0%"
-        bottom="29.67%"
-        left="9.38%"
-        right="61.32%"
-        {...getOverrideProps(overrides, "Content")}
-      >
-        <Text
-          fontFamily="Roboto"
-          fontSize="30px"
-          fontWeight="700"
-          color="rgba(0,0,0,1)"
-          lineHeight="33.75px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="0"
-          bottom="90.01%"
-          left="0%"
-          right="39.81%"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="Meet Brain Buffs"
-          {...getOverrideProps(overrides, "Title")}
-        ></Text>
-        <Text
-          fontFamily="Roboto"
-          fontSize="20px"
-          fontWeight="400"
-          color="rgba(0,0,0,0,1)"
-          lineHeight="28.125px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="600px"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="35%"
-          bottom="34.57%"
-          left="0%"
-          right="0%"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="  Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students striving to reach their full SAT potential."
-          {...getOverrideProps(overrides, "Subtitle")}
-        ></Text>
-        {/* Rest of the code... */}
-      </View>
-    </View>
+            borderRadius: '5%',
+            height: '700px',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            width: '100%',
+            maxWidth: '100%'
+          }} 
+        />
+      </div>
+
+      <div style={{
+        flex: '50%',
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <h1 style={{fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: '700', marginBottom: '1rem'}}>
+          Meet Brain Buffs
+        </h1>
+        <p style={{fontSize: 'clamp(14px, 2vw, 20px)'}}>
+        Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students striving to reach their full SAT potential
+        </p>
+      </div>
+    </div>
   );
 }
+
+export default FeatureSplitRight;
+

@@ -1,144 +1,58 @@
-/* eslint-disable */
-import React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Text, View } from "@aws-amplify/ui-react";
-import ButtonSecondary from "./ButtonSecondary";
+import React from 'react';
 import vab from '../resources/loganvab.jpg';
 
-export default function FeatureSplitLeft(props) {
-  const { overrides, ...rest } = props;
-
+const FeatureSplitLeft = () => {
   return (
-    <View
-      overflowX="hidden"
-      width="110%"
-      height="600px"
-      display="flex"
-      gap="unset"
-      alignItems="unset"
-      justifyContent="unset"
-      position="relative"
-      padding="0px 0px 0px 0px"
-      {...getOverrideProps(overrides, "FeatureSplitLeft")}
-      {...rest}
-    >
-      <View
-        width="100%"
-        height="600px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="0%"
-        bottom="0%"
-        left="0%"
-        right="0%"
-        padding="0px 0px 0px 0px"
-        backgroundColor="rgba(242,242,242,1)"
-        {...getOverrideProps(overrides, "Background")}
-      ></View>
-      <View
-        padding="0px 0px 0px 0px"
-        width="720px"
-        height="600px"
-        display="flex"
-        gap="unset"
-        alignItems="center"
-        justifyContent="center"
-        position="absolute"
-        top="0%"
-        bottom="0%"
-        left="50%"
-        right="0%"
-        {...getOverrideProps(overrides, "Media")}
-      >
-        <div
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      backgroundColor: 'rgba(242,242,242,1)'
+    }}>
+      <div style={{
+        flex: '50%',
+        height: '600px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+      }}>
+        <img 
+          src={vab} 
+          alt="Logan's Picture"
           style={{
-            //width: '100%',
-            // maxWidth: '100%',
-            height: '600px',
-            //maxHeight: '100%',
-            // borderRadius: '8px',
-            overflow: 'hidden',
-          }}
-        >
-          <img
-            src={vab}
-            alt="Logan's Picture "
-            style={{
-              borderRadius: '5%',
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </div>
-      </View>
-      <View
-        padding="0px 0px 0px 0px"
-        width="422px"
-        height="243px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="0%"
-        bottom="29.67%"
-        left="9.38%"
-        right="61.32%"
-        {...getOverrideProps(overrides, "Content")}
-      >
-        <Text
-          fontFamily="Roboto"
-          fontSize="30px"
-          fontWeight="700"
-          color="rgba(0,0,0,1)"
-          lineHeight="33.75px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="0"
-          bottom="90.01%"
-          left="0%"
-          right="39.81%"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="Meet Brain Buffs"
-          {...getOverrideProps(overrides, "Title")}
-        ></Text>
-        <Text
-          fontFamily="Roboto"
-          fontSize="20px"
-          fontWeight="400"
-          color="rgba(0,0,0,0,1)"
-          lineHeight="28.125px"
-          textAlign="left"
-          display="block"
-          direction="column"
-          justifyContent="unset"
-          width="600px"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
-          position="absolute"
-          top="35%"
-          bottom="34.57%"
-          left="0%"
-          right="0%"
-          padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children="  Logan is a motivated computer science student and National Merit Scholar with a background as a former NASA intern, who excelled on the SAT and is now dedicated to helping others achieve the same success. Logan understands firsthand the strategies and techniques needed to excel in each section. Combined with his strong problem-solving, logical reasoning, and analytical skills, he brings a unique perspective to his tutoring approach. Logan provides students with the tools and guidance they need to achieve their own exceptional SAT scores. With his passion and expertise, Logan is committed to empowering students to reach their full potential on the SAT."
-          {...getOverrideProps(overrides, "Subtitle")}
-        ></Text>
-        {/* Rest of the code... */}
-      </View>
-    </View>
+            borderRadius: '5%',
+            height: '100vh',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            width: '40',
+            maxWidth: '100%'
+          }} 
+        />
+      </div>
+
+      <div style={{
+        flex: '50%',
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <h1 style={{fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: '700', marginBottom: '1rem'}}>
+          Meet Brain Buffs
+        </h1>
+        <p style={{fontSize: 'clamp(14px, 2vw, 20px)'}}>
+          Logan is a motivated computer science student and National Merit Scholar with a background 
+          as a former NASA intern, who excelled on the SAT and is now dedicated to helping others achieve 
+          the same success. Logan understands firsthand the strategies and techniques needed to excel in 
+          each section. Combined with his strong problem-solving, logical reasoning, and analytical skills, 
+          he brings a unique perspective to his tutoring approach. Logan provides students with the tools 
+          and guidance they need to achieve their own exceptional SAT scores. With his passion and 
+          expertise, Logan is committed to empowering students to reach their full potential on the SAT.
+        </p>
+      </div>
+    </div>
   );
 }
+
+export default FeatureSplitLeft;

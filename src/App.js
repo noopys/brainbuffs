@@ -14,7 +14,9 @@ import Slideshow from './components/Slideshow';
 function App() {
   return (
     <div className="App" style={{
-      overflowX: "hidden",
+      //overflowX: "hidden",
+      //display:'flex',
+      //justifyContent:'center',
     }}>
       <Router>
         <header style={{

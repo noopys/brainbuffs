@@ -1,62 +1,49 @@
-/***************************************************************************
- * The contents of this file were generated with Amplify Studio.           *
- * Please refrain from making any modifications to this file.              *
- * Any changes to this file will be overwritten when running amplify pull. *
- **************************************************************************/
-
-/* eslint-disable */
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
 import ButtonPrimary from "./ButtonPrimary";
-import {NavLink} from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
+import { useMediaQuery } from "react-responsive";
 
 export default function HeroCenter(props) {
   const { overrides, ...rest } = props;
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   return (
     <View
       width="100%"
-      height="700px"
-      display="block"
-      gap="unset"
-      alignItems="unset"
-      justifyContent="unset"
+      height="100vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
       overflow="hidden"
       position="relative"
-      padding="0px 0px 0px 0px"
       {...getOverrideProps(overrides, "HeroCenter")}
       {...rest}
     >
       <View
         width="100%"
-        height="700px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
+        height="100%"
         position="absolute"
-        top="0px"
-        left="0px"
-        padding="0px 0px 0px 0px"
+        top="0"
+        left="0"
         backgroundColor="rgba(242,242,242,1)"
         {...getOverrideProps(overrides, "Background")}
       ></View>
-      <NavLink to="/about">
-        <ButtonPrimary
-          width="280px"
-          height="20px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          position="absolute"
-          top="419px"
-          left="43%"
-          padding="0px 0px 0px 0px"
-          {...getOverrideProps(overrides, "Button Primary")}
-        ></ButtonPrimary>
-      </NavLink>
+      <View
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <NavLink to="/about">
+          <ButtonPrimary
+            //width="28%"
+            height="20px"
+            transform="translate(-0%, 300%)" /* Center the text both vertically and horizontally */
+            {...getOverrideProps(overrides, "Button Primary")}
+          ></ButtonPrimary>
+        </NavLink>
+      </View>
       <Text
         fontFamily="Roboto"
         fontSize="20px"
@@ -64,39 +51,27 @@ export default function HeroCenter(props) {
         color="rgba(0,0,0,1)"
         lineHeight="28.125px"
         textAlign="center"
-        display="block"
-        direction="column"
-        justifyContent="unset"
-        width="440px"
-        height="unset"
-        gap="unset"
-        alignItems="unset"
+        width="44%"
         position="absolute"
-        top="302px"
-        left="calc(50% - 220px - 0px)"
-        padding="0px 0px 0px 0px"
+        top="50%"
+        left="50%" /* Horizontally center the text */
+        transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
         children="Guaranteed score increase or your money back."
         {...getOverrideProps(overrides, "Subtitle")}
       ></Text>
       <Text
         fontFamily="Roboto"
-        fontSize="64px"
-        fontWeight="500"
+        fontSize="5vw"
+        fontWeight="bolder"
         color="rgba(0,0,0,1)"
         lineHeight="52.5px"
         textAlign="center"
-        display="block"
-        direction="column"
-        justifyContent="unset"
-        width="787px"
-        height="unset"
-        gap="unset"
-        alignItems="unset"
+        width="78%"
         position="absolute"
-        top="100px"
-        left="calc(50% - 393.5px - -0.5px)"
-        padding="0px 0px 0px 0px"
+        top="30%"
+        left="50%" /* Horizontally center the text */
+        transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
         children="Proven SAT Tutoring To Get Into Your Dream School"
         {...getOverrideProps(overrides, "Title")}
