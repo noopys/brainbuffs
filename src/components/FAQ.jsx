@@ -18,6 +18,10 @@ function FAQPage() {
       question: "Do you have a referral program?",
       answer: "Of course we do! If you refer a friend and they join, both of you will receive a $50 discount off your tutoring package.",
     },
+    {
+      question: "What about the new online SAT?",
+      answer: "BrainBuffs specializes in the new online SAT. Our tutors are all specifically trained with the new online SAT in mind, unlike tutors from other companies. We teach students how to suceed with the new test format in addition to the concepts they need to know",
+    },
     // Add more FAQ items as needed
   ];
 

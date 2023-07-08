@@ -5,6 +5,7 @@ const Pricing = () => {
     border: '1px solid #ddd',
     borderRadius: '20px',
     padding: '30px',
+    //height:"75%",
     margin: '50px',
     width: '100%', // set the width to be 100% of the parent
     maxWidth: '300px', // but don't let it grow beyond 300px
@@ -38,7 +39,7 @@ const Pricing = () => {
         display: 'flex',
         justifyContent:'center',
         //alignItems: 'center',
-        height: '100vh',
+        height: '80vh',
         padding: '0',
         margin: '0',
         backgroundColor:"rgba(242,242,242,1)",

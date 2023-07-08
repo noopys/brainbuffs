@@ -62,10 +62,11 @@ export default function HeroCenter(props) {
       ></Text>
       <Text
         fontFamily="Roboto"
-        fontSize="5vw"
+        paddingBottom='65px'
+        fontSize="4vw"
         fontWeight="bolder"
         color="rgba(0,0,0,1)"
-        lineHeight="52.5px"
+        lineHeight="70px"
         textAlign="center"
         width="78%"
         position="absolute"
@@ -73,7 +74,7 @@ export default function HeroCenter(props) {
         left="50%" /* Horizontally center the text */
         transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
-        children="Proven SAT Tutoring To Get Into Your Dream School"
+        children="Proven SAT tutoring from experts in the new digital SAT"
         {...getOverrideProps(overrides, "Title")}
       ></Text>
     </View>
