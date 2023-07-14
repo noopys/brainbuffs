@@ -27,7 +27,7 @@ const FeatureSplitRight = () => {
             objectFit: 'cover',
             objectPosition: 'center',
             width: '100%',
-            maxWidth: '100%'
+            maxWidth: '60%'
           }} 
         />
       </div>
@@ -43,7 +43,7 @@ const FeatureSplitRight = () => {
           Meet Brain Buffs
         </h1>
         <p style={{fontSize: 'clamp(14px, 2vw, 20px)', paddingRight:'5%'}}>
-        Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students striving to reach their full SAT potential
+        Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students looking boost their scores. 
         </p>
       </div>
     </div>

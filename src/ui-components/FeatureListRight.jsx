@@ -156,8 +156,7 @@ export default function FeatureSplitRight(props) {
           right="0%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Logan is a motivated computer science student with a background as a
-           former NASA intern, who excelled on the SAT and is now dedicated to helping others
+          children="Logan is a motivated computer science student and NASA intern, who excelled on the SAT and is now dedicated to helping others
             achieve the same success. Logan understands firsthand the strategies and techniques needed to excel in each section. Combined with his 
             strong problem-solving, logical reasoning, and analytical skills, he brings a unique perspective to 
             his tutoring approach. Logan provides students with the tools and 
