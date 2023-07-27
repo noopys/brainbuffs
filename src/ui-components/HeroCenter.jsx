@@ -51,7 +51,7 @@ export default function HeroCenter(props) {
         color="rgba(0,0,0,1)"
         lineHeight="28.125px"
         textAlign="center"
-        width="44%"
+        width="100%"
         position="absolute"
         top="50%"
         left="50%" /* Horizontally center the text */
@@ -91,8 +91,8 @@ export default function HeroCenter(props) {
 
         @media (max-width: 768px) {
           .title {
-            font-size: 6vw;
-            line-height: 30px;
+            font-size: 10vw;
+            line-height: 40px;
           }
           
           .subtitle {
