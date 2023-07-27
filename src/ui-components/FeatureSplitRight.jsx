@@ -59,7 +59,7 @@ const FeatureSplitRight = () => {
           All-Conference honors at D’Evelyn High School. He channels this same commitment into helping 
           students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His 
           passion for education, coupled with an unwavering dedication to student success, makes Sandy a 
-          perfect guide for students looking boost their scores.
+          perfect guide for students looking to boost their scores.
         </p>
       </div>
     </div>
