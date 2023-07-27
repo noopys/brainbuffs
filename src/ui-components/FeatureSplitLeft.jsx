@@ -2,42 +2,52 @@ import React from 'react';
 import vab from '../resources/loganvab.jpg';
 
 const FeatureSplitLeft = () => {
+  const isMobile = window.innerWidth <= 600;
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
+    width: '100%',
+    backgroundColor: 'rgba(242,242,242,1)'
+  };
+
+  const imageContainerStyle = {
+    flex: '50%',
+    height: '600px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden'
+  };
+
+  const imageStyle = {
+    borderRadius: '5%',
+    height: '100vh',
+    objectFit: 'cover',
+    objectPosition: 'center',
+    width: '40',
+    maxWidth: '100%'
+  };
+
+  const textContainerStyle = {
+    flex: isMobile ? '100%' : '50%',
+    padding: '2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  };
+
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      width: '100%',
-      backgroundColor: 'rgba(242,242,242,1)'
-    }}>
-      <div style={{
-        flex: '50%',
-        height: '600px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden'
-      }}>
+    <div style={containerStyle}>
+      <div style={imageContainerStyle}>
         <img 
           src={vab} 
           alt="Logan's Picture"
-          style={{
-            borderRadius: '5%',
-            height: '100vh',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            width: '40',
-            maxWidth: '100%'
-          }} 
+          style={imageStyle}
         />
       </div>
 
-      <div style={{
-        flex: '50%',
-        padding: '2rem',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
+      <div style={textContainerStyle}>
         <h1 style={{fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: '700', marginBottom: '1rem'}}>
           Meet Brain Buffs
         </h1>

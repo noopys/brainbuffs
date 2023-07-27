@@ -3,11 +3,10 @@ import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Text, View } from "@aws-amplify/ui-react";
 import ButtonPrimary from "./ButtonPrimary";
 import { NavLink } from 'react-router-dom';
-import { useMediaQuery } from "react-responsive";
 
 export default function HeroCenter(props) {
   const { overrides, ...rest } = props;
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+
   return (
     <View
       width="100%"
@@ -45,6 +44,7 @@ export default function HeroCenter(props) {
         </NavLink>
       </View>
       <Text
+        className="subtitle"
         fontFamily="Roboto"
         fontSize="20px"
         fontWeight="400"
@@ -61,12 +61,12 @@ export default function HeroCenter(props) {
         {...getOverrideProps(overrides, "Subtitle")}
       ></Text>
       <Text
+        className="title"
         fontFamily="Roboto"
         paddingBottom='65px'
-        fontSize="4vw"
+        //fontSize="4vw"
         fontWeight="bolder"
         color="rgba(0,0,0,1)"
-        lineHeight="70px"
         textAlign="center"
         width="78%"
         position="absolute"
@@ -77,6 +77,30 @@ export default function HeroCenter(props) {
         children="Proven SAT tutoring from experts in the new digital SAT"
         {...getOverrideProps(overrides, "Title")}
       ></Text>
+
+      <style>{`
+        .title {
+          font-size: 5vw;
+          line-height="70px"
+
+        }
+        
+        .subtitle {
+          font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+          .title {
+            font-size: 6vw;
+            line-height: 30px;
+          }
+          
+          .subtitle {
+            font-size: 18px;
+            line-height: 20px;
+          }
+        }
+      `}</style>
     </View>
   );
 }
