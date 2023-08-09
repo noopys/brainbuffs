@@ -53,7 +53,7 @@ const FeatureSplitLeft = () => {
         </h1>
         <p style={{fontSize: 'clamp(14px, 2vw, 20px)', paddingRight:'5%'}}>
           Logan is a motivated computer science student and National Merit Scholar with a background 
-          as a former NASA intern, who excelled on the SAT and is now dedicated to helping others achieve 
+          as a NASA intern, who excelled on the SAT and is now dedicated to helping others achieve 
           the same success. Logan understands firsthand the strategies and techniques needed to excel in 
           each section. Combined with his strong problem-solving, logical reasoning, and analytical skills, 
           he brings a unique perspective to his tutoring approach. Logan provides students with the tools 
