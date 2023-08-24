@@ -49,7 +49,7 @@ const FeatureSplitLeft = () => {
 
       <div style={textContainerStyle}>
         <h1 style={{fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: '700', marginBottom: '1rem'}}>
-          Meet Brain Buffs
+          Meet The Founders
         </h1>
         <p style={{fontSize: 'clamp(14px, 2vw, 20px)', paddingRight:'5%'}}>
           Logan is a motivated computer science student and National Merit Scholar with a background 

@@ -185,7 +185,7 @@ export default function FeatureSplitLeft(props) {
           right="39.81%"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children="Meet Brain Buffs"
+          children="Meet The Founders"
           {...getOverrideProps(overrides, "Title")}
         ></Text>
       </View>

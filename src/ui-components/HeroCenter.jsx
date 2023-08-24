@@ -34,11 +34,13 @@ export default function HeroCenter(props) {
         justifyContent="center"
         alignItems="center"
       >
-        <NavLink to="/about">
+        <NavLink to="/about" style={{ textDecoration: 'none' }}>
           <ButtonPrimary
-            //width="28%"
-            height="20px"
-            transform="translate(-0%, 300%)" /* Center the text both vertically and horizontally */
+            //width="28%",
+            top="20%"
+            paddingTop="0px"
+            height="50px"
+            transform="translate(-0%, 200%)" /* Center the text both vertically and horizontally */
             {...getOverrideProps(overrides, "Button Primary")}
           ></ButtonPrimary>
         </NavLink>
@@ -57,7 +59,7 @@ export default function HeroCenter(props) {
         left="50%" /* Horizontally center the text */
         transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
-        children="Guaranteed score increase or your money back."
+        children="Specialized Tutoring and Custom Homework"
         {...getOverrideProps(overrides, "Subtitle")}
       ></Text>
       <Text
@@ -74,7 +76,7 @@ export default function HeroCenter(props) {
         left="50%" /* Horizontally center the text */
         transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
-        children="Proven SAT tutoring from experts in the new digital SAT"
+        children="Brain Buffs Test Prep"
         {...getOverrideProps(overrides, "Title")}
       ></Text>
 
