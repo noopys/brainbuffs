@@ -8,7 +8,7 @@ This will serve as a basic architecture overview of this site. I will outline th
 
 
 ## AWS 
-The site is run on top of AWS Services. It uses AWS Amplify for CI/CD, as well as hosting. The backend uses AWS Lambda serverless resolvers. 
+The site is run on top of AWS Services. It uses AWS Amplify for CI/CD, as well as hosting. The backend uses AWS Lambda serverless resolvers. This is primarily used for the Contact Us form. 
 
 ## React 
 
