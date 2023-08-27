@@ -20,6 +20,6 @@ The majority of the code is ReactJS. Most of the components are in the location
 The styling of the components is mostly done as CSS in JS styling in the React components.
 
 
-## Version Control  
+## Version Control and Package Management   
 
-The version control system used is Git. The Git repository is linked to an AWS Amplify CI/CD pipeline so any commits to the repository automatically deploy to the website. 
+The version control system used is Git. The Git repository is linked to an AWS Amplify CI/CD pipeline so any commits to the repository automatically deploy to the website. NPM is used for package management. 
