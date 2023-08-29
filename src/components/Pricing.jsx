@@ -47,7 +47,7 @@ const Pricing = () => {
       price: '$399',
       features: [
         '4 Personalized once-a-week tutoring sessions',
-        'Weekly custom homework tailored specifically to you',
+        'Weekly homework created by our custom software program using AI to give you personalized questions',
         'Anytime support from BrainBuffs tutors to help with any questions or concerns',
       ],
     },
@@ -56,7 +56,7 @@ const Pricing = () => {
       price: '$699',
       features: [
         '8 Personalized tutoring sessions',
-        'Weekly custom homework tailored specifically to you',
+        'Weekly homework created by our custom software program using AI to give you personalized questions',
         'Anytime support from BrainBuffs tutors to help with any questions or concerns',
       ],
     },
