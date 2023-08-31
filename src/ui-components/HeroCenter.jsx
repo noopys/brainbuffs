@@ -48,14 +48,14 @@ export default function HeroCenter(props) {
       <Text
         className="subtitle"
         fontFamily="Roboto"
-        fontSize="20px"
-        fontWeight="400"
+        fontSize="24px"
+        fontWeight="500"
         color="rgba(0,0,0,1)"
         lineHeight="28.125px"
         textAlign="center"
         width="100%"
         position="absolute"
-        top="50%"
+        top="39%"
         left="50%" /* Horizontally center the text */
         transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
@@ -72,7 +72,7 @@ export default function HeroCenter(props) {
         textAlign="center"
         width="78%"
         position="absolute"
-        top="30%"
+        top="25%"
         left="50%" /* Horizontally center the text */
         transform="translate(-50%, -50%)" /* Center the text both vertically and horizontally */
         whiteSpace="pre-wrap"
