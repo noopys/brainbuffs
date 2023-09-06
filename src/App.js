@@ -6,6 +6,7 @@ import FeatureListLeft from './ui-components/FeatureListLeft';
 import HeroCenter from './ui-components/HeroCenter';
 import FAQ from './components/FAQ'
 import Pricing from './components/Pricing'
+import Contact from './components/Contact'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import FeatureSplitRight from './ui-components/FeatureSplitRight';
@@ -32,6 +33,7 @@ function App() {
           {/* <Route path="/about" element={<FeatureSplitLeft/>}/> */}
           <Route path="/about" element={<Slideshow component1={<FeatureSplitLeft />} component2={<FeatureSplitRight />} interval={5000} />}/>
           <Route path="/pricing" element={<Pricing/>}/>
+          <Route path="/contact" element={<Contact/>}/>
           <Route path="/faq" element={<FAQ/>}/>
         </Routes>
       </Router>

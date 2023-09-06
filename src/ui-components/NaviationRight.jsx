@@ -21,7 +21,9 @@ export default function NavigationRight() {
         <Link  onClick={() => setIsMenuOpen(false)} to="/about" className="nav-link">About Us</Link>
         <Link onClick={() => setIsMenuOpen(false)} to="/pricing" className="nav-link">Pricing</Link>
         <Link onClick={() => setIsMenuOpen(false)} to="/faq" className="nav-link">FAQ</Link>
-        <div className="contact-info">Contact Us: <br/>brainbuffstutoring@gmail.com</div>
+        <Link onClick={() => setIsMenuOpen(false)} to="/contact" className="nav-link">Contact</Link>
+
+        {/* <div className="contact-info">Contact Us: <br/>brainbuffstutoring@gmail.com</div> */}
       </div>
 
       <style>{`
