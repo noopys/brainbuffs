@@ -17,9 +17,13 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // your API endpoint
+    //API endpoint
+    //Interfaces with AWS 
+    //Endpoint is an AWS API Gateway which connects to a lambda function which uses AWS SES (Simple Email Service) to dispatch an email
+    //to us among fill out of the contact form
     const apiEndpoint = 'https://hat4m94c1j.execute-api.us-east-2.amazonaws.com/Prod/send-email';
 
+    //Should use cors in future (on backlog for now)
     const response = await fetch(apiEndpoint, {
       method: 'POST',
       mode: 'no-cors',
@@ -30,7 +34,7 @@ const Contact = () => {
     });
 
     // if (response.ok) {
-    if (1) { // temporary condition
+    if (1) { // temporary condition in development still 
       console.log('Message sent successfully!');
       // Mark message as sent
       setIsMessageSent(true);
@@ -38,7 +42,7 @@ const Contact = () => {
       console.log('There was an error sending the message.');
     }
   };
-
+  //Form below
   return (
     <div style={{
       display: 'flex', 
@@ -52,7 +56,6 @@ const Contact = () => {
         <div style={{fontSize: '2em', fontWeight: 'bold'}}>Message Sent!</div>
       ) : (
         <>
-          {/* Your existing form JSX code goes here */}
              <p style={{ 
               fontWeight: 'bold', 
               marginBottom: '1rem', 

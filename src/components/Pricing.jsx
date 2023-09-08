@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Pricing page shows prices of all services 
 const Pricing = () => {
   const pricingBoxStyle = {
     border: '1px solid #ddd',

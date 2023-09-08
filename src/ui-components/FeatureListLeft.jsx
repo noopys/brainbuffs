@@ -4,6 +4,8 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+
+//Defualt AWS Amplify components would like to switch these out and also clean up naming of them. 
 /* eslint-disable */
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";

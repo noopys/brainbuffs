@@ -1,11 +1,9 @@
 import React from "react";
 
+//FAQ Page 
+//Simple component design with data abstracted out into variable so it is easy to change as our FAQ's change. 
 function FAQPage() {
   const faqData = [
-    // {
-    //   question: "How much does it cost?",
-    //   answer: "We offer two different tutoring packages depending on your needs. Each package includes one month of tutoring, with the option of either one session per week or two sessions per week. Additionally, both packages include personalized homework assignments and anytime direct help from us. The once-a-week package is priced at $400, while the twice-a-week package costs $750.",
-    // },
     {
       question: "Can I do virtual sessions?",
       answer: "Yes! We can do virtual sessions upon request.",

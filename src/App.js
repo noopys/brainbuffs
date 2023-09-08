@@ -12,6 +12,8 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import FeatureSplitRight from './ui-components/FeatureSplitRight';
 import Slideshow from './components/Slideshow';
 
+
+//Routing and Navbar
 function App() {
   return (
     <div className="App" style={{
@@ -30,7 +32,6 @@ function App() {
         </header>
         <Routes className="App">
           <Route path="/" element={<HeroCenter/>}/>
-          {/* <Route path="/about" element={<FeatureSplitLeft/>}/> */}
           <Route path="/about" element={<Slideshow component1={<FeatureSplitLeft />} component2={<FeatureSplitRight />} interval={5000} />}/>
           <Route path="/pricing" element={<Pricing/>}/>
           <Route path="/contact" element={<Contact/>}/>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+
+//Slideshow component uses React hook to switch between the two options of each founder. 
+//Components will be passed in as props. 
 const Slideshow = ({ component1, component2 }) => {
   const [activeComponent, setActiveComponent] = useState(component1);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);

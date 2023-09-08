@@ -4,6 +4,7 @@ import { Text, View } from "@aws-amplify/ui-react";
 import ButtonPrimary from "./ButtonPrimary";
 import { NavLink } from 'react-router-dom';
 
+//Home screen learn more routes to About Us page. Clicking on Brain Buffs logo always routes to this page. 
 export default function HeroCenter(props) {
   const { overrides, ...rest } = props;
 
