@@ -45,7 +45,7 @@ const Pricing = () => {
   const packageData = [
     {
       name: 'Buffs Basic',
-      price: '$399',
+      price: '$200',
       features: [
         '4 Personalized once-a-week tutoring sessions',
         'Weekly homework created by our custom software program using AI to give you personalized questions',
@@ -54,7 +54,7 @@ const Pricing = () => {
     },
     {
       name: 'Buffs Plus',
-      price: '$699',
+      price: '$400',
       features: [
         '8 Personalized tutoring sessions',
         'Weekly homework created by our custom software program using AI to give you personalized questions',

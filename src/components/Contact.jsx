@@ -77,9 +77,9 @@ const Contact = () => {
                 marginBottom: '15px', 
                 fontSize: '1em' 
               }}>
-                Name:
+                Name: <br/>
                 <input style={{ 
-                  width: '100%', 
+                  width: '75%', 
                   padding: '10px', 
                   marginTop: '5px', 
                   fontSize: '0.9em', 
@@ -91,9 +91,9 @@ const Contact = () => {
                 marginBottom: '15px', 
                 fontSize: '1em' 
               }}>
-                Email:
+                Email: <br/>
                 <input style={{ 
-                  width: '100%', 
+                  width: '75%', 
                   padding: '10px', 
                   marginTop: '5px', 
                   fontSize: '0.9em', 
@@ -105,9 +105,9 @@ const Contact = () => {
                 marginBottom: '15px', 
                 fontSize: '1em' 
               }}>
-                Message:
+                Message: <br/>
                 <textarea style={{ 
-                  width: '100%', 
+                  width: '75%', 
                   padding: '10px', 
                   marginTop: '5px', 
                   fontSize: '0.9em', 
