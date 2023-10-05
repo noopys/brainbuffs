@@ -47,7 +47,7 @@ const Pricing = () => {
       name: 'Buffs Basic',
       price: '$200',
       features: [
-        '4 Personalized once-a-week tutoring sessions',
+        '4 Personalized tutoring sessions',
         'Weekly homework created by our custom software program using AI to give you personalized questions',
         'Anytime support from BrainBuffs tutors to help with any questions or concerns',
       ],
