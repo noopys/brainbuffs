@@ -11,7 +11,7 @@ export default function Homepage(props) {
                 Improve your score today. Get into your dream school tomorrow.
             </h2>
 
-            <div className="h2 mb-4">Our students improve their scores by 100+ points</div>
+            <div className="h2 mb-1">Our students improve their scores by 100+ points</div>
 
             <div className="container-fluid d-flex flex-column flex-grow-1 py-5 justify-content-center">
                 <div className="row justify-content-center">
