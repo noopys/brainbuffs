@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Bootstrap Icons
 
-
-//Slideshow component uses React hook to switch between the two options of each founder. 
-//Components will be passed in as props. 
 const Slideshow = ({ component1, component2 }) => {
   const [activeComponent, setActiveComponent] = useState(component1);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -28,57 +26,22 @@ const Slideshow = ({ component1, component2 }) => {
     setActiveComponent(activeComponent === component1 ? component2 : component1);
   };
 
-  const baseButtonStyle = {
-    fontSize: '60px',
-    backgroundColor: 'black',
-    color: 'white',
-    border: 'none',
-    padding: '0',
-    outline: 'none',
-    borderRadius: '50%',
-    width: '50px',
-    height: '50px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    transition: 'opacity 0.3s' 
-  };
-
-  const buttonStyle = isMobile 
-    ? { ...baseButtonStyle, position: 'absolute', bottom: '10px' }
-    : { ...baseButtonStyle, position: 'absolute', top: '50%', transform: 'translateY(-50%)' };
-
-  const leftArrowStyle = {
-    position: 'relative',
-    top: '-8%',
-    right: '3%'
-  };
-
-  const rightArrowStyle = {
-    position: 'relative',
-    top: '-8%',
-    right: '-3%'
-  };
-
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div className="position-relative w-100 h-100" stlye = {{overflow:"hidden"}}>
       <div>{activeComponent}</div>
       <button
-        style={isMobile ? { ...buttonStyle, left: '10px' } : { ...buttonStyle, left: '10px' }}
+        className={`btn btn-dark rounded-circle position-absolute translate-middle ${isMobile ? 'bottom-0 mb-2' : 'top-50'}`}
+        style={{ width: '50px', height: '50px', left: 'calc(0%  + 25px)' }} // Adjusted here
         onClick={goToPreviousSlide}
-        onMouseOver={e => e.target.style.opacity = '0.7'}
-        onMouseOut={e => e.target.style.opacity = '1'}
       >
-        <div style={leftArrowStyle}>&#8249;</div>
+        <i className="bi bi-arrow-left"></i>
       </button>
       <button
-        style={isMobile ? { ...buttonStyle, right: '10px' } : { ...buttonStyle, right: '10px' }}
+        className={`btn btn-dark rounded-circle position-absolute translate-middle ${isMobile ? 'bottom-0 mb-2' : 'top-50'}`}
+        style={{ width: '50px', height: '50px', right: 'calc(0% - 20px)' }} // Adjusted here
         onClick={goToNextSlide}
-        onMouseOver={e => e.target.style.opacity = '0.7'}
-        onMouseOut={e => e.target.style.opacity = '1'}
       >
-        <div style={rightArrowStyle}>&#8250;</div>
+        <i className="bi bi-arrow-right"></i>
       </button>
     </div>
   );

@@ -1,12 +1,12 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'; // This assumes you've installed Bootstrap through npm/yarn. If you're using CDN, remove this line.
 
 //FAQ Page 
-//Simple component design with data abstracted out into variable so it is easy to change as our FAQ's change. 
 function FAQPage() {
   const faqData = [
     {
       question: "Can I do virtual sessions?",
-      answer: "Yes! We can do virtual sessions upon request.",
+      answer: "Yes! We can do virtual sessions or in person sessions in the Boulder area.",
     },
     {
       question: "How do I know my scores will increase?",
@@ -20,27 +20,14 @@ function FAQPage() {
       question: "What about the new online SAT?",
       answer: "BrainBuffs specializes in the new online SAT. Our tutors are all specifically trained with the new online SAT in mind, unlike tutors from other companies. We teach students how to suceed with the new test format in addition to the concepts they need to know",
     },
-    // Add more FAQ items as needed
   ];
 
-  const containerStyle = {
-    backgroundColor: "#f1f1f1",
-    padding: "20px",
-    maxWidth: "800px",
-    margin: "0 auto",
-  };
-
-  const backgroundStyle = {
-    backgroundColor: "#f1f1f1",
-    width: '100%'
-  }
-
   return (
-    <div style={backgroundStyle}>
-      <div style={containerStyle}>
-        <h1>Frequently Asked Questions</h1>
+    <div className="bg-light"> {/* This ensures the gray background fills at least the full viewport height */}
+      <div className="container py-4"> {/* This centers content and provides padding */}
+        <h1 className="mb-4">Frequently Asked Questions</h1> {/* marginBottom class for spacing */}
         {faqData.map((faq, index) => (
-          <div key={index}>
+          <div key={index} className="mb-3"> 
             <h2>{faq.question}</h2>
             <p>{faq.answer}</p>
           </div>

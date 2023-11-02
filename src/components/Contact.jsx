@@ -6,8 +6,7 @@ const Contact = () => {
     email: "",
     message: ""
   });
-  
-  // Adding a new state variable to track the sent status
+
   const [isMessageSent, setIsMessageSent] = useState(false);
 
   const handleInputChange = (e) => {
@@ -16,14 +15,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    //API endpoint
-    //Interfaces with AWS 
-    //Endpoint is an AWS API Gateway which connects to a lambda function which uses AWS SES (Simple Email Service) to dispatch an email
-    //to us among fill out of the contact form
     const apiEndpoint = 'https://hat4m94c1j.execute-api.us-east-2.amazonaws.com/Prod/send-email';
-
-    //Should use cors in future (on backlog for now)
     const response = await fetch(apiEndpoint, {
       method: 'POST',
       mode: 'no-cors',
@@ -33,98 +25,37 @@ const Contact = () => {
       body: JSON.stringify(formData)
     });
 
-    // if (response.ok) {
-    if (1) { // temporary condition in development still 
+    // For development purposes
+    if (1) {
       console.log('Message sent successfully!');
-      // Mark message as sent
       setIsMessageSent(true);
     } else {
       console.log('There was an error sending the message.');
     }
   };
-  //Form below
+
   return (
-    <div style={{
-      display: 'flex', 
-      flexDirection: 'column',
-      alignItems: 'center', 
-      height: '100vh', 
-      padding: '0rem',
-      backgroundColor: 'rgba(242,242,242,1)'
-    }}>
+    <div className="d-flex flex-column align-items-center p-3 bg-light" >
       {isMessageSent ? (
-        <div style={{fontSize: '2em', fontWeight: 'bold'}}>Message Sent!</div>
+        <div className="alert alert-success font-weight-bold">Message Sent!</div>
       ) : (
         <>
-             <p style={{ 
-              fontWeight: 'bold', 
-              marginBottom: '1rem', 
-              fontSize: '1.2em' 
-            }}>
-              Fill out this form and one of our expert tutors will get back to you shortly!
-            </p>
-            <form style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              width: '100%', 
-              maxWidth: '500px', 
-              //border: '1px solid #ccc',
-              //borderRadius: '8px',
-              padding: '20px',
-              //boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
-            }} onSubmit={handleSubmit}>
-              <label style={{ 
-                marginBottom: '15px', 
-                fontSize: '1em' 
-              }}>
-                Name: <br/>
-                <input style={{ 
-                  width: '75%', 
-                  padding: '10px', 
-                  marginTop: '5px', 
-                  fontSize: '0.9em', 
-                  border: '1px solid #ccc', 
-                  borderRadius: '4px' 
-                }} type="text" name="name" value={formData.name} onChange={handleInputChange} />
-              </label>
-              <label style={{ 
-                marginBottom: '15px', 
-                fontSize: '1em' 
-              }}>
-                Email: <br/>
-                <input style={{ 
-                  width: '75%', 
-                  padding: '10px', 
-                  marginTop: '5px', 
-                  fontSize: '0.9em', 
-                  border: '1px solid #ccc', 
-                  borderRadius: '4px' 
-                }} type="email" name="email" value={formData.email} onChange={handleInputChange} />
-              </label>
-              <label style={{ 
-                marginBottom: '15px', 
-                fontSize: '1em' 
-              }}>
-                Message: <br/>
-                <textarea style={{ 
-                  width: '75%', 
-                  padding: '10px', 
-                  marginTop: '5px', 
-                  fontSize: '0.9em', 
-                  border: '1px solid #ccc', 
-                  borderRadius: '4px' 
-                }} name="message" value={formData.message} onChange={handleInputChange} />
-              </label>
-              <input style={{ 
-                alignSelf: 'center', 
-                marginTop: '1rem', 
-                padding: '10px 20px', 
-                background: '#007bff', 
-                color: 'white', 
-                borderRadius: '4px', 
-                cursor: 'pointer' 
-              }} type="submit" value="Submit" />
-            </form>
+          <p className="font-weight-bold mb-3 text-center"><strong>Fill out this form and one of our expert tutors will get back to you shortly!</strong></p>
+          <form className="w-100" style={{ maxWidth: '500px', paddingTop:"50px" }} onSubmit={handleSubmit} >
+            <div className="form-group">
+              <label>Name:</label>
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>Message:</label>
+              <textarea name="message" value={formData.message} onChange={handleInputChange} className="form-control" rows="5"></textarea>
+            </div>
+            <button type="submit" className="btn btn-primary mt-2">Submit</button>
+          </form>
         </>
       )}
     </div>
