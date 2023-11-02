@@ -17,7 +17,7 @@ export default function Homepage(props) {
                 <div className="row justify-content-center">
                     <div className="col-md-4 mb-4 mx-auto">
                         <ProgramCard
-                            title="Get Into Your Dream School Custom Tutoring Bundle"
+                            title="Dream School Custom Tutoring Bundle"
                             bullets={[
                                 "4 1-on-1 60 minute tutoring sessions with one of our experts",
                                 "4 custom weekly homeworks crafted by our team assisted by our in house AI software",
