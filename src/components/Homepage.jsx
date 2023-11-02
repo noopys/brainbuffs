@@ -22,8 +22,7 @@ export default function Homepage(props) {
                                 "4 1-on-1 60 minute tutoring sessions with one of our experts",
                                 "4 custom weekly homeworks crafted by our team assisted by our in house AI software",
                                 "24/7 support from our expert tutors",
-                                "Great for students looking to transform their SAT score", 
-                                "$200"
+                                "Great for students looking to transform their SAT score" 
                             ]}
                             price="$200"
                         />
