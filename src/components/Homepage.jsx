@@ -31,9 +31,9 @@ export default function Homepage(props) {
                         <ProgramCard
                             title="Buff Boost Homework Program"
                             bullets={[
-                                "4 custom weekly homeworks crafted by our team assisted by our in house AI software.",
-                                "24/7 support from our expert tutors.",
-                                "Great for students who just want a little extra practice or want to stay sharp between tutoring and the test."
+                                "4 custom weekly homeworks crafted by our team assisted by our in house AI software",
+                                "24/7 support from our expert tutors",
+                                "Great for students who just want a little extra practice or want to stay sharp between tutoring and the test"
                             ]}
                             price="$50"
                         />
