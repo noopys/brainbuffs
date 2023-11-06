@@ -40,7 +40,7 @@ const Contact = () => {
         <div className="alert alert-success font-weight-bold">Message Sent!</div>
       ) : (
         <>
-          <p className="font-weight-bold mb-3 text-center"><strong>Fill out this form and one of our expert tutors will get back to you shortly!</strong></p>
+          <p className=" h3 font-weight-bold mb-3 text-center"><strong>Fill out this form and one of our expert tutors will get back to you shortly!</strong></p>
           <form className="w-100" style={{ maxWidth: '500px', paddingTop:"50px" }} onSubmit={handleSubmit} >
             <div className="form-group">
               <label>Name:</label>
