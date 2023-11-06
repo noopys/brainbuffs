@@ -42,7 +42,7 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
   return (
     <div className="card mb-4 shadow-sm h-100" style={{ borderRadius: '15px' }}>
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title mb-3" style={{ fontWeight: '600', fontSize:"25px" }}>{title}</h5>
+        <h5 className="card-title mb-2" style={{ fontWeight: '600', fontSize:"25px" }}>{title}</h5>
         <ul className="mb-0" style={{ fontSize: '17px', lineHeight: '1.4', textAlign: 'left', marginBottom:"0px" }}>
           {bullets.map((bullet, index) => (
             <li key={index}>{bullet}</li>
@@ -51,7 +51,7 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
 
         {/* Container for Price and Sign Up button */}
         <div className="mt-auto">
-          <div className="text-center font-weight-bold mb-1" style={{fontSize:"30px", fontWeight:"800"}}>{price}</div>
+          <div className="text-center font-weight-bold mb-0" style={{fontSize:"30px", fontWeight:"800"}}>{price}</div>
           <Button variant="primary" onClick={handleShowModal} className="mx-auto d-block" style={{ transition: 'all 0.3s', borderRadius: '8px', width: '30%' }}>Sign Up</Button>
         </div>
       </div>
