@@ -22,3 +22,7 @@ The styling of the components is mostly done as CSS in JS styling in the React c
 ## Version Control and Package Management   
 
 The version control system used is Git. The Git repository is linked to an AWS Amplify CI/CD pipeline so any commits to the repository automatically deploy to the website. NPM is used for package management. 
+
+## Meta Spark  
+
+The site uses Meta Spark for ad analytics with triggers set up to track certain actions by users to gain insight on ad effectiveness and business goals. 
