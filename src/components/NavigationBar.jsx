@@ -11,7 +11,7 @@ export default function NavigationBar() {
         <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
             <Container>
                 <Navbar.Brand as={Link} to="/" className="d-flex mr-0">
-                    <span className="mr-2" style={{fontWeight:"600", fontSize:"35px", font:'Georgia'}}>Brain Buffs Tutoring</span>
+                    <span className="mr-2" style={{fontWeight:"600", fontSize:"35px", font:'Georgia'}}>Brain Buffs</span>
                     <img src={flatironslogo} alt="Brain Buffs Logo" style={{ width: "110px", height: "60px" }} />
                 </Navbar.Brand>
 
