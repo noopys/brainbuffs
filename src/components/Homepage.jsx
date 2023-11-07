@@ -15,6 +15,18 @@ export default function Homepage(props) {
 
             <div className="container-fluid d-flex flex-column flex-grow-1 py-5 justify-content-center">
                 <div className="row justify-content-center">
+                <div className="col-md-4 mb-4 mx-auto">
+                        <ProgramCard
+                            title='Buff Boost "Homework Only" Program'
+                            bullets={[
+                                "4 custom weekly SAT homeworks crafted by our team assisted by our in house AI software",
+                                "24/7 support from our expert tutors",
+                                "Best for students who just want a little extra practice or want to stay sharp between tutoring and the test"
+                            ]}
+                            price="$50"
+                        />
+
+                    </div>
                     <div className="col-md-4 mb-4 mx-auto">
                         <ProgramCard
                             title="Dream School Custom Tutoring Bundle"
@@ -26,18 +38,6 @@ export default function Homepage(props) {
                             ]}
                             price="$200"
                         />
-                    </div>
-                    <div className="col-md-4 mb-4 mx-auto">
-                        <ProgramCard
-                            title='Buff Boost "Homework Only" Program'
-                            bullets={[
-                                "4 custom weekly SAT homeworks crafted by our team assisted by our in house AI software",
-                                "24/7 support from our expert tutors",
-                                "Best for students who just want a little extra practice or want to stay sharp between tutoring and the test"
-                            ]}
-                            price="$50"
-                        />
-
                     </div>
                 </div>
             </div>

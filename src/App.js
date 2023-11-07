@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import vab from './resources/loganvab.jpg';
 import sandy from './resources/sandy_headshot.jpg';
 import './App.css';
