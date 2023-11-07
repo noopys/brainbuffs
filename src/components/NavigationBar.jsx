@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
-import logo from '../resources/brainbuffs.png';
+//import logo from '../resources/brainbuffs.png';
+import logo from '../resources/flatirons.png';
 
 export default function NavigationBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,8 +10,8 @@ export default function NavigationBar() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
             <Container>
-                <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-                    <span className="mr-2" style={{fontWeight:"600", fontSize:"35px", font:'Georgia'}}>BrainBuffs</span>
+                <Navbar.Brand as={Link} to="/" className="d-flex mr-0">
+                    <span className="mr-2" style={{fontWeight:"600", fontSize:"35px", font:'Georgia'}}>Brain Buffs Tutoring</span>
                     <img src={logo} alt="Brain Buffs Logo" style={{ width: "110px", height: "60px" }} />
                 </Navbar.Brand>
 
