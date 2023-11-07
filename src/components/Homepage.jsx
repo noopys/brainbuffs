@@ -6,7 +6,7 @@ import ButtonPrimary from "../ui-components/ButtonPrimary";
 export default function Homepage(props) {
     return (
         <div className="d-flex flex-column  position-relative" style={{ backgroundColor: "rgba(242,242,242,1)", width: "100%", overflowX: "hidden", overflowY: "hidden" }}>
-            <h1 className="mt-1">Top SAT tutoring program in the Denver/Boulder area</h1>
+            <h1 className="mt-1" style={{lineHeight:"1"}}>Top SAT tutoring program in the Denver/Boulder area</h1>
             <h2 className="text-center mb-4 display-6" style={{ paddingTop: "15px" }}>
                 Improve SAT your score today. Get into your dream school tomorrow.
             </h2>
