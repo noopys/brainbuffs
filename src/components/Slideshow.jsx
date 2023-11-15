@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Bootstrap Icons
 
-const Slideshow = ({ component1, component2 }) => {
+const Slideshow = ({ component1, component2, component3 }) => {
   const [activeComponent, setActiveComponent] = useState(component1);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -19,26 +19,38 @@ const Slideshow = ({ component1, component2 }) => {
   }, []);
 
   const goToNextSlide = () => {
-    setActiveComponent(activeComponent === component1 ? component2 : component1);
+    if (activeComponent === component1) {
+      setActiveComponent(component2);
+    } else if (activeComponent === component2) {
+      setActiveComponent(component3);
+    } else {
+      setActiveComponent(component1);
+    }
   };
 
   const goToPreviousSlide = () => {
-    setActiveComponent(activeComponent === component1 ? component2 : component1);
+    if (activeComponent === component1) {
+      setActiveComponent(component3);
+    } else if (activeComponent === component2) {
+      setActiveComponent(component1);
+    } else {
+      setActiveComponent(component2);
+    }
   };
 
   return (
-    <div className="position-relative w-100 h-100" stlye = {{overflow:"hidden"}}>
+    <div className="position-relative w-100 h-100" style={{ overflow: "hidden" }}>
       <div>{activeComponent}</div>
       <button
         className={`btn btn-dark rounded-circle position-absolute translate-middle ${isMobile ? 'bottom-0 mb-2' : 'top-50'}`}
-        style={{ width: '50px', height: '50px', left: 'calc(0%  + 25px)' }} // Adjusted here
+        style={{ width: '50px', height: '50px', left: 'calc(0%  + 25px)' }}
         onClick={goToPreviousSlide}
       >
         <i className="bi bi-arrow-left"></i>
       </button>
       <button
         className={`btn btn-dark rounded-circle position-absolute translate-middle ${isMobile ? 'bottom-0 mb-2' : 'top-50'}`}
-        style={{ width: '50px', height: '50px', right: 'calc(0% - 20px)' }} // Adjusted here
+        style={{ width: '50px', height: '50px', right: 'calc(0% - 20px)' }}
         onClick={goToNextSlide}
       >
         <i className="bi bi-arrow-right"></i>

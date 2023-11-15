@@ -18,7 +18,7 @@ const TutorPage = ({description, image}) => {
         <h1 className="font-weight-bold mb-3" style={{fontSize: 'clamp(20px, 2.5vw, 30px)'}}>
           Meet The Founders
         </h1>
-        <p style={{fontSize: 'clamp(14px, 2vw, 20px)', paddingRight: '5%'}}>{description}</p>
+        <p style={{fontSize: 'clamp(14px, 2vw, 20px)', paddingRight: '10%', paddingLeft:'10%'}}>{description}</p>
       </div>
     </div>
   );
