@@ -9,8 +9,7 @@ import {
   } from "react-router-dom";
 // recreating the `Stripe` object on every render.
 // This is your test public API key.
-const stripePromise = loadStripe("pk_test_51OC2PHKQZlfQBbZSzDjSdiK6nthyKd5Z6sPFKbs4Bhj9Jqu43PXP3CTNbNiW9KGObX7D9PmBSTbWvb09SWxaZXAL00SKdUxeOW");
-
+//API Key omitted here
 export const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState('');
 
