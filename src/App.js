@@ -11,9 +11,9 @@ import TutorPage from './components/TutorPage';
 import Homepage from './components/Homepage';
 import FAQ from './components/FAQ';
 import Pricing from './components/Pricing';
-//import { CheckoutForm, Return } from './components/PaymentPage';
+import { CheckoutForm, Return } from './components/PaymentPage';
 import Contact from './components/Contact';
-//import Develyn from './components/Develyn';
+import Develyn from './components/Develyn';
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Slideshow from './components/Slideshow';
@@ -61,9 +61,9 @@ function App() {
             />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
-            {/* <Route path="/checkout" element={<CheckoutForm />} />
+            <Route path="/checkout" element={<CheckoutForm />} />
             <Route path="/return" element={<Return />} />
-            <Route path="/develyn" element={<Develyn />} /> */}
+            <Route path="/develyn" element={<Develyn />} />
           </Routes>
         </div>
       </Router>
