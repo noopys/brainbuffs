@@ -14,9 +14,9 @@ The site is run on top of AWS Services. It uses AWS Amplify for CI/CD, as well a
 The majority of the code is ReactJS. Most of the components are in the location
 ./src/components. The components are nested React components with lots of in-component styling as well as the use of React hooks.
 
-## Styling  
+## Bootstrapp
 
-The styling of the components is mostly done as CSS in JS styling in the React components.
+The styling of the components is done using bootstrap. Most styles are in the className's of React components
 
 
 ## Version Control and Package Management   
