@@ -29,7 +29,7 @@ const logan_desc = "Logan is a fourth year computer science student at "
   " with his interest in helping students, makes his tutoring approach optimal for high schoolers hoping to "
   + "go beyond just excelling on the SAT, but improving their overall test taking ability and furthering their educational career."
 
-const matt_desc = "Matt is an ambitious double major in Finance and Accounting at the Leeds School of Business and a top 1% SAT scorer. Matt has a wide breadth of skills, earning him internship offers from competitive companies, such as KPMG, Lockheed Martin, and Medtronic. Matt combines his experience taking and tutoring the SAT with his strong business skills to craft specialized tutoring programs that provide unique value to students. Matt brings energy and excitement to the SAT studying process and loves to see his students excel!";
+const matt_desc = "Matt is an ambitious double major in Finance and Accounting at the Leeds School of Business and top 1% SAT scorer. Matt has a wide breadth of skills, earning him internship offers from competitive companies, such as KPMG, Lockheed Martin, and Medtronic. Matt combines his experience taking and tutoring the SAT with his strong business skills to craft specialized tutoring programs that provide unique value to students. Matt brings energy and excitement to the SAT studying process and loves to see his students excel!";
 
 
 function App() {
