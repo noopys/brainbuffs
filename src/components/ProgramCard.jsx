@@ -79,12 +79,14 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
                   placeholder="Enter your email"
                 />
               </div>
-              <Button type="submit" variant="primary" className="mt-3">
-                Submit
-              </Button>
-              <Button className="mt-3" style={{marginRight:'auto'}} variant="secondary" onClick={handleCloseModal}>
-                Close
-              </Button>
+              <div className="d-flex justify-content-center align-items-center">
+                <Button type="submit" variant="primary" className="mt-3">
+                  Submit
+                </Button>
+              </div>
+
+
+
             </form>
           )}
         </Modal.Body>

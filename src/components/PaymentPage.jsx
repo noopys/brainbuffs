@@ -15,15 +15,16 @@ export const CheckoutForm = () => {
 
   useEffect(() => {
     // Create a Checkout Session as soon as the page loads
-    fetch("/create-checkout-session", {
+    fetch("https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/create-checkout-session", {
       method: "POST",
     })
       .then((res) => res.json())
       .then((data) => {
-        setClientSecret(data.clientSecret)
+        //setClientSecret(data.clientSecret)
         window.location.href = data.url;
     });
   }, []);
+  
   //console.log(clientSecret);
   return (
     <div id="checkout">
