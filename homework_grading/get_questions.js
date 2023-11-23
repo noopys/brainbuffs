@@ -1,7 +1,11 @@
 //TAKES CONCEPTS AND MAKES STUDENT PROFILE AND WEIGHTS QUESTION BASED ON STUDENT PROFILE
 const axios = require('axios');
 
-const PERSONAL_ACCESS_TOKEN = 'patSKk9n5NCk9gmDU.2dbbc7224b2d221d22a1e22881d14d12dbc05971d3bd977e8ff3168212e74cf6';
+
+require('dotenv').config();
+
+
+const PERSONAL_ACCESS_TOKEN = proccess.env.PERSONAL_ACCESS_TOKEN;
 const BASE_ID = 'app3eoH3GhFhdwRCz';
 //  _______________________________________________________
 // |                                                        |
