@@ -1,7 +1,9 @@
 const axios = require('axios');
 
+require('dotenv').config();
+
 // API credentials and endpoint setup
-const access_token = 'patSKk9n5NCk9gmDU.2dbbc7224b2d221d22a1e22881d14d12dbc05971d3bd977e8ff3168212e74cf6';
+const access_token = proccess.env.PERSONAL_ACCESS_TOKEN;
 const baseId = 'app3eoH3GhFhdwRCz';
 const tableName = 'tblZEskudyolOx40P';
 const endpointUrl = `https://api.airtable.com/v0/${baseId}/${tableName}`;
