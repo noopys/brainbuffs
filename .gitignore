@@ -46,3 +46,6 @@ amplifytools.xcconfig
 
 #LOCAL_API_KEYS
 .env
+
+#Google API Credentials 
+/homework_grading/credentials.json
