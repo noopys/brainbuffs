@@ -26,3 +26,7 @@ The version control system used is Git. The Git repository is linked to an AWS A
 ## Meta Spark  
 
 The site uses Meta Spark for ad analytics with triggers set up to track certain actions by users to gain insight on ad effectiveness and business goals. 
+
+## Adaptive Homework System 
+
+The logic for the adapative homework system is in the homework_grading folder. It is on the homework grading branch and is not yet integrated into the main branch. 
