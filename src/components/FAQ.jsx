@@ -1,7 +1,5 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css'; // This assumes you've installed Bootstrap through npm/yarn. If you're using CDN, remove this line.
 
-//FAQ Page 
 function FAQPage() {
   const faqData = [
     {
@@ -23,15 +21,25 @@ function FAQPage() {
   ];
 
   return (
-    <div className="bg-light"> {/* This ensures the gray background fills at least the full viewport height */}
-      <div className="container py-4"> {/* This centers content and provides padding */}
-        <h1 className="mb-4">Frequently Asked Questions</h1> {/* marginBottom class for spacing */}
-        {faqData.map((faq, index) => (
-          <div key={index} className="mb-3"> 
-            <h2>{faq.question}</h2>
-            <p>{faq.answer}</p>
-          </div>
-        ))}
+    <div className="bg-light min-vh-100">
+      <div className="container py-5">
+        <h1 className="mb-4 text-center">Frequently Asked Questions</h1>
+        <div className="accordion" id="faqAccordion">
+          {faqData.map((faq, index) => (
+            <div className="accordion-item" key={index}>
+              <h2 className="accordion-header" id={`heading${index}`}>
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
+                  {faq.question}
+                </button>
+              </h2>
+              <div id={`collapse${index}`} className="accordion-collapse collapse" aria-labelledby={`heading${index}`} data-bs-parent="#faqAccordion">
+                <div className="accordion-body">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
