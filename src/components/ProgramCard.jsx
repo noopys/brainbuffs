@@ -52,7 +52,7 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
         {/* Container for Price and Sign Up button */}
         <div className="mt-auto">
           <div className="text-center font-weight-bold mb-0" style={{ fontSize: "30px", fontWeight: "800" }}>{price}</div>
-          <Button variant="primary" onClick={handleShowModal} className="mx-auto d-block" style={{ transition: 'all 0.3s', borderRadius: '8px', width: '30%' }}>Sign Up</Button>
+          <Button variant="primary" onClick={handleShowModal} className="mx-auto d-block" style={{ transition: 'all 0.3s', borderRadius: '8px', width: '30%' }}>Learn More</Button>
         </div>
       </div>
 
