@@ -61,7 +61,7 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign Up</Modal.Title>
+          <Modal.Title>Learn More</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {isMessageSent ? (
