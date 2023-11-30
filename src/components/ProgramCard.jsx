@@ -69,7 +69,7 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
           ) : (
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
-                <label>Enter your email and one of our tutors will get in contact with you within a few hours:</label>
+                <label>Enter your email and one of our tutors will get in contact with you within a few hours for a free consultation:</label>
                 <input
                   type="email"
                   name="email"
