@@ -12,13 +12,13 @@ const SCOPES = ['https://www.googleapis.com/auth/documents', 'https://www.google
 const TOKEN_PATH = 'token.json';
 
 async function main() {
-
     //Temp
-    const RECORD_IDS = ['recbEJsV3tdjnHzZi', 'recemtbnUGKuJTtgK', 'rec0C1UxHgVnLE1qv']; 
+    const RECORD_IDS = ['rec17GFEsnF9kTZ7Q']; 
 
     //Get concepts 
     const records = await getMultipleRecords(process.env.PERSONAL_ACCESS_TOKEN, process.env.BASE_ID, process.env.TABLE_NAME, RECORD_IDS);
     const concepts = tallyRecords(records)
+    console.log(concepts)
     //Get Best next questions
     const allRecords = await fetchAllRecords(process.env.PERSONAL_ACCESS_TOKEN, process.env.BASE_ID, process.env.TABLE_NAME);
     //console.log(allRecords);
@@ -30,6 +30,7 @@ async function main() {
     //Get google API credentials 
     const credentials = JSON.parse(await fs.readFile('credentials.json', 'utf8'));
     oAuthClient = await authorize(credentials)
+
     //Create a new document 
     const docId = await createGoogleDoc(oAuthClient, "11/23/2023");
     console.log(docId);

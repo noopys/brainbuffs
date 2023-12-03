@@ -50,3 +50,4 @@ amplifytools.xcconfig
 #Google API Credentials 
 /homework_grading/credentials.json
 /homework_grading/token.json
+/homework_grading/googleidsecret.txt
