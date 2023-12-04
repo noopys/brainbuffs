@@ -14,6 +14,7 @@ import Pricing from './components/Pricing';
 import { CheckoutForm, Return } from './components/PaymentPage';
 import Contact from './components/Contact';
 import Develyn from './components/Develyn';
+import Homework from './components/Homework'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Slideshow from './components/Slideshow';
@@ -64,6 +65,7 @@ function App() {
             <Route path="/checkout" element={<CheckoutForm />} />
             <Route path="/return" element={<Return />} />
             <Route path="/develyn" element={<Develyn />} />
+            <Route path="/homework" element={<Homework/>}/>
           </Routes>
         </div>
       </Router>
