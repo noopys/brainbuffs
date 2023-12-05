@@ -51,3 +51,6 @@ amplifytools.xcconfig
 /homework_grading/credentials.json
 /homework_grading/token.json
 /homework_grading/googleidsecret.txt
+/amplify/backend/function/createHomework/src/credentials.json
+/amplify/backend/function/createHomework/src/token.json
+
