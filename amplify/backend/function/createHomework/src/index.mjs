@@ -1,4 +1,6 @@
 // index.mjs
+// 
+
 import { getAccessToken, authorize } from './googleAuthorization.js';
 import { createGoogleDoc, insertImagesIntoDoc } from './googleDoc.js';
 import { getMultipleRecords, tallyRecords } from './getConcepts.js';
