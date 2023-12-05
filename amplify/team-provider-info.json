@@ -13,7 +13,10 @@
     },
     "categories": {
       "function": {
-        "homeworkGrading": {}
+        "createHomework": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/createHomework-4554577a45325469317a-build.zip"
+        }
       }
     }
   }

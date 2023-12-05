@@ -4,12 +4,24 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_createHomework_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createHomework"
+        }
+      ]
     },
-    "homeworkGrading": {
-      "build": true,
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+    "AMPLIFY_function_createHomework_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createHomework"
+        }
+      ]
     }
   }
 }
