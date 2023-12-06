@@ -23,10 +23,11 @@ The styling of the components is done using bootstrap. Most styles are in the cl
 
 The version control system used is Git. The Git repository is linked to an AWS Amplify CI/CD pipeline so any commits to the repository automatically deploy to the website. NPM is used for package management. 
 
+## Adaptive Homework System 
+
+The logic for the adapative homework system Lambda is in ~/amplify/backend/function/createHomework folder. It is on the homework grading branch and is not yet integrated into the main branch. 
+
 ## Meta Spark  
 
 The site uses Meta Spark for ad analytics with triggers set up to track certain actions by users to gain insight on ad effectiveness and business goals. 
 
-## Adaptive Homework System 
-
-The logic for the adapative homework system is in the homework_grading folder. It is on the homework grading branch and is not yet integrated into the main branch. 
