@@ -3,39 +3,32 @@ import { Auth } from 'aws-amplify';
 //import { withRouter  } from 'react-router-dom'; // Import useHistory hook
 //import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-
-// import {Amplify} from 'aws-amplify';
-// import { withAuthenticator } from '@aws-amplify/ui-react';
-// import '@aws-amplify/ui-react/styles.css';
-// import config from '../aws-exports.js';
-// Amplify.configure(config);
+import { useAuth } from './AuthContext';
 
 
-
-function SignIn({isLoggedIn, setIsLoggedIn}) {
+function SignIn() {
   //console.log('SignIn component rendered');
+  const { isLoggedIn, user, login, logout } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userEmail, setUserEmail] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSignIn = async () => {
     try {
       // use Amplify API to sign in
       const userInfo = await Auth.signIn(username, password);
       // set the email attribute
-      setUserEmail(userInfo.attributes.email);
-      // set logged in variable to be true
-      setIsLoggedIn(true);
+
+      login({username: userInfo.attributes.username, email: userInfo.attributes.email});
     } catch (error) {
       console.error('Sign-in error:', error);
+      setErrorMessage(error.message);
     }
   };
 
   const handleSignOut = async () => {
     try {
-      await Auth.signOut();
-      setUserEmail(null); // Reset userEmail state upon sign-out
-      setIsLoggedIn(false);
+      logout();
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -47,7 +40,7 @@ function SignIn({isLoggedIn, setIsLoggedIn}) {
         <div>
           <h1>Welcome!</h1>
           <br></br>
-          <h3>You are signed in with email: {userEmail}</h3>
+          <h3>You are signed in with email: {user.email}</h3>
           <button onClick={handleSignOut}>Sign Out</button>
         </div>
       ) : (
@@ -68,6 +61,7 @@ function SignIn({isLoggedIn, setIsLoggedIn}) {
           />
           <br></br>
           <button onClick={handleSignIn}>Sign In</button>
+          {errorMessage && <p>Error: {errorMessage}</p>}
           <h3>Don't have an account?</h3>
           <a href="./signup.jsx"><button> Create One</button></a>
         </div>
@@ -77,5 +71,4 @@ function SignIn({isLoggedIn, setIsLoggedIn}) {
   );
 }
 
-//export default withAuthenticator(SignIn);
 export default SignIn;

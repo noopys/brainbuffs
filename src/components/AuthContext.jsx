@@ -1,5 +1,6 @@
 // AuthContext.js
 import React, { useState, useContext } from 'react';
+import { Auth } from 'aws-amplify';
 
 const AuthContext = React.createContext();
 
@@ -18,11 +19,13 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
   };
 
-  const logout = () => {
+  const logout = async () => {
     // Perform logout logic here
+    await Auth.signOut();
     // Set isLoggedIn to false and clear user data
     setIsLoggedIn(false);
     setUser(null);
+    window.location.href = './SuccessfulSignOut';
   };
 
   return (
