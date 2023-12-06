@@ -18,6 +18,14 @@ import Homework from './components/Homework'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Slideshow from './components/Slideshow';
+import SignIn from './components/signin';
+
+import {Amplify} from 'aws-amplify';
+import config from './aws-exports';
+import '@aws-amplify/ui-react/styles.css';
+
+Amplify.configure(config);
+
 
 
 const logan_desc = "Logan is a fourth year computer science student at "
@@ -66,6 +74,7 @@ function App() {
             <Route path="/return" element={<Return />} />
             <Route path="/develyn" element={<Develyn />} />
             <Route path="/homework" element={<Homework/>}/>
+            <Route path="/signin" element={<SignIn />} />
           </Routes>
         </div>
       </Router>

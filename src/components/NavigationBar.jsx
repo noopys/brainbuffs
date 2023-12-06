@@ -23,6 +23,7 @@ export default function NavigationBar() {
                         <Nav.Link as={Link} to="/contact" onClick={() => setIsMenuOpen(false)} style={{ color: "black" }}>Contact</Nav.Link>
                         <Nav.Link classname="mr-9" as={Link} to="/develyn" onClick={() => setIsMenuOpen(false)} style={{ color: "black" }}>D'Evelyn Group Class</Nav.Link>
                         <Nav.Link classname="mr-9" as={Link} to="/homework" onClick={() => setIsMenuOpen(false)} style={{ color: "black" }}>Homework</Nav.Link>
+                        <Nav.Link as={Link} to="/signin" onClick={() => setIsMenuOpen(false)} style={{ color: "black" }}>Sign In</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
