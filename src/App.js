@@ -19,6 +19,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Slideshow from './components/Slideshow';
 import SignIn from './components/signin';
+import SignUp from './components/signup';
 
 import {Amplify} from 'aws-amplify';
 import config from './aws-exports';
@@ -75,6 +76,7 @@ function App() {
             <Route path="/develyn" element={<Develyn />} />
             <Route path="/homework" element={<Homework/>}/>
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
       </Router>

@@ -10,11 +10,12 @@ import '@aws-amplify/ui-react/styles.css';
 // import config from '../aws-exports.js';
 // Amplify.configure(config);
 
-function SignIn() {
+
+
+function SignIn({isLoggedIn, setIsLoggedIn}) {
   //console.log('SignIn component rendered');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState(null);
 
   const handleSignIn = async () => {
@@ -54,7 +55,7 @@ function SignIn() {
           <h1>Welcome! Please Sign in with your account. </h1>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -67,6 +68,8 @@ function SignIn() {
           />
           <br></br>
           <button onClick={handleSignIn}>Sign In</button>
+          <h3>Don't have an account?</h3>
+          <a href="./signup.jsx"><button> Create One</button></a>
         </div>
       )}
     </div>
