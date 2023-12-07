@@ -6,7 +6,7 @@ function SignOutSuccess() {
     <div>
       <h1>Sign Out Successful</h1>
       <p>You have been successfully signed out.</p>
-      {/* Add any additional content or redirection logic here */}
+      <a href="./signin"><button>Sign In</button></a>
     </div>
   );
 }

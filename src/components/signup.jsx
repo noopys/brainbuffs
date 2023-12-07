@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext';
 
@@ -6,7 +6,9 @@ function SignUp() {
   //sign up
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmpassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
 
   //verification
   const [verificationCode, setVerificationCode] = useState('');
@@ -14,8 +16,18 @@ function SignUp() {
   const [ver, setVer] = useState(false);
   const [succ, setSucc] = useState(false);
 
+  useEffect(() => {
+    // Check if passwords match whenever password or confirmPassword changes
+    setPasswordsMatch(password === confirmPassword);
+  }, [password, confirmPassword]);
+
   const handleSignUp = async () => {
     try {
+      if (!passwordsMatch) {
+        setErrorMessage("Passwords don't match");
+        return;
+      }
+
       await Auth.signUp({username, password});
       //await remember({email: username});
       console.log("signing up user", username);
@@ -33,10 +45,6 @@ function SignUp() {
       
       //console.log("email in verificaiton is ", user.email);
       await Auth.confirmSignUp(username, verificationCode);
-      // Verification successful
-      // Redirect the user to a different page or show a success message
-      //forget();
-      //window.location.href = './signin';
       setSucc(true);
     } catch (error) {
       setVerificationError(error.message);
@@ -48,21 +56,21 @@ function SignUp() {
       {ver ? 
       ( succ ? (
         <div>
-        <h2>You have successfully made an account!</h2>
-        <h3>The next step is to sign in.</h3>
-        <a href="./signin"><button> Sign in</button></a>
-      </div>
+          <h2>You have successfully made an account!</h2>
+          <h3>The next step is to sign in.</h3>
+          <a href="./signin"><button> Sign in</button></a>
+        </div>
       ) : (
         <div>
-        <h2>Please Enter the Verification Code Sent to Your Email</h2>
-        <input
-          type="text"
-          placeholder="Verification Code"
-          value={verificationCode}
-          onChange={(e) => setVerificationCode(e.target.value)}
-        />
-        <button onClick={handleVerification}>Verify</button>
-        {verificationError && <p>{verificationError}</p>}
+          <h2>Please Enter the Verification Code Sent to Your Email</h2>
+          <input
+            type="text"
+            placeholder="Verification Code"
+            value={verificationCode}
+            onChange={(e) => setVerificationCode(e.target.value)}
+          />
+          <button onClick={handleVerification}>Verify</button>
+          {verificationError && <p>{verificationError}</p>}
         </div>
       )
 
@@ -82,6 +90,13 @@ function SignUp() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setconfirmpassword(e.target.value)}
         />
         <br />
         <button onClick={handleSignUp}>Sign Up</button>
