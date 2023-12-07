@@ -14,9 +14,22 @@ import Pricing from './components/Pricing';
 import { CheckoutForm, Return } from './components/PaymentPage';
 import Contact from './components/Contact';
 import Develyn from './components/Develyn';
+import Homework from './components/Homework';
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Slideshow from './components/Slideshow';
+import SignIn from './components/signin';
+import SignUp from './components/signup';
+import SignOutSuccess from './components/signoutSuccess';
+import VerificationCodeEntry from './components/verificationCode';
+
+import {Amplify} from 'aws-amplify';
+import config from './aws-exports';
+import '@aws-amplify/ui-react/styles.css';
+import { AuthProvider } from './components/AuthContext';
+
+Amplify.configure(config);
+
 
 
 const logan_desc = "Logan is a fourth year computer science student at "
@@ -34,40 +47,47 @@ const matt_desc = "Matt is an ambitious double major in Finance and Accounting a
 
 function App() {
   return (
-    <div className="App d-flex flex-column h-100 w-100" style={{ overflowX: 'hidden' }}>
-      <Router>
-        <header className="bg-white py-3">
-          <div className="container" style={{ position: 'sticky' }}>
-            <NavigationBar />
+    <AuthProvider>
+      <div className="App d-flex flex-column h-100 w-100" style={{ overflowX: 'hidden' }}>
+        <Router>
+          <header className="bg-white py-3">
+            <div className="container" style={{ position: 'sticky' }}>
+              <NavigationBar />
+            </div>
+          </header>
+          <div className="container-fluid flex-grow-1 d-flex flex-column vw-100" >
+            <Routes className="d-flex flex-column flex-grow-1">
+              <Route path="/" element={<Homepage />} />
+              <Route
+                path="/about"
+                element={
+                  <Slideshow
+                    component1={<TutorPage description={logan_desc} image={vab} />}
+                    component2={
+                      <TutorPage
+                        description="Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students looking to boost their scores."
+                        image={sandy}
+                      />
+                    }
+                    component3={<TutorPage description={matt_desc} image={matt} />}
+                  />
+                }
+              />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/checkout" element={<CheckoutForm />} />
+              <Route path="/return" element={<Return />} />
+              <Route path="/develyn" element={<Develyn />} />
+              <Route path="/homework" element={<Homework/>}/>
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/SuccessfulSignOut" element={<SignOutSuccess />} />
+              <Route path="/VerificationCodeEntry" element={<VerificationCodeEntry />} />
+            </Routes>
           </div>
-        </header>
-        <div className="container-fluid flex-grow-1 d-flex flex-column vw-100" >
-          <Routes className="d-flex flex-column flex-grow-1">
-            <Route path="/" element={<Homepage />} />
-            <Route
-              path="/about"
-              element={
-                <Slideshow
-                  component1={<TutorPage description={logan_desc} image={vab} />}
-                  component2={
-                    <TutorPage
-                      description="Sandy is a dynamic student double majoring in Economics and Philosophy at the University of Colorado Boulder who brings a unique approach to SAT tutoring. His diverse experiences have endowed him with a strong ability to adapt and refined problem-solving skills. Notably, Sandy's hard work and determination were proven on the basketball court, where he achieved 1st Team All-Conference honors at D’Evelyn High School. He channels this same commitment into helping students excel on the SAT, utilizing his robust analytical skills and logical reasoning. His passion for education, coupled with an unwavering dedication to student success, makes Sandy a perfect guide for students looking to boost their scores."
-                      image={sandy}
-                    />
-                  }
-                  component3={<TutorPage description={matt_desc} image={matt} />}
-                />
-              }
-            />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/checkout" element={<CheckoutForm />} />
-            <Route path="/return" element={<Return />} />
-            <Route path="/develyn" element={<Develyn />} />
-          </Routes>
-        </div>
-      </Router>
-    </div>
+        </Router>
+      </div>
+    </AuthProvider>
 
   );
 }
