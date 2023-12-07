@@ -14,14 +14,13 @@ import Pricing from './components/Pricing';
 import { CheckoutForm, Return } from './components/PaymentPage';
 import Contact from './components/Contact';
 import Develyn from './components/Develyn';
-import Homework from './components/Homework';
+import Homework from './components/Homework'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Slideshow from './components/Slideshow';
 import SignIn from './components/signin';
 import SignUp from './components/signup';
 import SignOutSuccess from './components/signoutSuccess';
-import VerificationCodeEntry from './components/verificationCode';
 
 import {Amplify} from 'aws-amplify';
 import config from './aws-exports';
@@ -82,7 +81,6 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/SuccessfulSignOut" element={<SignOutSuccess />} />
-              <Route path="/VerificationCodeEntry" element={<VerificationCodeEntry />} />
             </Routes>
           </div>
         </Router>

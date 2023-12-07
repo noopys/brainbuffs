@@ -17,6 +17,7 @@ export { default as Testimonial } from "./Testimonial";
 export { default as FeatureListLeft } from "./FeatureListLeft";
 export { default as CardSquare } from "./CardSquare";
 export { default as NaviationSplit } from "./NaviationSplit";
+export { default as NaviationRightCollection } from "./NaviationRightCollection";
 export { default as FeatureSplitRight } from "./FeatureSplitRight";
 export { default as NaviationLeft } from "./NaviationLeft";
 export { default as FooterCenter } from "./FooterCenter";

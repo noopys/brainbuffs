@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sendEmail",
+            "createHomework",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sendEmail",
+                  "createHomework",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "brainbuffsLambdaRole74eafc24",
+            "brainbuffsLambdaRole26127064",
             {
               "Fn::Join": [
                 "",
                 [
-                  "brainbuffsLambdaRole74eafc24",
+                  "brainbuffsLambdaRole26127064",
                   "-",
                   {
                     "Ref": "env"

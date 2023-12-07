@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { FlexProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { FlexProps, ImageProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 import { ButtonSecondaryProps } from "./ButtonSecondary";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NaviationRightOverridesProps = {
@@ -18,6 +18,7 @@ export declare type NaviationRightOverridesProps = {
     Link0205?: PrimitiveOverrideProps<TextProps>;
     Link0206?: PrimitiveOverrideProps<TextProps>;
     Logo?: PrimitiveOverrideProps<TextProps>;
+    "Brain_Buffs_logo-removebg-preview 1"?: PrimitiveOverrideProps<ImageProps>;
 } & EscapeHatchProps;
 export declare type NaviationRightProps = React.PropsWithChildren<Partial<ViewProps> & {
     overrides?: NaviationRightOverridesProps | undefined | null;

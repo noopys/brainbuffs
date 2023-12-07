@@ -35,34 +35,11 @@ export default function ButtonSecondary(props) {
         bottom="0%"
         left="0%"
         right="0%"
-        //border="1px SOLID rgba(0,0,0,1)"
+        border="1px SOLID rgba(0,0,0,1)"
         borderRadius="5px"
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Background")}
       ></View>
-      <Text
-        fontFamily="Roboto"
-        fontSize="18px"
-        fontWeight="900"
-        color="rgba(0,0,0,1)"
-        lineHeight="24.2578125px"
-        textAlign="center"
-        display="block"
-        direction="column"
-        justifyContent="unset"
-        width="167px"
-        height="unset"
-        gap="unset"
-        alignItems="unset"
-        position="absolute"
-        top="calc(50% - 25.5px - -0.5px)"
-        left="17px"
-        right="16px"
-        padding="0px 0px 0px 0px"
-        whiteSpace="pre-wrap"
-        children="Contact Us:"
-        {...getOverrideProps(overrides, "Text")}
-      ></Text>
       <Text
         fontFamily="Roboto"
         fontSize="18px"
@@ -78,13 +55,12 @@ export default function ButtonSecondary(props) {
         gap="unset"
         alignItems="unset"
         position="absolute"
-        top="calc(50% - 12.5px - -0.5px + 15px)"
+        top="calc(50% - 12.5px - -0.5px)"
         left="17px"
         right="16px"
         padding="0px 0px 0px 0px"
         whiteSpace="pre-wrap"
-        children="brain.buffs.tutoring@gmail.com
-        303-304-7391"
+        children="See More"
         {...getOverrideProps(overrides, "Text")}
       ></Text>
     </View>

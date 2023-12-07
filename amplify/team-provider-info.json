@@ -10,6 +10,14 @@
       "StackName": "amplify-brainbuffs-staging-171706",
       "StackId": "arn:aws:cloudformation:us-east-1:859021319612:stack/amplify-brainbuffs-staging-171706/d7126340-e2c3-11ed-b43f-1268bb4f7a15",
       "AmplifyAppId": "dabqp59i3znu6"
+    },
+    "categories": {
+      "function": {
+        "createHomework": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/createHomework-57377931433962396f58-build.zip"
+        }
+      }
     }
   },
   "bbenv": {

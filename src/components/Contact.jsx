@@ -35,7 +35,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center p-3 bg-light" >
+  <div className="d-flex flex-column align-items-center p-3 bg-light min" >
       {isMessageSent ? (
         <div className="alert alert-success font-weight-bold">Message Sent!</div>
       ) : (
