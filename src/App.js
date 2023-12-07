@@ -21,6 +21,7 @@ import Slideshow from './components/Slideshow';
 import SignIn from './components/signin';
 import SignUp from './components/signup';
 import SignOutSuccess from './components/signoutSuccess';
+import VerificationCodeEntry from './components/verificationCode';
 
 import {Amplify} from 'aws-amplify';
 import config from './aws-exports';
@@ -81,6 +82,7 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/SuccessfulSignOut" element={<SignOutSuccess />} />
+              <Route path="/verificationCode" element={<VerificationCodeEntry />} />
             </Routes>
           </div>
         </Router>

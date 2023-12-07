@@ -17,6 +17,9 @@
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
           "s3Key": "amplify-builds/createHomework-57377931433962396f58-build.zip"
         }
+      },
+      "auth": {
+        "brainbuffseac976a0": {}
       }
     }
   },

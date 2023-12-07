@@ -87,7 +87,7 @@ function SignUp() {
         <button onClick={handleSignUp}>Sign Up</button>
         {errorMessage && <p>Error: {errorMessage}</p>}
         <h3>Already have an account?</h3>
-        <a href="./signin.jsx"><button>Sign In</button></a>
+        <a href="./signin"><button>Sign In</button></a>
       </div>
       )}
     </div>

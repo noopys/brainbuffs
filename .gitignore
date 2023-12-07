@@ -22,6 +22,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+
+#LOCAL_API_KEYS
+.env
+
+#Google API Credentials
+/homework_grading/credentials.json
+/homework_grading/token.json
+/homework_grading/googleidsecret.txt
+/amplify/backend/function/createHomework/src/credentials.json
+/amplify/backend/function/createHomework/src/token.json
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -43,14 +54,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-
-#LOCAL_API_KEYS
-.env
-
-#Google API Credentials 
-/homework_grading/credentials.json
-/homework_grading/token.json
-/homework_grading/googleidsecret.txt
-/amplify/backend/function/createHomework/src/credentials.json
-/amplify/backend/function/createHomework/src/token.json
-

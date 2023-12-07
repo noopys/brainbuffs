@@ -19,9 +19,9 @@ export default function Homepage(props) {
                         <ProgramCard
                             title='Buff Boost "Homework Only" Program'
                             bullets={[
-                                "4 custom weekly SAT homeworks crafted by our team assisted by our in house AI software",
+                                "4 custom weekly SAT homework assignments crafted by our team with the assistance of our in-house AI software",
                                 "24/7 support from our expert tutors",
-                                "Best for students who just want a little extra practice or want to stay sharp between tutoring and the test"
+                                "Best for students who just want extra practice or want to stay sharp between tutoring and the test"
                             ]}
                             price="$50"
                         />
@@ -32,7 +32,7 @@ export default function Homepage(props) {
                             title="Dream School Custom Tutoring Bundle"
                             bullets={[
                                 "4 1-on-1 60 minute SAT tutoring sessions with one of our experts",
-                                "4 custom weekly homeworks crafted by our team assisted by our in house AI software",
+                                "4 custom weekly homework assignments crafted by our team with the assistance of our in-house AI software",
                                 "24/7 support from our expert tutors",
                                 "Best for students looking for a 100+ point improvement" 
                             ]}

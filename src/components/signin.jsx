@@ -63,7 +63,10 @@ function SignIn() {
           <button onClick={handleSignIn}>Sign In</button>
           {errorMessage && <p>Error: {errorMessage}</p>}
           <h3>Don't have an account?</h3>
-          <a href="./signup.jsx"><button> Create One</button></a>
+          <a href="./signup"><button> Create One</button></a>
+          <br></br><br></br>
+          <h3>Error: User is not confirmed.</h3>
+          <a href="./verificationCode"><button> Verify My Account</button></a>
         </div>
       )}
     </div>
