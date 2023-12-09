@@ -15,11 +15,14 @@
       "function": {
         "createHomework": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/createHomework-57377931433962396f58-build.zip"
+          "s3Key": "amplify-builds/createHomework-71566c2f4835624c4e6e-build.zip"
         }
       },
       "auth": {
         "brainbuffseac976a0": {}
+      },
+      "storage": {
+        "Testing": {}
       }
     }
   },

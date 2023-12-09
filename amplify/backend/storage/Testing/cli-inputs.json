@@ -1,0 +1,12 @@
+{
+  "resourceName": "Testing",
+  "policyUUID": "bdb017b9",
+  "bucketName": "users",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
