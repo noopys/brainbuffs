@@ -105,7 +105,7 @@ const NavigationBar = () => {
                 </div>
             </div>
             <div className={`${isMenuOpen ? 'flex' : 'hidden'} flex-col items-center lg:hidden`}>
-                <Link as={Link} to="/about" style={{ textDecoration: 'none' }}>
+                <Link as={Link} to="/about" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                         <img
                             className="relative w-5 h-5"
@@ -117,7 +117,7 @@ const NavigationBar = () => {
                         </button>
                     </button>
                 </Link>
-                <Link as={Link} to="/faq" style={{ textDecoration: 'none' }}>
+                <Link as={Link} to="/faq" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                         <img
                             className="relative w-5 h-5"
@@ -129,7 +129,7 @@ const NavigationBar = () => {
                         </div>
                     </button>
                 </Link>
-                <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}>
+                <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                         <img
                             className="relative w-5 h-5"
@@ -141,7 +141,7 @@ const NavigationBar = () => {
                         </div>
                     </button>
                 </Link>
-                <Link as={Link} to="/homework" style={{ textDecoration: 'none' }}>
+                <Link as={Link} to="/homework" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                         <img
                             className="relative w-5 h-5"
@@ -153,7 +153,7 @@ const NavigationBar = () => {
                         </div>
                     </button>
                 </Link>
-                <Link as={Link} to="/signin" style={{ textDecoration: 'none' }}>
+                <Link as={Link} to="/signin" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                         <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                             Sign In/Sign Up
