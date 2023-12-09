@@ -15,31 +15,7 @@
       "function": {
         "createHomework": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/createHomework-71566c2f4835624c4e6e-build.zip"
-        }
-      },
-      "auth": {
-        "brainbuffseac976a0": {}
-      }
-    }
-  },
-  "bbenv": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-brainbuffs-bbenv-135046-authRole",
-      "UnauthRoleArn": "arn:aws:iam::859021319612:role/amplify-brainbuffs-bbenv-135046-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::859021319612:role/amplify-brainbuffs-bbenv-135046-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-brainbuffs-bbenv-135046-deployment",
-      "UnauthRoleName": "amplify-brainbuffs-bbenv-135046-unauthRole",
-      "StackName": "amplify-brainbuffs-bbenv-135046",
-      "StackId": "arn:aws:cloudformation:us-east-1:859021319612:stack/amplify-brainbuffs-bbenv-135046/214f8fc0-9479-11ee-9b8a-0e4a8c1d4b79",
-      "AmplifyAppId": "dabqp59i3znu6"
-    },
-    "categories": {
-      "function": {
-        "createHomework": {
-          "deploymentBucketName": "amplify-brainbuffs-bbenv-135046-deployment",
-          "s3Key": "amplify-builds/createHomework-71566c2f4835624c4e6e-build.zip"
+          "s3Key": "amplify-builds/createHomework-57377931433962396f58-build.zip"
         }
       },
       "auth": {
