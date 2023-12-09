@@ -40,7 +40,7 @@ export default function ProgramCard({ title, bullets, imageUrl, price }) {
   };
 
   return (
-    <div className="card mb-4 shadow-sm h-100" style={{ borderRadius: '15px' }}>
+    <div className="card mb-4 shadow-sm h-100 bg-white" style={{ borderRadius: '15px', backgroundColor:'white' }}>
       <div className="card-body d-flex flex-column">
         <h5 className="card-title mb-2" style={{ fontWeight: '600', fontSize: "25px" }}>{title}</h5>
         <ul className="mb-0" style={{ fontSize: '17px', lineHeight: '1.4', textAlign: 'left', marginBottom: "0px" }}>

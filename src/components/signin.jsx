@@ -16,6 +16,7 @@ function SignIn() {
   const handleSignIn = async () => {
     try {
       // use Amplify API to sign in
+      console.log("hello")
       const userInfo = await Auth.signIn(username, password);
       // set the email attribute
 

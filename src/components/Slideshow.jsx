@@ -39,14 +39,14 @@ const Slideshow = ({ component1, component2, component3 }) => {
   };
 
   return (
-    <div className="position-relative w-100 h-100" style={{ overflow: "hidden" }}>
+    <div className="d-flex flex-column align-items-center p-3 bg-light min" style={{  }}>
       <div>{activeComponent}</div>
       <button
         className={`btn btn-dark rounded-circle position-absolute translate-middle ${isMobile ? 'bottom-0 mb-2' : 'top-50'}`}
-        style={{ width: '50px', height: '50px', left: 'calc(0%  + 25px)' }}
+        style={{ width: '50px', height: '50px', left: 'calc(0%  + 25px)'}}
         onClick={goToPreviousSlide}
       >
-        <i className="bi bi-arrow-left"></i>
+        <i className="bi bi-arrow-left" ></i>
       </button>
       <button
         className={`btn btn-dark rounded-circle position-absolute translate-middle ${isMobile ? 'bottom-0 mb-2' : 'top-50'}`}

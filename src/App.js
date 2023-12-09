@@ -50,8 +50,8 @@ function App() {
     <AuthProvider>
       <div className="App d-flex flex-column h-100 w-100" style={{ overflowX: 'hidden' }}>
         <Router>
-          <header className="bg-white py-3">
-            <div className="container" style={{ position: 'sticky' }}>
+          <header className="bg-white">
+            <div style={{ position: 'sticky' }}>
               <NavigationBar />
             </div>
           </header>

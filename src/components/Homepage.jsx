@@ -5,7 +5,8 @@ import ButtonPrimary from "../ui-components/ButtonPrimary";
 
 export default function Homepage(props) {
     return (
-        <div className="d-flex flex-column  position-relative" style={{ backgroundColor: "rgba(242,242,242,1)", width: "100%", overflowX: "hidden", overflowY: "hidden" }}>
+        
+        <div className=" d-flex flex-column align-items-center p-3 bg-light min" style={{ }}>
             <h1 className="mt-1" style={{lineHeight:"1"}}>Top SAT tutoring program in the Denver/Boulder area</h1>
             <h2 className="text-center mb-4 display-6" style={{ paddingTop: "15px" }}>
                 Improve SAT your score today. Get into your dream school tomorrow.
@@ -13,7 +14,7 @@ export default function Homepage(props) {
 
             <div className="h4 mb-1">Our students improve their scores by 100+ points</div>
 
-            <div className="container-fluid d-flex flex-column flex-grow-1 py-5 justify-content-center">
+            <div className="container-fluid d-flex flex-column flex-grow-1 py-5 justify-content-center" style={{}}>
                 <div className="row justify-content-center">
                 <div className="col-md-4 mb-4 mx-auto">
                         <ProgramCard

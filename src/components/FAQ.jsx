@@ -21,7 +21,7 @@ function FAQPage() {
   ];
 
   return (
-    <div className="bg-light min-vh-100">
+    <div className="d-flex flex-column align-items-center p-3 bg-light min">
       <div className="container py-5">
         <h1 className="mb-4 text-center">Frequently Asked Questions</h1>
         <div className="accordion" id="faqAccordion">
