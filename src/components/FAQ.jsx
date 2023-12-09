@@ -16,7 +16,7 @@ function FAQPage() {
     },
     {
       question: "What about the new online SAT?",
-      answer: "BrainBuffs specializes in the new online SAT. Our tutors are all specifically trained with the new online SAT in mind, unlike tutors from other companies. We teach students how to succeed with the new test format in addition to the concepts they need to know",
+      answer: "Brain Buffs specializes in the new online SAT. Our tutors are all specifically trained with the new online SAT in mind, unlike tutors from other companies. We teach students how to succeed with the new test format in addition to the concepts they need to know",
     },
   ];
 
