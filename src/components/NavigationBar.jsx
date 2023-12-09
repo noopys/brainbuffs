@@ -17,7 +17,7 @@ const NavigationBar = () => {
 
     const { isLoggedIn, user, logout } = useAuth();
     const handleLogout = () => {
-        // Perform logout action
+        // Perform logout action from AuthContext.jsx
         logout();
       };
 
