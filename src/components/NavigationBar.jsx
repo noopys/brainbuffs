@@ -32,7 +32,7 @@ const NavigationBar = () => {
                             <span className="text-lg font-medium text-gray-800" style={{ fontSize: "25px" }}>BrainBuffs</span>
                         </div>
                     </Link>
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden items-end" style={{marginLeft:"30vw", backgroundColor:"white"}}>
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden items-end" style={{marginLeft:"26vw", backgroundColor:"white"}}>
                         {/* Hamburger icon */}
                         <img className="relative w-5 h-5" src={Hamburger}/>
                     </button>
