@@ -88,7 +88,7 @@ const NavigationBar = () => {
                             </Link>
                         </div>
                         <div className="flex items-center gap-[12px]">
-                            <Link as={Link} to="/homework" style={{ textDecoration: 'none' }}>
+                            <Link as={Link} to="/signin" style={{ textDecoration: 'none' }}>
                                 <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                                     <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                                         Sign In/Sign Up
