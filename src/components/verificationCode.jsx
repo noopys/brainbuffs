@@ -8,6 +8,15 @@ const VerificationCodeEntry = () => {
   const [verificationError, setVerificationError] = useState('');
   const [succ, setSucc] = useState(false);
 
+  const buttonStyle = {
+    backgroundColor: '#007bff', // Blue color
+    color: '#fff', // White text
+    padding: '8px 16px', // Adjust padding as needed
+    border: 'none', // Remove border if needed
+    borderRadius: '4px', // Add border-radius if needed
+    cursor: 'pointer', // Show pointer on hover
+  };
+
   const handleVerification = async () => {
     try {
       
@@ -27,12 +36,12 @@ const VerificationCodeEntry = () => {
         <div> 
           <h2>You have successfully made an account!</h2>
           <h3>The next step is to sign in.</h3>
-          <a href="./signin"><button> Sign in</button></a>
+          <a href="./signin"><button style={buttonStyle}> Sign in</button></a>
         </div> 
       ) : (
       <div> 
         <h2>Please Enter the Verification Code Sent to Your Email</h2>
-        <h3>Please check your spam folder</h3>
+        <h5>If you did not receive an email, please check your spam folder.</h5>
         <input
           type="text"
           placeholder="Email"
@@ -47,7 +56,7 @@ const VerificationCodeEntry = () => {
           onChange={(e) => setVerificationCode(e.target.value)}
         />
         <br></br>
-        <button onClick={handleVerification}>Verify</button>
+        <button onClick={handleVerification} style={buttonStyle}>Verify</button>
         {verificationError && <p>{verificationError}</p>}
       </div>) }
       

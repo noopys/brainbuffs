@@ -13,6 +13,23 @@ function SignIn() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const buttonStyle = {
+    backgroundColor: '#007bff', // Blue color
+    color: '#fff', // White text
+    padding: '8px 16px', // Adjust padding as needed
+    border: 'none', // Remove border if needed
+    borderRadius: '4px', // Add border-radius if needed
+    cursor: 'pointer', // Show pointer on hover
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleSignIn = async () => {
     try {
       // use Amplify API to sign in
@@ -41,33 +58,50 @@ function SignIn() {
         <div>
           <h1>Welcome!</h1>
           <br></br>
-          <h3>You are signed in with email: {user.email}</h3>
-          <button onClick={handleSignOut}>Sign Out</button>
+          <h4>You are signed in with email: </h4>
+          <h3>{user.email}</h3>
+          <button onClick={handleSignOut} style={buttonStyle}>Sign Out</button>
         </div>
       ) : (
         <div>
           <h1>Welcome! Please Sign in with your account. </h1>
-          <input
-            type="text"
-            placeholder="Email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
           <br></br>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br></br>
-          <button onClick={handleSignIn}>Sign In</button>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  flexDirection: 'column'}}>
+            <input
+              type="text"
+              placeholder="Email"
+              value={username}
+              onChange={handleUsernameChange}
+              style={{
+                marginBottom: '10px',
+                padding: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '5px',
+                fontSize: '16px',
+              }}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              style={{
+                marginBottom: '10px',
+                padding: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '5px',
+                fontSize: '16px',
+              }}
+            />
+          </div>
+          <button onClick={handleSignIn} style={buttonStyle}>Sign In</button>
           {errorMessage && <p>Error: {errorMessage}</p>}
-          <h3>Don't have an account?</h3>
-          <a href="./signup"><button> Create One</button></a>
           <br></br><br></br>
-          <h3>Error: User is not confirmed.</h3>
-          <a href="./verificationCode"><button> Verify My Account</button></a>
+          <h5>Don't have an account?</h5>
+          <a href="./signup"><button style={buttonStyle}> Create One</button></a>
+          <br></br><br></br>
+          <h6>Getting Error: User is not confirmed? Click below to verify your account</h6>
+          <a href="./verificationCode"><button  style={buttonStyle}> Verify My Account</button></a>
         </div>
       )}
     </div>

@@ -7,11 +7,6 @@ const AccountManagement = () => {
       <p className="text-lg mb-4">
         We're currently working on this page. Stay tuned for updates!
       </p>
-      <img
-        src="work-in-progress-image.jpg"
-        alt="Work in Progress"
-        className="w-full rounded-lg"
-      />
     </div>
   );
 };

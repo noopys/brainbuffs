@@ -6,7 +6,7 @@ function SignUp() {
   //sign up
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setconfirmpassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(false);
 
@@ -15,6 +15,27 @@ function SignUp() {
   const [verificationError, setVerificationError] = useState('');
   const [ver, setVer] = useState(false);
   const [succ, setSucc] = useState(false);
+
+  const buttonStyle = {
+    backgroundColor: '#007bff', // Blue color
+    color: '#fff', // White text
+    padding: '8px 16px', // Adjust padding as needed
+    border: 'none', // Remove border if needed
+    borderRadius: '4px', // Add border-radius if needed
+    cursor: 'pointer', // Show pointer on hover
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
 
   useEffect(() => {
     // Check if passwords match whenever password or confirmPassword changes
@@ -58,7 +79,7 @@ function SignUp() {
         <div>
           <h2>You have successfully made an account!</h2>
           <h3>The next step is to sign in.</h3>
-          <a href="./signin"><button> Sign in</button></a>
+          <a href="./signin"><button style={buttonStyle}> Sign in</button></a>
         </div>
       ) : (
         <div>
@@ -76,33 +97,55 @@ function SignUp() {
 
       ) : (
       <div>
-        <h1>Sign Up</h1>
+        <h1>Welcome to Brain Buffs Tutoring! </h1>
+        <h2>Please Sign Up Below!</h2>
         <br />
-        <input
-          type="text"
-          placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setconfirmpassword(e.target.value)}
-        />
-        <br />
-        <button onClick={handleSignUp}>Sign Up</button>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  flexDirection: 'column' }}>
+          <input
+            type="text"
+            placeholder="Email"
+            value={username}
+            onChange={handleUsernameChange}
+            style={{
+              marginBottom: '10px',
+              padding: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              fontSize: '16px',
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+            style={{
+              marginBottom: '10px',
+              padding: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              fontSize: '16px',
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            style={{
+              marginBottom: '10px',
+              padding: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              fontSize: '16px',
+            }}
+          />
+        </div>
+        <button onClick={handleSignUp} style={buttonStyle}>Sign Up</button>
         {errorMessage && <p>Error: {errorMessage}</p>}
-        <h3>Already have an account?</h3>
-        <a href="./signin"><button>Sign In</button></a>
+        <br /><br />
+        <h5>Already have an account?</h5>
+        <a href="./signin"><button style={buttonStyle}>Sign In</button></a>
       </div>
       )}
     </div>

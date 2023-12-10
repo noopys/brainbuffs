@@ -94,63 +94,62 @@ const NavigationBar = () => {
                                 </button>
                             </Link>
                         </div>
-                        {/* <div className="flex items-center gap-[12px]">
-                            <Link as={Link} to="/signin" style={{ textDecoration: 'none' }}>
-                                <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-                                    <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                                        Sign In/Sign Up
-                                    </div>
-                                    <img
-                                        className="relative w-5 h-5"
-                                        alt=""
-                                        src={DownArrow}
-                                    />
-                                </button>
-                            </Link>
-                        </div> */}
-                        <div className="flex items-center gap-[12px] relative">
-                            <button
-                                className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]"
-                                onClick={toggleDropdown}>
-                                <img className="relative w-5 h-5" alt="" src={DownArrow} />
-                                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                                Hello, Sign in
-                                </div>
-                            </button>
-                            {isOpen && (
-                                <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-lg">
-                                <ul>
-                                    
-                                    {isLoggedIn ? (
-                                        <ul>
-                                            <li>
-                                                <button onClick={handleLogout}>Sign Out</button>
-                                            </li>
-                                            <li>
-                                                <Link to="/manageAccount" style={{ textDecoration: 'none' }}>
-                                                    Manage Account
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    ) : (
-                                        <ul>
-                                            <li>
-                                                <Link to="/signin" style={{ textDecoration: 'none' }}>
-                                                    Sign In
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/signup" style={{ textDecoration: 'none' }}>
-                                                    New Customer? Sign Up
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    
-                                    )}
-                                    
-                                    
-                                    
-                                </ul>
+                        <div className="relative">
+                        <button
+                            className="cursor-pointer border-none py-2.5 px-3 bg-transparent rounded-lg flex items-center gap-2"
+                            onClick={toggleDropdown}
+                        >
+                            <img className="w-5 h-5" alt="" src={DownArrow} />
+                            <div className="text-sm font-poppins text-light-theme-subheading-text">
+                            {isLoggedIn ? `Hello, ${user.email}` : 'Hello, Sign in'}
+                            </div>
+                        </button>
+                        {isOpen && (
+                            <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-lg">
+                            <ul className="list-none p-0">
+                                {isLoggedIn ? (
+                                <>
+                                    <li>
+                                    <Link
+                                        to="/manageAccount"
+                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px' }}
+                                        onClick={toggleDropdown}
+                                    >
+                                        Manage Account
+                                    </Link>
+                                    </li>
+                                    <li>
+                                    <button
+                                        onClick={handleLogout}
+                                        style={{ border: 'none', background: 'none', display: 'block', padding: '8px 16px' }}
+                                    >
+                                        Sign Out
+                                    </button>
+                                    </li>
+                                </>
+                                ) : (
+                                <>
+                                    <li>
+                                    <Link 
+                                        to="/signin" 
+                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 8px 16px' , textAlign: 'left', color: 'black'}} 
+                                        onClick={toggleDropdown}
+                                    >
+                                        Sign In
+                                    </Link>
+                                    </li>
+                                    <li>
+                                    <Link 
+                                        to="/signup" 
+                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 8px 16px', textAlign: 'left', color: 'black' }} 
+                                        onClick={toggleDropdown}
+                                    >
+                                        Sign Up
+                                    </Link>
+                                    </li>
+                                </>
+                                )}
+                            </ul>
                             </div>
                             )}
                         </div>
