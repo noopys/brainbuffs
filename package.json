@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^4.0.1",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@stripe/react-stripe-js": "^2.3.1",
     "@stripe/stripe-js": "^2.1.11",
     "@testing-library/jest-dom": "^5.16.5",
