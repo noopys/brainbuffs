@@ -19,7 +19,7 @@ const NavigationBar = () => {
     const handleLogout = () => {
         // Perform logout action from AuthContext.jsx
         logout();
-      };
+    };
 
     return (
         <nav className="bg-white shadow-lg rounded-lg shadow" style={{}}>
@@ -32,9 +32,9 @@ const NavigationBar = () => {
                             <span className="text-lg font-medium text-gray-800" style={{ fontSize: "25px" }}>BrainBuffs</span>
                         </div>
                     </Link>
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden items-end" style={{marginLeft:"26vw", backgroundColor:"white"}}>
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden items-end" style={{ marginLeft: "26vw", backgroundColor: "white" }}>
                         {/* Hamburger icon */}
-                        <img className="relative w-5 h-5" src={Hamburger}/>
+                        <img className="relative w-5 h-5" src={Hamburger} />
                     </button>
                     <div className={`${isMenuOpen ? 'hidden' : 'hidden'} lg:flex items-center justify-between px-10 flex-grow w-full`}>
                         <div className="flex items-center gap-[2px]">
@@ -129,7 +129,7 @@ const NavigationBar = () => {
                         </div>
                     </button>
                 </Link>
-                <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <Link as={Link} to="/contact" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                         <img
                             className="relative w-5 h-5"
@@ -155,14 +155,14 @@ const NavigationBar = () => {
                 </Link>
                 <Link as={Link} to="/signin" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-                        <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                            Sign In/Sign Up
-                        </div>
                         <img
                             className="relative w-5 h-5"
                             alt=""
                             src={DownArrow}
                         />
+                        <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                            Sign In/Sign Up
+                        </div>
                     </button>
                 </Link>
             </div>
