@@ -15,7 +15,14 @@ import { useAuth } from './AuthContext';
 const NavigationBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+
     const { isLoggedIn, user, logout } = useAuth();
+
     const handleLogout = () => {
         // Perform logout action from AuthContext.jsx
         logout();
@@ -87,7 +94,7 @@ const NavigationBar = () => {
                                 </button>
                             </Link>
                         </div>
-                        <div className="flex items-center gap-[12px]">
+                        {/* <div className="flex items-center gap-[12px]">
                             <Link as={Link} to="/signin" style={{ textDecoration: 'none' }}>
                                 <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                                     <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -100,6 +107,52 @@ const NavigationBar = () => {
                                     />
                                 </button>
                             </Link>
+                        </div> */}
+                        <div className="flex items-center gap-[12px] relative">
+                            <button
+                                className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]"
+                                onClick={toggleDropdown}>
+                                <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                                Hello, Sign in
+                                </div>
+                            </button>
+                            {isOpen && (
+                                <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-lg">
+                                <ul>
+                                    
+                                    {isLoggedIn ? (
+                                        <ul>
+                                            <li>
+                                                <button onClick={handleLogout}>Sign Out</button>
+                                            </li>
+                                            <li>
+                                                <Link to="/manageAccount" style={{ textDecoration: 'none' }}>
+                                                    Manage Account
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    ) : (
+                                        <ul>
+                                            <li>
+                                                <Link to="/signin" style={{ textDecoration: 'none' }}>
+                                                    Sign In
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/signup" style={{ textDecoration: 'none' }}>
+                                                    New Customer? Sign Up
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    
+                                    )}
+                                    
+                                    
+                                    
+                                </ul>
+                            </div>
+                            )}
                         </div>
                     </div>
                 </div>
