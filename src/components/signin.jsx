@@ -22,6 +22,14 @@ function SignIn() {
     cursor: 'pointer', // Show pointer on hover
   };
 
+  const fieldStyle = {
+    marginBottom: '10px',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    fontSize: '16px',
+  };
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -72,26 +80,14 @@ function SignIn() {
               placeholder="Email"
               value={username}
               onChange={handleUsernameChange}
-              style={{
-                marginBottom: '10px',
-                padding: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                fontSize: '16px',
-              }}
+              style={fieldStyle}
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={handlePasswordChange}
-              style={{
-                marginBottom: '10px',
-                padding: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                fontSize: '16px',
-              }}
+              style={fieldStyle}
             />
           </div>
           <button onClick={handleSignIn} style={buttonStyle}>Sign In</button>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
-import { useAuth } from './AuthContext';
 
 function SignUp() {
   //sign up
@@ -23,6 +22,14 @@ function SignUp() {
     border: 'none', // Remove border if needed
     borderRadius: '4px', // Add border-radius if needed
     cursor: 'pointer', // Show pointer on hover
+  };
+
+  const fieldStyle = {
+    marginBottom: '10px',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    fontSize: '16px',
   };
 
   const handleUsernameChange = (e) => {
@@ -63,8 +70,11 @@ function SignUp() {
 
   const handleVerification = async () => {
     try {
+      if (!/^\d{6}$/.test(verificationCode)) {
+        setVerificationError('Verification code must be a 6-digit number');
+        return;
+      }
       
-      //console.log("email in verificaiton is ", user.email);
       await Auth.confirmSignUp(username, verificationCode);
       setSucc(true);
     } catch (error) {
@@ -88,9 +98,11 @@ function SignUp() {
             type="text"
             placeholder="Verification Code"
             value={verificationCode}
+            style={fieldStyle}
             onChange={(e) => setVerificationCode(e.target.value)}
           />
-          <button onClick={handleVerification}>Verify</button>
+          <br />
+          <button onClick={handleVerification} style={buttonStyle}>Verify</button>
           {verificationError && <p>{verificationError}</p>}
         </div>
       )
@@ -106,39 +118,21 @@ function SignUp() {
             placeholder="Email"
             value={username}
             onChange={handleUsernameChange}
-            style={{
-              marginBottom: '10px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              fontSize: '16px',
-            }}
+            style={fieldStyle}
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={handlePasswordChange}
-            style={{
-              marginBottom: '10px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              fontSize: '16px',
-            }}
+            style={fieldStyle}
           />
           <input
             type="password"
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
-            style={{
-              marginBottom: '10px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              fontSize: '16px',
-            }}
+            style={fieldStyle}
           />
         </div>
         <button onClick={handleSignUp} style={buttonStyle}>Sign Up</button>

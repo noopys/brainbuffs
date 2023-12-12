@@ -15,7 +15,15 @@
       "function": {
         "createHomework": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/createHomework-57377931433962396f58-build.zip"
+          "s3Key": "amplify-builds/createHomework-70417330634b764c5a55-build.zip"
+        },
+        "gradeHomework": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/gradeHomework-72504d58326a3743477a-build.zip"
+        },
+        "getNextQuestion": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/getNextQuestion-37624862547a61543850-build.zip"
         }
       },
       "auth": {

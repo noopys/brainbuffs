@@ -47,6 +47,13 @@ const VerificationCodeEntry = () => {
           placeholder="Email"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          style={{
+            marginBottom: '10px',
+            padding: '10px',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            fontSize: '16px',
+          }}
         />
         <br></br>
         <input
@@ -54,6 +61,13 @@ const VerificationCodeEntry = () => {
           placeholder="Verification Code"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
+          style={{
+            marginBottom: '10px',
+            padding: '10px',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            fontSize: '16px',
+          }}
         />
         <br></br>
         <button onClick={handleVerification} style={buttonStyle}>Verify</button>

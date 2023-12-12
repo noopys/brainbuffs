@@ -32,6 +32,16 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "getNextQuestion": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "gradeHomework": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -48,6 +58,38 @@
         {
           "category": "function",
           "resourceName": "createHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_getNextQuestion_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getNextQuestion"
+        }
+      ]
+    },
+    "AMPLIFY_function_getNextQuestion_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getNextQuestion"
+        }
+      ]
+    },
+    "AMPLIFY_function_gradeHomework_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gradeHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_gradeHomework_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gradeHomework"
         }
       ]
     }
