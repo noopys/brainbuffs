@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
+import { useAuth } from './AuthContext';
 
 const AccountManagement = () => {
   const [user, setUser] = useState(null);
@@ -9,6 +10,8 @@ const AccountManagement = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  const { logout } = useAuth();
 
   const buttonStyle = {
     backgroundColor: '#FF0000', // Blue color
@@ -51,8 +54,13 @@ const AccountManagement = () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       await Auth.deleteUser(currentUser);
       // Handle successful account deletion, e.g., redirect or display a message
-      setSuccessMessage('Account deleted successfully');
-      console.log('Account deleted successfully');
+      setSuccessMessage('Account deleted successfully, you will be redirected to the sign in screen');
+      console.log('Account deleted successfully, you will be redirected to the sign in screen');
+
+      const logoutDelay = 10000; // 2 seconds delay (adjust as needed)
+      setTimeout(() => {
+        logout();
+      }, logoutDelay);
     } catch (error) {
       // Handle error deleting account
       console.error('Error deleting account:', error);
@@ -65,7 +73,12 @@ const AccountManagement = () => {
       await Auth.changePassword(currentUser, oldPassword, newPassword);
       console.log('Password changed successfully');
       // Handle successful password change, e.g., show a success message
-      setSuccessMessage('Password changed successfully');
+      setSuccessMessage('Password changed successfully, you will be redirected to the sign in screen');
+
+      const logoutDelay = 10000; // 2 seconds delay (adjust as needed)
+      setTimeout(() => {
+        logout();
+      }, logoutDelay);
     } catch (error) {
       setError(error.message);
       console.error('Error changing password:', error);
