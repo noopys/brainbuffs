@@ -19,6 +19,10 @@ const VerificationCodeEntry = () => {
 
   const handleVerification = async () => {
     try {
+      if (!/^\d{6}$/.test(verificationCode)) {
+        setVerificationError('Verification code must be a 6-digit number');
+        return;
+      }
       
       console.log("email in verificaiton is ", username);
       await Auth.confirmSignUp(username, verificationCode);

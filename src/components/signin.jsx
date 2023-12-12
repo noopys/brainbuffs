@@ -96,6 +96,9 @@ function SignIn() {
           <h5>Don't have an account?</h5>
           <a href="./signup"><button style={buttonStyle}> Create One</button></a>
           <br></br><br></br>
+          <h5>Forgot your password?</h5>
+          <a href="./resetPassword"><button style={buttonStyle}> Reset it</button></a>
+          <br></br><br></br>
           <h6>Getting Error: User is not confirmed? Click below to verify your account</h6>
           <a href="./verificationCode"><button  style={buttonStyle}> Verify My Account</button></a>
         </div>

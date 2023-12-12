@@ -23,6 +23,7 @@ import SignUp from './components/signup';
 import SignOutSuccess from './components/signoutSuccess';
 import VerificationCodeEntry from './components/verificationCode';
 import AccountManagement from './components/AccountManagement'
+import ResetPassword from './components/ResetPassword'
 
 import {Amplify} from 'aws-amplify';
 import config from './aws-exports';
@@ -85,6 +86,7 @@ function App() {
               <Route path="/SuccessfulSignOut" element={<SignOutSuccess />} />
               <Route path="/verificationCode" element={<VerificationCodeEntry />} />
               <Route path="/manageAccount" element={<AccountManagement />} />
+              <Route path="/resetPassword" element={<ResetPassword />} />
             </Routes>
           </div>
         </Router>
