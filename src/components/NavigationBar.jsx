@@ -32,17 +32,16 @@ const NavigationBar = () => {
         <nav className="bg-white shadow-lg rounded-lg shadow" style={{}}>
             <div >
                 <div className="flex justify-start items-center py-2 w-full">
-                    <Link as={Link} to="/" style={{ textDecoration: 'none' }}>
-
-                        <div className="flex items-center gap-3 px-3">
-                            <img className="w-20 h-10" src={logo} alt="Logo" />
-                            <span className="text-lg font-medium text-gray-800" style={{ fontSize: "25px" }}>BrainBuffs</span>
-                        </div>
-                    </Link>
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden items-end" style={{ marginLeft: "26vw", backgroundColor: "white" }}>
-                        {/* Hamburger icon */}
-                        <img className="relative w-5 h-5" src={Hamburger} />
-                    </button>
+                <Link as={Link} to="/" style={{ textDecoration: 'none' }}>
+                    <div className="flex items-center gap-3 px-3">
+                        <img className="w-20 h-10" src={logo} alt="Logo" />
+                        <span className="text-lg font-medium text-gray-800" style={{ fontSize: "25px" }}>BrainBuffs</span>
+                    </div>
+                </Link>
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden ml-auto" style={{ backgroundColor: "white" }}>
+                    {/* Hamburger icon */}
+                    <img className="relative w-5 h-5" src={Hamburger} />
+                </button>
                     <div className={`${isMenuOpen ? 'hidden' : 'hidden'} lg:flex items-center justify-between px-10 flex-grow w-full`}>
                         <div className="flex items-center gap-[2px]">
                             <Link as={Link} to="/about" style={{ textDecoration: 'none' }}>
