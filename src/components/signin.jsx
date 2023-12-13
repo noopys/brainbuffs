@@ -8,7 +8,7 @@ import { useAuth } from './AuthContext';
 
 function SignIn() {
   //console.log('SignIn component rendered');
-  const { isLoggedIn, user, login, logout } = useAuth();
+  const { isLoggedIn, user, userData, login, logout } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -41,11 +41,11 @@ function SignIn() {
   const handleSignIn = async () => {
     try {
       // use Amplify API to sign in
-      console.log("hello")
+      
       const userInfo = await Auth.signIn(username, password);
-      // set the email attribute
+      console.log("The userid is:", userInfo.attributes.sub)
 
-      login({email: userInfo.attributes.email});
+      await login({email: userInfo.attributes.email, username: userInfo.attributes.sub});
     } catch (error) {
       console.error('Sign-in error:', error);
       setErrorMessage(error.message);

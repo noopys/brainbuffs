@@ -11,7 +11,7 @@ const AccountManagement = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const { logout } = useAuth();
+  const { logout, userData } = useAuth();
 
   const buttonStyle = {
     backgroundColor: '#FF0000', // Blue color
@@ -99,6 +99,15 @@ const AccountManagement = () => {
               <button onClick={deleteUserAccount} style={buttonStyle}>
                 Delete My Account
               </button>
+              {/* TEMPORARY- USED TO SHOW HOW TO READ USERDATA */}
+              <ul>
+                {userData.map((item, index) => (
+                  <li key={index}>
+                    {/* Render each item's content here */}
+                    {JSON.stringify(item)} {/* Example: Render item as JSON */}
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
           {showChangePassword && (

@@ -1,6 +1,7 @@
 // AuthContext.js
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
+import AWS from 'aws-sdk';
 
 const AuthContext = React.createContext();
 
@@ -9,8 +10,12 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  // isLoggedIn- Boolean Value set true if user is logged in, false if they are not logged in
+  // user-      Data about the user. user.email has the email and user.username has the randomly generated username as shown in aws cognito
+  // userData-  An array that is fetched from dynamoDB. Each entry in the array belongs to the user and is a question with all its associated metadata
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     loadSessionToken();
@@ -20,7 +25,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const sessionToken = localStorage.getItem('sessionToken');
       if (sessionToken) {
-        // If session token is available, set the user and mark as logged in
         setIsLoggedIn(true);
         setUser(JSON.parse(sessionToken)); // Assuming sessionToken is a JSON string
       }
@@ -29,31 +33,65 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (userData) => {
-    // Set isLoggedIn to true and set user data upon successful login
-    setIsLoggedIn(true);
-    setUser(userData);
+  const fetchDataFromDynamoDB = async (username) => {
+    AWS.config.update({
+      accessKeyId: 'AKIA4QANJDW6PUIFWOO5',
+      secretAccessKey: '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',
+      region: 'us-east-1'
+    });
 
-    // Store the session token locally
-    localStorage.setItem('sessionToken', JSON.stringify(userData));
+    const dynamodb = new AWS.DynamoDB();
+
+    const params = {
+      TableName: 'QuestionDatabase',
+      KeyConditionExpression: 'UserId = :userId', // Replace 'UserId' with your actual partition key attribute name
+      ExpressionAttributeValues: {
+        ':userId': { S: username } // Replace with the specific partition key value you want to query
+      }
+    };
+    
+    try {
+      const dbRes = await dynamodb.query(params).promise();
+      if (dbRes && dbRes.Items && dbRes.Items.length > 0) {
+        console.log('Retrieved items from DynamoDB:', dbRes.Items);
+        // Set the retrieved data to user state
+        setUserData(dbRes.Items);
+        // Store user data in local storage
+        localStorage.setItem('userData', JSON.stringify(dbRes.Items));
+      } else {
+        console.log('No items found in DynamoDB with the specified partition key');
+        // Handle the case where no items are found for the partition key
+      }
+    } catch (error) {
+      console.error('Error fetching data from DynamoDB:', error);
+    }
+  };
+
+  const login = async (credentials) => {
+    setIsLoggedIn(true);
+    setUser(credentials);
+    localStorage.setItem('sessionToken', JSON.stringify(credentials));
+
+    // Fetch data from DynamoDB upon login
+    const username = credentials.username; // Assuming username is available in userData
+    console.log("fetching username", username);
+    if (username) {
+      await fetchDataFromDynamoDB(username);
+    }
   };
 
   const logout = async () => {
-    // Perform logout logic here
     await Auth.signOut();
-
-    // Clear the session token from localStorage
     localStorage.removeItem('sessionToken');
+    localStorage.removeItem('userData');
 
-    // Set isLoggedIn to false and clear user data
     setIsLoggedIn(false);
     setUser(null);
     window.location.href = './SuccessfulSignOut';
   };
 
-
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout}}>
+    <AuthContext.Provider value={{ isLoggedIn, user, userData, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
