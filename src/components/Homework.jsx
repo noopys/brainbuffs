@@ -1,93 +1,177 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+
 
 
 function Homework() {
 
   const question = {
-    //text: "What is the capital of France?",
     options: ["A", "B", "C", "D"],
-    imageUrl: "https://v5.airtableusercontent.com/v2/23/23/1701820800000/1snz1op_yIeeH-3BW5x-eQ/HWp8Csg5xqyqLunUDH_m9r-tHg5xYlwNzOcQFKuRHVhwpyz7G7K64SGf2L8i_lisCQdF_v9F3NPl0SmpMYn9ECuzk0tSW2pAhy7e4MOxU4kfx7Pt7UNgsuwZ-TdRy_Eh2qOOc8sslPZNWpCsurUvKw/s3DW-x9D1ftyTqQwmoZbk06mVOvJaIYBlqAY6zR73K4",
   };
 
-  const [formData, setFormData] = useState({
-    recordIds: [], 
-  });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const [response, setResponse] = useState(null);
+  const [recordId, setRecordId] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null)
+
+  //Select option
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const apiEndpoint = 'https://fm407nxajh.execute-api.us-west-2.amazonaws.com/createHomework';
-    
-    // Assuming recordIds is a comma-separated string, convert it to an array
-    const processedFormData = {
-      ...formData,
-      recordIds: formData.recordIds.split(',').map(id => id.trim())
+  //
+  const handleInputChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  //
+  const [questionData, setQuestionData] = useState({});
+  const fetchQuestion = async () => {
+    setSelectedOption(null);
+    setIsCorrect(null)
+    //Concepts
+    const userProfile = {
+      //"Easy": 1,
+      //"Medium":2, 
+      //"Hard":2,
+      "Very Hard": 1,
+    }
+    //
+    const userId = "User1"
+    const requestData = {
+      userId: userId,
+      userProfile: userProfile,
+    }
+    try {
+      // Using fetch instead of axios
+      const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getNextQuestion', {
+        method: 'POST', // GET is the default method, but it's good to be explicit
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData),
+        userId: "User1"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setRecordId(data.recordId)
+      setQuestionData(data);
+      console.log(data)
+    } catch (err) {
+      console.error('Error fetching question:', err);
+    }
+  };
+  //
+  const handleSubmit = async () => {
+    console.log(selectedOption)
+    console.log(questionData.answer)
+    const userCorrect = selectedOption == questionData.answer
+    if (userCorrect) {
+      setIsCorrect("correct")
+    }
+    else {
+      setIsCorrect("incorrect")
+    }
+    const data = {
+      UserId: 'userq23',
+      RecordId: recordId,
+      Answer: selectedOption,
+      CorrectAnswer: questionData.Answer,
+      IsCorrect: true
     };
 
     try {
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/gradeHomework', {
         method: 'POST',
-        mode: 'no-cors', // Note: 'no-cors' mode does not allow reading the response
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(processedFormData)
+        body: JSON.stringify(data)
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // Process your response here
-      console.log('Data sent successfully');
+      const responseData = await response.json();
+      setResponse(responseData);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Failed to grade homework:', error);
     }
   };
+  //Fetch first question
+  useEffect(() => {
+    fetchQuestion();
+  }, []);
 
   return (
     <>
-    {/* <form onSubmit={handleSubmit}>
-      <label htmlFor="recordIds">Record IDs:</label>
-      <input
-        type="text"
-        name="recordIds"
-        value={formData.recordIds}
-        onChange={handleChange}
-      />
-      {/* Include other form fields here
-      <button type="submit">Submit</button>
-    </form> */}
+      <div className="flex" style={{margin:'auto'}}>
+        <Card className="bg-light" style={{ width: '30rem',  marginTop: '20px' }}>
+          <Card.Body>
+            <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
+          </Card.Body>
+          {
+            ['A', 'B', 'C', 'D'].includes(questionData.answer) ? (
+              <ListGroup className="list-group-flush">
+                {question.options.map((option, index) => (
+                  <ListGroupItem
+                    key={index}
+                    action
+                    onClick={() => handleOptionClick(option)}
+                    style={{
+                      backgroundColor: selectedOption === option ? '#f0f0f0' : '',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {option}
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
+            ) : (
+              <input
+                type="text"
+                //value={selectedOption}
+                onChange={handleInputChange}
+                className="form-control mt-3"
+                placeholder="Enter your answer"
+              />
+            )
+          }
+        </Card>
+        <div className="flex flex-col ml-5 mt-3">
+          <button onClick={handleSubmit} className="btn btn-success mt-3">Check</button>
+          <button onClick={fetchQuestion} className="btn btn-dark mt-3">Next Question</button>
+          {
+            (isCorrect === "correct") && (
+              <div className="p-3 text-center">
+                <h2 className="text-xl font-bold">Correct!</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                  <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clipRule="evenodd" />
+                </svg>
+              </div>
+            )
+          }
+          {
+            (isCorrect === "incorrect") && (
+              <div className="p-3 text-center">
+                <h2 className="text-xl font-bold">Incorrect!</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                  <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                </svg>
 
-
-
-
-    {/*Question!!! */}
-    <div>
-      <Card className="bg-light" style={{ width: '30rem', margin: 'auto', marginTop: '20px' }}>
-      <Card.Body>
-      <Card.Img variant="top" style={{}}src={question.imageUrl} alt="Question Image" />
-      </Card.Body>
-      <ListGroup className="list-group-flush">
-        {question.options.map((option, index) => (
-          <ListGroupItem key={index} action>
-            {option}
-          </ListGroupItem>
-        ))}
-      </ListGroup>
-    </Card>
-    <button className="btn btn-primary mt-3">Check</button>
-    </div>
+              </div>
+            )
+          }
+        </div>
+      </div>
     </>
 
   );
 }
 
 export default Homework;
+
