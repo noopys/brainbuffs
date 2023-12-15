@@ -1,6 +1,30 @@
 const axios = require('axios');
+const AWS = require('aws-sdk');
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+async function alreadyDone(recordId, userId) {
+    const params = {
+        TableName: 'QuestionDatabase',
+        KeyConditionExpression: 'UserId = :userId AND RecordId = :recordId',
+        ExpressionAttributeValues: {
+            ':userId': userId,
+            ':recordId': recordId
+        }
+    };
+
+    try {
+        const data = await dynamoDb.query(params).promise();
+        return data.Items.length > 0;
+    } catch (error) {
+        console.error('DynamoDB Error:', error);
+        return false;
+    }
+}
 
 exports.handler = async (event) => {
+    const userId = JSON.parse(event.body).userId;
+    console.log("HELOOOO" + userId)
     const userProfile = typeof event.body === 'string' ? JSON.parse(event.body).userProfile : event.body.userProfile;
     const PAT = 'patSKk9n5NCk9gmDU.2dbbc7224b2d221d22a1e22881d14d12dbc05971d3bd977e8ff3168212e74cf6'; // Replace with your Airtable API key
     const BASE = 'app3eoH3GhFhdwRCz'; // Replace with your Airtable Base ID
@@ -20,7 +44,7 @@ exports.handler = async (event) => {
             throw new Error('No records found');
         }
         // Apply weighting algorithm
-        const weightedRecords = weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs); // Replace 'STUDENT_ID' with the actual student ID
+        const weightedRecords = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId); // Replace 'STUDENT_ID' with the actual student ID
         const selectedRecords = weightedRecords.map(record => record.id).filter(id => id !== "0");
         // Fetch details for selected records
         const details = await Promise.all(selectedRecords.map(async (recordId) => {
@@ -59,8 +83,7 @@ exports.handler = async (event) => {
         };
     }
 };
-
-function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs) {
+async function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs, userId) {
     let weightsArray = Array.from({ length: questions.length }, () => ({weight:0, id:"0"}));
     for (let i = 0; i < questions.length; i++) {
         let cons = questions[i].fields.Concepts
@@ -80,6 +103,10 @@ function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs) {
 
     for (let i = 0; i < weightsArray.length; i++) {
         let val = weightsArray[i];
+        //Check if done 
+        if (await alreadyDone(val.id, userId)) {
+            val.weight = 0;
+        }
         // Check if the current value is larger than the smallest of the top ten.
         if (val.weight > topTen[0].value) {
             // Insert the current value and index into the sorted topTen array.
@@ -88,4 +115,5 @@ function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs) {
         }
     }
     return topTen;
+    
 }

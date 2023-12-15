@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState([]);
+  console.log(userData)
 
   useEffect(() => {
     loadSessionToken();
@@ -41,9 +42,9 @@ export const AuthProvider = ({ children }) => {
     });
 
     const dynamodb = new AWS.DynamoDB();
-
+    console.log(username)
     const params = {
-      TableName: 'QuestionDatabase',
+      TableName: 'UserDatabase',
       KeyConditionExpression: 'UserId = :userId', // Replace 'UserId' with your actual partition key attribute name
       ExpressionAttributeValues: {
         ':userId': { S: username } // Replace with the specific partition key value you want to query
