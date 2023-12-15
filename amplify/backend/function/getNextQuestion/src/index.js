@@ -44,10 +44,12 @@ exports.handler = async (event) => {
             throw new Error('No records found');
         }
         // Apply weighting algorithm
-        const weightedRecords = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId); // Replace 'STUDENT_ID' with the actual student ID
-        const selectedRecords = weightedRecords.map(record => record.id).filter(id => id !== "0");
+        const selectedQuestion = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId); 
+        console.log(selectedQuestion)
+        // Replace 'STUDENT_ID' with the actual student ID
+        const selectedRecord = selectedQuestion.map(record => record.id).filter(id => id !== "0");
         // Fetch details for selected records
-        const details = await Promise.all(selectedRecords.map(async (recordId) => {
+        const details = await Promise.all(selectedRecord.map(async (recordId) => {
             const detailUrl = `https://api.airtable.com/v0/${BASE}/${TABLE}/${recordId}`;
             const detailResponse = await axios.get(detailUrl, {
                 headers: {
@@ -57,10 +59,7 @@ exports.handler = async (event) => {
             return detailResponse.data;
         }));
         
-        //Store needed values 
-        //console.log(details);
 
-        // Accessing the fields property of the details object
         const fields = details[0].fields;
         const imageUrl = fields['questionImage'] && fields['questionImage'].length > 0 ? fields['questionImage'][0].url : null;
         const answer = fields['Answer']; // Assuming 'Answer' is the correct field name
@@ -93,27 +92,20 @@ async function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs
                 //console.log("cycle" + cons[j] + "cons" + conceptsToLookFor[cons[j]])
                 if (cons[j] in conceptsToLookFor) {
                     weightsArray[i].weight+=conceptsToLookFor[cons[j]]
-                    weightsArray[i].id =questions[i].id
                 }
             }
         }
+        weightsArray[i].id =questions[i].id
     }
     //Find the 20 most fitting questions 
-    let topTen = Array.from({ length: numOfQs }, () => ({ value: -Infinity, id:"", index: -1 }));
-
-    for (let i = 0; i < weightsArray.length; i++) {
-        let val = weightsArray[i];
-        //Check if done 
-        if (await alreadyDone(val.id, userId)) {
-            val.weight = 0;
-        }
-        // Check if the current value is larger than the smallest of the top ten.
-        if (val.weight > topTen[0].value) {
-            // Insert the current value and index into the sorted topTen array.
-            topTen[0] = { value: val.weight, id:val.id, index: i };
-            topTen.sort((a, b) => a.value - b.value);
-        }
-    }
-    return topTen;
+    console.log(weightsArray)
+    weightsArray.sort((a, b) => b.weight - a.weight);
+    let index = 0; 
+    let nextQuestion =  weightsArray[0]
     
+    while(await alreadyDone(nextQuestion.id, userId)){
+        index++;
+        nextQuestion = weightsArray[index];
+    }
+    return [nextQuestion]
 }

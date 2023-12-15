@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import {useAuth} from './AuthContext'
+import { useAuth } from './AuthContext'
 
 
 function Homework() {
@@ -20,17 +20,17 @@ function Homework() {
   useEffect(() => {
     if (userData && userData.length > 0) {
       console.log(userData)
-      const userProf =userData[0]["UserProfile "].S;
+      const userProf = userData[0]["UserProfile "].S;
       console.log(userProf)
       setUserProfile(userProf);
     }
   }, [userData]);
-  
+
   useEffect(() => {
     console.log(userProfile)
     fetchQuestion();
   }, [userProfile]); // Add userProfile as a dependency
-  
+
   //console.log(userProfile)
   //Select option
   const [selectedOption, setSelectedOption] = useState(null);
@@ -56,8 +56,8 @@ function Homework() {
     // }
     //
     let userTemp = '';
-    if (user && user.username){
-      userTemp = user.username 
+    if (user && user.username) {
+      userTemp = user.username
     }
     let prof = JSON.parse(userProfile)
     const userId = userTemp;
@@ -126,16 +126,24 @@ function Homework() {
   };
 
   if (!isLoggedIn) {
-    return <div style={{paddingBottom:"100px", paddingTop:"50px", fontSize:"30px"}}>Please sign in to view the homework.</div>;
+    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view the homework.</div>;
   }
 
 
   return (
     <>
-      <div className="flex" style={{margin:'auto'}}>
-        <Card className="bg-light" style={{ width: '30rem',  marginTop: '20px' }}>
+      <div className="flex" style={{ margin: 'auto' }}>
+        <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
           <Card.Body>
-            <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
+            {/* <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" /> */}
+            {!questionData.imageUrl ? (
+              <div className="flex justify-center items-center h-64">
+                Question Image Loading .... If nothing loads press check then next question and wait again
+                {/* <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-12 w-12"></div> */}
+              </div>
+            ) : (
+              <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
+            )}
           </Card.Body>
           {
             ['A', 'B', 'C', 'D'].includes(questionData.answer) ? (
