@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { getOverrideProps } from "./utils";
 import { Text, View } from "@aws-amplify/ui-react";
 import CardBlog1 from "./CardBlog1";
 export default function PostsTall(props) {
