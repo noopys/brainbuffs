@@ -23,7 +23,7 @@
         },
         "getNextQuestion": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/getNextQuestion-37624862547a61543850-build.zip"
+          "s3Key": "amplify-builds/getNextQuestion-67726a53586e59576f72-build.zip"
         }
       },
       "auth": {

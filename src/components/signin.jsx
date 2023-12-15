@@ -57,8 +57,12 @@ function SignIn() {
 
   const handleSignIn = async () => {
     try {
+      // use Amplify API to sign in
+      
       const userInfo = await Auth.signIn(username, password);
-      login({ email: userInfo.attributes.email });
+      console.log("The userid is:", userInfo.attributes.sub)
+
+      await login({email: userInfo.attributes.email, username: userInfo.attributes.sub});
     } catch (error) {
       console.error('Sign-in error:', error);
       setErrorMessage(error.message);
