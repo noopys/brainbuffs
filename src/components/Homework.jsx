@@ -19,12 +19,15 @@ function Homework() {
   //console.log(userData[0]["UserProfile "].S)
   useEffect(() => {
     if (userData && userData.length > 0) {
+      console.log(userData)
       const userProf =userData[0]["UserProfile "].S;
+      console.log(userProf)
       setUserProfile(userProf);
     }
   }, [userData]);
   
   useEffect(() => {
+    console.log(userProfile)
     fetchQuestion();
   }, [userProfile]); // Add userProfile as a dependency
   
@@ -56,11 +59,11 @@ function Homework() {
     if (user && user.username){
       userTemp = user.username 
     }
-    console.log(userProfile)
+    let prof = JSON.parse(userProfile)
     const userId = userTemp;
     const requestData = {
       userId: userId,
-      userProfile: JSON.parse(userProfile),
+      userProfile: prof,
     }
     try {
       // Using fetch instead of axios
@@ -121,12 +124,9 @@ function Homework() {
       console.error('Failed to grade homework:', error);
     }
   };
-  //Fetch first question
-  // useEffect(() => {
-  //   fetchQuestion();
-  // }, []);
+
   if (!isLoggedIn) {
-    return <div>Please sign in to view the homework.</div>;
+    return <div style={{paddingBottom:"100px", paddingTop:"50px", fontSize:"30px"}}>Please sign in to view the homework.</div>;
   }
 
 

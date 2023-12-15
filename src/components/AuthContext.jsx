@@ -28,6 +28,12 @@ export const AuthProvider = ({ children }) => {
       if (sessionToken) {
         setIsLoggedIn(true);
         setUser(JSON.parse(sessionToken)); // Assuming sessionToken is a JSON string
+        // Fetch data from DynamoDB upon login
+        const username = JSON.parse(sessionToken).username; // Assuming username is available in userData
+        console.log(username)
+        if (username) {
+          await fetchDataFromDynamoDB(username);
+        }
       }
     } catch (error) {
       console.error('Error loading session token:', error);
