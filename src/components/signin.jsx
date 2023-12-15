@@ -76,7 +76,7 @@ function SignIn() {
   return (
     <div>
       <div style={containerStyle}>
-        <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '2em', fontWeight: 'bold', textTransform: 'capitalize'}}>{isLoggedIn ? 'You are signed in.' : 'Sign In'}</h1>
+        <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>{isLoggedIn ? 'You are signed in.' : 'Sign In'}</h1>
         {!isLoggedIn ? (
           <div>
             <div>
