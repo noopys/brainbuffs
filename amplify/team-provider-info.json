@@ -30,5 +30,28 @@
         "brainbuffseac976a0": {}
       }
     }
+  },
+  "testing": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-brainbuffs-testing-151129-authRole",
+      "UnauthRoleArn": "arn:aws:iam::859021319612:role/amplify-brainbuffs-testing-151129-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::859021319612:role/amplify-brainbuffs-testing-151129-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-brainbuffs-testing-151129-deployment",
+      "UnauthRoleName": "amplify-brainbuffs-testing-151129-unauthRole",
+      "StackName": "amplify-brainbuffs-testing-151129",
+      "StackId": "arn:aws:cloudformation:us-east-2:859021319612:stack/amplify-brainbuffs-testing-151129/104bf170-9c60-11ee-a7b4-06da8bcdf7db",
+      "AmplifyAppId": "dmzfjdoly6vyc"
+    },
+    "categories": {
+      "auth": {
+        "brainbuffseac976a0": {}
+      },
+      "function": {
+        "createHomework": {},
+        "getNextQuestion": {},
+        "gradeHomework": {}
+      }
+    }
   }
 }
