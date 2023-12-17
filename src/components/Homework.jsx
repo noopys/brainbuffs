@@ -20,7 +20,7 @@ function Homework() {
   useEffect(() => {
     if (userData && userData.length > 0) {
       console.log(userData)
-      const userProf = userData[0]["UserProfile "].S;
+      const userProf = userData[0]["UserProfile"].S;
       console.log(userProf)
       setUserProfile(userProf);
     }
@@ -46,6 +46,7 @@ function Homework() {
   //
   const [questionData, setQuestionData] = useState({});
   const fetchQuestion = async () => {
+    //Reset ouput of field
     setSelectedOption(null);
     setIsCorrect(null)
     //Concepts
@@ -165,7 +166,7 @@ function Homework() {
             ) : (
               <input
                 type="text"
-                //value={selectedOption}
+                value={selectedOption || ''}
                 onChange={handleInputChange}
                 className="form-control mt-3"
                 placeholder="Enter your answer"

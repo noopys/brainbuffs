@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
+import { useAuth } from './AuthContext'
+
 
 function SignUp() {
+  //Creds 
+  const { isLoggedIn, user, userData, login, logout } = useAuth();
   //sign up
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -55,11 +59,34 @@ function SignUp() {
         setErrorMessage("Passwords don't match");
         return;
       }
-      await Auth.signUp({username, password});
+      const signUpResponse = await Auth.signUp({username, password});
+      const UserId = signUpResponse.userSub;
       //await remember({email: username});
       console.log("signing up user", username);
       // Handle successful sign-up, such as showing a success message or redirecting the user
       //Add user to database 
+      //endpoint
+      const apiEndpoint = 'https://fm407nxajh.execute-api.us-west-2.amazonaws.com/addUser';
+      //request
+      try {
+        const result = await fetch(apiEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ UserId: UserId, UserProfile: '{"Hard":1}' }),
+        });
+  
+        if (!result.ok) {
+          throw new Error('Network response was not ok: ' + result.statusText);
+        }
+  
+        const data = await result.json();
+        //setResponse('Success: ' + JSON.stringify(data));
+      } catch (error) {
+        //setResponse('Error: ' + error.message);
+      }
+
       setVer(true);
     } catch (error) {
       console.error('Sign-up error:', error);
@@ -73,7 +100,6 @@ function SignUp() {
         setVerificationError('Verification code must be a 6-digit number');
         return;
       }
-      
       await Auth.confirmSignUp(username, verificationCode);
       setSucc(true);
     } catch (error) {
