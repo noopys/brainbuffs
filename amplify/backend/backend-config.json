@@ -28,6 +28,11 @@
     }
   },
   "function": {
+    "addUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createHomework": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -45,6 +50,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_addUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUser"
+        }
+      ]
+    },
     "AMPLIFY_function_createHomework_deploymentBucketName": {
       "usedBy": [
         {

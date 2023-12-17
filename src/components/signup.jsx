@@ -55,16 +55,15 @@ function SignUp() {
         setErrorMessage("Passwords don't match");
         return;
       }
-
       await Auth.signUp({username, password});
       //await remember({email: username});
       console.log("signing up user", username);
       // Handle successful sign-up, such as showing a success message or redirecting the user
+      //Add user to database 
       setVer(true);
     } catch (error) {
       console.error('Sign-up error:', error);
-      setErrorMessage(error.message);
-      // Handle sign-up errors, display an error message, etc.
+      setErrorMessage(error.message);      
     }
   };
 

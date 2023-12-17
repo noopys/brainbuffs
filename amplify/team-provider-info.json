@@ -24,6 +24,10 @@
         "getNextQuestion": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
           "s3Key": "amplify-builds/getNextQuestion-67726a53586e59576f72-build.zip"
+        },
+        "addUser": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/addUser-5a714a30766f76685774-build.zip"
         }
       },
       "auth": {
