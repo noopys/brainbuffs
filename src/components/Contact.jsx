@@ -1,13 +1,48 @@
 import React, { useState } from "react";
 
 const Contact = () => {
+  const [isMessageSent, setIsMessageSent] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: ""
   });
 
-  const [isMessageSent, setIsMessageSent] = useState(false);
+  const containerStyle = {
+    border: '1px solid #20a7a1',
+    padding: '20px',
+    borderRadius: '10px',
+    width: '400px',
+    margin: '50px auto',
+    fontFamily: 'Arial, sans-serif',
+    borderBottom: '1px solid #20a7a1',
+  };
+
+  const buttonStyle = {
+    backgroundColor: '#20a7a1',
+    color: '#fff',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    margin: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    width: '300px',
+  };
+
+  const inputStyle = {
+    padding: '12px',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+    fontSize: '16px',
+    width: '300px',
+    marginBottom: '10px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  };
+
+  
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,29 +70,29 @@ const Contact = () => {
   };
 
   return (
-  <div className="d-flex flex-column align-items-center p-3 bg-light min" >
+  <div>
+    <div style={containerStyle}>
       {isMessageSent ? (
         <div className="alert alert-success font-weight-bold">Message Sent!</div>
       ) : (
         <>
-          <p className=" h3 font-weight-bold mb-3 text-center"><strong>Fill out this form and one of our expert tutors will get back to you shortly!</strong></p>
-          <form className="w-100" style={{ maxWidth: '500px', paddingTop:"50px" }} onSubmit={handleSubmit} >
+          <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Contact Us</h1>
+          <p> Fill out this form and one of our expert tutors will get back to you shortly!</p>
+          <form onSubmit={handleSubmit} >
             <div className="form-group">
-              <label>Name:</label>
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="form-control" />
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} style= {inputStyle} className="form-control" placeholder="Name"/>
             </div>
             <div className="form-group">
-              <label>Email:</label>
-              <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form-control" />
+              <input type="email" name="email" value={formData.email} onChange={handleInputChange} style= {inputStyle} className="form-control" placeholder="Email"/>
             </div>
             <div className="form-group">
-              <label>Message:</label>
-              <textarea name="message" value={formData.message} onChange={handleInputChange} className="form-control" rows="5"></textarea>
+              <textarea name="message" value={formData.message} onChange={handleInputChange} style= {inputStyle} className="form-control" rows="5" placeholder="Message"></textarea>
             </div>
-            <button type="submit" className="btn btn-primary mt-2">Submit</button>
+            <button type="submit" style={(buttonStyle)}>Submit</button>
           </form>
         </>
       )}
+      </div>
     </div>
   );
 };

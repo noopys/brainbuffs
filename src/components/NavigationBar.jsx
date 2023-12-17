@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../resources/flatirons.png';
@@ -29,7 +28,7 @@ const NavigationBar = () => {
     };
 
     return (
-        <nav className="bg-white shadow-lg rounded-lg shadow" style={{}}>
+        <nav className="bg-white rounded-lg" style={{}}>
             <div >
                 <div className="flex justify-start items-center py-2 w-full">
                 <Link as={Link} to="/" style={{ textDecoration: 'none' }}>

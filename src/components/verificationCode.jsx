@@ -8,13 +8,35 @@ const VerificationCodeEntry = () => {
   const [verificationError, setVerificationError] = useState('');
   const [succ, setSucc] = useState(false);
 
+  const containerStyle = {
+    border: '1px solid #20a7a1',
+    padding: '20px',
+    borderRadius: '10px',
+    width: '400px',
+    margin: '50px auto',
+    fontFamily: 'Arial, sans-serif',
+    borderBottom: '1px solid #20a7a1',
+  };
+
   const buttonStyle = {
-    backgroundColor: '#007bff', // Blue color
-    color: '#fff', // White text
-    padding: '8px 16px', // Adjust padding as needed
-    border: 'none', // Remove border if needed
-    borderRadius: '4px', // Add border-radius if needed
-    cursor: 'pointer', // Show pointer on hover
+    backgroundColor: '#20a7a1',
+    color: '#fff',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    margin: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    width: '300px',
+  };
+
+  const inputStyle = {
+    padding: '12px',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+    fontSize: '16px',
+    width: '300px',
+    marginBottom: '10px',
   };
 
   const handleVerification = async () => {
@@ -36,6 +58,7 @@ const VerificationCodeEntry = () => {
 
   return (
     <div>
+      <div style={containerStyle}>
       { succ ? (
         <div> 
           <h2>You have successfully made an account!</h2>
@@ -44,20 +67,15 @@ const VerificationCodeEntry = () => {
         </div> 
       ) : (
       <div> 
-        <h2>Please Enter the Verification Code Sent to Your Email</h2>
-        <h5>If you did not receive an email, please check your spam folder.</h5>
+        <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Email Verification</h1>
+        <p>Enter the verification code sent to your email.</p>
+        <p>If you did not receive an email, please check your spam folder.</p>
         <input
           type="text"
           placeholder="Email"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{
-            marginBottom: '10px',
-            padding: '10px',
-            border: '1px solid #ccc',
-            borderRadius: '5px',
-            fontSize: '16px',
-          }}
+          style={inputStyle}
         />
         <br></br>
         <input
@@ -65,19 +83,13 @@ const VerificationCodeEntry = () => {
           placeholder="Verification Code"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
-          style={{
-            marginBottom: '10px',
-            padding: '10px',
-            border: '1px solid #ccc',
-            borderRadius: '5px',
-            fontSize: '16px',
-          }}
+          style={inputStyle}
         />
         <br></br>
         <button onClick={handleVerification} style={buttonStyle}>Verify</button>
         {verificationError && <p>{verificationError}</p>}
       </div>) }
-      
+      </div>
     </div>
   );
 };

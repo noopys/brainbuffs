@@ -11,28 +11,42 @@ const ForgotPassword = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [successMessagetwo, setSuccessMessagetwo] = useState('');
 
-  const buttonStyle = {
-    backgroundColor: '#007bff', // Blue color
-    color: '#fff', // White text
-    padding: '8px 16px', // Adjust padding as needed
-    border: 'none', // Remove border if needed
-    borderRadius: '4px', // Add border-radius if needed
-    cursor: 'pointer', // Show pointer on hover
+  const containerStyle = {
+    border: '1px solid #20a7a1',
+    padding: '20px',
+    borderRadius: '10px',
+    width: '400px',
+    margin: '50px auto',
+    fontFamily: 'Arial, sans-serif',
+    borderBottom: '1px solid #20a7a1',
   };
 
-  const fieldStyle = {
-    marginBottom: '10px',
-    padding: '10px',
+  const buttonStyle = {
+    backgroundColor: '#20a7a1',
+    color: '#fff',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    margin: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    width: '300px',
+  };
+
+  const inputStyle = {
+    padding: '12px',
     border: '1px solid #ccc',
-    borderRadius: '5px',
+    borderRadius: '6px',
     fontSize: '16px',
+    width: '300px',
+    marginBottom: '10px',
   };
 
   const handleForgotPassword = async () => {
     try {
       await Auth.forgotPassword(username);
       setSuccessMessage(
-        'Email verification code sent to email. Please enter your verificaiton code and new password below.'
+        'Verification code sent to email. Please enter your verificaiton code and new password below.'
       );
       setVerification(true);
     } catch (error) {
@@ -51,7 +65,7 @@ const ForgotPassword = () => {
       await Auth.forgotPasswordSubmit(username, verificationCode, newPassword);
       setSuccessMessagetwo('Password reset confirmed successfully. You will be redirected to the sign in page shortly.');
       // Redirect the user to the login page or display a success message
-      const logoutDelay = 7000; // 2 seconds delay (adjust as needed)
+      const logoutDelay = 5000; // 2 seconds delay (adjust as needed)
       setTimeout(() => {
         window.location.href = './signin';
       }, logoutDelay);
@@ -62,15 +76,15 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
+    <div style={containerStyle}>
       <h2>Forgot Password</h2>
       <div>
-        <label>Email:</label>
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={fieldStyle}
+          placeholder='Email'
+          style={inputStyle}
         />
       </div>
       <button onClick={handleForgotPassword} style={buttonStyle}>Send Reset Instructions</button>
@@ -84,7 +98,7 @@ const ForgotPassword = () => {
           type="text"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
-          style={fieldStyle}
+          style={inputStyle}
         />
         {verificationError && <p>{verificationError}</p>}
         <br></br>
@@ -93,7 +107,7 @@ const ForgotPassword = () => {
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          style={fieldStyle}
+          style={inputStyle}
         />
         <br></br>
         <button onClick={confirmPasswordReset} style={buttonStyle}>Reset Password</button>

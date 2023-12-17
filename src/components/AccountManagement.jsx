@@ -13,6 +13,16 @@ const AccountManagement = () => {
 
   const { logout, userData } = useAuth();
 
+  const containerStyle = {
+    border: '1px solid #20a7a1',
+    padding: '20px',
+    borderRadius: '10px',
+    width: '400px',
+    margin: '50px auto',
+    fontFamily: 'Arial, sans-serif',
+    borderBottom: '1px solid #20a7a1',
+  };
+
   const buttonStyle = {
     backgroundColor: '#FF0000', // Blue color
     color: '#fff', // White text
@@ -20,6 +30,7 @@ const AccountManagement = () => {
     border: 'none', // Remove border if needed
     borderRadius: '4px', // Add border-radius if needed
     cursor: 'pointer', // Show pointer on hover
+    width: '300px',
   };
 
   const fieldStyle = {
@@ -28,6 +39,7 @@ const AccountManagement = () => {
     border: '1px solid #ccc',
     borderRadius: '5px',
     fontSize: '16px',
+    width: '300px',
   };
 
   useEffect(() => {
@@ -57,7 +69,7 @@ const AccountManagement = () => {
       setSuccessMessage('Account deleted successfully, you will be redirected to the sign in screen');
       console.log('Account deleted successfully, you will be redirected to the sign in screen');
 
-      const logoutDelay = 10000; // 2 seconds delay (adjust as needed)
+      const logoutDelay = 5000; // 2 seconds delay (adjust as needed)
       setTimeout(() => {
         logout();
       }, logoutDelay);
@@ -75,7 +87,7 @@ const AccountManagement = () => {
       // Handle successful password change, e.g., show a success message
       setSuccessMessage('Password changed successfully, you will be redirected to the sign in screen');
 
-      const logoutDelay = 10000; // 2 seconds delay (adjust as needed)
+      const logoutDelay = 5000; // 2 seconds delay (adjust as needed)
       setTimeout(() => {
         logout();
       }, logoutDelay);
@@ -87,6 +99,7 @@ const AccountManagement = () => {
 
   return (
     <div>
+      <div style={containerStyle}>
       {user && (
         <div>
           {!showChangePassword && (
@@ -99,52 +112,38 @@ const AccountManagement = () => {
               <button onClick={deleteUserAccount} style={buttonStyle}>
                 Delete My Account
               </button>
-              {/* TEMPORARY- USED TO SHOW HOW TO READ USERDATA */}
-              <ul>
-                {userData.map((item, index) => (
-                  <li key={index}>
-                    {/* Render each item's content here */}
-                    {JSON.stringify(item)} {/* Example: Render item as JSON */}
-                  </li>
-                ))}
-              </ul>
             </div>
           )}
           {showChangePassword && (
             <div>
-              <h2>Changing the password for {user.attributes.email}</h2>
+              <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Password Change</h1>
+              <p>Currently logged in with {user.attributes.email}</p>
               <div>
-                <label>
-                  Old Password: 
-                  <input
-                    type="password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    style={fieldStyle}
-                  />
-                </label>
+                <input
+                  type="password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  placeholder="Old Password"
+                  style={fieldStyle}
+                />
               </div>
               <div>
-                <label>
-                  New Password: 
-                  <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    style={fieldStyle}
-                  />
-                </label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="New Password"
+                  style={fieldStyle}
+                />
               </div>
               <div>
-                <label>
-                  Confirm New Password:
-                  <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    style={fieldStyle}
-                  />
-                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm New Password"
+                  style={fieldStyle}
+                />
               </div>
               <button onClick={handleChangePassword} style={buttonStyle}>
                 Change Password
@@ -158,6 +157,7 @@ const AccountManagement = () => {
                   border: 'none', // Remove border if needed
                   borderRadius: '4px', // Add border-radius if needed
                   cursor: 'pointer', // Show pointer on hover
+                  width: '300px'
                 }}>
                 Go Back
               </button>
@@ -167,6 +167,7 @@ const AccountManagement = () => {
         </div>
       )}
       {!user && <p>Loading user data...</p>}
+    </div>
     </div>
   );
 };
