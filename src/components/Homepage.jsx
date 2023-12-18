@@ -9,7 +9,7 @@ export default function Homepage(props) {
         <div className=" d-flex flex-column align-items-center p-3 bg-light min" style={{ }}>
             <h1 className="mt-1" style={{lineHeight:"1"}}>Top SAT tutoring program in the Denver/Boulder area</h1>
             <h2 className="text-center mb-4 display-6" style={{ paddingTop: "15px" }}>
-                Improve SAT your score today. Get into your dream school tomorrow.
+                Improve your SAT score today. Get into your dream school tomorrow.
             </h2>
 
             <div className="h4 mb-1">Our students improve their scores by 100+ points</div>
