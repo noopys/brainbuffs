@@ -1,7 +1,9 @@
-import React from 'react'; 
+import React from 'react';
 
 const Frame = () => {
-    return (
+  return (
+    <div className="flex justify-center items-center">
+      <div className="w-full max-w-[1920px] overflow-hidden">
       <div className="relative w-full h-[3266px] text-left text-21xl text-gray-300 font-inter">
         <div className="absolute w-full top-[1701px] right-[-4px] left-[4px] bg-whitesmoke-200 flex flex-row items-center justify-start py-0 pr-[431.8599853515625px] pl-[448px] box-border gap-[419px] text-base-8">
           <div className="flex-1 relative h-[365.2px]">
@@ -324,8 +326,9 @@ const Frame = () => {
           <div className="self-stretch relative bg-white h-[72px] mt-[-21px]" />
         </div>
       </div>
-    );
-  };
-  
-  export default Frame;
-  
+      </div>
+    </div>
+  );
+};
+
+export default Frame;
