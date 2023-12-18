@@ -119,7 +119,7 @@ function SignUp() {
         )
       ) : (
         <div>
-          <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Up</h1>
+          <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Up</h1>
           <div
             style={{
               display: 'flex',

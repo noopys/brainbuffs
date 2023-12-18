@@ -19,7 +19,7 @@ function SignOutSuccess() {
 
   return (
     <div>
-      <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Out Successful</h1>
+      <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Out Successful</h1>
       <a href="./signin"><button style={buttonStyle}>Sign In</button></a>
       <br></br>
       <img src={brainbuffs} alt="Your Alt Text" />

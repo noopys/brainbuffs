@@ -3,6 +3,12 @@ import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
 
 export default function FAQ() {
+  const lineStyle = {
+    border: 'none',
+    borderTop: '1px solid #20a7a1', // Match the border style
+    margin: '30px auto',
+    width: '650px',
+  };
 
   return (
     <div className="w-full px-8 pt-16 ">
@@ -109,6 +115,8 @@ export default function FAQ() {
           )}
         </Disclosure>
       </div>
+      <div style={lineStyle}></div>
+      <p>Still can't find what you're looking for? <a href="./contact" style={{textDecoration: 'none'}}>Contact Us</a></p>
     </div>
   )
 }

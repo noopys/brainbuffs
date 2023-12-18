@@ -77,7 +77,7 @@ const ForgotPassword = () => {
 
   return (
     <div style={containerStyle}>
-      <h2>Forgot Password</h2>
+      <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Forgot Password</h1>
       <div>
         <input
           type="text"
