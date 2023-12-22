@@ -28,6 +28,10 @@
         "addUser": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
           "s3Key": "amplify-builds/addUser-5a714a30766f76685774-build.zip"
+        },
+        "updateUserProfile": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/updateUserProfile-5270546b56474a4e506c-build.zip"
         }
       },
       "auth": {

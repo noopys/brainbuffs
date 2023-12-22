@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from './AuthContext'
-
+import {updateUser} from './helpers/updateUser';
 
 function Homework() {
 
@@ -60,6 +60,9 @@ function Homework() {
     if (user && user.username) {
       userTemp = user.username
     }
+    //UpdateUser
+    const test = updateUser(userTemp); 
+    //
     let prof = JSON.parse(userProfile)
     const userId = userTemp;
     const requestData = {
@@ -127,7 +130,7 @@ function Homework() {
   };
 
   if (!isLoggedIn) {
-    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view the homework.</div>;
+    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view homework.</div>;
   }
 
 
