@@ -67,7 +67,7 @@ const VerificationCodeEntry = () => {
         </div> 
       ) : (
       <div> 
-        <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Email Verification</h1>
+        <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Email Verification</h1>
         <p>Enter the verification code sent to your email.</p>
         <p>If you did not receive an email, please check your spam folder.</p>
         <input
