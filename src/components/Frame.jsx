@@ -11,15 +11,15 @@ const Frame = () => {
           <div className="flex flex-col items-center justify-start">
 
             {/* Section 1 */}
-            <div className="flex items-center justify-center p-4">
+            <div className="flex items-center justify-center">
               {/* Content for Section 1 */}
               <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:gap-48 xl:text-whitesmoke-200">
                 <div className="self-stretch overflow-hidden flex flex-col items-center justify-start pt-1 px-0 pb-0.0000152587890625px">
                   <div className="self-stretch bg-gray-300 flex flex-col lg:flex-row items-center justify-start">
                     {/* Section 1.1: Top SAT tutoring program text */}
-                    <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
+                    <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                       <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-5 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
-                        <h1 className="self-stretch relative xl:h-10 text-whitesmoke-200 text-9xl md:text-6xl lg:text-7xl xl:text-8xl">
+                        <h1 className="self-stretch relative xl:h-full text-whitesmoke-200 text-9xl md:text-6xl lg:text-7xl xl:text-8xl">
                           Top SAT tutoring program in the Denver/Boulder area
                         </h1>
                       </div>
@@ -33,12 +33,17 @@ const Frame = () => {
                       </div>
                     </div>
                     {/* Section 1.2: Image */}
-                    <div className="xl:w-full lg:w-full bg-gray-300 xl:flex xl:flex-col xl:items-center xl:justify-center">
-                      <img
-                        className="self-stretch relative max-w-full overflow-hidden xl:h-504px shrink-0 object-cover"
-                        alt=""
-                        src="/lpheaderstatic-01transparent1440x960png@2x.png"
-                      />
+                    <div className="xl:w-full lg:w-full bg-gray-300 xl:flex xl:flex-col xl:items-center xl:justify-center p-12">
+                      <video
+                        className="w-full h-auto object-cover rounded-lg"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source  src={"/demo_video.mp4"} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
                   </div>
                   {/* Section 1.3: "All the SAT tools you need in one plan" */}
@@ -187,14 +192,14 @@ const Frame = () => {
                 </div>
               </div>
             </div>
-          
+
             {/* Section 5 */}
             <div className="flex flex-col items-center justify-center p-10">
               {/* Content for Section 5 */}
               {/* <div className="absolute w-full top-[2066px] right-[-4px] left-[4px] bg-white flex flex-col items-start justify-start py-[68px] px-[171px] box-border gap-[85px] text-[48px] text-darkslategray-200 font-roboto"> */}
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start gap-[50px] lg:flex-col lg:items-center">
-                <div className="leading-[55.2px] font-medium flex items-center w-[255.1px] h-14 shrink-0 ml-[133px]">
-                  Leadership
+                <div className="leading-[55.2px] font-small flex items-center w-[355.1px] h-14 shrink-0 ml-[133px]">
+                  Meet the Team
                 </div>
                 <div className="self-stretch  flex flex-col items-center justify-start gap-4 xl:flex-row lg:gap-[42px] text-5xl text-gray-200">
                   {/* Logan's Section */}
@@ -202,7 +207,7 @@ const Frame = () => {
                     <img
                       className="flex-1 relative max-w-full overflow-hidden h-[294px] object-cover"
                       alt=""
-                      src="/loganvab-1@2x.png"
+                      src="/mattHeadshot.jpg"
                     />
                     <div className="flex-1 overflow-hidden flex flex-col items-start justify-start gap-[6px]">
                       <div className="self-stretch h-[62px] overflow-hidden shrink-0 flex flex-row items-center justify-start gap-[8px]">
@@ -211,7 +216,7 @@ const Frame = () => {
                           <span className="w-full">
                             <p className="m-0">Logan Schottland</p>
                             <p className="m-0 text-darkslategray-100">
-                              Co-founder and CEO
+                              Co-founder
                             </p>
                           </span>
                         </div>
@@ -242,7 +247,7 @@ const Frame = () => {
                           <span className="w-full">
                             <p className="m-0">Sandy Dinegar</p>
                             <p className="m-0 text-darkslategray-100">
-                              Co-founder and CEO
+                              Co-founder
                             </p>
                           </span>
                         </div>

@@ -57,7 +57,7 @@ function App() {
               <NavigationBar />
             </div>
           </header>
-          <div className="container-fluid flex-grow-1 d-flex flex-column vw-100" >
+          <div className= "vw-100" >
             <Routes className="d-flex flex-column flex-grow-1">
               <Route path="/" element={<Homepage />} />
               <Route
