@@ -19,8 +19,8 @@ const Frame = () => {
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                       <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-5 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
-                        <h1 className="self-stretch relative xl:h-full text-whitesmoke-200 text-9xl md:text-6xl lg:text-7xl xl:text-8xl">
-                          Top SAT tutoring program in the Denver/Boulder area
+                        <h1 className="self-stretch relative xl:h-full text-whitesmoke-200 text-9xl md:text-6xl lg:text-7xl xl:text-11xl">
+                          Transform your SAT Study with adaptive custom homework
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:py-2 xl:px-2 xl:text-15.9px">
