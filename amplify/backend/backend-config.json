@@ -28,6 +28,11 @@
     }
   },
   "function": {
+    "addUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createHomework": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -42,6 +47,93 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "updateUserProfile": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_addUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_createHomework_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_createHomework_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_getNextQuestion_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getNextQuestion"
+        }
+      ]
+    },
+    "AMPLIFY_function_getNextQuestion_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getNextQuestion"
+        }
+      ]
+    },
+    "AMPLIFY_function_gradeHomework_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gradeHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_gradeHomework_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gradeHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_updateUserProfile_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "updateUserProfile"
+        }
+      ]
+    },
+    "AMPLIFY_function_updateUserProfile_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "updateUserProfile"
+        }
+      ]
     }
   }
 }

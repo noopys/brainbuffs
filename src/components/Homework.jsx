@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from './AuthContext'
-
+import {updateUser} from './helpers/updateUser';
 
 function Homework() {
 
@@ -20,7 +20,7 @@ function Homework() {
   useEffect(() => {
     if (userData && userData.length > 0) {
       console.log(userData)
-      const userProf = userData[0]["UserProfile "].S;
+      const userProf = userData[0]["UserProfile"].S;
       console.log(userProf)
       setUserProfile(userProf);
     }
@@ -46,14 +46,10 @@ function Homework() {
   //
   const [questionData, setQuestionData] = useState({});
   const fetchQuestion = async () => {
+    //Reset ouput of field
     setSelectedOption(null);
     setIsCorrect(null)
-    //Concepts
-    // const userProfile = {
-    //   //"Easy": 1,
-    //   //"Medium":2, 
-    //   "Hard":2
-    // }
+
     //
     let userTemp = '';
     if (user && user.username) {
@@ -88,6 +84,19 @@ function Homework() {
   };
   //
   const handleSubmit = async () => {
+    //Take in current User Profile, Question They are on and the answer they selected and update the profile based on the question
+    let userTemp = '';
+    if (user && user.username) {
+      userTemp = user.username
+    }
+    let prof = JSON.parse(userProfile)
+    const userId = userTemp;
+    const requestData = {
+      userId: userId,
+      userProfile: prof,
+    }
+    updateUser(userTemp, questionData, selectedOption); 
+    //
     console.log(selectedOption)
     console.log(questionData.answer)
     const userCorrect = selectedOption == questionData.answer
@@ -125,8 +134,9 @@ function Homework() {
     }
   };
 
+  //Don't show homework if user is not logged in 
   if (!isLoggedIn) {
-    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view the homework.</div>;
+    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view homework.</div>;
   }
 
 
@@ -165,7 +175,7 @@ function Homework() {
             ) : (
               <input
                 type="text"
-                //value={selectedOption}
+                value={selectedOption || ''}
                 onChange={handleInputChange}
                 className="form-control mt-3"
                 placeholder="Enter your answer"
