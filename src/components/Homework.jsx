@@ -49,20 +49,12 @@ function Homework() {
     //Reset ouput of field
     setSelectedOption(null);
     setIsCorrect(null)
-    //Concepts
-    // const userProfile = {
-    //   //"Easy": 1,
-    //   //"Medium":2, 
-    //   "Hard":2
-    // }
+
     //
     let userTemp = '';
     if (user && user.username) {
       userTemp = user.username
     }
-    //UpdateUser
-    const test = updateUser(userTemp); 
-    //
     let prof = JSON.parse(userProfile)
     const userId = userTemp;
     const requestData = {
@@ -92,6 +84,19 @@ function Homework() {
   };
   //
   const handleSubmit = async () => {
+    //Take in current User Profile, Question They are on and the answer they selected and update the profile based on the question
+    let userTemp = '';
+    if (user && user.username) {
+      userTemp = user.username
+    }
+    let prof = JSON.parse(userProfile)
+    const userId = userTemp;
+    const requestData = {
+      userId: userId,
+      userProfile: prof,
+    }
+    updateUser(userTemp, questionData, selectedOption); 
+    //
     console.log(selectedOption)
     console.log(questionData.answer)
     const userCorrect = selectedOption == questionData.answer
@@ -129,6 +134,7 @@ function Homework() {
     }
   };
 
+  //Don't show homework if user is not logged in 
   if (!isLoggedIn) {
     return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view homework.</div>;
   }
