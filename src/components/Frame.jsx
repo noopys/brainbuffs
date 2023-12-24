@@ -1,7 +1,13 @@
 import React from 'react';
+import PricingCard from './PricingCard';
 import { Link } from 'react-router-dom';
 
 const Frame = () => {
+  const freePlan = [
+    "Diagnostic Test",
+    "Full test breakdown",
+    "Free consultation from one of our expert tutors",
+  ];
   return (
     <div className="flex justify-center items-center mt-5%">
       <div className="w-full max-w-[1920px] ">
@@ -15,7 +21,7 @@ const Frame = () => {
               {/* Content for Section 1 */}
               <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:gap-48 xl:text-whitesmoke-200">
                 <div className="self-stretch overflow-hidden flex flex-col items-center justify-start pt-1 px-0 pb-0.0000152587890625px">
-                  <div className="self-stretch bg-gray-300 flex flex-col lg:flex-row items-center justify-start">
+                  <div className="self-stretch bg-gray-300 flex flex-col lg:flex-row items-center justify-start lg:h-[550px]">
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                       <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-5 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
@@ -41,7 +47,7 @@ const Frame = () => {
                         muted
                         playsInline
                       >
-                        <source  src={"/demo_video.mp4"} type="video/mp4" />
+                        <source src={"/demo_video.mp4"} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -66,63 +72,13 @@ const Frame = () => {
             </div>
 
             {/* Section 2 */}
-            <div className="flex items-center justify-center p-4">
+            <div className="flex items-center justify-center p-0">
               {/* Content for Section 2 */}
               <div className="relative bg-white">
-                <div className="container mx-auto px-4 py-8 lg:py-12 xl:py-16">
-                  <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-2">
-                    {/* Bundle Option 1 */}
-                    <div className="rounded-xl bg-whitesmoke-100">
-                      <div className="text-center sm:text-left">
-                        <h1 className="text-3xl sm:text-5xl xl:text-5xl font-bold">
-                          Buff Boost "Homework Only" Program
-                        </h1>
-                        <div className="text-4xl sm:text-2xl xl:text-2xl ">
-                          $50
-                        </div>
-
-                        <div className="rounded-xl bg-whitesmoke-100 p-8">
-                          <div className="text-2xl  mb-4">
-                            Four weekly expert-crafted SAT assignments, powered by our in-house AI
-                          </div>
-                          <div className="text-2xl  mb-4">
-                            Continuous expert tutor support, available 24/7
-                          </div>
-                          <div className="text-2xl mb-4">
-                            Ideal for additional practice between sessions. Continuous expert tutor support available 24/7.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bundle Option 2 */}
-                    <div className="rounded-xl bg-whitesmoke-100">
-                      <div className="text-center sm:text-left">
-                        <div className="text-3xl sm:text-5xl xl:text-5xl font-bold">
-                          Dream School Custom Tutoring Bundle
-                        </div>
-                        <div className="text-4xl sm:text-2xl xl:text-2xl ">
-                          $200
-                        </div>
-
-                        <div className="rounded-xl bg-whitesmoke-100 p-8">
-                          <div className="text-2xl  mb-4">
-                            Four weekly expert-crafted SAT assignments, powered by our in-house AI
-                          </div>
-                          <div className="text-2xl  mb-4">
-                            Continuous expert tutor support, available 24/7
-                          </div>
-                          <div className="text-2xl  mb-4">
-                            Four 60-minute 1-on-1 SAT tutoring sessions with our experts
-                          </div>
-                          <div className="text-2xl  mb-4">
-                            Ideal for students seeking a 100+ point score enhancement
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">
+                  <PricingCard rows={freePlan} />
+                  <PricingCard rows={freePlan} />
+                  <PricingCard rows={freePlan} />
                 </div>
                 <div className="relative bg-white h-16 mt-[-16px]" />
               </div>
