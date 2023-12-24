@@ -164,8 +164,12 @@ function Homework() {
                     action
                     onClick={() => handleOptionClick(option)}
                     style={{
-                      backgroundColor: selectedOption === option ? '#f0f0f0' : '',
-                      cursor: 'pointer'
+                      backgroundColor: selectedOption === option ? '#20a7a1' : '', // more distinct color
+                      border: selectedOption === option ? '2px solid #388E3C' : '', // add border
+                      color: selectedOption === option ? 'white' : '', // change text color
+                      fontWeight: selectedOption === option ? 'bold' : '', // make text bold
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease', // smooth transition for changes
                     }}
                   >
                     {option}
@@ -184,7 +188,7 @@ function Homework() {
           }
         </Card>
         <div className="flex flex-col ml-5 mt-3">
-          <button onClick={handleSubmit} className="btn btn-success mt-3">Check</button>
+          <button style={{backgroundColor:"#20a7a1"}} onClick={handleSubmit} className="btn btn-success mt-3">Check</button>
           <button onClick={fetchQuestion} className="btn btn-dark mt-3">Next Question</button>
           {
             (isCorrect === "correct") && (
