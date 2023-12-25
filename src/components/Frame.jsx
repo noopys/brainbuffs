@@ -7,7 +7,21 @@ const Frame = () => {
   const freePlan = [
     "Diagnostic Test",
     "Full test breakdown",
-    "Free consultation from one of our expert tutors",
+    "Consultation from an expert tutor",
+  ];
+  const practicePlan = [
+    "Diagnostic Test",
+    "Full test breakdown",
+    "Consultation from an expert tutor",
+    "Access to our Adaptive Homework System"
+  ];
+  const proPlan = [
+    "Diagnostic Test",
+    "Full test breakdown",
+    "Consultation from an expert tutor",
+    "Access to our Adaptive Homework System",
+    "One hour a week 1 on 1 instruction with an expert tutor",
+    "24/7 Support from our team of experts"
   ];
   return (
     <div className="flex justify-center items-center mt-5%">
@@ -38,14 +52,16 @@ const Frame = () => {
                       <div className="self-stretch xl:h-146.4px flex flex-col items-start justify-start px-0 box-border xl:gap-21px text-base text-gray-300">
                         <div className="xl:w-6 xl:h-6 overflow-hidden shrink-0 ml-134px" />
                       </div>
-                      <div className="pt-2 ml-96 w-16 h-4">
-                        <button
-                          className="hover:bg-transparent text-white font-bold py-2 px-20"
-                          style={{ backgroundColor: '#20a7a1', minWidth: 'fit-content' }}
-                        >
-                          Click me
-                        </button>
+                      <div className="pt-2 pl-12 pb-2">
+                        <Link to="/signup">
 
+                          <button
+                            className="hover:bg-transparent text-white text-sm font-bold py-4 px-8"
+                            style={{ backgroundColor: '#20a7a1' }}
+                          >
+                            <span style={{ fontSize: "18px" }}>Sign Up -></span>
+                          </button>
+                        </Link>
                       </div>
                     </div>
                     {/* Section 1.2: Image */}
@@ -86,9 +102,9 @@ const Frame = () => {
               {/* Content for Section 2 */}
               <div className="relative bg-white">
                 <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">
-                  <PricingCard rows={freePlan} price="0" />
-                  <PricingCard rows={freePlan} price="20" />
-                  <PricingCard rows={freePlan} price="40" />
+                  <PricingCard rows={freePlan} title="Free" price="0" />
+                  <PricingCard rows={practicePlan} title="Practice" price="50" />
+                  <PricingCard rows={proPlan} title="Pro" price="200" />
                 </div>
                 <div className="relative bg-white h-16 mt-[-16px]" />
               </div>
@@ -201,7 +217,7 @@ const Frame = () => {
               <div className="flex-1 relative leading-[48px] font-medium" style={{ paddingRight: '20px' }}>
                 Try BrainBuffs for yourself and see what's possible
               </div>
-              <Link to="/signup">
+              <Link to="/signup" style={{ textDecoration: "none" }}>
                 <button
                   className="flex-1 rounded-[10px] bg-darkslateblue shadow-[0px_0px_1px_rgba(0,_0,_0,_0.32),_0px_0px_2px_rgba(0,_0,_0,_0.08),_0px_1px_3px_rgba(45,_127,_249,_0.28),_0px_0px_0px_0.5px_rgba(0,_0,_0,_0.06)_inset] 
                h-[43px] overflow-hidden flex flex-col items-center justify-center text-center text-[20px] text-white"

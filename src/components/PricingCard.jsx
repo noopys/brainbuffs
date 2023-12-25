@@ -1,10 +1,10 @@
 import React from "react";
 import TickSquare from '../resources/icons/tick_square.svg';
 
-function PricingCard({ rows, price }) {
+function PricingCard({ rows, price, title }) {
     return (
-        <div className="flex flex-col gap-10 m-6 p-6 w-[380px] h-[583px] bg-white border border-gray-300 rounded-lg shadow-md">
-            <div className="p-8 justify-start items-start ">
+        <div className="flex flex-col gap-10 m-6 w-[380px] h-[650px] bg-white border border-gray-300 rounded-lg shadow-md">
+            <div className="pl-8 pt-8 justify-start items-start flex-grow">
                 <p style={{
                     color: '#222', // Using the provided color code
                     fontFamily: 'Inter', // Specifying the font-family
@@ -15,7 +15,7 @@ function PricingCard({ rows, price }) {
                 }}
 
                 >
-                    Free
+                    {title}
                 </p>
                 <div className="flex flex-row items-center">
                     <span style={{
@@ -55,7 +55,7 @@ function PricingCard({ rows, price }) {
 
                 <div className="pt-4">
                     {rows && rows.map((row, index) => (
-                        <div key={index} className="flex items-center my-2 pb-2"> {/* Added flex and vertical centering */}
+                        <div key={index} className="flex items-starts my-2 pb-2"> {/* Added flex and vertical centering */}
                             <img src={TickSquare} alt="Icon" className="w-6 h-6" />
                             <span style={{
                                 color: '#222', // Black color
@@ -72,7 +72,7 @@ function PricingCard({ rows, price }) {
                     ))}
                 </div>
             </div>
-            <div className="flex justify-center items-center pt-5">
+            <div className="flex justify-center items-center pt-3 pb-5">
                 {/*Plan Sign up Buttons*/}
                 <button
                     style={{
