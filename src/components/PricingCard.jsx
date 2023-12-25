@@ -1,7 +1,7 @@
 import React from "react";
 import TickSquare from '../resources/icons/tick_square.svg';
 
-function PricingCard({ rows }) {
+function PricingCard({ rows, price }) {
     return (
         <div className="flex flex-col gap-10 m-6 p-6 w-[380px] h-[583px] bg-white border border-gray-300 rounded-lg shadow-md">
             <div className="p-8 justify-start items-start ">
@@ -27,7 +27,7 @@ function PricingCard({ rows }) {
                     }}
                         className="text-center"
                     >
-                        $0
+                        ${price}
                     </span>
                     <span style={{
                         color: '#606F7B', // Grey color

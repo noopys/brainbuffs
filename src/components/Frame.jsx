@@ -1,6 +1,7 @@
 import React from 'react';
 import PricingCard from './PricingCard';
 import { Link } from 'react-router-dom';
+import PersonCard from './PersonCard';
 
 const Frame = () => {
   const freePlan = [
@@ -11,7 +12,7 @@ const Frame = () => {
   return (
     <div className="flex justify-center items-center mt-5%">
       <div className="w-full max-w-[1920px] ">
-        <div className="relative w-full h-[3266px] text-left text-21xl text-gray-300 font-inter">
+        <div className="relative w-full text-left text-21xl text-gray-300 font-inter">
 
 
           <div className="flex flex-col items-center justify-start">
@@ -21,7 +22,7 @@ const Frame = () => {
               {/* Content for Section 1 */}
               <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:gap-48 xl:text-whitesmoke-200">
                 <div className="self-stretch overflow-hidden flex flex-col items-center justify-start pt-1 px-0 pb-0.0000152587890625px">
-                  <div className="self-stretch bg-gray-300 flex flex-col lg:flex-row items-center justify-start lg:h-[550px]">
+                  <div className="self-stretch bg-gray-300 flex flex-col lg:flex-row items-center justify-start lg:h-[560px]">
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                       <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-5 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
@@ -29,13 +30,22 @@ const Frame = () => {
                           Transform your SAT Study with adaptive custom homework
                         </h1>
                       </div>
-                      <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:py-2 xl:px-2 xl:text-15.9px">
-                        <div className="mx-auto w-full self-stretch relative leading-24 text-whitesmoke-200 mt-2 text-base md:text-lg lg:text-xl xl:text-2xl">
+                      <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:py-2 xl:px-2">
+                        <div style={{ fontSize: "25px" }} className="mx-auto w-full self-stretch relative leading-24 text-whitesmoke-200 mt-5 pl-10">
                           Elevate your SAT score today to secure admission to your dream school tomorrow. Experience a proven track record, with our students achieving remarkable improvements of 100+ points
                         </div>
                       </div>
                       <div className="self-stretch xl:h-146.4px flex flex-col items-start justify-start px-0 box-border xl:gap-21px text-base text-gray-300">
                         <div className="xl:w-6 xl:h-6 overflow-hidden shrink-0 ml-134px" />
+                      </div>
+                      <div className="pt-2 ml-96 w-16 h-4">
+                        <button
+                          className="hover:bg-transparent text-white font-bold py-2 px-20"
+                          style={{ backgroundColor: '#20a7a1', minWidth: 'fit-content' }}
+                        >
+                          Click me
+                        </button>
+
                       </div>
                     </div>
                     {/* Section 1.2: Image */}
@@ -76,9 +86,9 @@ const Frame = () => {
               {/* Content for Section 2 */}
               <div className="relative bg-white">
                 <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">
-                  <PricingCard rows={freePlan} />
-                  <PricingCard rows={freePlan} />
-                  <PricingCard rows={freePlan} />
+                  <PricingCard rows={freePlan} price="0" />
+                  <PricingCard rows={freePlan} price="20" />
+                  <PricingCard rows={freePlan} price="40" />
                 </div>
                 <div className="relative bg-white h-16 mt-[-16px]" />
               </div>
@@ -157,69 +167,30 @@ const Frame = () => {
                 <div className="leading-[55.2px] font-small flex items-center w-[355.1px] h-14 shrink-0 ml-[133px]">
                   Meet the Team
                 </div>
-                <div className="self-stretch  flex flex-col items-center justify-start gap-4 xl:flex-row lg:gap-[42px] text-5xl text-gray-200">
-                  {/* Logan's Section */}
-                  <div className="w-full lg:w-[769.1px] xl:w-[736.6px] overflow-hidden shrink-0 flex flex-row items-start justify-start pt-[0.810546875px] px-0 pb-0 box-border gap-[42px] lg:flex-col lg:items-center">
-                    <img
-                      className="flex-1 relative max-w-full overflow-hidden h-[294px] object-cover"
-                      alt=""
-                      src="/mattHeadshot.jpg"
-                    />
-                    <div className="flex-1 overflow-hidden flex flex-col items-start justify-start gap-[6px]">
-                      <div className="self-stretch h-[62px] overflow-hidden shrink-0 flex flex-row items-center justify-start gap-[8px]">
-                        <div className="relative rounded-lg bg-deepskyblue w-[3px] h-[62px]" />
-                        <div className="relative tracking-[0.12px] leading-[31.2px] font-medium flex items-center w-[241.4px] h-[60.2px] shrink-0">
-                          <span className="w-full">
-                            <p className="m-0">Logan Schottland</p>
-                            <p className="m-0 text-darkslategray-100">
-                              Co-founder
-                            </p>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="self-stretch relative text-lg tracking-[0.18px] leading-[24.3px] text-darkslategray-100">
-                        Logan, a computer science student at CU Boulder, excels
-                        academically, scoring above the 99th Percentile on the SAT. As
-                        a National Merit Scholar with engineering experience at NASA,
-                        he merges theoretical knowledge with practical applications.
-                        Logan's refined problem-solving skills are vital for testing
-                        success. His tutoring approach is ideal for high schoolers
-                        aiming for SAT excellence and improved test-taking abilities.
-                      </div>
-                    </div>
-                  </div>
-                  {/* Repeat the same structure for other elements */}
-                  {/* ... */}
-                  <div className="w-full lg:w-[769.1px] xl:w-[736.6px] overflow-hidden shrink-0 flex flex-row items-start justify-start pt-[0.810546875px] px-0 pb-0 box-border gap-[42px] lg:flex-col lg:items-center">
-                    <img
-                      className="flex-1 relative max-w-full overflow-hidden h-[294px] object-cover mb-4 md:mb-0"
-                      alt=""
-                      src="/sandy-headshot-1@2x.png"
-                    />
-                    <div className="flex-1 overflow-hidden flex flex-col items-start justify-start gap-[6px]">
-                      <div className="self-stretch h-[62px] overflow-hidden shrink-0 flex flex-row items-center justify-start gap-[8px]">
-                        <div className="relative rounded-lg bg-deepskyblue w-[3px] h-[62px]" />
-                        <div className="relative tracking-[0.12px] leading-[31.2px] font-medium flex items-center w-[241.4px] h-[60.2px] shrink-0">
-                          <span className="w-full">
-                            <p className="m-0">Sandy Dinegar</p>
-                            <p className="m-0 text-darkslategray-100">
-                              Co-founder
-                            </p>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="self-stretch relative text-lg tracking-[0.18px] leading-[24.3px] text-darkslategray-100">
-                        Sandy, a double major in Economics and Philosophy at the
-                        University of Colorado Boulder, brings a unique approach to
-                        SAT tutoring with strong adaptability and refined
-                        problem-solving skills. Notably, Sandy excelled on the
-                        basketball court, achieving 1st Team All-Conference honors in
-                        high school. Applying this dedication to SAT tutoring, he
-                        guides students with analytical skills for success.
-                      </div>
-                    </div>
-                  </div>
+                <div className="self-stretch grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[42px] text-5xl text-gray-200">
+                  <PersonCard
+                    name="Logan Schottland"
+                    role="President"
+                    description="Logan, a computer science student at CU Boulder, excels academically, scoring above the 99th Percentile on the SAT. As a National Merit Scholar with engineering experience at NASA, he merges theoretical knowledge with practical applications. Logan's refined problem-solving skills are vital for testing success. His tutoring approach is ideal for high schoolers aiming for SAT excellence and improved test-taking abilities."
+                    imageSrc="/loganvab-1@2x.png"
+                  />
+
+                  <PersonCard
+                    name="Sandy Dinegar"
+                    role="Director of Tutors"
+                    description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
+                    imageSrc="/sandy-headshot-1@2x.png"
+                  />
+
+                  <PersonCard
+                    name="Matt Schottland"
+                    role="Director of Operations"
+                    description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
+                    imageSrc="/mattHeadshot.jpg"
+                  />
                 </div>
+
+
               </div>
             </div>
 
