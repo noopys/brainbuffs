@@ -11,8 +11,8 @@ export default function FAQ() {
   };
 
   return (
-    <div className="w-full px-8 pt-16 ">
-      <h1 style={{fontFamily: 'Arial', fontSize: '3em', fontWeight: 'bold'}}>Frequently Asked Questions</h1>
+    <div className="w-full px-8 pt-16 font-poppins">
+      <h1 style={{fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold'}}>Frequently Asked Questions</h1>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white p-2">
       <Disclosure>
           {({ open }) => (
@@ -116,7 +116,7 @@ export default function FAQ() {
         </Disclosure>
       </div>
       <div style={lineStyle}></div>
-      <p>Still can't find what you're looking for? <a href="./contact" style={{textDecoration: 'none'}}>Contact Us</a></p>
+      <p>Still can't find what you're looking for? <a href="./contact" style={{textDecoration: 'none', fontFamily: 'poppins'}}>Contact Us</a></p>
     </div>
   )
 }

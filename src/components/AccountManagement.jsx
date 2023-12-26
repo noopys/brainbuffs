@@ -10,6 +10,7 @@ const AccountManagement = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const { logout, userData } = useAuth();
 
@@ -19,12 +20,12 @@ const AccountManagement = () => {
     borderRadius: '10px',
     width: '400px',
     margin: '50px auto',
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };
 
   const buttonStyle = {
-    backgroundColor: '#FF0000', // Blue color
+    backgroundColor: '#FF0000', 
     color: '#fff', // White text
     padding: '8px 16px', // Adjust padding as needed
     border: 'none', // Remove border if needed
@@ -66,7 +67,7 @@ const AccountManagement = () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       await Auth.deleteUser(currentUser);
       // Handle successful account deletion, e.g., redirect or display a message
-      setSuccessMessage('Account deleted successfully, you will be redirected to the sign in screen');
+      setSuccessMessage('Account deleted successfully, you will be redirected to the sign in screen shortly');
       console.log('Account deleted successfully, you will be redirected to the sign in screen');
 
       const logoutDelay = 5000; // 2 seconds delay (adjust as needed)
@@ -77,6 +78,19 @@ const AccountManagement = () => {
       // Handle error deleting account
       console.error('Error deleting account:', error);
     }
+  };
+
+  const confirmDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleDelete = () => {
+    deleteUserAccount();
+    setShowConfirmation(false);
   };
 
   const handleChangePassword = async () => {
@@ -104,14 +118,36 @@ const AccountManagement = () => {
         <div>
           {!showChangePassword && (
             <div>
-              <h2>Welcome, {user.attributes.email}</h2>
+              <h2>Welcome, </h2>
+              <p>{user.attributes.email}</p>
               <button onClick={() => setShowChangePassword(true)} style={buttonStyle}>
                 Change My Password
               </button>
               <br /> <br />
-              <button onClick={deleteUserAccount} style={buttonStyle}>
+              <button onClick={confirmDelete} style={buttonStyle}>
                 Delete My Account
               </button>
+              {showConfirmation && (
+                <div className="confirmation-popup">
+                  <p style={{padding: '8px 10px'}}>Are you sure you want to delete your account?</p>
+                  <p>Note: This cannot be undone</p>
+                  <button onClick={handleDelete} style={buttonStyle}>
+                    I am sure. Delete My account.
+                  </button>
+                  <button onClick={cancelDelete} style={{
+                    backgroundColor: '#20a7a1',
+                    color: '#fff',
+                    padding: '12px 24px',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    margin: '10px',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                    width: '300px'}}>
+                    Cancel
+                  </button>
+                </div>
+              )}
             </div>
           )}
           {showChangePassword && (
@@ -151,7 +187,7 @@ const AccountManagement = () => {
               {error && <p>{error}</p>}
               <br /> <br />
               <button onClick={() => setShowChangePassword(false)} 
-                style={{backgroundColor: '#007bff', // Blue color
+                style={{backgroundColor: '#20a7a1', // Blue color
                   color: '#fff', // White text
                   padding: '8px 16px', // Adjust padding as needed
                   border: 'none', // Remove border if needed

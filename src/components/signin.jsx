@@ -8,6 +8,7 @@ function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const containerStyle = {
     border: '1px solid #20a7a1',
@@ -15,7 +16,7 @@ function SignIn() {
     borderRadius: '10px',
     width: '400px',
     margin: '50px auto',
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };
 
@@ -63,6 +64,13 @@ function SignIn() {
       console.log("The userid is:", userInfo.attributes.sub)
 
       await login({email: userInfo.attributes.email, username: userInfo.attributes.sub});
+      setSuccessMessage('You will be redirected to the home page in 5 seconds.');
+      console.log('Sign in successfully, you will be redirected to the sign in screen');
+
+      const redirectdelay = 5000; // 2 seconds delay (adjust as needed)
+      setTimeout(() => {
+        window.location.href = './';
+      }, redirectdelay);
     } catch (error) {
       console.error('Sign-in error:', error);
       setErrorMessage(error.message);
@@ -114,13 +122,14 @@ function SignIn() {
           <div>
             <p>You are signed in with email: {user.email}</p>
             <button onClick={handleSignOut} style={buttonStyle}>Sign Out</button>
+            {successMessage && <p>{successMessage}</p>}
           </div>
         )}
       </div>
       {isLoggedIn ? ("") : (
         <div>
           <div style={lineStyle}></div>
-          <p>New to Brain Buffs? <a href="./signUp" style={{textDecoration: 'none'}}>Create an Account</a></p>
+          <p classname='font-poppins'>New to Brain Buffs? <a href="./signUp" style={{textDecoration: 'none'}}>Create an Account</a></p>
         </div>
       )}
       

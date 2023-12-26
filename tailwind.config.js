@@ -51,8 +51,7 @@ module.exports = {
       },
       spacing: {},
       fontFamily: {
-        inter: "Inter",
-        roboto: "Roboto",
+        poppins: "Poppins",
       },
     },
     fontSize: {

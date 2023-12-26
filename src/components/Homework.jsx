@@ -148,8 +148,8 @@ function Homework() {
   //Homework UI 
   return (
     <>
-      <div className="flex" style={{ margin: 'auto' }}>
-        <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
+      <div className="flex justify-center" style={{ margin: 'auto', color: '#20a7a1'  }}>
+        <Card className="bg-light" style={{ width: '30rem', marginTop: '20px'}}>
           <Card.Body>
             {/* <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" /> */}
             {!questionData.imageUrl ? (

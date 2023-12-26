@@ -20,7 +20,7 @@ const Frame = () => {
     "Full test breakdown",
     "Consultation from an expert tutor",
     "Access to our Adaptive Homework System",
-    "One hour a week 1 on 1 instruction with an expert tutor",
+    "One hour a week 1-on-1 instruction with an expert tutor",
     "24/7 Support from our team of experts"
   ];
   return (
@@ -154,11 +154,11 @@ const Frame = () => {
               </div>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 <button
-                  className="flex-1 rounded-[10px] bg-darkslateblue shadow-[0px_0px_1px_rgba(0,_0,_0,_0.32),_0px_0px_2px_rgba(0,_0,_0,_0.08),_0px_1px_3px_rgba(45,_127,_249,_0.28),_0px_0px_0px_0.5px_rgba(0,_0,_0,_0.06)_inset] 
+                  className="flex-1 rounded-[10px] bg-teal-500 shadow-[0px_0px_1px_rgba(0,_0,_0,_0.32),_0px_0px_2px_rgba(0,_0,_0,_0.08),_0px_1px_3px_rgba(45,_127,_249,_0.28),_0px_0px_0px_0.5px_rgba(0,_0,_0,_0.06)_inset] 
                h-[43px] overflow-hidden flex flex-col items-center justify-center text-center text-[20px] text-white"
                   style={{ maxWidth: '300px' }}
                 >
-                  <div className="relative tracking-[0.1px] leading-[27px] font-medium flex items-center justify-center w-[149.1px] h-6 shrink-0">
+                  <div className="relative tracking-[0.1px] leading-[27px] font-medium flex items-center justify-center w-[149.1px] h-6 shrink-0" >
                     Sign Up
                   </div>
                 </button>

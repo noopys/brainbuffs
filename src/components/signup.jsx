@@ -24,7 +24,7 @@ function SignUp() {
     borderRadius: '10px',
     width: '400px',
     margin: '50px auto',
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };
   
