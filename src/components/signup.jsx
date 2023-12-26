@@ -5,7 +5,7 @@ import { useAuth } from './AuthContext'
 
 function SignUp() {
   //Creds 
-  const { isLoggedIn, user, userData, login, logout } = useAuth();
+  const { isLoggedIn, user, logout } = useAuth();
   //sign up
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -38,6 +38,7 @@ function SignUp() {
     margin: '10px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
     width: '300px',
+    marginBottom: '20px'
   };
   
   const inputStyle = {
@@ -120,75 +121,91 @@ function SignUp() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      logout();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <div style={containerStyle}>
-      {ver ? (
-        succ ? (
-          <div>
-            <h2>You have successfully made an account!</h2>
-            <h3>The next step is to sign in.</h3>
-            <a href="./signin">
-              <button style={buttonStyle}>Sign in</button>
-            </a>
-          </div>
-        ) : (
-          <div>
-            <h2>Please Enter the Verification Code Sent to Your Email</h2>
-            <input
-              type="text"
-              placeholder="Verification Code"
-              value={verificationCode}
-              style={inputStyle}
-              onChange={(e) => setVerificationCode(e.target.value)}
-            />
-            <br />
-            <button onClick={handleVerification} style={buttonStyle}>
-              Verify
-            </button>
-            {verificationError && <p>{verificationError}</p>}
-          </div>
-        )
-      ) : (
+      {isLoggedIn ? (
         <div>
-          <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Up</h1>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Email"
-              value={username}
-              onChange={handleUsernameChange}
-              style={inputStyle}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-              style={inputStyle}
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              style={inputStyle}
-            />
-          </div>
-          <button onClick={handleSignUp} style={buttonStyle}>Sign Up</button>
-          {errorMessage && <p>Error: {errorMessage}</p>}
-          <br />
-          <br />
-          <p>Already have an account? <a href="./signin" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Sign In</a></p>
-          
+          <p>You are signed in with email: {user.email}</p>
+          <button onClick={handleSignOut} style={buttonStyle}>Sign Out</button>
+        </div>
+        ) : (
+        <div>
+          {ver ? (
+            succ ? (
+              <div>
+                <h2>You have successfully made an account!</h2>
+                <h3>The next step is to sign in.</h3>
+                <a href="./signin">
+                  <button style={buttonStyle}>Sign in</button>
+                </a>
+              </div>
+              ) : (
+              <div>
+                <h2>Please Enter the Verification Code Sent to Your Email</h2>
+                <input
+                  type="text"
+                  placeholder="Verification Code"
+                  value={verificationCode}
+                  style={inputStyle}
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                />
+                <br />
+                <button onClick={handleVerification} style={buttonStyle}>
+                  Verify
+                </button>
+                {verificationError && <p>{verificationError}</p>}
+              </div>
+            )
+            ) : (
+            <div>
+              <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Up</h1>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Email"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  style={inputStyle}
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  style={inputStyle}
+                />
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  style={inputStyle}
+                />
+              </div>
+              <button onClick={handleSignUp} style={buttonStyle}>Sign Up</button>
+              {errorMessage && <p>Error: {errorMessage}</p>}
+              <p>Already have an account? <a href="./signin" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Sign In</a></p>
+            </div>
+          )}
         </div>
       )}
+
+
     </div>
   );
 }

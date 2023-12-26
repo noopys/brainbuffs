@@ -142,7 +142,7 @@ function Homework() {
 
   //Don't show homework if user is not logged in 
   if (!isLoggedIn) {
-    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view the adaptive practice system.</div>;
+    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins'}}>Please sign in to view the adaptive practice system.</div>;
   }
 
   //Homework UI 

@@ -14,20 +14,9 @@ import { useAuth } from './AuthContext';
 
 
 const NavigationBar = () => {
+    const { isLoggedIn, user } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     const [isOpen, setIsOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const { isLoggedIn, user, logout } = useAuth();
-
-    const handleLogout = () => {
-        // Perform logout action from AuthContext.jsx
-        logout();
-    };
 
     return (
         <nav className="bg-white rounded-lg border-b-10 border-green-500">
@@ -70,35 +59,29 @@ const NavigationBar = () => {
                                 </button>
                             </Link>
                         </div>
-                        <div className="relative" >
+                        <div className="relative" onMouseEnter={() => setIsOpen(true)}>
                             <div
-                                className="border-1 border-teal-500 py-2.5 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end"
-                                onMouseEnter={() => setIsOpen(true)}
-                            >
+                                className="border-1 border-teal-500 py-2.5 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end">
                                 <img className="w-4 h-4" alt="" src={DownArrow} />
                                 <div className="text-sm font-poppins text-light-theme-subheading-text" style={{ whiteSpace: 'nowrap' }}>
                                     {isLoggedIn ? `Hello, ${user.email}` : 'Hello, Sign in'}
                                 </div>
                             </div>
                             {isOpen && (
-                                <div className="absolute right-0 top-full left-0 mt-2 bg-white shadow-md rounded-lg border border-green-300 justify-end" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+                                <div className="absolute right-0 top-full left-0 mt-2 bg-white shadow-md rounded-lg border border-green-300 justify-end" style={{ zIndex: 9010 }} onMouseLeave={() => setIsOpen(false)}>
                                     <ul className="list-none p-0">
                                         {isLoggedIn ? (
                                             <>
                                                 <li>
                                                     <Link
                                                         to="/manageAccount"
-                                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 8px 16px', textAlign: 'left', fontFamily: 'Poppins', color: "teal" }}
-                                                        onClick={toggleDropdown}
-                                                    >
+                                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 8px 16px', textAlign: 'left', fontFamily: 'Poppins', color: "teal" }}>
                                                         Manage Account
                                                     </Link>
                                                 </li>
                                                 <li>
                                                     <button
-                                                        onClick={handleLogout}
-                                                        style={{ border: 'none', background: 'none', display: 'block', padding: '8px 16px 0px 16px', fontFamily: 'Poppins', color: 'red' }}
-                                                    >
+                                                        style={{ border: 'none', background: 'none', display: 'block', padding: '8px 16px 0px 16px', fontFamily: 'Poppins', color: 'red' }}>
                                                         Sign Out
                                                     </button>
                                                 </li>
@@ -108,18 +91,14 @@ const NavigationBar = () => {
                                                 <li>
                                                     <Link
                                                         to="/signin"
-                                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 8px 16px', textAlign: 'left', fontFamily: 'Poppins', color: "teal" }}
-                                                        onClick={toggleDropdown}
-                                                    >
+                                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 8px 16px', textAlign: 'left', fontFamily: 'Poppins', color: "teal" }}>
                                                         Sign In
                                                     </Link>
                                                 </li>
                                                 <li>
                                                     <Link
                                                         to="/signup"
-                                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 0px 16px', textAlign: 'left', fontFamily: 'Poppins', color: "teal" }}
-                                                        onClick={toggleDropdown}
-                                                    >
+                                                        style={{ textDecoration: 'none', display: 'block', padding: '8px 16px 0px 16px', textAlign: 'left', fontFamily: 'Poppins', color: "teal" }}>
                                                         Sign Up
                                                     </Link>
                                                 </li>

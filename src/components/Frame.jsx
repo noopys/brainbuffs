@@ -35,7 +35,7 @@ const Frame = () => {
             <div className="flex items-center justify-center">
               {/* Content for Section 1 */}
               <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:gap-48 xl:text-whitesmoke-200">
-                <div className="self-stretch overflow-hidden flex flex-col items-center justify-start pt-1 px-0 pb-0.0000152587890625px">
+                <div className="self-stretch overflow-hidden flex flex-col items-center justify-start">
                   <div className="self-stretch bg-gray-300 flex flex-col lg:flex-row items-center justify-start lg:h-[560px]">
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
@@ -53,12 +53,12 @@ const Frame = () => {
                         <div className="xl:w-6 xl:h-6 overflow-hidden shrink-0 ml-134px" />
                       </div>
                       <div className="pt-2 pl-12 pb-2">
-                        <Link as={Link} to="/" style={{ textDecoration: 'none' }}>
+                        <Link as={Link} to="/signup" style={{ textDecoration: 'none' }}>
                           <button
                             className="hover:bg-transparent text-white text-sm font-bold py-4 px-8 rounded-lg"
                             style={{ backgroundColor: '#20a7a1' }}
                           >
-                            <span style={{ fontSize: "18px" }}>Sign Up -></span>
+                            <span style={{ fontSize: "18px" }}>Sign Up &rarr;</span>
                           </button>
                         </Link>
                       </div>
@@ -78,11 +78,11 @@ const Frame = () => {
                     </div>
                   </div>
                   {/* Section 1.3: "All the SAT tools you need in one plan" */}
-                  <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitesmoke-200 mt-0">
+                  <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitesmoke-200 mt-0" style={{ zIndex: 2 }}>
                     <div className="self-stretch relative bg-whitesmoke-200 xl:h-72px" />
                     <div className="relative xl:w-full lg:w-full sm:w-full mt-8">
                       <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
-                        <div className="leading-36.4 text-center">
+                        <div className="leading-36.4 text-center font-poppins">
                           All the SAT tools you need in one plan
                         </div>
                       </div>
@@ -111,7 +111,7 @@ const Frame = () => {
 
 
             {/* Section 5 */}
-            <div className="flex flex-col items-center justify-center p-10">
+            <div className="flex flex-col items-center justify-center p-10 font-poppins">
               {/* Content for Section 5 */}
               {/* <div className="absolute w-full top-[2066px] right-[-4px] left-[4px] bg-white flex flex-col items-start justify-start py-[68px] px-[171px] box-border gap-[85px] text-[48px] text-darkslategray-200 font-roboto"> */}
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start gap-[50px] lg:flex-col lg:items-center">
@@ -149,8 +149,8 @@ const Frame = () => {
             {/* Section 6 */}
             <div className="flex items-center justify-center p-4">
               {/* Content for Section 6 */}
-              <div className="flex-1 relative leading-[48px] font-medium" style={{ paddingRight: '20px' }}>
-                Try BrainBuffs for yourself and see what's possible
+              <div className="flex-1 relative leading-[48px] font-medium font-poppins" style={{ paddingRight: '20px' }}>
+                Try BrainBuffs for yourself and see what's possible.
               </div>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 <button

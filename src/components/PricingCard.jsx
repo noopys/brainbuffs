@@ -4,11 +4,11 @@ import TickSquare from '../resources/icons/tick_square.svg';
 
 function PricingCard({ rows, price, title }) {
     return (
-        <div className="flex flex-col gap-10 m-6 w-[380px] h-[650px] bg-white border border-gray-300 rounded-lg shadow-md">
+        <div className="flex flex-col gap-10 m-6 w-[380px] h-[700px] bg-white border border-gray-300 rounded-lg shadow-md">
             <div className="pl-8 pt-8 justify-start items-start flex-grow">
                 <p style={{
                     color: '#222', // Using the provided color code
-                    fontFamily: 'Inter', // Specifying the font-family
+                    fontFamily: 'poppins', // Specifying the font-family
                     fontSize: '22px', // Setting font-size
                     fontWeight: '400', // Normal font weight
                     lineHeight: 'normal', // Normal line-height
@@ -21,7 +21,7 @@ function PricingCard({ rows, price, title }) {
                 <div className="flex flex-row items-center">
                     <span style={{
                         color: '#000',
-                        fontFamily: 'Inter',
+                        fontFamily: 'poppins',
                         fontSize: '42px',
                         fontWeight: '600',
                         lineHeight: '48px', // Custom line height
@@ -32,7 +32,7 @@ function PricingCard({ rows, price, title }) {
                     </span>
                     <span style={{
                         color: '#606F7B', // Grey color
-                        fontFamily: 'Inter',
+                        fontFamily: 'poppins',
                         fontSize: '14px',
                         fontWeight: '400',
                         lineHeight: '20px', // Custom line height
@@ -45,7 +45,7 @@ function PricingCard({ rows, price, title }) {
                 <div className="pt-1">
                     <p style={{
                         color: '#606F7B', // Grey color
-                        fontFamily: 'Inter',
+                        fontFamily: 'poppins',
                         fontSize: '16px',
                         fontWeight: '400',
                         lineHeight: '24px', // 150%
@@ -60,7 +60,7 @@ function PricingCard({ rows, price, title }) {
                             <img src={TickSquare} alt="Icon" className="w-6 h-6" />
                             <span style={{
                                 color: '#222', // Black color
-                                fontFamily: 'Inter',
+                                fontFamily: 'poppins',
                                 fontSize: '16px',
                                 fontWeight: '600',
                                 lineHeight: '24px',
