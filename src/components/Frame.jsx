@@ -72,7 +72,7 @@ const Frame = () => {
                         muted
                         playsInline
                       >
-                        <source src={"/demo_video.mp4"} type="video/mp4" />
+                        <source src={"https://demovideobucketbb.s3.amazonaws.com/demo_video.mp4"} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
