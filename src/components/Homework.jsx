@@ -8,15 +8,15 @@ function Homework() {
   const question = {
     options: ["A", "B", "C", "D"],
   };
-
+  //State for everything needed to store homework question state 
   const { isLoggedIn, user, userData, login, logout } = useAuth();
   const [response, setResponse] = useState(null);
   const [recordId, setRecordId] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null)
   const [userProfile, setUserProfile] = useState(null);
+  const [questionData, setQuestionData] = useState({});
 
-  //console.log(user.username);
-  //console.log(userData[0]["UserProfile "].S)
+  //Load new user Data each time it changes 
   useEffect(() => {
     if (userData && userData.length > 0) {
       console.log(userData)
@@ -26,25 +26,25 @@ function Homework() {
     }
   }, [userData]);
 
+  //Fetch new question on load when userProfile updates 
   useEffect(() => {
-    console.log(userProfile)
-    fetchQuestion();
+    if(userProfile){
+      fetchQuestion()
+    }
   }, [userProfile]); // Add userProfile as a dependency
 
-  //console.log(userProfile)
-  //Select option
+  //set UseState of selected option
   const [selectedOption, setSelectedOption] = useState(null);
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
 
-  //
+  //Handle change of answer field 
   const handleInputChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  //
-  const [questionData, setQuestionData] = useState({});
+ //Fetch a new question 
   const fetchQuestion = async () => {
     //Reset ouput of field
     setSelectedOption(null);
@@ -82,7 +82,8 @@ function Homework() {
       console.error('Error fetching question:', err);
     }
   };
-  //
+
+  //Submit answered question to database 
   const handleSubmit = async () => {
     //Take in current User Profile, Question They are on and the answer they selected and update the profile based on the question
     let userTemp = '';
@@ -95,10 +96,13 @@ function Homework() {
       userId: userId,
       userProfile: prof,
     }
+    //Update Users profile based on concepts in this question 
     updateUser(userTemp, questionData, selectedOption); 
+
     //
     console.log(selectedOption)
     console.log(questionData.answer)
+    //calculate if correct 
     const userCorrect = selectedOption == questionData.answer
     if (userCorrect) {
       setIsCorrect("correct")
@@ -106,12 +110,14 @@ function Homework() {
     else {
       setIsCorrect("incorrect")
     }
+    console.log(questionData.answer)
+    //Prepare POST 
     const data = {
       UserId: user.username,
       RecordId: recordId,
       Answer: selectedOption,
       CorrectAnswer: questionData.Answer,
-      IsCorrect: true
+      IsCorrect: userCorrect,
     };
 
     try {
@@ -139,7 +145,7 @@ function Homework() {
     return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px" }}>Please sign in to view homework.</div>;
   }
 
-
+  //Homework UI 
   return (
     <>
       <div className="flex" style={{ margin: 'auto' }}>
