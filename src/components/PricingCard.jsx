@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import TickSquare from '../resources/icons/tick_square.svg';
 
 function PricingCard({ rows, price, title }) {
@@ -72,31 +73,33 @@ function PricingCard({ rows, price, title }) {
                     ))}
                 </div>
             </div>
-            <div className="flex justify-center items-center pt-3 pb-5">
-                {/*Plan Sign up Buttons*/}
-                <button
-                    style={{
-                        borderColor: '#222', // Black border color
-                        borderWidth:'1px',
-                        borderRadius: '10px', // Border radius
-                        gap: '10px', // Gap between elements inside the button (if any),
-                        backgroundColor: "white",
-                    }}
-                    className="flex justify-center items-center p-2"
-                >
-                    <p style={{
-                        color: '#222', // Black color
-                        fontFamily: 'Inter',
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        margin: 0, // Removes default margin to aid in centering
-                    }}
-                    className="p-2"
+            <Link to="/contact">
+                <div className="flex justify-center items-center pt-3 pb-5">
+                    {/*Plan Sign up Buttons*/}
+                    <button
+                        style={{
+                            borderColor: '#222', // Black border color
+                            borderWidth: '1px',
+                            borderRadius: '10px', // Border radius
+                            gap: '10px', // Gap between elements inside the button (if any),
+                            backgroundColor: "white",
+                        }}
+                        className="flex justify-center items-center p-2"
                     >
-                        Choose Plan
-                    </p>
-                </button>
-            </div>
+                        <p style={{
+                            color: '#222', // Black color
+                            fontFamily: 'Inter',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            margin: 0, // Removes default margin to aid in centering
+                        }}
+                            className="p-2"
+                        >
+                            Choose Plan
+                        </p>
+                    </button>
+                </div>
+            </Link>
         </div>
     );
 }

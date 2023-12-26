@@ -47,24 +47,17 @@ const NavigationBar = () => {
                             </Link>
                         </div>
                         <div className="lg:flex items-center gap-[1px] justify-start w-full">
-                            <Link as={Link} to="/about" style={{ textDecoration: 'none' }}>
+                            <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}>
                                 <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
-                                    <button className="cursor-pointer [border:none] p-0 bg-[transparent] relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left inline-block">
-                                        About Us
-                                    </button>
+                                    <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                                        Contact
+                                    </div>
                                 </button>
                             </Link>
                             <Link as={Link} to="/faq" style={{ textDecoration: 'none' }}>
                                 <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
                                     <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                                         FAQ
-                                    </div>
-                                </button>
-                            </Link>
-                            <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}>
-                                <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
-                                    <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                                        Contact
                                     </div>
                                 </button>
                             </Link>

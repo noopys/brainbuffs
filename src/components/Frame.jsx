@@ -53,8 +53,7 @@ const Frame = () => {
                         <div className="xl:w-6 xl:h-6 overflow-hidden shrink-0 ml-134px" />
                       </div>
                       <div className="pt-2 pl-12 pb-2">
-                        <Link to="/signup">
-
+                        <Link as={Link} to="/" style={{ textDecoration: 'none' }}>
                           <button
                             className="hover:bg-transparent text-white text-sm font-bold py-4 px-8"
                             style={{ backgroundColor: '#20a7a1' }}
