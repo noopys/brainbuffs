@@ -78,7 +78,7 @@ function PricingCard({ rows, price, title }) {
                     {/*Plan Sign up Buttons*/}
                     <button
                         style={{
-                            borderColor: '#222', // Black border color
+                            borderColor: '#20a7a1', // Black border color
                             borderWidth: '1px',
                             borderRadius: '10px', // Border radius
                             gap: '10px', // Gap between elements inside the button (if any),
@@ -87,7 +87,7 @@ function PricingCard({ rows, price, title }) {
                         className="flex justify-center items-center p-2"
                     >
                         <p style={{
-                            color: '#222', // Black color
+                            color: '#20a7a1', // Black color
                             fontFamily: 'Inter',
                             fontSize: '16px',
                             fontWeight: '600',

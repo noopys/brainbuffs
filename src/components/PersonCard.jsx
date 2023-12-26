@@ -10,7 +10,7 @@ function PersonCard({ name, role, description, imageSrc }) {
       />
       <div className="flex-1 overflow-hidden flex flex-col items-start justify-start gap-[6px]">
         <div className="self-stretch h-[62px] overflow-hidden shrink-0 flex flex-row items-center justify-start gap-[8px]">
-          <div className="relative rounded-lg bg-deepskyblue w-[3px] h-[62px]" />
+          <div className="relative rounded-lg bg-teal-500 w-[3px] h-[62px]" />
           <div className="relative tracking-[0.12px] leading-[31.2px] font-medium flex items-center w-[300.4px] h-[60.2px] shrink-0">
             <span className="w-full">
               <p className="m-0">{name}</p>

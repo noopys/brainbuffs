@@ -116,7 +116,7 @@ export default function FAQ() {
         </Disclosure>
       </div>
       <div style={lineStyle}></div>
-      <p>Still can't find what you're looking for? <a href="./contact" style={{textDecoration: 'none', fontFamily: 'poppins'}}>Contact Us</a></p>
+      <p>Still can't find what you're looking for? <a href="./contact" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Contact Us</a></p>
     </div>
   )
 }

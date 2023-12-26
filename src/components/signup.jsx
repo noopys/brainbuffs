@@ -185,7 +185,7 @@ function SignUp() {
           {errorMessage && <p>Error: {errorMessage}</p>}
           <br />
           <br />
-          <p>Already have an account? <a href="./signin" style={{textDecoration: 'none'}}>Sign In</a></p>
+          <p>Already have an account? <a href="./signin" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Sign In</a></p>
           
         </div>
       )}

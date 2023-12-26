@@ -113,8 +113,8 @@ function SignIn() {
               
               <div>
                 <p>Need Help?</p>
-                <p><a href="./resetPassword" style={{textDecoration: 'none'}}>Reset Password</a></p>
-                <p><a href="./verificationCode" style={{textDecoration: 'none'}}>Verify Your Account</a></p>
+                <p><a href="./resetPassword" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold', marginBottom: '5px',}}>Reset Password</a></p>
+                <p><a href="./verificationCode" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold', marginBottom: '5px',}}>Verify Your Account</a></p>
               </div>
             </div>
           </div>
@@ -129,7 +129,7 @@ function SignIn() {
       {isLoggedIn ? ("") : (
         <div>
           <div style={lineStyle}></div>
-          <p classname='font-poppins'>New to Brain Buffs? <a href="./signUp" style={{textDecoration: 'none'}}>Create an Account</a></p>
+          <p classname='font-poppins'>New to Brain Buffs? <a href="./signUp" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Create an Account</a></p>
         </div>
       )}
       
