@@ -10,7 +10,7 @@ This will serve as a basic architecture overview of this site. I will outline th
 ## AWS 
 The site is run on top of AWS Services. It uses AWS Amplify for CI/CD, as well as hosting. The backend uses AWS Lambda functions. Lambdas are used in the following locations 
 
-#Contact Us Form: Uses AWS Lambdas to integrate with AWS Simple Email Service and dispatch an email letting us know we have been contacted 
+Contact Us Form: Uses AWS Lambdas to integrate with AWS Simple Email Service and dispatch an email letting us know we have been contacted 
 
 ## React 
 
