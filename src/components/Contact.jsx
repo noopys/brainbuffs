@@ -104,8 +104,9 @@ const Contact = () => {
           <h2 style={{ textAlign: 'left' }}>How can we help?</h2>
           <ul style={promptListStyle}>
             <li>Learn more about one of our 3 plans.</li>
-            <li>Describe the issue you're facing.</li>
-            <li>Suggest an improvement!</li>
+            <li>Describe an issue you're facing.</li>
+            <li>Suggest an improvement.</li>
+            <li>Leave your thoughts.</li>
           </ul>
         </div>
         <div style={contactFormStyle} className="contact-form">

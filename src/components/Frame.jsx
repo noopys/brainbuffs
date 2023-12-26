@@ -41,12 +41,12 @@ const Frame = () => {
                     <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                       <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-5 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                         <h1 className="self-stretch relative xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl">
-                          Get Into Your Dream School With SAT Practice Tailored To You
+                          Land A Spot At Your Dream School With SAT Prep Tailored Just For You
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:py-2 xl:px-2">
                         <div style={{ fontSize: "25px" }} className="mx-auto w-full self-stretch relative leading-24 text-whitesmoke-200 mt-5 pl-10">
-                          Use AI and big data to give you completely personalized practice. Our system tags 500+ datapoints from each student to customize their homework like no other provider
+                         We leverage custom AI and advanced big data tools to craft personalized practices. By analyzing 500+ data points per student, we create unique, personalized homework assignments.
                         </div>
                       </div>
                       <div className="self-stretch xl:h-146.4px flex flex-col items-start justify-start px-0 box-border xl:gap-21px text-base text-gray-300">
