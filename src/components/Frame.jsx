@@ -109,70 +109,6 @@ const Frame = () => {
               </div>
             </div>
 
-            {/* Section 3 */}
-            <div className="flex flex-col items-center justify-center p-0 w-full">
-              {/* Content for Section 3 */}
-              {/* ... */}
-
-              <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-darkslategray-200 mt-0 w-full">
-                <div className="self-stretch relative bg-whitesmoke-200 xl:h-72px w-full" />
-                <div className="relative xl:w-full lg:w-full sm:w-full mt-8">
-                  <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-darkslategray-200 xl:mt-0 lg:mt-0 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20 w-full">
-                    {/* Your text content here */}
-                    <div className="leading-36.4 text-center">
-                      BrainBuffs supports you and your journey at every stage
-                    </div>
-                  </div>
-                </div>
-                <div className="self-stretch xl:h-50px overflow-hidden shrink-0 flex flex-col items-center justify-end w-full">
-                  {/* This div provides the gray background with dynamic height */}
-                  <div className="relative xl:w-827.1px xl:h-6 w-full" />
-                  <div className="self-stretch relative bg-whitesmoke-200 xl:h-72px w-full" />
-                </div>
-              </div>
-            </div>
-
-            {/* Section 4 */}
-            <div className="flex flex-col md:flex-row items-center justify-center p-0 w-full">
-              {/* Content for Section 4 */}
-              {/* Section 4.1 - SAT Tutoring */}
-              <div className="self-stretch bg-whitesmoke-200 flex-1 flex flex-col items-center justify-start py-4 px-4 md:py-[0.0498046875px] md:px-[23.8900146484375px] pb-4 md:pb-0 gap-4 md:gap-[24px] text-base" >
-                <div className="flex-1 flex flex-col items-center justify-start py-4 px-4 md:py-[0.0498046875px] md:px-[23.8900146484375px] pb-4 md:pb-0 gap-4 md:gap-[24px] text-base" style={{ maxWidth: '500px' }}>
-                  <div className="w-[197px] h-[151px] overflow-hidden shrink-0 flex flex-col items-start justify-start gap-[11px]">
-                    <img
-                      className="relative w-[100px] h-[100px] overflow-hidden shrink-0 object-cover"
-                      alt=""
-                      src="/people.png"
-                    />
-                    <div className="relative leading-[19.2px] font-medium flex items-center w-[197px] h-5 shrink-0">
-                      SAT Tutoring
-                    </div>
-                  </div>
-                  <div className="self-stretch relative text-base-8 leading-[24px]">
-                    Boost your SAT score with personalized 1-on-1 tutoring. Our tutors provide targeted guidance to improve your understanding and performance. Excel in SAT preparation and achieve academic success
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 4.2 - Manage your Homework */}
-              <div className="self-stretch bg-whitesmoke-200 flex-1 flex flex-col items-center justify-start py-4 px-4 md:py-[0.0498046875px] md:px-[23.8900146484375px] pb-4 md:pb-0 gap-4 md:gap-[24px] text-base" >
-                <div className="flex-1 flex flex-col items-center justify-start py-4 px-4 md:py-[0.0498046875px] md:px-[23.8900146484375px] pb-4 md:pb-0 gap-4 md:gap-[24px] text-base" style={{ maxWidth: '500px' }}>
-                  <div className="w-[197px] h-[151px] overflow-hidden shrink-0 flex flex-col items-start justify-start gap-[11px]">
-                    <img
-                      className="relative w-[100px] h-[100px] overflow-hidden shrink-0 object-cover"
-                      alt=""
-                      src="/paper.png"
-                    />
-                    <div className="relative leading-[19.2px] font-medium flex items-center w-[197px] h-5 shrink-0">
-                      Manage your Homework
-                    </div>
-                  </div>
-                  <div className="self-stretch relative text-base-8 leading-[24px]">
-                    Explore self-paced learning with instant feedback on generated homework. Our user-friendly platform empowers personalized education, unlocking your academic potential seamlessly.
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Section 5 */}
             <div className="flex flex-col items-center justify-center p-10">
@@ -200,7 +136,7 @@ const Frame = () => {
                   <PersonCard
                     name="Matt Schottland"
                     role="Director of Operations"
-                    description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
+                    description="Matt is an ambitious double major in Finance and Accounting at the Leeds School of Business and top 1% SAT scorer. Matt has a wide breadth of skills, earning him internship offers from competitive companies, such as KPMG, Lockheed Martin, and Medtronic. Matt combines his experience taking and tutoring the SAT with his strong business skills to craft specialized tutoring programs that provide unique value to students."
                     imageSrc="/mattHeadshot.jpg"
                   />
                 </div>

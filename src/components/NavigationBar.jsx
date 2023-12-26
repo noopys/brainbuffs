@@ -47,10 +47,10 @@ const NavigationBar = () => {
                             </Link>
                         </div>
                         <div className="lg:flex items-center gap-[1px] justify-start w-full">
-                            <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}>
+                            <Link as={Link} to="/homework" style={{ textDecoration: 'none' }}>
                                 <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
                                     <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                                        Contact
+                                        Adaptive Practice
                                     </div>
                                 </button>
                             </Link>
@@ -61,17 +61,17 @@ const NavigationBar = () => {
                                     </div>
                                 </button>
                             </Link>
-                            <Link as={Link} to="/homework" style={{ textDecoration: 'none' }}>
+                            <Link as={Link} to="/contact" style={{ textDecoration: 'none' }}>
                                 <button className="cursor-pointer [border:none] py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
                                     <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                                        Homework
+                                        Contact
                                     </div>
                                 </button>
                             </Link>
                         </div>
                         <div className="relative" >
                             <div
-                                className="border-1 border-teal-500 py-2.5 px-3 bg-transparent rounded-lg flex gap-1 items-center justify-end"
+                                className="border-1 border-teal-500 py-2.5 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end"
                                 onMouseEnter={() => setIsOpen(true)}
                             >
                                 <img className="w-4 h-4" alt="" src={DownArrow} />
