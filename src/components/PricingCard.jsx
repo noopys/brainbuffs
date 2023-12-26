@@ -73,7 +73,7 @@ function PricingCard({ rows, price, title }) {
                     ))}
                 </div>
             </div>
-            <Link to="/contact">
+            <Link to="/contact" style={{textDecoration:"none"}}>
                 <div className="flex justify-center items-center pt-3 pb-5">
                     {/*Plan Sign up Buttons*/}
                     <button
