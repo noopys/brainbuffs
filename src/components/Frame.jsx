@@ -128,7 +128,7 @@ const Frame = () => {
 
                   <PersonCard
                     name="Sandy Dinegar"
-                    role="Director of Tutors"
+                    role="SAT Program Coordinator"
                     description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
                     imageSrc="/sandy-headshot-1@2x.png"
                   />
