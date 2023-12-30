@@ -39,7 +39,7 @@ function PricingCard({ rows, price, title }) {
                     }}
                         className="text-center"
                     >
-                        /month
+                        / month
                     </span>
                 </div>
                 <div className="pt-1">

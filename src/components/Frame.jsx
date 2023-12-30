@@ -20,8 +20,8 @@ const Frame = () => {
     "Full test breakdown",
     "Consultation from an expert tutor",
     "Access to our Adaptive Homework System",
-    "One hour a week 1-on-1 instruction with an expert tutor",
-    "24/7 Support from our team of experts"
+    "One hour per week 1-on-1 instruction with an expert tutor",
+    "24/7 Support from our team"
   ];
   return (
     <div className="flex justify-center items-center mt-5%">
@@ -83,7 +83,7 @@ const Frame = () => {
                     <div className="relative xl:w-full lg:w-full sm:w-full mt-8">
                       <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
                         <div className="leading-36.4 text-center font-poppins">
-                          All the SAT tools you need in one plan
+                          All the SAT tools you need in one place
                         </div>
                       </div>
                     </div>
