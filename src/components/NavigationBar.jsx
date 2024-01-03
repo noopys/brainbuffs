@@ -13,10 +13,17 @@ import { useAuth } from './AuthContext';
 
 
 const NavigationBar = () => {
-    const { isLoggedIn, user } = useAuth();
+    const { isLoggedIn, user, logout } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
+    const handleSignOut = async () => {
+      try {
+        logout();
+      } catch (error) {
+        console.error('Error signing out:', error);
+      }
+    };
 
     return (
     <nav className="bg-white rounded-lg border-b-10 border-green-500">
@@ -65,7 +72,7 @@ const NavigationBar = () => {
 
         {/* User dropdown for larger screens */}
         <div className="relative hidden lg:block">
-          <div className="border-1 border-teal-500 py-2.5 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end">
+          <div className="border-1 border-teal-500 py-2.5 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end" onMouseEnter={() => setIsOpen(true)}>
             <img className="w-4 h-4" alt="" src={DownArrow} />
             <div
               className="text-sm font-poppins text-light-theme-subheading-text"
@@ -78,6 +85,7 @@ const NavigationBar = () => {
             <div
               className="absolute right-0 top-full left-0 mt-2 bg-white shadow-md rounded-lg border border-green-300 justify-end"
               style={{ zIndex: 9010 }}
+              onMouseEnter={() => setIsOpen(true)}
               onMouseLeave={() => setIsOpen(false)}
             >
               <ul className="list-none p-0">
@@ -99,7 +107,7 @@ const NavigationBar = () => {
                       </Link>
                     </li>
                     <li>
-                      <button
+                      <button onClick={handleSignOut}
                         style={{
                           border: 'none',
                           background: 'none',
@@ -154,20 +162,6 @@ const NavigationBar = () => {
 
         {/* Mobile navigation links */}
          <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}>
-          {/* <Link
-            to="/about"
-            style={{ textDecoration: 'none' }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-              <img className="relative w-5 h-5" alt="" src={AboutUs} />
-              <button
-                className="cursor-pointer p-0 bg-[transparent] relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left inline-block"
-              >
-                About Us
-              </button>
-            </button>
-          </Link> */}
           <Link
             to="/faq"
             style={{ textDecoration: 'none' }}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 import { useAuth } from './AuthContext';
@@ -9,6 +9,7 @@ function SignIn() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [currentUrl, setCurrentUrl] = useState('');
 
   const containerStyle = {
     border: '1px solid #20a7a1',
@@ -48,6 +49,10 @@ function SignIn() {
     width: '400px',
   };
 
+  useEffect(() => {
+    setCurrentUrl(window.location.href); // Store current URL on component mount
+  }, []);
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -58,19 +63,22 @@ function SignIn() {
 
   const handleSignIn = async () => {
     try {
-      // use Amplify API to sign in
-      
       const userInfo = await Auth.signIn(username, password);
-      console.log("The userid is:", userInfo.attributes.sub)
+      console.log("The userid is:", userInfo.attributes.sub);
 
-      await login({email: userInfo.attributes.email, username: userInfo.attributes.sub});
+      await login({ email: userInfo.attributes.email, username: userInfo.attributes.sub });
       setSuccessMessage('You will be redirected to the home page in 5 seconds.');
-      console.log('Sign in successfully, you will be redirected to the sign in screen');
+      console.log('Sign in successful. Redirecting in 5 seconds...');
 
-      const redirectdelay = 5000; // 2 seconds delay (adjust as needed)
-      setTimeout(() => {
-        window.location.href = './';
-      }, redirectdelay);
+      const redirectDelay = 5000; // 5 seconds delay (adjust as needed)
+      const redirectTimer = setTimeout(() => {
+        if (window.location.href === currentUrl) {
+          window.location.href = './'; // Redirect only if still on the same page
+        }
+      }, redirectDelay);
+
+      return () => clearTimeout(redirectTimer); // Clear timeout if component unmounts
+
     } catch (error) {
       console.error('Sign-in error:', error);
       setErrorMessage(error.message);

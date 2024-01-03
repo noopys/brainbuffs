@@ -1,9 +1,25 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import PricingCard from './PricingCard';
 import { Link } from 'react-router-dom';
 import PersonCard from './PersonCard';
+import { useLocation } from 'react-router-dom';
 
 const Frame = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Extract the hash from the URL
+    const { hash } = location;
+    if (hash) {
+      const element = document.querySelector(hash);
+
+      // Check if the element with the specified ID exists
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   const freePlan = [
     "Diagnostic Test",
     "Full test breakdown",
@@ -97,7 +113,7 @@ const Frame = () => {
             </div>
 
             {/* Section 2 */}
-            <div className="flex items-center justify-center p-0">
+            <div className="flex items-center justify-center p-0" id='PricingCards'>
               {/* Content for Section 2 */}
               <div className="relative bg-white">
                 <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">

@@ -83,7 +83,7 @@ export default function FAQ() {
                 leaveTo="opacity-0 translate-y-[-30%]"
               >
               <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black bg-green-50 text-left rounded-lg">
-               We do indeed! When you refer a friend who joins our program, both of you will receive a $50 discount towards your tutoring package.
+               We do indeed! When you refer a friend who joins our program, both of you will receive a 25% discount towards your desired tutoring package.
               </Disclosure.Panel>
               </Transition>
             </>
