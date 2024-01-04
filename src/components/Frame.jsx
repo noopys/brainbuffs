@@ -1,8 +1,7 @@
 import { React, useEffect } from 'react';
 import PricingCard from './PricingCard';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PersonCard from './PersonCard';
-import { useLocation } from 'react-router-dom';
 
 const Frame = () => {
   const location = useLocation();
@@ -39,6 +38,7 @@ const Frame = () => {
     "One hour per week 1-on-1 instruction with an expert tutor",
     "24/7 Support from our team"
   ];
+
   return (
     <div className="flex justify-center items-center mt-5%">
       <div className="w-full max-w-[1920px] ">
@@ -154,6 +154,13 @@ const Frame = () => {
                     role="Director of Operations"
                     description="Matt is an ambitious double major in Finance and Accounting at the Leeds School of Business and top 1% SAT scorer. Matt has a wide breadth of skills, earning him internship offers from competitive companies, such as KPMG, Lockheed Martin, and Medtronic. Matt combines his experience taking and tutoring the SAT with his strong business skills to craft specialized tutoring programs that provide unique value to students."
                     imageSrc="/mattHeadshot.jpg"
+                  />
+
+                  <PersonCard
+                    name="Isaac Li"
+                    role="Lead Software Developer"
+                    description="Isaac, a Cybersecurity graduate student at CU Boulder, holds a B.Sc. in Computer Science and boasts a remarkable 98th percentile SAT score. His proficiency in web development for students is a result of his unique fusion of academic depth and hands-on expertise, ensuring user-friendly platforms through a blend of theoretical understanding and practical application."
+                    imageSrc="/isaac.jpg"
                   />
                 </div>
 
