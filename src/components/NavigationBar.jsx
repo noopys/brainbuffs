@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../resources/flatirons.png';
 import HomeIcon from '../resources/icons/home.svg';
 import FAQIcon from '../resources/icons/faq.svg';
-import AboutUs from '../resources/icons/aboutus.svg';
 import Contact from '../resources/icons/contact.svg';
 import Homework from '../resources/icons/homework.svg';
 import DownArrow from '../resources/icons/downarrow.svg';
@@ -16,6 +15,29 @@ const NavigationBar = () => {
     const { isLoggedIn, user, logout } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [hoveredItem, setHoveredItem] = useState(null);
+
+    // Event handlers for the dropdown menu
+    const handleMouseEnter = (itemId) => {
+      setHoveredItem(itemId);
+    };
+  
+    const handleMouseLeave = () => {
+      setHoveredItem(null);
+    };
+
+    const dropdownStyle = {
+      textDecoration: 'none',
+      display: 'block',
+      textAlign: 'left',
+      fontFamily: 'Poppins',
+      backgroundColor: '#ffffff'
+    };
+    
+    const hoverStyle = {
+      ...dropdownStyle,
+      backgroundColor: '#e0e0e0',
+    };
 
     const handleSignOut = async () => {
       try {
@@ -26,10 +48,10 @@ const NavigationBar = () => {
     };
 
     return (
-    <nav className="bg-white rounded-lg border-b-10 border-green-500">
+    <nav className="bg-white rounded-lg border-b-10 border-green-500" style={{zIndex:9999}}>
       <div className="lg:flex lg:justify-between lg:items-center">
         {/* Logo and Hamburger button */}
-        <div className="flex items-center gap-3 px-3">
+        <div className="flex items-center">
           <Link to="/" style={{ textDecoration: 'none' }}>
             <div className="flex items-center gap-3 px-3">
               <img className="w-30 h-9" src={newlogo} alt="Logo" />
@@ -72,7 +94,7 @@ const NavigationBar = () => {
 
         {/* User dropdown for larger screens */}
         <div className="relative hidden lg:block">
-          <div className="border-1 border-teal-500 py-2.5 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end" onMouseEnter={() => setIsOpen(true)}>
+          <div className="py-3 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end" onMouseEnter={() => setIsOpen(true)}>
             <img className="w-4 h-4" alt="" src={DownArrow} />
             <div
               className="text-sm font-poppins text-light-theme-subheading-text"
@@ -83,76 +105,28 @@ const NavigationBar = () => {
           </div>
           {isOpen && (
             <div
-              className="absolute right-0 top-full left-0 mt-2 bg-white shadow-md rounded-lg border border-green-300 justify-end"
-              style={{ zIndex: 9010 }}
-              onMouseEnter={() => setIsOpen(true)}
+              className="absolute right-0 top-full left-0 bg-white shadow-lg rounded-lg justify-end"
               onMouseLeave={() => setIsOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               <ul className="list-none p-0">
                 {isLoggedIn ? (
                   <>
-                    <li>
-                      <Link
-                        to="/manageAccount"
-                        style={{
-                          textDecoration: 'none',
-                          display: 'block',
-                          padding: '8px 16px 8px 16px',
-                          textAlign: 'left',
-                          fontFamily: 'Poppins',
-                          color: 'teal',
-                        }}
-                      >
-                        Manage Account
-                      </Link>
-                    </li>
-                    <li>
-                      <button onClick={handleSignOut}
-                        style={{
-                          border: 'none',
-                          background: 'none',
-                          display: 'block',
-                          padding: '8px 16px 0px 16px',
-                          fontFamily: 'Poppins',
-                          color: 'red',
-                        }}
-                      >
-                        Sign Out
-                      </button>
-                    </li>
-                  </>
-                ) : (
+                    <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {})}}>
+                      Manage Account
+                      </Link></li>
+                    <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', background: 'none', padding: '8px 16px', color: 'red', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
+                      Sign Out
+                      </Link></li>
+                  </> 
+                  ) : (
                   <>
-                    <li>
-                      <Link
-                        to="/signin"
-                        style={{
-                          textDecoration: 'none',
-                          display: 'block',
-                          padding: '8px 16px 8px 16px',
-                          textAlign: 'left',
-                          fontFamily: 'Poppins',
-                          color: 'teal',
-                        }}
-                      >
+                      <li><Link to="/signin" onMouseEnter={() => handleMouseEnter('si')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'si' ? hoverStyle : {})}}>
                         Sign In
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/signup"
-                        style={{
-                          textDecoration: 'none',
-                          display: 'block',
-                          padding: '8px 16px 0px 16px',
-                          textAlign: 'left',
-                          fontFamily: 'Poppins',
-                          color: 'teal',
-                        }}
-                      >
+                        </Link></li>
+                      <li><Link to="/signup" onMouseEnter={() => handleMouseEnter('su')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'su' ? hoverStyle : {})}}>
                         Sign Up
-                      </Link>
-                    </li>
+                        </Link></li>
                   </>
                 )}
               </ul>

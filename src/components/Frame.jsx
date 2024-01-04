@@ -40,9 +40,9 @@ const Frame = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center mt-5%">
+    <div className="flex justify-center items-center mt-5%" style={{zIndex: 1}}>
       <div className="w-full max-w-[1920px] ">
-        <div className="relative w-full text-left text-21xl text-gray-300 font-inter">
+        <div className=" w-full text-left text-21xl text-gray-300 font-inter">
 
 
           <div className="flex flex-col items-center justify-start">
@@ -56,12 +56,12 @@ const Frame = () => {
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
                       <div className="xl:w-full lg:w-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-end xl:pt-5 xl:px-12 xl:pb-2 lg:flex lg:items-start lg:justify-start lg:p-8">
-                        <h1 className="self-stretch relative xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl">
+                        <h1 className="self-stretch  xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl">
                           Land A Spot At Your Dream School With SAT Prep Tailored Just For You
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:py-2 xl:px-2">
-                        <div style={{ fontSize: "25px" }} className="mx-auto w-full self-stretch relative leading-24 text-whitesmoke-200 mt-5 pl-10">
+                        <div style={{ fontSize: "25px" }} className="mx-auto w-full self-stretch  leading-24 text-whitesmoke-200 mt-5 pl-10">
                          We leverage custom AI and advanced big data tools to craft personalized practices. By analyzing 500+ data points per student, we create unique, personalized homework assignments.
                         </div>
                       </div>
@@ -94,9 +94,9 @@ const Frame = () => {
                     </div>
                   </div>
                   {/* Section 1.3: "All the SAT tools you need in one plan" */}
-                  <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitesmoke-200 mt-0" style={{ zIndex: 2 }}>
-                    <div className="self-stretch relative bg-whitesmoke-200 xl:h-72px" />
-                    <div className="relative xl:w-full lg:w-full sm:w-full mt-8">
+                  <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitesmoke-200 mt-0">
+                    <div className="self-stretch  bg-whitesmoke-200 xl:h-72px" />
+                    <div className=" xl:w-full lg:w-full sm:w-full mt-8">
                       <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
                         <div className="leading-36.4 text-center font-poppins">
                           All the SAT tools you need in one place
@@ -104,8 +104,8 @@ const Frame = () => {
                       </div>
                     </div>
                     <div className="self-stretch xl:h-50px overflow-hidden shrink-0 flex flex-col items-center justify-end">
-                      <div className="relative xl:w-827.1px xl:h-6" />
-                      <div className="self-stretch relative bg-whitesmoke-200 xl:h-72px" />
+                      <div className=" xl:w-827.1px xl:h-6" />
+                      <div className="self-stretch  bg-whitesmoke-200 xl:h-72px" />
                     </div>
                   </div>
                 </div>
@@ -115,13 +115,13 @@ const Frame = () => {
             {/* Section 2 */}
             <div className="flex items-center justify-center p-0" id='PricingCards'>
               {/* Content for Section 2 */}
-              <div className="relative bg-white">
+              <div className=" bg-white">
                 <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">
                   <PricingCard rows={freePlan} title="Free" price="0" />
                   <PricingCard rows={practicePlan} title="Practice" price="50" />
                   <PricingCard rows={proPlan} title="Pro" price="200" />
                 </div>
-                <div className="relative bg-white h-16 mt-[-16px]" />
+                <div className=" bg-white h-16 mt-[-16px]" />
               </div>
             </div>
 
@@ -172,7 +172,7 @@ const Frame = () => {
             {/* Section 6 */}
             <div className="flex items-center justify-center p-4">
               {/* Content for Section 6 */}
-              <div className="flex-1 relative leading-[48px] font-medium font-poppins" style={{ paddingRight: '20px' }}>
+              <div className="flex-1  leading-[48px] font-medium font-poppins" style={{ paddingRight: '20px' }}>
                 Try BrainBuffs for yourself and see what's possible.
               </div>
               <Link to="/signup" style={{ textDecoration: "none" }}>
@@ -181,7 +181,7 @@ const Frame = () => {
                h-[43px] overflow-hidden flex flex-col items-center justify-center text-center text-[20px] text-white"
                   style={{ maxWidth: '300px' }}
                 >
-                  <div className="relative tracking-[0.1px] leading-[27px] font-medium flex items-center justify-center w-[149.1px] h-6 shrink-0" >
+                  <div className=" tracking-[0.1px] leading-[27px] font-medium flex items-center justify-center w-[149.1px] h-6 shrink-0" >
                     Sign Up
                   </div>
                 </button>
