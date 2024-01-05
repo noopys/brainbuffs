@@ -63,7 +63,7 @@ const Frame = () => {
                       </div>
                       <div className="self-stretch xl:flex xl:flex-row xl:items-start xl:justify-start xl:py-2">
                         <div style={{ fontSize: "20px" }} className=" mx-auto self-stretch  leading-24 text-whitesmoke-200 mt-1 pl-10 pt-3 pr-10">
-                          We leverage custom AI and advanced big data tools to craft personalized SAT practice. By analyzing over 500 data points per student, we create unique homework assignments tailored to each student.
+                          We leverage custom AI and advanced big data tools to craft custom SAT practice. By analyzing over 500 data points per student, we create unique homework assignments tailored to each student.
                         </div>
                       </div>
                       <div className="self-stretch xl:h-146.4px flex flex-row items-start justify-start px-0 box-border xl:gap-21px text-base text-gray-300">
@@ -101,7 +101,7 @@ const Frame = () => {
                     <div className="self-stretch  bg-whitesmoke-200 xl:h-72px" />
                     <div className=" xl:w-full lg:w-full sm:w-full mt-8">
                       <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
-                        <div className="leading-36.4 text-center font-poppins">
+                        <div className="leading-36.4 text-center font-poppins pl-5 pr-5">
                           All the SAT tools you need in one place
                         </div>
                       </div>
@@ -134,8 +134,8 @@ const Frame = () => {
               {/* Content for Section 5 */}
               {/* <div className="absolute w-full top-[2066px] right-[-4px] left-[4px] bg-white flex flex-col items-start justify-start py-[68px] px-[171px] box-border gap-[85px] text-[48px] text-darkslategray-200 font-roboto"> */}
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start gap-[50px] lg:flex-col lg:items-center">
-                <div className="leading-[55.2px] font-small flex items-center w-[355.1px] h-14 shrink-0 ml-[133px]">
-                  Meet the Team
+                <div className="font-small flex items-center h-14 shrink-0">
+                  <b>Meet the Team</b>
                 </div>
                 <div className="self-stretch grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[42px] text-5xl text-gray-200">
                   <PersonCard

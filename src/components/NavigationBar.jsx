@@ -140,7 +140,7 @@ const NavigationBar = () => {
             to="/faq"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+            >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={FAQIcon} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -152,7 +152,7 @@ const NavigationBar = () => {
             to="/contact"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+            >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={Contact} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -164,7 +164,7 @@ const NavigationBar = () => {
             to="/homework"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+            >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={Homework} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -172,18 +172,41 @@ const NavigationBar = () => {
               </div>
             </button>
           </Link>
-          <Link
-            to="/signin"
-            style={{ textDecoration: 'none' }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-              <img className="relative w-5 h-5" alt="" src={DownArrow} />
-              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                Sign In/Sign Up
-              </div>
-            </button>
-          </Link>
+          {/* Conditional depending if logged in or not */}
+          { isLoggedIn ? (
+              <div>
+              <Link to="/manageAccount" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+                <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                  Manage Account
+                </div>
+              </button>
+              </Link>
+              <Link onClick={handleSignOut} style={{ textDecoration: 'none' }}>
+              <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+                <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                  Sign Out
+                </div>
+              </button>
+              </Link>
+            </div>
+            ) : (
+              
+              <Link
+              to="/signin"
+              style={{ textDecoration: 'none' }}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+              <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+                <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                  Sign In/Sign Up
+                </div>
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

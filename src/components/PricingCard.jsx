@@ -39,7 +39,7 @@ function PricingCard({ rows, price, title }) {
                     }}
                         className="text-center"
                     >
-                        / month
+                        /month
                     </span>
                 </div>
                 <div className="pt-1">
@@ -56,7 +56,7 @@ function PricingCard({ rows, price, title }) {
 
                 <div className="pt-4">
                     {rows && rows.map((row, index) => (
-                        <div key={index} className="flex items-starts my-2 pb-2"> {/* Added flex and vertical centering */}
+                        <div key={index} className="flex items-starts my-2 pb-2 pr-4"> {/* Added flex and vertical centering */}
                             <img src={TickSquare} alt="Icon" className="w-6 h-6" />
                             <span style={{
                                 color: '#222', // Black color

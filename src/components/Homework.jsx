@@ -193,9 +193,11 @@ function Homework() {
             )
           }
         </Card>
-        <div className="flex flex-col ml-5 mt-3">
-          <button style={{backgroundColor:"#20a7a1"}} onClick={handleSubmit} className="btn btn-success mt-3">Check</button>
-          <button onClick={fetchQuestion} className="btn btn-dark mt-3">Next Question</button>
+        
+      </div>
+      <div className="flex flex-col alignItems-center">
+          <button style={{backgroundColor:"#20a7a1", width: '150px'}} onClick={handleSubmit} className="btn btn-success mt-3 d-block mx-auto px-50">Check</button>
+          <button style={{width: '150px'}} onClick={fetchQuestion} className="btn btn-dark mt-3 d-block mx-auto">Next Question</button>
           {
             (isCorrect === "correct") && (
               <div className="p-3 text-center">
@@ -218,7 +220,6 @@ function Homework() {
             )
           }
         </div>
-      </div>
     </>
 
   );

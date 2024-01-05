@@ -1,8 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const [isMessageSent, setIsMessageSent] = useState(false);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // handle resizing for smaller screens
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,26 +56,33 @@ const Contact = () => {
     fontSize: '16px',
     width: '300px',
     marginBottom: '10px',
-    alignItems: ''
+    alignItems: 'center'
   };
 
   const promptsCardStyle = {
     maxWidth: '350px',
     width: 'auto',
     padding: '20px',
-    // border: '1px solid #20a7a1',
     borderRadius: '8px',
     marginTop: '10px',
     textAlign: 'left',
   };
 
+  if (windowWidth <= 550) {
+    promptsCardStyle.display = 'none';
+  } else {
+    promptsCardStyle.display = 'block';
+  }
+
   const contactFormStyle = {
     width: 'auto',
     padding: '20px',
-    // border: '1px solid #20a7a1',
     borderRadius: '8px',
     marginTop: '10px',
-    textAlign: 'left',
+    textAlign: 'center',
+    display: 'block',
+    justifyContent: 'center',
+    alignItems: 'center'
   };
 
   const promptListStyle = {
@@ -100,7 +122,7 @@ const Contact = () => {
         <h1 style={{ fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize' }}>Contact Us</h1>
         <p>Explore our <a href="./faq" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>FAQ</a> or contact our team</p>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <div style={promptsCardStyle}>
           <h2 style={{ textAlign: 'left' }}>How can we help?</h2>
           <ul style={promptListStyle}>
