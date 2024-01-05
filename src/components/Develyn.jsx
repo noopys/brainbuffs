@@ -2,10 +2,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Develyn() {
+    const buttonStyle = {
+        backgroundColor: '#20a7a1',
+        color: '#fff',
+        padding: '12px 24px',
+        border: 'none',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+        width: '300px',
+      };
+
+      const containerStyle = {
+        border: '1px solid #20a7a1',
+        backgroundColor: '#000000',
+        padding: '20px',
+        borderRadius: '10px',
+        margin: '50px auto',
+        fontFamily: 'poppins',
+        maxWidth: '800px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center', // Center horizontally
+      };
+
     return (
-        <div className="d-flex flex-column position-relative bg-light min-vh-100">
+        <div className="d-flex flex-column position-relative bg-light" style={containerStyle}>
             <div className="container py-5">
-                <h1 className="text-center fw-bold mb-3">Welcome to the Develyn Group SAT Program</h1>
+                <h1 className="text-center fw-bold mb-3">Welcome to the D'Evelyn Group SAT Program</h1>
                 
                 <p className="text-center fs-5 mb-4">
                     Group sessions on March 5th, 12th and April 2nd, 9th.
@@ -33,7 +57,7 @@ export default function Develyn() {
                             </li>
                         </ul>
                         <div className="d-flex justify-content-center mt-4">
-                            <Link to="/checkout" className="btn btn-primary btn-lg">
+                            <Link to="/checkout" className="btn btn-primary btn-lg" style={buttonStyle}>
                                 Sign Up Now
                             </Link>
                         </div>
