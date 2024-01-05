@@ -177,7 +177,7 @@ const NavigationBar = () => {
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <button className="cursor-pointer py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+            <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={DownArrow} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                 Sign In/Sign Up

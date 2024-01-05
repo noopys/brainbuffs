@@ -4,7 +4,7 @@ import TickSquare from '../resources/icons/tick_square.svg';
 
 function PricingCard({ rows, price, title }) {
     return (
-        <div className="flex flex-col gap-10 m-6 w-[380px] bg-white border border-gray-300 rounded-lg shadow-md">
+        <div className="flex flex-col gap-10 m-4 w-[380px] bg-white border border-gray-300 rounded-lg shadow-lg">
             <div className="pl-8 pt-8 justify-start items-start flex-grow">
                 <p style={{
                     color: '#222', // Using the provided color code
