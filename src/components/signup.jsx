@@ -7,6 +7,8 @@ function SignUp() {
   //Creds 
   const { isLoggedIn, user, logout } = useAuth();
   //sign up
+  const [fullname, setFullname] = useState('');
+  const [phoneNumber, setPhone] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,6 +52,14 @@ function SignUp() {
     marginBottom: '10px',
   };
 
+  const handleFullnameChange = (e) => {
+    setFullname(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -72,7 +82,7 @@ function SignUp() {
         setErrorMessage("Passwords don't match");
         return;
       }
-      const signUpResponse = await Auth.signUp({username, password});
+      const signUpResponse = await Auth.signUp({username, password, attributes: {'custom:FullName': fullname , 'custom:PhoneNumber': phoneNumber}});
       const UserId = signUpResponse.userSub;
       //await remember({email: username});
       console.log("signing up user", username);
@@ -175,6 +185,20 @@ function SignUp() {
                   flexDirection: 'column',
                 }}
               >
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={fullname}
+                  onChange={handleFullnameChange}
+                  style={inputStyle}
+                />
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={phoneNumber}
+                  onChange={handlePhoneChange}
+                  style={inputStyle}
+                />
                 <input
                   type="text"
                   placeholder="Email"

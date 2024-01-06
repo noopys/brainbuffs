@@ -19,7 +19,8 @@ function SignOutSuccess() {
 
   return (
     <div>
-      <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Out Successful</h1>
+      <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize', padding: '50px 5px 0px 5px'}}>Thanks for Choosing Brain Buffs! </h1>
+      <h1 style={{fontFamily: 'Poppins', fontSize: '2.5em', textTransform: 'capitalize', padding: '0px 5px 0px 5px'}}>Your Sign Out was Successful.</h1>
       <a href="./signin"><button style={buttonStyle}>Sign In</button></a>
       <br></br>
       <img src={brainbuffs} alt="Your Alt Text" />
