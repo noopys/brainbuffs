@@ -206,13 +206,6 @@ function SignUp() {
                 />
                 <input
                   type="text"
-                  placeholder="How did you hear about us?"
-                  value={hearAboutUs}
-                  onChange={handleHearAboutUsChange}
-                  style={inputStyle}
-                />
-                <input
-                  type="text"
                   placeholder="Email"
                   value={username}
                   onChange={handleUsernameChange}
@@ -230,6 +223,13 @@ function SignUp() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
+                  style={inputStyle}
+                />
+                <input
+                  type="text"
+                  placeholder="How did you hear about us?"
+                  value={hearAboutUs}
+                  onChange={handleHearAboutUsChange}
                   style={inputStyle}
                 />
               </div>
