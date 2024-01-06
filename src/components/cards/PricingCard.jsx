@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import TickSquare from '../resources/icons/tick_square.svg';
+import TickSquare from '../../resources/icons/tick_square.svg';
 
 function PricingCard({ rows, price, title }) {
     return (

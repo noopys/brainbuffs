@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { useAuth } from './AuthContext'
-import {updateUser} from './helpers/updateUser';
+import { useAuth } from '../frontend/accounts/AuthContext'
+import {updateUser} from '../helpers/updateUser';
 
 function Homework() {
 

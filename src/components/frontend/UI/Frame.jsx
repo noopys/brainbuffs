@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
-import PricingCard from './PricingCard';
+import PricingCard from '../../cards/PricingCard';
 import { Link, useLocation } from 'react-router-dom';
-import PersonCard from './PersonCard';
+import PersonCard from '../../cards/PersonCard';
 
 const Frame = () => {
   const location = useLocation();

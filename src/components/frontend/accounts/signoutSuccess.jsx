@@ -1,5 +1,5 @@
 import React from 'react';
-import brainbuffs from "../resources/brainbuffs.png"
+import brainbuffs from "../../../resources/brainbuffs.png"
 
 function SignOutSuccess() {
     console.log("sign out page rendered")

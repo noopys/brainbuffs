@@ -1,5 +1,5 @@
 import React from 'react';
-import vab from '../resources/loganvab.jpg';
+import vab from '../../../resources/loganvab.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TutorPage = ({description, image}) => {

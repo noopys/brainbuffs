@@ -6,29 +6,29 @@ import sandy from './resources/sandy_headshot.jpg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import NavigationBar from './components/NavigationBar';
-import TutorPage from './components/TutorPage';
-import Homepage from './components/Homepage';
-import FAQ from './components/FAQ';
-import Pricing from './components/Pricing';
-import { CheckoutForm, Return } from './components/PaymentPage';
-import Contact from './components/Contact';
-import Develyn from './components/Develyn';
-import Homework from './components/Homework'
+import NavigationBar from './components/frontend/UI/NavigationBar';
+import TutorPage from './components/frontend/UI/TutorPage';
+import Homepage from './components/frontend/UI/Homepage';
+import FAQ from './components/frontend/UI/FAQ';
+import Pricing from './components/frontend/UI/Pricing';
+import { CheckoutForm, Return } from './components/frontend/UI/PaymentPage';
+import Contact from './components/frontend/UI/Contact';
+import Develyn from './components/frontend/UI/Develyn';
+import Homework from './components/homework/Homework'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import Slideshow from './components/Slideshow';
-import SignIn from './components/signin';
-import SignUp from './components/signup';
-import SignOutSuccess from './components/signoutSuccess';
-import VerificationCodeEntry from './components/verificationCode';
-import AccountManagement from './components/AccountManagement'
-import ResetPassword from './components/ResetPassword'
+import Slideshow from './components/frontend/UI/Slideshow';
+import SignIn from './components/frontend/accounts/signin';
+import SignUp from './components/frontend/accounts/signup';
+import SignOutSuccess from './components/frontend/accounts/signoutSuccess';
+import VerificationCodeEntry from './components/frontend/accounts/verificationCode';
+import AccountManagement from './components/frontend/accounts/AccountManagement'
+import ResetPassword from './components/frontend/accounts/ResetPassword'
 
 import {Amplify} from 'aws-amplify';
 import config from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
-import { AuthProvider } from './components/AuthContext';
+import { AuthProvider } from './components/frontend/accounts/AuthContext';
 
 Amplify.configure(config);
 
