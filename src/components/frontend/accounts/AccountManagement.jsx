@@ -130,7 +130,7 @@ const AccountManagement = () => {
               {showConfirmation && (
                 <div className="confirmation-popup">
                   <p style={{padding: '8px 10px'}}>Are you sure you want to delete your account?</p>
-                  <p>Note: This cannot be undone</p>
+                  <p>Note: All of your data will be lost. This cannot be undone.</p>
                   <button onClick={handleDelete} style={buttonStyle}>
                     I am sure. Delete My account.
                   </button>
@@ -202,7 +202,7 @@ const AccountManagement = () => {
           {successMessage && <p>{successMessage}</p>}
         </div>
       )}
-      {!user && <p>Loading user data...</p>}
+      {!user && <p>Loading user data... If it does not load, try signing out and back in</p>}
     </div>
     </div>
   );

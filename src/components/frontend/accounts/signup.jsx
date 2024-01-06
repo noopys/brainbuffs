@@ -12,6 +12,7 @@ function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [hearAboutUs, sethearAboutUs] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(false);
 
@@ -72,6 +73,10 @@ function SignUp() {
     setConfirmPassword(e.target.value);
   };
 
+  const handleHearAboutUsChange = (e) => {
+    sethearAboutUs(e.target.value);
+  };
+
   useEffect(() => {
     setPasswordsMatch(password === confirmPassword);
   }, [password, confirmPassword]);
@@ -82,7 +87,7 @@ function SignUp() {
         setErrorMessage("Passwords don't match");
         return;
       }
-      const signUpResponse = await Auth.signUp({username, password, attributes: {'custom:FullName': fullname , 'custom:PhoneNumber': phoneNumber}});
+      const signUpResponse = await Auth.signUp({username, password, attributes: {'custom:FullName': fullname , 'custom:PhoneNumber': phoneNumber, 'custom:HearAboutUs': hearAboutUs}});
       const UserId = signUpResponse.userSub;
       //await remember({email: username});
       console.log("signing up user", username);
@@ -197,6 +202,13 @@ function SignUp() {
                   placeholder="Phone Number"
                   value={phoneNumber}
                   onChange={handlePhoneChange}
+                  style={inputStyle}
+                />
+                <input
+                  type="text"
+                  placeholder="How did you hear about us?"
+                  value={hearAboutUs}
+                  onChange={handleHearAboutUsChange}
                   style={inputStyle}
                 />
                 <input
