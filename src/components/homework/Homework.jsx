@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../frontend/accounts/AuthContext'
-import {updateUser} from '../helpers/updateUser';
+import { updateUser } from '../helpers/updateUser';
+import { Oval } from 'react-loader-spinner'
+
 
 function Homework() {
 
@@ -15,6 +17,7 @@ function Homework() {
   const [isCorrect, setIsCorrect] = useState(null)
   const [userProfile, setUserProfile] = useState(null);
   const [questionData, setQuestionData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   //Load new user Data each time it changes 
   useEffect(() => {
@@ -28,7 +31,7 @@ function Homework() {
 
   //Fetch new question on load when userProfile updates 
   useEffect(() => {
-    if(userProfile){
+    if (userProfile) {
       fetchQuestion()
     }
   }, [userProfile]); // Add userProfile as a dependency
@@ -44,12 +47,12 @@ function Homework() {
     setSelectedOption(event.target.value);
   };
 
- //Fetch a new question 
+  //Fetch a new question 
   const fetchQuestion = async () => {
     //Reset ouput of field
+    setIsLoading(true);
     setSelectedOption(null);
     setIsCorrect(null)
-
     //
     let userTemp = '';
     if (user && user.username) {
@@ -77,6 +80,7 @@ function Homework() {
       const data = await response.json();
       setRecordId(data.recordId)
       setQuestionData(data);
+      setIsLoading(false);
       console.log(data)
     } catch (err) {
       console.error('Error fetching question:', err);
@@ -97,7 +101,7 @@ function Homework() {
       userProfile: prof,
     }
     //Update Users profile based on concepts in this question 
-    updateUser(userTemp, questionData, selectedOption); 
+    updateUser(userTemp, questionData, selectedOption);
 
     //
     console.log(selectedOption)
@@ -148,8 +152,9 @@ function Homework() {
   //Homework UI 
   return (
     <>
-      <div className="flex justify-center" style={{ margin: 'auto', color: '#20a7a1'  }}>
-        <Card className="bg-light" style={{ width: '30rem', marginTop: '20px'}}>
+      <div className="flex justify-center items-start" style={{ margin: 'auto' }}>
+        <div className="loader"></div>
+        <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
           <Card.Body>
             {/* <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" /> */}
             {!questionData.imageUrl ? (
@@ -218,6 +223,12 @@ function Homework() {
 
               </div>
             )
+          }
+          {isLoading && (
+            <div className="ml-5 mt-2">
+              <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+            </div>
+          )
           }
         </div>
     </>
