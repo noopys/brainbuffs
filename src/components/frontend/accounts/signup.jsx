@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext'
 
@@ -20,6 +22,13 @@ function SignUp() {
   const [verificationError, setVerificationError] = useState('');
   const [ver, setVer] = useState(false);
   const [succ, setSucc] = useState(false);
+
+  //Plan Url arguments 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+
+  const plan = urlParams.get('plan');
 
   const containerStyle = {
     border: '1px solid #20a7a1',
@@ -130,6 +139,16 @@ function SignUp() {
       }
 
       await Auth.confirmSignUp(username, verificationCode);
+      //Check if we need to collect payment too
+      if(plan =="free"){
+        setSucc(true);
+      }
+      else if (plan =="pro"){
+        navigate('/checkout?plan=pro');
+      }
+      else if (plan =="practice"){
+        navigate('/checkout?plan=practice');
+      }
       setSucc(true);
     } catch (error) {
       setVerificationError(error.message);

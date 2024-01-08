@@ -32,6 +32,10 @@
         "updateUserProfile": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
           "s3Key": "amplify-builds/updateUserProfile-5270546b56474a4e506c-build.zip"
+        },
+        "createCheckoutSessionSubscription": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/createCheckoutSessionSubscription-4c6e5475687a37564e62-build.zip"
         }
       },
       "auth": {

@@ -33,6 +33,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "createCheckoutSessionSubscription": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createHomework": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -68,6 +73,22 @@
         {
           "category": "function",
           "resourceName": "addUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_createCheckoutSessionSubscription_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createCheckoutSessionSubscription"
+        }
+      ]
+    },
+    "AMPLIFY_function_createCheckoutSessionSubscription_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createCheckoutSessionSubscription"
         }
       ]
     },

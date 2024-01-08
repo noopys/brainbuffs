@@ -120,9 +120,9 @@ const Frame = () => {
               {/* Content for Section 2 */}
               <div className=" bg-white">
                 <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">
-                  <PricingCard rows={freePlan} title="Free" price="0" />
-                  <PricingCard rows={practicePlan} title="Practice" price="50" />
-                  <PricingCard rows={proPlan} title="Pro" price="200" />
+                  <PricingCard plan="free" rows={freePlan} title="Free" price="0" />
+                  <PricingCard plan="practice" rows={practicePlan} title="Practice" price="50" />
+                  <PricingCard plan="pro" rows={proPlan} title="Pro" price="200" />
                 </div>
                 <div className=" bg-white h-16 mt-[-16px]" />
               </div>
@@ -147,7 +147,7 @@ const Frame = () => {
 
                   <PersonCard
                     name="Sandy Dinegar"
-                    role="SAT Program Coordinator"
+                    role="SAT Program Coordinator and Lead Tutor"
                     description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
                     imageSrc="/sandy-headshot-1@2x.png"
                   />
