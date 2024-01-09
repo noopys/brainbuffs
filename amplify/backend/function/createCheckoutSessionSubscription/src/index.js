@@ -1,8 +1,25 @@
-import { Stripe } from 'stripe';
+const AWS = require('aws-sdk');
+const Stripe = require('stripe');
 
-const stripe = new Stripe('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');
+const secretsManager = new AWS.SecretsManager();
+let stripe; 
 
-export const handler = async (event) => {
+async function getStripeApiKey() {
+    const secretId = 'stripe_api_key'; // Replace with your secret name
+    const data = await secretsManager.getSecretValue({ SecretId: secretId }).promise();
+
+    if ('SecretString' in data) {
+        const secret = JSON.parse(data.SecretString);
+        return secret.stripe_api_key; // Replace with your key name in the secret
+    }
+    throw new Error("Secret not found");
+}
+
+exports.handler = async (event) => {
+   if (!stripe) {
+        const stripeApiKey = await getStripeApiKey();
+        stripe = new Stripe(stripeApiKey);
+    }
   //Parse Body 
   const requestBody = JSON.parse(event.body)
   const product = requestBody.product
@@ -50,11 +67,11 @@ export const handler = async (event) => {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price: price,
+          price: priceId,
           quantity: 1,
         },
       ],
-      mode: mode,
+      mode: "subscription",
       success_url: `https://www.brainbuffstutoring.com/`,
       cancel_url: `https://www.brainbuffstutoring.com/`,
       automatic_tax: { enabled: true },
