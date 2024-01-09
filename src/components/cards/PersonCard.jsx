@@ -27,7 +27,7 @@ function PersonCard({ name, role, description, imageSrc }) {
             </div>
           </div>
           <div className="BkText-module_typeShortXs__4YFWW BkText-module_bkText__3DMy6 BkText-module_normal__3U7kp BkType-module_bkType__2QqHN PersonalCard_description__tmK3V">
-            <p>{description}</p>
+            <p style={{fontSize:"20px"}}>{description}</p>
           </div>
         </div>
       </div>

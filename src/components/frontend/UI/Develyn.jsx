@@ -57,7 +57,7 @@ export default function Develyn() {
                             </li>
                         </ul>
                         <div className="d-flex justify-content-center mt-4">
-                            <Link to="/checkout" className="btn btn-primary btn-lg" style={buttonStyle}>
+                            <Link to="/checkout?plan=develyn" className="btn btn-primary btn-lg" style={buttonStyle}>
                                 Sign Up Now
                             </Link>
                         </div>

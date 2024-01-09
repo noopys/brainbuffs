@@ -1,34 +1,50 @@
 import React, { useState, useEffect } from "react";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout
 } from '@stripe/react-stripe-js';
 import {
-    Navigate
-  } from "react-router-dom";
+  Navigate
+} from "react-router-dom";
 // recreating the `Stripe` object on every render.
 // This is your test public API key.
 //API Key omitted here
 export const CheckoutForm = () => {
-  const [clientSecret, setClientSecret] = useState('');
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const plan = urlParams.get('plan');
 
   useEffect(() => {
-    // Create a Checkout Session as soon as the page loads
-    fetch("https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/create-checkout-session", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        //setClientSecret(data.clientSecret)
-        window.location.href = data.url;
-    });
-  }, []);
-  
-  //console.log(clientSecret);
-  return (
-    <div id="checkout">
-      {/* {clientSecret && (
+    let url = '';
+    let mode = '';
+    if (plan === "develyn") {
+      url = "https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/create-checkout-session";
+      mode="payment";
+    } else if (plan === "pro" || plan === "practice") {
+      url = "https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/createCheckoutSessionSubscription";
+      mode="subscription";
+    }
+
+    if (url) {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ product: plan }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          window.location.href = data.url;
+        });
+    }
+  }, [plan]);
+
+//console.log(clientSecret);
+return (
+  <div id="checkout">
+    {/* {clientSecret && (
         <EmbeddedCheckoutProvider
           stripe={stripePromise}
           options={{clientSecret}}
@@ -36,8 +52,8 @@ export const CheckoutForm = () => {
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>
       )} */}
-    </div>
-  )
+  </div>
+)
 }
 
 export const Return = () => {

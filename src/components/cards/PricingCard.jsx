@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import TickSquare from '../../resources/icons/tick_square.svg';
 
-function PricingCard({ rows, price, title }) {
+function PricingCard({ rows, price, title, plan }) {
+    //Add plan argument to url 
+    const signupUrl = `/signup?plan=${plan}`;
     return (
         <div className="flex flex-col gap-10 m-4 w-[380px] bg-white border border-gray-300 rounded-lg shadow-lg">
             <div className="pl-8 pt-8 justify-start items-start flex-grow">
@@ -73,7 +75,7 @@ function PricingCard({ rows, price, title }) {
                     ))}
                 </div>
             </div>
-            <Link to="/contact" style={{textDecoration:"none"}}>
+            <Link to={signupUrl} style={{textDecoration:"none"}}>
                 <div className="flex justify-center items-center pt-1 pb-5">
                     {/*Plan Sign up Buttons*/}
                     <button
