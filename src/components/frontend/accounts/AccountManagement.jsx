@@ -7,8 +7,8 @@ const AccountManagement = () => {
   const { isLoggedIn, logout, user } = useAuth();
 
   // const for change phone# or full name
-  const [newFullName, setNewFullName] = useState(user.fullName);
-  const [newPhoneNumber, setNewPhoneNumber] = useState(user.phoneNumber);
+  const [newFullName, setNewFullName] = useState('');
+  const [newPhoneNumber, setNewPhoneNumber] = useState('');
 
   // const for changing password
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -151,7 +151,7 @@ const AccountManagement = () => {
             <div>
               <h2 style={{fontSize: '3em', fontWeight: 'bold'}}>My Account </h2>
 
-              <p>Take a look at  <a href="./profile" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>your insights</a>.</p>
+              <p>Take a look at your <a href="./profile" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>dashboard</a>.</p>
 
               <h2 style={{fontSize: '2em', fontWeight: 'bold'}}>Personal Information </h2>
               <h5 style={{fontSize: '1em'}}> View and edit your personal information</h5>

@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     const dynamodb = new AWS.DynamoDB();
-    console.log(username)
     const params = {
       TableName: 'UserDatabase',
       KeyConditionExpression: 'UserId = :userId', // Replace 'UserId' with your actual partition key attribute name

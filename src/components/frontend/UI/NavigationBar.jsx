@@ -113,7 +113,7 @@ const NavigationBar = () => {
                 {isLoggedIn ? (
                   <>
                     <li><Link to="/profile" onMouseEnter={() => handleMouseEnter('ins')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'ins' ? hoverStyle : {})}}>
-                      My Insights
+                      Dashboard
                       </Link></li>
                       <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {})}}>
                       My Account
@@ -182,7 +182,7 @@ const NavigationBar = () => {
               <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                 <img className="relative w-5 h-5" alt="" src={DownArrow} />
                 <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                  My Insights
+                Dashboard
                 </div>
               </button>
               </Link>

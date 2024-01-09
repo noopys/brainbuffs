@@ -68,13 +68,13 @@ function SignIn() {
 
       // Login with AuthContext (local auth)
       await login({ email: userInfo.attributes.email, username: userInfo.attributes.sub, fullName: userInfo.attributes['custom:FullName'], phoneNumber: userInfo.attributes['custom:PhoneNumber']});
-      setSuccessMessage('You will be redirected to the home page in 5 seconds.');
+      setSuccessMessage('You will be redirected in 5 seconds.');
       console.log('Sign in successful. Redirecting in 5 seconds...');
 
       const redirectDelay = 5000; // 5 seconds delay (adjust as needed)
       const redirectTimer = setTimeout(() => {
         if (window.location.href === currentUrl) {
-          window.location.href = './'; // Redirect only if still on the same page
+          window.location.href = './profile'; // Redirect only if still on the same page
         }
       }, redirectDelay);
 
@@ -97,7 +97,7 @@ function SignIn() {
   return (
     <div>
       <div style={containerStyle}>
-        <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>{isLoggedIn ? 'Sign In Successful' : 'Sign In'}</h1>
+        <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold'}}>{isLoggedIn ? 'Sign In Successful' : 'Sign In'}</h1>
         {!isLoggedIn ? (
           <div>
             <div>
@@ -130,7 +130,8 @@ function SignIn() {
         ) : (
           <div>
             <p>You are signed in with email: {user.email}</p>
-            <button onClick={handleSignOut} style={buttonStyle}>Sign Out</button>
+            
+            <button onClick={handleSignOut} style={{...buttonStyle, backgroundColor: '#dd0000'}}>Sign Out</button>
             {successMessage && <p>{successMessage}</p>}
           </div>
         )}
