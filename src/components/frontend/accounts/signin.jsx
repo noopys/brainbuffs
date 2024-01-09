@@ -64,9 +64,10 @@ function SignIn() {
   const handleSignIn = async () => {
     try {
       const userInfo = await Auth.signIn(username, password);
-      console.log("The userid is:", userInfo.attributes.sub);
+      // console.log("The USERINFO is:", userInfo.attributes['custom:FullName'], userInfo.attributes['custom:PhoneNumber']);
 
-      await login({ email: userInfo.attributes.email, username: userInfo.attributes.sub });
+      // Login with AuthContext (local auth)
+      await login({ email: userInfo.attributes.email, username: userInfo.attributes.sub, fullName: userInfo.attributes['custom:FullName'], phoneNumber: userInfo.attributes['custom:PhoneNumber']});
       setSuccessMessage('You will be redirected to the home page in 5 seconds.');
       console.log('Sign in successful. Redirecting in 5 seconds...');
 
