@@ -140,21 +140,21 @@ const Frame = () => {
                 <div className="self-stretch grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[42px] text-5xl text-gray-200">
                   <PersonCard
                     name="Logan Schottland"
-                    role="President"
+                    role="President and Cofounder"
                     description="Logan, a computer science student at CU Boulder, excels academically, scoring above the 99th Percentile on the SAT. As a National Merit Scholar with engineering experience at NASA, he merges theoretical knowledge with practical applications. Logan's refined problem-solving skills are vital for testing success. His tutoring approach is ideal for high schoolers aiming for SAT excellence and improved test-taking abilities."
                     imageSrc="/loganvab-1@2x.png"
                   />
 
                   <PersonCard
                     name="Sandy Dinegar"
-                    role="SAT Program Coordinator and Lead Tutor"
+                    role="Chief Business Officer and Cofounder"
                     description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
                     imageSrc="/sandy-headshot-1@2x.png"
                   />
 
                   <PersonCard
                     name="Matt Schottland"
-                    role="Director of Operations"
+                    role="Director of Finance and Operations"
                     description="Matt is an ambitious double major in Finance and Accounting at the Leeds School of Business and top 1% SAT scorer. Matt has a wide breadth of skills, earning him internship offers from competitive companies, such as KPMG, Lockheed Martin, and Medtronic. Matt combines his experience taking and tutoring the SAT with his strong business skills to craft specialized tutoring programs that provide unique value to students."
                     imageSrc="/mattHeadshot.jpg"
                   />

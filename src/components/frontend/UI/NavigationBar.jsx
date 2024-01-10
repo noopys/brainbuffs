@@ -12,40 +12,40 @@ import { useAuth } from '../accounts/AuthContext';
 
 
 const NavigationBar = () => {
-    const { isLoggedIn, user, logout } = useAuth();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const [hoveredItem, setHoveredItem] = useState(null);
+  const { isLoggedIn, user, logout } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
-    // Event handlers for the dropdown menu
-    const handleMouseEnter = (itemId) => {
-      setHoveredItem(itemId);
-    };
-  
-    const handleMouseLeave = () => {
-      setHoveredItem(null);
-    };
+  // Event handlers for the dropdown menu
+  const handleMouseEnter = (itemId) => {
+    setHoveredItem(itemId);
+  };
 
-    const dropdownStyle = {
-      textDecoration: 'none',
-      display: 'block',
-      textAlign: 'left',
-      fontFamily: 'Poppins',
-      backgroundColor: '#ffffff'
-    };
-    
-    const hoverStyle = {
-      ...dropdownStyle,
-      backgroundColor: '#e0e0e0',
-    };
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+  };
 
-    const handleSignOut = async () => {
-      try {
-        logout();
-      } catch (error) {
-        console.error('Error signing out:', error);
-      }
-    };
+  const dropdownStyle = {
+    textDecoration: 'none',
+    display: 'block',
+    textAlign: 'left',
+    fontFamily: 'Poppins',
+    backgroundColor: '#ffffff'
+  };
+
+  const hoverStyle = {
+    ...dropdownStyle,
+    backgroundColor: '#e0e0e0',
+  };
+
+  const handleSignOut = async () => {
+    try {
+      logout();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
     return (
     <nav className="bg-white rounded-lg" style={{zIndex:9999}}>
@@ -69,7 +69,7 @@ const NavigationBar = () => {
 
         {/* Navigation links for larger screens */}
         <div className="hidden lg:flex items-center gap-[1px] justify-start w-full">
-                     <Link to="/homework" style={{ textDecoration: 'none' }}>
+          <Link to="/homework" style={{ textDecoration: 'none' }}>
             <button className="cursor-pointer py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                 Adaptive Practice
@@ -87,6 +87,13 @@ const NavigationBar = () => {
             <button className="cursor-pointer py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                 Contact
+              </div>
+            </button>
+          </Link>
+          <Link to="/develyn" style={{ textDecoration: 'none' }}>
+            <button className="cursor-pointer py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
+              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                D'Evelyn Group Class
               </div>
             </button>
           </Link>
@@ -120,16 +127,16 @@ const NavigationBar = () => {
                       </Link></li>
                     <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', padding: '8px 16px', color: '#dd0000', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
                       Sign Out
-                      </Link></li>
-                  </> 
-                  ) : (
+                    </Link></li>
+                  </>
+                ) : (
                   <>
-                      <li><Link to="/signin" onMouseEnter={() => handleMouseEnter('si')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'si' ? hoverStyle : {})}}>
-                        Sign In
-                        </Link></li>
-                      <li><Link to="/signup" onMouseEnter={() => handleMouseEnter('su')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'su' ? hoverStyle : {})}}>
-                        Sign Up
-                        </Link></li>
+                    <li><Link to="/signin" onMouseEnter={() => handleMouseEnter('si')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'si' ? hoverStyle : {}) }}>
+                      Sign In
+                    </Link></li>
+                    <li><Link to="/signup" onMouseEnter={() => handleMouseEnter('su')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'su' ? hoverStyle : {}) }}>
+                      Sign Up
+                    </Link></li>
                   </>
                 )}
               </ul>
@@ -138,12 +145,12 @@ const NavigationBar = () => {
         </div>
 
         {/* Mobile navigation links */}
-         <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}>
+        <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}>
           <Link
             to="/faq"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+          >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={FAQIcon} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -155,7 +162,7 @@ const NavigationBar = () => {
             to="/contact"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+          >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={Contact} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -167,7 +174,7 @@ const NavigationBar = () => {
             to="/homework"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+          >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={Homework} />
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
@@ -195,21 +202,21 @@ const NavigationBar = () => {
               </button>
               </Link>
               <Link onClick={handleSignOut} style={{ textDecoration: 'none' }}>
-              <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-                <img className="relative w-5 h-5" alt="" src={DownArrow} />
-                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                  Sign Out
-                </div>
-              </button>
+                <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+                  <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                  <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                    Sign Out
+                  </div>
+                </button>
               </Link>
             </div>
-            ) : (
-              
-              <Link
+          ) : (
+
+            <Link
               to="/signin"
               style={{ textDecoration: 'none' }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
+            >
               <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                 <img className="relative w-5 h-5" alt="" src={DownArrow} />
                 <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
