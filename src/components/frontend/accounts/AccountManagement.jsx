@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext';
 
 const AccountManagement = () => {
   // get info from local auth session
-  const { isLoggedIn, logout, user, setUser } = useAuth();
+  const { isLoggedIn, logout, user, updateUser } = useAuth();
 
   // const for change phone# or full name
-  const [newFullName, setNewFullName] = useState('');
-  const [newPhoneNumber, setNewPhoneNumber] = useState('');
+  const [newPhoneNumber, setNewPhoneNumber] = useState(null);
+  const [newFullName, setNewFullName] = useState(null);
+  
 
   // const for changing password
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -86,46 +87,53 @@ const AccountManagement = () => {
     }
   };
 
-  const updateUserAttributes = async () => {
-    // if (newFullName==='' && newPhoneNumber==='') {
-    //   setupdateInfoSuccessMessage('No changes to be made.');
-    //   return;
-    // }
+  useEffect(() => {
+    // Whenever the 'newFullName' variable changes, update the context
+    if (newFullName !== null) {
+      const updatedContext = { ...user, fullName: newFullName };
+      updateUser(updatedContext);
+      // console.log('updated Fullname', user);
+    }
+  }, [newFullName]);
 
-    if (!/^[0-9]*$/.test(newPhoneNumber)) {
+  useEffect(() => {
+    // Whenever the 'newPhoneNumber' variable changes, update the context
+    if (newPhoneNumber !== null)  {
+      const updatedContext = { ...user, phoneNumber: newPhoneNumber };
+      updateUser(updatedContext);
+      // console.log('updated phone #', user);
+    }
+  }, [newPhoneNumber]);
+
+  const updateUserAttributes = async () => {
+    if (!/^[0-9]*$/.test(user.phoneNumber)) {
       setupdateInfoSuccessMessage('Phone Number can only contain numbers. (No spaces, hyphens, or parenthesis)');
       return;
     }
 
-    if (!/^[a-zA-Z '-]*$/.test(newFullName)) {
+    if (!/^[a-zA-Z '-]*$/.test(user.fullName)) {
       setupdateInfoSuccessMessage('Full Name can only contain letters, hyphens (-), apostrophe (\'), dashes (—), and spaces.');
       return;
     }
 
-    
-
     try {
-      if (newFullName==='') {
-        setNewFullName(user.fullName);
-        console.log('autofilled full name', newFullName);
-      } else {
-        user.firstName= newFullName;
-      };
-      if (newPhoneNumber==='') {
-        setNewFullName(user.phoneNumber);
-      } else {
-        user.phoneNumber= newPhoneNumber;
-      };
-
       const currentUser = await Auth.currentAuthenticatedUser();
-      
+      console.log('Updating with', user.fullName, user.phoneNumber);
 
       await Auth.updateUserAttributes(currentUser, {
-        'custom:FullName': newFullName,
-        'custom:PhoneNumber' : newPhoneNumber,
+        'custom:FullName': user.fullName,
+        'custom:PhoneNumber' : user.phoneNumber,
       });
-      console.log('User attributes updated successfully');
+      console.log('User attributes updated successfully', user.fullName, user.phoneNumber);
       setupdateInfoSuccessMessage('User attributes updated successfully!');
+
+      const messageDelay = 5000; // 5 seconds delay (adjust as needed)
+      const messageTimer = setTimeout(() => {
+        setupdateInfoSuccessMessage('');
+      }, messageDelay);
+
+      return () => clearTimeout(messageTimer); // Clear timeout if component unmounts
+
     } catch (error) {
       console.error('Error updating user attributes:', error);
       setupdateInfoSuccessMessage(error.message);
@@ -182,15 +190,16 @@ const AccountManagement = () => {
                   <input readOnly type="email" name="email" defaultValue={user.email} style={{...inputStyle, backgroundColor: 'lightgray' }} placeholder="Email" />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <label htmlFor="fullName" style={{ marginRight: '5px', minWidth: '120px' }}>Full Name: </label>
-                  <input type="text" name="fullname" defaultValue={user.fullName || ''} onChange={(e) => setNewFullName(e.target.value)} style={inputStyle} placeholder="Full Name"/>
+                  <label style={{ marginRight: '5px', minWidth: '120px' }}>Full Name: </label>
+                  <input name="fullname" defaultValue={user.fullName} onChange={(e) => setNewFullName(e.target.value)} style={inputStyle} placeholder="Full Name"/>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <label htmlFor="phoneNumber" style={{ marginRight: '5px', minWidth: '120px' }}>Phone Number: </label>
-                  <input name="phoneNumber" defaultValue={user.phoneNumber || ''} onChange={(e) => setNewPhoneNumber(e.target.value)} style={inputStyle} placeholder="Phone Number"/>
+                  <label style={{ marginRight: '5px', minWidth: '120px' }}>Phone Number: </label>
+                  <input name="phoneNumber" defaultValue={user.phoneNumber} onChange={(e) => setNewPhoneNumber(e.target.value)} style={inputStyle} placeholder="Phone Number"/>
                 </div>
-                <button style={{...buttonStyle, backgroundColor: '#20a7a1'}} onClick={() => updateUserAttributes()}>Update my Info</button>
-                {updateInfoSuccessMessage && <p>{updateInfoSuccessMessage}</p>}
+                <button style={{...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px'}} onClick={() => updateUserAttributes()}>Update my Info</button>
+
+                {updateInfoSuccessMessage && <p style={{color: '#20a7a1'}}> {updateInfoSuccessMessage}</p>}
               </div>
 
               <br></br>

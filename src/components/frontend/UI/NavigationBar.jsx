@@ -118,7 +118,7 @@ const NavigationBar = () => {
                       <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {})}}>
                       My Account
                       </Link></li>
-                    <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', background: 'none', padding: '8px 16px', color: 'red', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
+                    <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', padding: '8px 16px', color: '#dd0000', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
                       Sign Out
                       </Link></li>
                   </> 

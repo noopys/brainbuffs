@@ -73,11 +73,11 @@ const ProfilePage = () => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <label htmlFor="goalScore" style={{ marginRight: '5px', minWidth: '300px' }}>  Goal Score: </label>
-                <input type="text" name="goalScore" value={goalScore} style={inputStyle } placeholder="Goal Score"/>
+                <input readOnly type="text" name="goalScore" value={goalScore} style={inputStyle } placeholder="Goal Score"/> 
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <label htmlFor="goalScore" style={{ marginRight: '5px', minWidth: '300px' }}>  Date of Next Test: </label>
-                <input type="text" name="nextTest" value={nextDate} style={inputStyle } placeholder="Next Test Date"/>
+                <input readOnly type="text" name="nextTest" value={nextDate} style={inputStyle } placeholder="Next Test Date"/>
             </div>
         </div>
 

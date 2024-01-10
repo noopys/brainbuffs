@@ -100,8 +100,13 @@ export const AuthProvider = ({ children }) => {
     window.location.href = './SuccessfulSignOut';
   };
 
+  const updateUser = async (newValue) => {
+    setUser(newValue);
+    localStorage.setItem('sessionToken', JSON.stringify(newValue));
+  };
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, userData, setUser, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, userData, updateUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
