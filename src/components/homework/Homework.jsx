@@ -158,9 +158,18 @@ function Homework() {
           <Card.Body>
             {/* <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" /> */}
             {!questionData.imageUrl ? (
+              <div>
+                <div className="flex justify-center items-center">
+                  {isLoading && (
+                    <div className="mt-3 md:mt-0 md:ml-2">
+                      <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                    </div>
+                  )}
+                </div>
               <div className="flex justify-center items-center h-64">
                 Question Image Loading .... If nothing loads press check then next question and wait again
                 {/* <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-12 w-12"></div> */}
+              </div>
               </div>
             ) : (
               <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
@@ -216,11 +225,7 @@ function Homework() {
           >
             Next Question
           </button>
-          {isLoading && (
-            <div className="mt-3 md:mt-0 md:ml-2">
-              <Oval color="#20a7a1" secondaryColor="#20a7a1" />
-            </div>
-          )}
+          
         </div>
 
 

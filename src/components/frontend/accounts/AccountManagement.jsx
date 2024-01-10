@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 
 const AccountManagement = () => {
   // get info from local auth session
-  const { isLoggedIn, logout, user } = useAuth();
+  const { isLoggedIn, logout, user, setUser } = useAuth();
 
   // const for change phone# or full name
   const [newFullName, setNewFullName] = useState('');
@@ -87,6 +87,11 @@ const AccountManagement = () => {
   };
 
   const updateUserAttributes = async () => {
+    // if (newFullName==='' && newPhoneNumber==='') {
+    //   setupdateInfoSuccessMessage('No changes to be made.');
+    //   return;
+    // }
+
     if (!/^[0-9]*$/.test(newPhoneNumber)) {
       setupdateInfoSuccessMessage('Phone Number can only contain numbers. (No spaces, hyphens, or parenthesis)');
       return;
@@ -97,8 +102,24 @@ const AccountManagement = () => {
       return;
     }
 
+    
+
     try {
+      if (newFullName==='') {
+        setNewFullName(user.fullName);
+        console.log('autofilled full name', newFullName);
+      } else {
+        user.firstName= newFullName;
+      };
+      if (newPhoneNumber==='') {
+        setNewFullName(user.phoneNumber);
+      } else {
+        user.phoneNumber= newPhoneNumber;
+      };
+
       const currentUser = await Auth.currentAuthenticatedUser();
+      
+
       await Auth.updateUserAttributes(currentUser, {
         'custom:FullName': newFullName,
         'custom:PhoneNumber' : newPhoneNumber,
@@ -158,7 +179,7 @@ const AccountManagement = () => {
               <div >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <label htmlFor="email" style={{ marginRight: '5px', minWidth: '120px' }}>      Email: </label>
-                  <input type="email" name="email" value={user.email} style={{...inputStyle, backgroundColor: 'lightgray' }} placeholder="Email" readOnly/>
+                  <input readOnly type="email" name="email" defaultValue={user.email} style={{...inputStyle, backgroundColor: 'lightgray' }} placeholder="Email" />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <label htmlFor="fullName" style={{ marginRight: '5px', minWidth: '120px' }}>Full Name: </label>

@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     setIsLoggedIn(true);
     setUser(credentials);
-    // console.log("user credentials: ", credentials);
+    console.log("Retrieved items from cognito", credentials);
     localStorage.setItem('sessionToken', JSON.stringify(credentials));
 
     // Fetch data from DynamoDB upon login
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, userData, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, userData, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

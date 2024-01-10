@@ -69,7 +69,7 @@ const ProfilePage = () => {
         <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <label htmlFor="MRDS" style={{ marginRight: '5px', minWidth: '300px' }}>      Most Recent Diagnostic Score: </label>
-                  <input type="text" name="MRDS" value={MRDS}style={{...inputStyle, backgroundColor: 'lightgray' }} placeholder="Most recent Score" readOnly/>
+                  <input type="text" name="MRDS" value={MRDS} style={{...inputStyle, backgroundColor: 'lightgray' }} placeholder="Most recent Score" readOnly/>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <label htmlFor="goalScore" style={{ marginRight: '5px', minWidth: '300px' }}>  Goal Score: </label>
@@ -80,6 +80,8 @@ const ProfilePage = () => {
                 <input type="text" name="nextTest" value={nextDate} style={inputStyle } placeholder="Next Test Date"/>
             </div>
         </div>
+
+        <h2 style={{fontSize: '2em', fontWeight: 'bold', marginTop: '50px'}}>My Insights</h2>
 
         <div style={graphContainerStyles}>
             <h2>Concepts that you nail</h2>
