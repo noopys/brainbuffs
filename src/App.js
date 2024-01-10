@@ -13,6 +13,7 @@ import FAQ from './components/frontend/UI/FAQ';
 import Pricing from './components/frontend/UI/Pricing';
 import { CheckoutForm, Return } from './components/frontend/UI/PaymentPage';
 import Contact from './components/frontend/UI/Contact';
+import Success from './components/frontend/UI/Success';
 import Develyn from './components/frontend/UI/Develyn';
 import Homework from './components/homework/Homework'
 import React from "react";
@@ -82,6 +83,7 @@ function App() {
               <Route path="/develyn" element={<Develyn />} />
               <Route path="/homework" element={<Homework/>}/>
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/success" element={<Success/>}/>
               <Route path="/signup" element={<SignUp />} />
               <Route path="/SuccessfulSignOut" element={<SignOutSuccess />} />
               <Route path="/verificationCode" element={<VerificationCodeEntry />} />
