@@ -58,7 +58,7 @@ const Frame = () => {
                     <div className="xl:w-full xl:h-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2">
                       <div className="xl:w-full bg-gray-100 xl:flex xl:flex-row xl:items-start xl:justify-end xl:pt-2 xl:pb-2">
                         <h1 className="self-stretch xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl pl-12 pt-3 pr-10">
-                          <b>Personalized SAT Prep for Your Dream School</b>
+                          <b>Personalized SAT Prep to get into your Dream School</b>
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-row xl:items-start xl:justify-start xl:py-2">

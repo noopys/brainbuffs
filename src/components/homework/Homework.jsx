@@ -67,7 +67,7 @@ function Homework() {
     try {
       // Using fetch instead of axios
       const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getNextQuestion', {
-        method: 'POST', // GET is the default method, but it's good to be explicit
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json'
         },
