@@ -4,6 +4,7 @@ import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
+import { updateUser } from '../helpers/updateUser';
 
 function Homework() {
   const navigate = useNavigate();
@@ -145,6 +146,9 @@ function Homework() {
     });
     console.log('submitData:', submitData); // Add this line for debugging
     try {
+      // Update user profile for all questions
+      await updateUser(userId, questionDataArray, answers);
+
       const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/gradeHomework', {
         method: 'POST',
         headers: {
