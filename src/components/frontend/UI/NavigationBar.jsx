@@ -101,8 +101,8 @@ const NavigationBar = () => {
 
         {/* User dropdown for larger screens */}
         <div className="relative hidden lg:block">
-          <div className="py-3 px-6 bg-transparent rounded-lg flex gap-1 items-center justify-end" onMouseEnter={() => setIsOpen(true)}>
-            <img className="w-4 h-4" alt="" src={DownArrow} />
+          <div className="py-3 px-6 bg-transparent rounded-lg flex gap-2 items-center justify-end" onMouseEnter={() => setIsOpen(true)}>
+            <img className="w-3.5 h-3.5" alt="" src={DownArrow} />
             <div
               className="text-sm font-poppins text-light-theme-subheading-text"
               style={{ whiteSpace: 'nowrap' }}
@@ -112,18 +112,18 @@ const NavigationBar = () => {
           </div>
           {isOpen && (
             <div
-              className="absolute right-0 top-full left-0 bg-white shadow-lg rounded-lg justify-end"
+              className="absolute right-0 top-full left-0 bg-white shadow-lg rounded-xl justify-end"
               onMouseLeave={() => setIsOpen(false)}
               onClick={() => setIsOpen(false)}
             >
-              <ul className="list-none p-0">
+              <ul className="list-none p-0 pb-0">
                 {isLoggedIn ? (
                   <>
                     <li><Link to="/profile" onMouseEnter={() => handleMouseEnter('ins')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'ins' ? hoverStyle : {})}}>
                       Dashboard
                       </Link></li>
                       <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {})}}>
-                      My Account
+                      Account
                       </Link></li>
                     <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', padding: '8px 16px', color: '#dd0000', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
                       Sign Out
@@ -209,7 +209,7 @@ const NavigationBar = () => {
               <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                 <img className="relative w-5 h-5" alt="" src={DownArrow} />
                 <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                  My Account
+                  Account
                 </div>
               </button>
               </Link>

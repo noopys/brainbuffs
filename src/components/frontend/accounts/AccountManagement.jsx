@@ -27,7 +27,7 @@ const AccountManagement = () => {
     border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
-    maxWidth: '600px',
+    maxWidth: '800px',
     width: '100%',
     margin: '50px auto',
     fontFamily: 'poppins',
@@ -48,7 +48,7 @@ const AccountManagement = () => {
   const buttonStyle = {
     backgroundColor: '#dd0000',
     color: '#fff',
-    padding: '10px 16px', // Adjust padding as needed
+    padding: '12px 16px', // Adjust padding as needed
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
@@ -95,6 +95,7 @@ const AccountManagement = () => {
       const updatedContext = { ...user, fullName: newFullName };
       updateUser(updatedContext);
       setChangesMade(true);
+      setupdateInfoSuccessMessage('');
       // console.log('updated Fullname', user);
     }
   }, [newFullName]);
@@ -105,6 +106,7 @@ const AccountManagement = () => {
       const updatedContext = { ...user, phoneNumber: newPhoneNumber };
       updateUser(updatedContext);
       setChangesMade(true);
+      setupdateInfoSuccessMessage('');
       // console.log('updated phone #', user);
     }
   }, [newPhoneNumber]);
@@ -239,6 +241,9 @@ const AccountManagement = () => {
                 <br></br>
                 <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Subscription Information </h2>
                 <div>
+                  <div>
+                    Coming Soon!
+                  </div>
                   <div>
                     Current Plan:
                   </div>

@@ -162,7 +162,7 @@ const Frame = () => {
                   <PersonCard
                     name="Isaac Li"
                     role="Lead Software Developer"
-                    description="Isaac, a Cybersecurity graduate student at CU Boulder, holds a B.S. in Computer Science and boasts a remarkable 98th percentile SAT score. His proficiency in web development for students is a result of his unique fusion of academic depth and hands-on expertise, ensuring user-friendly platforms through a blend of theoretical understanding and practical application."
+                    description="Isaac, a Cybersecurity graduate student at CU Boulder, holds a B.S. in Computer Science and holds a remarkable 98th percentile SAT score. His proficiency in web development for students is a result of his unique fusion of academic depth and hands-on expertise, ensuring user-friendly platforms through a blend of theoretical understanding and practical application."
                     imageSrc="/isaac.jpg"
                   />
                 </div>

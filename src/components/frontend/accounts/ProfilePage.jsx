@@ -15,6 +15,9 @@ const ProfilePage = () => {
     const [missedConceptsChartData, setMissedConceptsChartData] = useState([]);
     const [shouldShowLegend, setShouldShowLegend] = useState(true);
 
+    // user messages
+    const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
+
     // Style
     const inputStyle = {
         padding: '12px',
@@ -114,7 +117,14 @@ const ProfilePage = () => {
 
     // Handle submit changes to Dynamo database
     const updateUserAttributesDynamo = async () => {
-        console.log('USERDATA:', userData[0].UserProfile.S);
+        setupdateInfoSuccessMessage('Coming Soon!');
+
+        const messageDelay = 5000; // 5 seconds delay (adjust as needed)
+        const messageTimer = setTimeout(() => {
+            setupdateInfoSuccessMessage('');
+        }, messageDelay);
+
+        return () => clearTimeout(messageTimer); // Clear timeout if component unmounts
     };
 
     return (
@@ -124,7 +134,7 @@ const ProfilePage = () => {
 
             <a href="./homework"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br>
 
-            <form>
+            <div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingRight: '20%' }}>
                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
                         <label htmlFor="MRDS" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}> Diagnostic Score: </label>
@@ -140,7 +150,8 @@ const ProfilePage = () => {
                     </div>
                 </div>
                 <button style={{ ...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px' }} onClick={() => updateUserAttributesDynamo()}>Update my Info</button>
-            </form>
+                {updateInfoSuccessMessage && <p style={{ color: '#20a7a1' }}> {updateInfoSuccessMessage}</p>}
+            </div>
             
             <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px' }}>My Insights</h2>
   
@@ -162,7 +173,6 @@ const ProfilePage = () => {
                             backgroundColor: '#f3f3f3',
                             is3D: true, // Enable a 3D effect for the pie chart
                             legend: shouldShowLegend ? {
-                                title: 'Legend Title', // Add your desired legend title here
                                 position: 'left',
                                 textStyle: {
                                     fontSize: 14,

@@ -179,7 +179,15 @@ function Homework() {
           <Card.Body>
             {!questionData.imageUrl ? (
               <div className="flex justify-center items-center h-64">
-                Question Image Loading .... If nothing loads press check then next question and wait again
+                <div className="flex justify-center items-center h-64">
+                  {isLoading && (
+                    <div className="mt-3 md:mt-0 md:ml-2">
+                      <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                    </div>
+                  )}
+                </div>
+                <div className="pl-10">Question Image Loading ...</div>
+                
               </div>
             ) : (
               <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
@@ -244,11 +252,7 @@ function Homework() {
           >
             Submit
           </button>
-          {isLoading && (
-            <div className="mt-3 md:mt-0 md:ml-2">
-              <Oval color="#20a7a1" secondaryColor="#20a7a1" />
-            </div>
-          )}
+          
         </div>
         {(isCorrect === "correct") && (
           <div className="p-3 text-center">
