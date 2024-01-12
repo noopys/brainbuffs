@@ -29,7 +29,7 @@ const Contact = () => {
     border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
-    margin: '50px auto',
+    margin: '20px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
     maxWidth: '800px',

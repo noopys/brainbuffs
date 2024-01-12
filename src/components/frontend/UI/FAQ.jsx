@@ -11,7 +11,7 @@ export default function FAQ() {
   };
 
   return (
-    <div className="w-full px-8 pt-16 font-poppins">
+    <div className="w-full px-8 pt-10 font-poppins">
       <h1 style={{fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold'}}>Frequently Asked Questions</h1>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white p-2">
       <Disclosure>

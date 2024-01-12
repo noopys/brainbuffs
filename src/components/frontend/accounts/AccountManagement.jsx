@@ -29,7 +29,7 @@ const AccountManagement = () => {
     borderRadius: '10px',
     maxWidth: '800px',
     width: '100%',
-    margin: '50px auto',
+    margin: '20px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };

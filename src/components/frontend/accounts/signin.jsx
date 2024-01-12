@@ -16,7 +16,7 @@ function SignIn() {
     padding: '20px',
     borderRadius: '10px',
     width: '400px',
-    margin: '50px auto',
+    margin: '30px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };

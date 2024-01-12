@@ -47,15 +47,16 @@ const ProfilePage = () => {
     const containerStyle = {
         border: '1px solid #20a7a1',
         maxWidth:'800px',
-        padding: '10px',
+        padding: '20px',
         borderRadius: '10px',
-        margin: '50px auto',
+        margin: '20px auto',
         fontFamily: 'poppins',
         borderBottom: '1px solid #20a7a1',
     };
 
     const graphContainerStyles = {
-        width: '80%',
+        width: '95%',
+        maxWidth: '700px',
         margin: '20px auto',
         backgroundColor: '#20a7a1',
         color: '#fff',
@@ -66,9 +67,11 @@ const ProfilePage = () => {
     const graphStyles = {
         width: '100%',
         height: '350px',
-        backgroundColor: 'white',
+        // minHeight: '350px',
+        backgroundColor: 'f3f3f3',
         border: '1px solid #ccc',
         borderRadius: '5px',
+        paddingBottom: '30px'
     };
 
     // handle resizing for smaller screens
@@ -158,10 +161,17 @@ const ProfilePage = () => {
             <div style={graphContainerStyles}>
                 <h2>Missed Concepts</h2>
                 <div style={graphStyles}>
+                    <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000',}}>
+                        {shouldShowLegend ? (
+                            <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
+                            ): (
+                            <div >Click or hover to view categories</div> 
+                        ) }
+                    </div>
                     <Chart
                         chartType="PieChart"
-                        width={'100%'} // Ensure it uses 100% of container width
-                        height={'100%'} // Set a fixed or appropriate height
+                        width='100%' // Ensure it uses 100% of container width
+                        height='100%' // Set a fixed or appropriate height
                         data={[['Concept', 'Weight'], ...missedConceptsChartData]}
                         options={{
                             chartArea: {

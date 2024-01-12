@@ -48,12 +48,12 @@ const NavigationBar = () => {
   };
 
     return (
-    <nav className="bg-white rounded-lg" style={{zIndex:9999}}>
+      <nav className="bg-white rounded-lg " style={{ zIndex: 9999, boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', }}>
       <div className="lg:flex lg:justify-between lg:items-center">
         {/* Logo and Hamburger button */}
         <div className="flex items-center">
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <div className="flex items-center gap-3 px-3">
+            <div className="flex items-center gap-3 px-3 py-2">
               <img className="w-30 h-9" src={newlogo} alt="Logo" />
             </div>
           </Link>
@@ -147,13 +147,25 @@ const NavigationBar = () => {
         {/* Mobile navigation links */}
         <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}>
           <Link
+            to="/homework"
+            style={{ textDecoration: 'none' }}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+              <img className="relative w-5 h-5" alt="" src={Homework} />
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{ color: 'black' }}>
+                Adaptive Practice
+              </div>
+            </button>
+          </Link>
+          <Link
             to="/faq"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={FAQIcon} />
-              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{ color: 'black' }}>
                 FAQ
               </div>
             </button>
@@ -165,20 +177,8 @@ const NavigationBar = () => {
           >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={Contact} />
-              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{ color: 'black' }}>
                 Contact
-              </div>
-            </button>
-          </Link>
-          <Link
-            to="/homework"
-            style={{ textDecoration: 'none' }}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-              <img className="relative w-5 h-5" alt="" src={Homework} />
-              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                Adaptive Practice
               </div>
             </button>
           </Link>
@@ -189,7 +189,7 @@ const NavigationBar = () => {
           >
             <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
               <img className="relative w-5 h-5" alt="" src={DownArrow} />
-              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left " style={{ color: 'black' }}>
                   D'Evelyn Group Class
               </div>
             </button>
@@ -200,7 +200,7 @@ const NavigationBar = () => {
               <Link to="/profile" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                 <img className="relative w-5 h-5" alt="" src={DownArrow} />
-                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                    <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{ color: 'teal' }}>
                 Dashboard
                 </div>
               </button>
@@ -208,7 +208,7 @@ const NavigationBar = () => {
               <Link to="/manageAccount" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                 <img className="relative w-5 h-5" alt="" src={DownArrow} />
-                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                    <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{ color: 'teal' }}>
                   Account
                 </div>
               </button>
@@ -216,7 +216,7 @@ const NavigationBar = () => {
               <Link onClick={handleSignOut} style={{ textDecoration: 'none' }}>
                 <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                   <img className="relative w-5 h-5" alt="" src={DownArrow} />
-                  <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                  <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{color: 'red'}}>
                     Sign Out
                   </div>
                 </button>

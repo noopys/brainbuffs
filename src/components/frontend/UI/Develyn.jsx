@@ -18,7 +18,7 @@ export default function Develyn() {
         backgroundColor: '#000000',
         padding: '20px',
         borderRadius: '10px',
-        margin: '50px auto',
+        margin: '20px auto',
         fontFamily: 'poppins',
         maxWidth: '800px',
         display: 'flex',
