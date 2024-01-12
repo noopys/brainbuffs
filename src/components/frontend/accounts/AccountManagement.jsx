@@ -3,35 +3,57 @@ import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext';
 
 const AccountManagement = () => {
-  const [user, setUser] = useState(null);
+  // get info from local auth session
+  const { isLoggedIn, logout, user, updateUser } = useAuth();
+
+  // const for change phone# or full name
+  const [newPhoneNumber, setNewPhoneNumber] = useState(null);
+  const [newFullName, setNewFullName] = useState(null);
+  const [changesMade, setChangesMade] = useState(false);
+
+  // const for changing password
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // const for user messages
   const [error, setError] = useState('');
+  const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
-
-  const { logout, userData } = useAuth();
 
   const containerStyle = {
     border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
-    width: '400px',
+    maxWidth: '600px',
     margin: '50px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };
 
+  const inputStyle = {
+    padding: '12px',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+    fontSize: '16px',
+    maxWidth: '300px',
+    width: '80%',
+    marginBottom: '10px',
+    alignItems: 'center',
+  };
+
   const buttonStyle = {
-    backgroundColor: '#FF0000', 
+    backgroundColor: '#dd0000',
     color: '#fff', // White text
     padding: '8px 16px', // Adjust padding as needed
-    border: 'none', // Remove border if needed
-    borderRadius: '4px', // Add border-radius if needed
+    border: 'none',
+    borderRadius: '6px',
+    marginTop: '10px',
     cursor: 'pointer', // Show pointer on hover
-    width: '300px',
+    width: '40%',
+    flex: ''
   };
 
   const fieldStyle = {
@@ -43,20 +65,86 @@ const AccountManagement = () => {
     width: '300px',
   };
 
+  // If there are changes on the screen, notify them before naviagting away
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const handleBeforeUnload = (e) => {
+      console.log('inside event handler');
+      if (changesMade) {
+        // Display the confirmation message when there are unsaved changes
+        console.log('changesMade is true');
+        e.preventDefault();
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+      }
+    };
 
-  const fetchUser = async () => {
+    // Add a 'beforeunload' event listener to show a confirmation dialog
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    console.log('changesMade has chaged to', changesMade);
+
+    return () => {
+      // Remove the event listener when the component unmounts
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [changesMade]); // Listen to changesMade state changes
+
+  // Whenever the 'newFullName' variable changes, update the context
+  useEffect(() => {
+    if (newFullName !== null) {
+      const updatedContext = { ...user, fullName: newFullName };
+      updateUser(updatedContext);
+      setChangesMade(true);
+      // console.log('updated Fullname', user);
+    }
+  }, [newFullName]);
+
+  // Whenever the 'newPhoneNumber' variable changes, update the context
+  useEffect(() => {
+    if (newPhoneNumber !== null) {
+      const updatedContext = { ...user, phoneNumber: newPhoneNumber };
+      updateUser(updatedContext);
+      setChangesMade(true);
+      // console.log('updated phone #', user);
+    }
+  }, [newPhoneNumber]);
+
+  // Handle submit changes to cognito database
+  const updateUserAttributes = async () => {
+    if (!/^[0-9]*$/.test(user.phoneNumber)) {
+      setupdateInfoSuccessMessage('Phone Number can only contain numbers. (No spaces, hyphens, or parenthesis)');
+      return;
+    }
+    if (!/^[a-zA-Z '-]*$/.test(user.fullName)) {
+      setupdateInfoSuccessMessage('Full Name can only contain letters, hyphens (-), apostrophe (\'), dashes (—), and spaces.');
+      return;
+    }
+
     try {
-      const userData = await Auth.currentAuthenticatedUser();
-      setUser(userData);
+      const currentUser = await Auth.currentAuthenticatedUser();
+      console.log('Updating with', user.fullName, user.phoneNumber);
+
+      await Auth.updateUserAttributes(currentUser, {
+        'custom:FullName': user.fullName,
+        'custom:PhoneNumber': user.phoneNumber,
+      });
+      console.log('User attributes updated successfully', user.fullName, user.phoneNumber);
+      setupdateInfoSuccessMessage('User attributes updated successfully!');
+
+      setChangesMade(false);
+
+      const messageDelay = 5000; // 5 seconds delay (adjust as needed)
+      const messageTimer = setTimeout(() => {
+        setupdateInfoSuccessMessage('');
+      }, messageDelay);
+
+      return () => clearTimeout(messageTimer); // Clear timeout if component unmounts
+
     } catch (error) {
-      // Handle error fetching user data
-      console.error('Error fetching user:', error);
+      console.error('Error updating user attributes:', error);
+      setupdateInfoSuccessMessage(error.message);
     }
   };
 
+  // Handle delete account
   const deleteUserAccount = async () => {
     try {
       if (newPassword !== confirmPassword) {
@@ -80,19 +168,7 @@ const AccountManagement = () => {
     }
   };
 
-  const confirmDelete = () => {
-    setShowConfirmation(true);
-  };
-
-  const cancelDelete = () => {
-    setShowConfirmation(false);
-  };
-
-  const handleDelete = () => {
-    deleteUserAccount();
-    setShowConfirmation(false);
-  };
-
+  // Handle change password
   const handleChangePassword = async () => {
     try {
       const currentUser = await Auth.currentAuthenticatedUser();
@@ -111,99 +187,151 @@ const AccountManagement = () => {
     }
   };
 
+  const confirmDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleDelete = () => {
+    deleteUserAccount();
+    setShowConfirmation(false);
+  };
+
   return (
     <div>
       <div style={containerStyle}>
-      {user && (
-        <div>
-          {!showChangePassword && (
-            <div>
-              <h2>Welcome, </h2>
-              <p>{user.attributes.email}</p>
-              <button onClick={() => setShowChangePassword(true)} style={buttonStyle}>
-                Change My Password
-              </button>
-              <br /> <br />
-              <button onClick={confirmDelete} style={buttonStyle}>
-                Delete My Account
-              </button>
-              {showConfirmation && (
-                <div className="confirmation-popup">
-                  <p style={{padding: '8px 10px'}}>Are you sure you want to delete your account?</p>
-                  <p>Note: All of your data will be lost. This cannot be undone.</p>
-                  <button onClick={handleDelete} style={buttonStyle}>
-                    I am sure. Delete My account.
-                  </button>
-                  <button onClick={cancelDelete} style={{
-                    backgroundColor: '#20a7a1',
-                    color: '#fff',
-                    padding: '12px 24px',
-                    border: 'none',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    margin: '10px',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                    width: '300px'}}>
-                    Cancel
-                  </button>
+        {isLoggedIn && (
+          <div>
+            {!showChangePassword && (
+              <div>
+                <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>My Account </h2>
+
+                <p>Take a look at your <a href="./profile" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>dashboard</a>.</p>
+
+                <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Personal Information </h2>
+                <h5 style={{ fontSize: '1em' }}> View and edit your personal information</h5>
+                <div >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <label htmlFor="email" style={{ marginRight: '5px', minWidth: '120px' }}>      Email: </label>
+                    <input readOnly type="email" name="email" defaultValue={user.email} style={{ ...inputStyle, backgroundColor: 'lightgray' }} placeholder="Email" />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <label style={{ marginRight: '5px', minWidth: '120px' }}>Full Name: </label>
+                    <input name="fullname" defaultValue={user.fullName} onChange={(e) => setNewFullName(e.target.value)} style={inputStyle} placeholder="Full Name" />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <label style={{ marginRight: '5px', minWidth: '120px' }}>Phone Number: </label>
+                    <input name="phoneNumber" defaultValue={user.phoneNumber} onChange={(e) => setNewPhoneNumber(e.target.value)} style={inputStyle} placeholder="Phone Number" />
+                  </div>
+
+                  <button style={{ ...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px' }} onClick={() => updateUserAttributes()}>Update my Info</button>
+                  <div>
+                    {changesMade ? (<p style={{ color: '#dd0000' }}>*There are some changes that are not yet saved.* </p>) : ('')}
+                    {updateInfoSuccessMessage && <p style={{ color: '#20a7a1' }}> {updateInfoSuccessMessage}</p>}
+                  </div>
                 </div>
-              )}
-            </div>
-          )}
-          {showChangePassword && (
-            <div>
-              <h1 style={{fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Password Change</h1>
-              <p>Currently logged in with {user.attributes.email}</p>
-              <div>
-                <input
-                  type="password"
-                  value={oldPassword}
-                  onChange={(e) => setOldPassword(e.target.value)}
-                  placeholder="Old Password"
-                  style={fieldStyle}
-                />
+
+                <br></br>
+                <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Subscription Information </h2>
+                <div>
+                  <div>
+                    Current Plan:
+                  </div>
+                  <div>
+                    Next Due Date:
+                  </div>
+
+                  <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }} >Manage Subscription</button>
+
+                </div>
+
+                <br></br><br></br>
+
+                <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Manage Account </h2>
+                <button onClick={() => setShowChangePassword(true)} style={buttonStyle}>
+                  Change My Password
+                </button>
+                <br /> <br />
+                <button onClick={confirmDelete} style={buttonStyle}>
+                  Delete My Account
+                </button>
+
+
+                {/* Extension to confirm delete account*/}
+                {showConfirmation && (
+                  <div>
+                    <div className="confirmation-popup">
+                      <p style={{ padding: '8px 10px' }}>Are you sure you want to delete your account?</p>
+                      <p>Note: All of your data will be lost. This cannot be undone.</p>
+                    </div>
+                    <div>
+                      <button onClick={cancelDelete} style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>
+                        Cancel
+                      </button>
+                    </div>
+                    <div>
+                      <button onClick={handleDelete} style={buttonStyle}>
+                        I am sure. Delete My account.
+                      </button>
+                    </div>
+                  </div>
+
+
+                )} {/* End delete account extension*/}
               </div>
+            )}
+
+            {/* change the screen to change password screen */}
+            {showChangePassword && (
               <div>
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="New Password"
-                  style={fieldStyle}
-                />
+                <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize' }}>Password Change</h1>
+                <p>Currently logged in with {user.email}</p>
+                <div>
+                  <input
+                    type="password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    placeholder="Old Password"
+                    style={fieldStyle}
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="New Password"
+                    style={fieldStyle}
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm New Password"
+                    style={fieldStyle}
+                  />
+                </div>
+                <button onClick={handleChangePassword} style={buttonStyle}>
+                  Change Password
+                </button>
+                {error && <p>{error}</p>}
+                <br /> <br />
+                <button onClick={() => setShowChangePassword(false)}
+                  style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>
+                  Go Back
+                </button>
               </div>
-              <div>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm New Password"
-                  style={fieldStyle}
-                />
-              </div>
-              <button onClick={handleChangePassword} style={buttonStyle}>
-                Change Password
-              </button>
-              {error && <p>{error}</p>}
-              <br /> <br />
-              <button onClick={() => setShowChangePassword(false)} 
-                style={{backgroundColor: '#20a7a1', // Blue color
-                  color: '#fff', // White text
-                  padding: '8px 16px', // Adjust padding as needed
-                  border: 'none', // Remove border if needed
-                  borderRadius: '4px', // Add border-radius if needed
-                  cursor: 'pointer', // Show pointer on hover
-                  width: '300px'
-                }}>
-                Go Back
-              </button>
-            </div>
-          )}
-          {successMessage && <p>{successMessage}</p>}
-        </div>
-      )}
-      {!user && <p>Loading user data... If it does not load, try signing out and back in</p>}
-    </div>
+            )} {/* END change the screen to change password screen */}
+            {successMessage && <p>{successMessage}</p>}
+          </div>
+        )}
+        {!isLoggedIn && <p>Nice try</p>}
+      </div>
     </div>
   );
 };

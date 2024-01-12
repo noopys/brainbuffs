@@ -7,7 +7,7 @@
 /* eslint-disable */
 import * as React from "react";
 import NaviationRight from "./NaviationRight";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { getOverrideProps } from "./utils";
 import { Collection } from "@aws-amplify/ui-react";
 export default function NaviationRightCollection(props) {
   const { items, overrideItems, overrides, ...rest } = props;

@@ -47,8 +47,8 @@ const NavigationBar = () => {
     }
   };
 
-  return (
-    <nav className="bg-white rounded-lg border-b-10 border-green-500" style={{ zIndex: 9999 }}>
+    return (
+    <nav className="bg-white rounded-lg" style={{zIndex:9999}}>
       <div className="lg:flex lg:justify-between lg:items-center">
         {/* Logo and Hamburger button */}
         <div className="flex items-center">
@@ -119,10 +119,13 @@ const NavigationBar = () => {
               <ul className="list-none p-0">
                 {isLoggedIn ? (
                   <>
-                    <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {}) }}>
-                      Manage Account
-                    </Link></li>
-                    <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', background: 'none', padding: '8px 16px', color: 'red', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
+                    <li><Link to="/profile" onMouseEnter={() => handleMouseEnter('ins')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'ins' ? hoverStyle : {})}}>
+                      Dashboard
+                      </Link></li>
+                      <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {})}}>
+                      My Account
+                      </Link></li>
+                    <li><Link onClick={handleSignOut} onMouseEnter={() => handleMouseEnter('so')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, border: 'none', padding: '8px 16px', color: '#dd0000', ...(hoveredItem === 'so' ? hoverStyle : {}) }}>
                       Sign Out
                     </Link></li>
                   </>
@@ -180,15 +183,23 @@ const NavigationBar = () => {
             </button>
           </Link>
           {/* Conditional depending if logged in or not */}
-          {isLoggedIn ? (
-            <div>
+          { isLoggedIn ? (
+              <div>
+              <Link to="/profile" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+                <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                Dashboard
+                </div>
+              </button>
+              </Link>
               <Link to="/manageAccount" style={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
-                  <img className="relative w-5 h-5" alt="" src={DownArrow} />
-                  <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
-                    Manage Account
-                  </div>
-                </button>
+              <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+                <img className="relative w-5 h-5" alt="" src={DownArrow} />
+                <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                  My Account
+                </div>
+              </button>
               </Link>
               <Link onClick={handleSignOut} style={{ textDecoration: 'none' }}>
                 <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
