@@ -58,12 +58,12 @@ const Frame = () => {
                     <div className="xl:w-full xl:h-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2">
                       <div className="xl:w-full bg-gray-100 xl:flex xl:flex-row xl:items-start xl:justify-end xl:pt-2 xl:pb-2">
                         <h1 className="self-stretch xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl pl-12 pt-3 pr-10">
-                          <b>Personalized SAT Prep for Your Dream School</b>
+                          <b>Personalized SAT Prep to get into your Dream School</b>
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-row xl:items-start xl:justify-start xl:py-2">
                         <div style={{ fontSize: "20px" }} className=" mx-auto self-stretch  leading-24 text-whitesmoke-200 mt-1 pl-12 pt-3 pr-10">
-                          We leverage custom AI and advanced big data tools to craft custom SAT practice. By analyzing over 500 data points per student, we create unique homework assignments tailored to each student.
+                          We leverage proprietary AI and advanced big data tools to craft custom SAT practice. By analyzing over 500 data points per student, we create unique practice tailored to you.
                         </div>
                       </div>
                       <div className="self-stretch xl:h-146.4px flex flex-row items-start justify-start px-0 box-border xl:gap-21px text-base text-gray-300">
@@ -90,7 +90,7 @@ const Frame = () => {
                         muted
                         playsInline
                       >
-                        <source src={"https://demovideobucketbb.s3.amazonaws.com/demo_video.mp4"} type="video/mp4" />
+                        <source src={"https://demovideobucketbb.s3.amazonaws.com/homepage_explainer.mp4"} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
