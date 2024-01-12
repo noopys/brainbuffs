@@ -28,6 +28,7 @@ const AccountManagement = () => {
     padding: '20px',
     borderRadius: '10px',
     maxWidth: '600px',
+    width: '100%',
     margin: '50px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
@@ -46,14 +47,15 @@ const AccountManagement = () => {
 
   const buttonStyle = {
     backgroundColor: '#dd0000',
-    color: '#fff', // White text
-    padding: '8px 16px', // Adjust padding as needed
+    color: '#fff',
+    padding: '10px 16px', // Adjust padding as needed
     border: 'none',
     borderRadius: '6px',
-    marginTop: '10px',
-    cursor: 'pointer', // Show pointer on hover
-    width: '40%',
-    flex: ''
+    cursor: 'pointer',
+    margin: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    width: '50%',
+    maxWidth: '300px'
   };
 
   const fieldStyle = {

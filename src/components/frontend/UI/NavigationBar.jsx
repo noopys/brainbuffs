@@ -182,6 +182,18 @@ const NavigationBar = () => {
               </div>
             </button>
           </Link>
+          <Link
+            to="/develyn"
+            style={{ textDecoration: 'none' }}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
+              <img className="relative w-5 h-5" alt="" src={DownArrow} />
+              <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
+                  D'Evelyn Group Class
+              </div>
+            </button>
+          </Link>
           {/* Conditional depending if logged in or not */}
           { isLoggedIn ? (
               <div>

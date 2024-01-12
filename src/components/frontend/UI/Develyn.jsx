@@ -27,7 +27,7 @@ export default function Develyn() {
       };
 
     return (
-        <div className="d-flex flex-column position-relative bg-light" style={containerStyle}>
+        <div className="d-flex flex-column bg-light" style={containerStyle}>
             <div className="container py-5">
                 <h1 className="text-center fw-bold mb-3">Welcome to the D'Evelyn Group SAT Program</h1>
                 
