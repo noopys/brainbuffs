@@ -37,6 +37,7 @@ import VerificationCodeEntry from './components/frontend/accounts/verificationCo
 import AccountManagement from './components/frontend/accounts/AccountManagement';
 import ResetPassword from './components/frontend/accounts/ResetPassword';
 import Profile from './components/frontend/accounts/ProfilePage';
+import HomeworkAnswered from './components/homework/HomeworkAnswered';
 
 Amplify.configure(config);
 
@@ -82,6 +83,7 @@ function App() {
               <Route path="/manageAccount" element={<AccountManagement />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/homework-answered" element={<HomeworkAnswered />} />
             </Routes>
           </div>
         </Router>
