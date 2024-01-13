@@ -5,7 +5,7 @@ import { char, position } from 'stylis';
 import { useAsyncError } from 'react-router';
 
 const ProfilePage = () => {
-    const { isLoggedIn, user, userData, login, logout, updateUserData } = useAuth();
+    const { userData, updateUserData } = useAuth();
 
     // for changing fields 
     const [newGoalScore, setgoalScore] = useState(null);
@@ -121,6 +121,7 @@ const ProfilePage = () => {
     // Handle submit changes to Dynamo database
     const updateUserAttributesDynamo = async () => {
         setupdateInfoSuccessMessage('Coming Soon!');
+        console.log('userdata:', userData);
 
         const messageDelay = 5000; // 5 seconds delay (adjust as needed)
         const messageTimer = setTimeout(() => {

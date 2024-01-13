@@ -14,7 +14,6 @@ function PricingCard({ rows, price, title, plan }) {
                     fontSize: '22px', // Setting font-size
                     fontWeight: '400', // Normal font weight
                     lineHeight: 'normal', // Normal line-height
-                    letterSpacing: '-0.88px', // Custom letter-spacing
                 }}
 
                 >

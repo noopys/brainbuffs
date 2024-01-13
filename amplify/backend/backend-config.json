@@ -48,6 +48,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "getUserDataFromUserDatabase": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "gradeHomework": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -121,6 +126,22 @@
         {
           "category": "function",
           "resourceName": "getNextQuestion"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserDataFromUserDatabase_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserDataFromUserDatabase"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserDataFromUserDatabase_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserDataFromUserDatabase"
         }
       ]
     },

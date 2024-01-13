@@ -1,7 +1,6 @@
 // AuthContext.js
 import React, { useState, useContext, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
-import AWS from 'aws-sdk';
 
 const AuthContext = React.createContext();
 
@@ -11,11 +10,11 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   // isLoggedIn- Boolean Value set true if user is logged in, false if they are not logged in
-  // user-      Data about the user as shown in aws cognito. 
-  //               user.email has the email 
-  //               user.username has the randomly generated username 
-  //               user.fullName is the full name
-  //               user.phoneNumber is the phone number
+  // user- Data about the user as shown in aws cognito. 
+//               user.email has the email 
+//               user.username has the randomly generated username 
+//               user.fullName is the full name
+//               user.phoneNumber is the phone number
   // userData-  An array that is fetched from dynamoDB. Each entry in the array belongs to the user and is a question with all its associated metadata
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
@@ -27,52 +26,54 @@ export const AuthProvider = ({ children }) => {
 
   const loadSessionToken = async () => {
     try {
+      // get cached user credentials
       const sessionToken = localStorage.getItem('sessionToken');
       if (sessionToken) {
         setIsLoggedIn(true);
         setUser(JSON.parse(sessionToken)); // Assuming sessionToken is a JSON string
-        // Fetch data from DynamoDB upon login
-        const username = JSON.parse(sessionToken).username; // Assuming username is available in userData
-        console.log(username)
-        if (username) {
-          await fetchDataFromDynamoDB(username);
-        }
+        // console.log("used cached session");
+      }
+      // get cached User Data
+      const cachedUserData = localStorage.getItem('userData');
+      if (cachedUserData) {
+        setUserData(JSON.parse(cachedUserData)); // Assuming sessionToken is a JSON string
+        // console.log("used cached userData");
       }
     } catch (error) {
       console.error('Error loading session token:', error);
     }
   };
 
-  const fetchDataFromDynamoDB = async (username) => {
-    AWS.config.update({
-      accessKeyId: 'AKIA4QANJDW6PUIFWOO5',
-      secretAccessKey: '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',
-      region: 'us-east-1'
-    });
+  const fetchDataFromDynamoDB = async (usernamelocal) => {
+    const apiGatewayEndpoint = 'https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getUserData'; // Replace with your API Gateway endpoint
 
-    const dynamodb = new AWS.DynamoDB();
-    const params = {
-      TableName: 'UserDatabase',
-      KeyConditionExpression: 'UserId = :userId', // Replace 'UserId' with your actual partition key attribute name
-      ExpressionAttributeValues: {
-        ':userId': { S: username } // Replace with the specific partition key value you want to query
-      }
+    const requestData = {
+      username: usernamelocal,
     };
-    
+
     try {
-      const dbRes = await dynamodb.query(params).promise();
-      if (dbRes && dbRes.Items && dbRes.Items.length > 0) {
-        console.log('Retrieved items from DynamoDB:', dbRes.Items);
-        // Set the retrieved data to user state
-        setUserData(dbRes.Items);
+      const response = await fetch(apiGatewayEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // Specify that you're sending JSON data
+        },
+        body: JSON.stringify( requestData ), // Convert the data object to a JSON string
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data);
+        // console.log('Retrieved USERdata from API Gateway:', JSON.stringify(data));
+        // Handle the retrieved data as needed
+        
         // Store user data in local storage
-        localStorage.setItem('userData', JSON.stringify(dbRes.Items));
+        localStorage.setItem('userData', JSON.stringify(data));
       } else {
-        console.log('No items found in DynamoDB with the specified partition key');
-        // Handle the case where no items are found for the partition key
+        console.error('Failed to fetch data from API Gateway');
+        // Handle the error case
       }
     } catch (error) {
-      console.error('Error fetching data from DynamoDB:', error);
+      console.error('Error fetching data from API Gateway:', error);
     }
   };
 
@@ -107,7 +108,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateUserData = async (newValue) => {
     setUserData(newValue);
-    localStorage.setItem('sessionToken', JSON.stringify(newValue));
+    localStorage.setItem('userData', JSON.stringify(newValue));
   };
 
   return (

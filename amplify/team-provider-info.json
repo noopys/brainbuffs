@@ -36,6 +36,10 @@
         "createCheckoutSessionSubscription": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
           "s3Key": "amplify-builds/createCheckoutSessionSubscription-714c6e4d67653852414f-build.zip"
+        },
+        "getUserDataFromUserDatabase": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/getUserDataFromUserDatabase-4734744162612f423371-build.zip"
         }
       },
       "auth": {
