@@ -135,7 +135,7 @@ const ProfilePage = () => {
             <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>My Dashboard</h2>
             {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
 
-            <a href="./homework"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br>
+            <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br>
 
             <div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingRight: '20%' }}>
@@ -206,7 +206,7 @@ const ProfilePage = () => {
                 <h2>Progress Towards your goal</h2>
                 <div style={graphStyles}>Maybe a simple bar graph that shows progress from 0-1600 and then has markers from their first diagnostic test, the bar shows "projected score", and the end shows goal score</div>
             </div> */}
-            <a href="./homework"><button style={buttonStyle}>Go Practice!</button></a><br></br>
+            <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br>
         </div>
     );
 };

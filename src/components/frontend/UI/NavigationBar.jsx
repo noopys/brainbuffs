@@ -69,7 +69,7 @@ const NavigationBar = () => {
 
         {/* Navigation links for larger screens */}
         <div className="hidden lg:flex items-center gap-[1px] justify-start w-full">
-          <Link to="/homework" style={{ textDecoration: 'none' }}>
+          <Link to="/homework-intermediate" style={{ textDecoration: 'none' }}>
             <button className="cursor-pointer py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                 Adaptive Practice
