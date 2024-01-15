@@ -98,6 +98,7 @@ export const AuthProvider = ({ children }) => {
 
     setIsLoggedIn(false);
     setUser(null);
+    setUserData([]);
     window.location.href = './SuccessfulSignOut';
   };
 

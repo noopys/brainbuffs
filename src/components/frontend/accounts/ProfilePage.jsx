@@ -94,6 +94,7 @@ const ProfilePage = () => {
         };
     }, []);
 
+    // change the user profile into correct data form for chart
     useEffect(() => {
         if (userData[0]) {
             setMissedConceptsChartData(Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours]));

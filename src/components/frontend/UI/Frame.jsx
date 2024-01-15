@@ -99,16 +99,12 @@ const Frame = () => {
                   {/* Section 1.3: "All the SAT tools you need in one plan" */}
                   <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitesmoke-200 mt-0">
                     <div className="self-stretch  bg-whitesmoke-200 xl:h-72px" />
-                    <div className=" xl:w-full lg:w-full sm:w-full mt-8">
+                    <div className=" xl:w-full lg:w-full sm:w-full mt-6 mb-6">
                       <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
                         <div className="leading-36.4 text-center font-poppins pl-5 pr-5">
                           All the SAT tools you need in one place
                         </div>
                       </div>
-                    </div>
-                    <div className="self-stretch xl:h-50px overflow-hidden shrink-0 flex flex-col items-center justify-end gap-16px">
-                      <div className=" xl:w-827.1px xl:h-6" />
-                      <div className="self-stretch  bg-whitesmoke-200 xl:h-72px" />
                     </div>
                   </div>
                 </div>

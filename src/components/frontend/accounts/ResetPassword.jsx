@@ -15,7 +15,8 @@ const ForgotPassword = () => {
     border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
-    width: '400px',
+    maxWidth: '400px',
+    width: '90%',
     margin: '20px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
@@ -30,7 +31,7 @@ const ForgotPassword = () => {
     cursor: 'pointer',
     margin: '10px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    width: '300px',
+    width: '70%',
   };
 
   const inputStyle = {
@@ -38,7 +39,7 @@ const ForgotPassword = () => {
     border: '1px solid #ccc',
     borderRadius: '6px',
     fontSize: '16px',
-    width: '300px',
+    width: '70%',
     marginBottom: '10px',
   };
 
