@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../frontend/accounts/AuthContext';
@@ -85,6 +84,7 @@ function Homework() {
       }
 
       const data = await response.json();
+      console.log('Fetched question data:', data); // Add this line for debugging
       setCurrentQuestionIndex(0);
       setRecordId(data[0].recordId);
       setQuestionDataArray(data);
@@ -142,6 +142,7 @@ function Homework() {
         Answer: answers[index],
         CorrectAnswer: question.answer,
         IsCorrect: userCorrect,
+        imageUrl: question.imageUrl,
       };
     });
     console.log('submitData:', submitData); // Add this line for debugging
