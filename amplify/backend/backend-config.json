@@ -28,6 +28,11 @@
     }
   },
   "function": {
+    "ViewPreviousAssignments": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "addUser": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -65,6 +70,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_ViewPreviousAssignments_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ViewPreviousAssignments"
+        }
+      ]
+    },
+    "AMPLIFY_function_ViewPreviousAssignments_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ViewPreviousAssignments"
+        }
+      ]
+    },
     "AMPLIFY_function_addUser_deploymentBucketName": {
       "usedBy": [
         {

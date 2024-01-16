@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getUserDataFromUserDatabase",
+            "ViewPreviousAssignments",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getUserDataFromUserDatabase",
+                  "ViewPreviousAssignments",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "brainbuffsLambdaRole6f406b74",
+            "brainbuffsLambdaRole39b1fc7d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "brainbuffsLambdaRole6f406b74",
+                  "brainbuffsLambdaRole39b1fc7d",
                   "-",
                   {
                     "Ref": "env"

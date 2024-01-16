@@ -1,15 +1,22 @@
 const AWS = require('aws-sdk');
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
+AWS.config.update({region: 'us-east-1'});
 
-exports.lambdaHandler = async (event, context) => {
-    let userName = event.body.userName;
-    let userProf = event.body.userProf;
+exports.handler = async (event, context) => {
+    let userName = JSON.parse(event.body).UserId;
+    let userProfile = JSON.parse(event.body).UserProfile;
+
+    // Additional columns
+    let inCurrSess = false;
+    let currHWNum = 0;
 
     var params = {
-        TableName: 'UserDatabase',
+        TableName: "UserDatabase",
         Item: {
-            'userName': userName,
-            'userProf': userProf
+            UserId: userName,
+            UserProfile: userProfile,
+            InCurrSess: inCurrSess,
+            CurrHWNum: currHWNum
         }
     };
 
