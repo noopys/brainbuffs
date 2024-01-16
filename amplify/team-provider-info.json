@@ -27,7 +27,7 @@
         },
         "addUser": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/addUser-79717a4344685379524e-build.zip"
+          "s3Key": "amplify-builds/addUser-49583066376d79746c4d-build.zip"
         },
         "updateUserProfile": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
@@ -39,7 +39,7 @@
         },
         "ViewPreviousAssignments": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/ViewPreviousAssignments-48784b53314e62305568-build.zip"
+          "s3Key": "amplify-builds/ViewPreviousAssignments-5579306b704e454a4746-build.zip"
         },
         "getUserDataFromUserDatabase": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",

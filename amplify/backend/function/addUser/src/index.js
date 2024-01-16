@@ -5,18 +5,21 @@ AWS.config.update({region: 'us-east-1'});
 exports.handler = async (event, context) => {
     let userName = JSON.parse(event.body).UserId;
     let userProfile = JSON.parse(event.body).UserProfile;
-
+    // Log the type and value of userProfile
+    // console.log('Type of userProfile:', typeof userProfile);
+    // console.log('Value of userProfile:', userProfile);
     // Additional columns
     let inCurrSess = false;
     let currHWNum = 0;
-
+    let englishUserProfile = {"Hard":1}; 
     var params = {
         TableName: "UserDatabase",
         Item: {
             UserId: userName,
             UserProfile: userProfile,
             InCurrSess: inCurrSess,
-            CurrHWNum: currHWNum
+            CurrHWNum: currHWNum,
+            EnglishUserProfile: englishUserProfile
         }
     };
 

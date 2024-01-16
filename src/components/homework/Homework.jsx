@@ -1,102 +1,284 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../frontend/accounts/AuthContext';
-import { Disclosure, Transition } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
+import { Oval } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { updateUser } from '../helpers/updateUser';
 
-function ViewPreviousAssignments() {
-  const { isLoggedIn, user } = useAuth();
-  const [homeworkSets, setHomeworkSets] = useState({});
+function Homework() {
+  const navigate = useNavigate();
+
+  const question = {
+    options: ["A", "B", "C", "D"],
+  };
+
+  const { isLoggedIn, user, userData } = useAuth();
+  const [response, setResponse] = useState(null);
+  const [recordId, setRecordId] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [questionData, setQuestionData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questionDataArray, setQuestionDataArray] = useState([]);
+  const [answers, setAnswers] = useState(Array(questionDataArray.length).fill(''));
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
-    const fetchPreviousAssignments = async () => {
-      try {
-        if (isLoggedIn && user && user.username) {
-          const userId = user.username;
+    if (userData && userData.length > 0) {
+      const userProf = userData[0]["UserProfile"].S;
+      setUserProfile(userProf);
+    }
+  }, [userData]);
 
-          const requestData = {
-            userId: userId,
-            // ... other request data if needed
-          };
+  useEffect(() => {
+    if (userProfile) {
+      fetchQuestion().then(() => {
+        setSelectedOption(answers[currentQuestionIndex]);
+      });
+    }
+  }, [userProfile]);
 
-          const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData),
-          });
+  const handleOptionClick = (option) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentQuestionIndex] = option;
+    setAnswers(updatedAnswers);
+    setSelectedOption(option);
+  };
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
+  const handleInputChange = (event) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentQuestionIndex] = event.target.value;
+    setAnswers(updatedAnswers);
+    setSelectedOption(event.target.value);
+  };
 
-          const data = await response.json();
-          console.log('Fetched previous assignments data:', data);
+  const fetchQuestion = async () => {
+    setIsLoading(true);
+    setSelectedOption(null);
+    setIsCorrect(null);
 
-          // Set the homework sets data to state for rendering
-          setHomeworkSets(data);
-        } else {
-          // Handle case when the user is not logged in
-          console.log('User is not logged in.');
-        }
-      } catch (error) {
-        console.error('Error fetching previous assignments:', error);
-      }
+    let userTemp = '';
+    if (user && user.username) {
+      userTemp = user.username;
+    }
+    let prof = JSON.parse(userProfile);
+    const userId = userTemp;
+    const requestData = {
+      userId: userId,
+      userProfile: prof,
     };
 
-    fetchPreviousAssignments();
-  }, [isLoggedIn, user]);
+    try {
+      const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getNextQuestion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Fetched question data:', data); // Add this line for debugging
+      setCurrentQuestionIndex(0);
+      setRecordId(data[0].recordId);
+      setQuestionDataArray(data);
+      setQuestionData(data[0]);
+      setAnswers(Array(data.length).fill(''));
+      setSelectedOption(answers[0]);
+
+      setIsLoading(false);
+    } catch (err) {
+      console.error('Error fetching question:', err);
+    }
+  };
+
+  const handleNextQuestionClick = () => {
+    const nextIndex = currentQuestionIndex + 1;
+
+    if (nextIndex < questionDataArray.length) {
+      setCurrentQuestionIndex(nextIndex);
+      setQuestionData(questionDataArray[nextIndex]);
+      setSelectedOption(answers[nextIndex]);
+    } else {
+      // fetchQuestion();
+      console.log("last question reached");
+    }
+  };
+
+  const handlePreviousQuestionClick = () => {
+    const previousIndex = currentQuestionIndex - 1;
+
+    if (previousIndex >= 0) {
+      setCurrentQuestionIndex(previousIndex);
+      setQuestionData(questionDataArray[previousIndex]);
+      setSelectedOption(answers[previousIndex]);
+    }
+  };
+
+  const handleSubmit = async () => {
+    let userTemp = '';
+    if (user && user.username) {
+      userTemp = user.username;
+    }
+    let prof = JSON.parse(userProfile);
+    const userId = userTemp;
+    const requestData = {
+      userId: userId,
+      userProfile: prof,
+    };
+
+    // Collect data for all questions
+    const submitData = questionDataArray.map((question, index) => {
+      const userCorrect = answers[index] === question.answer;
+      return {
+        UserId: user.username,
+        RecordId: question.recordId,
+        Answer: answers[index],
+        CorrectAnswer: question.answer,
+        IsCorrect: userCorrect,
+        imageUrl: question.imageUrl,
+      };
+    });
+    console.log('submitData:', submitData); // Add this line for debugging
+    try {
+      // Update user profile for all questions
+      await updateUser(userId, questionDataArray, answers);
+
+      const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/gradeHomework', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ requestData, submitData })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      setResponse(responseData);
+      // Navigate to HomeworkAnswered page with the answered questions data
+      console.log('submitData2222:', submitData); // Add this line for debugging
+      navigate('/homework-answered', { state: { answeredQuestions: submitData } });
+    } catch (error) {
+      console.error('Failed to grade homework:', error);
+    }
+  };
+
+  if (!isLoggedIn) {
+    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please sign in to view the adaptive practice system.</div>;
+  }
 
   return (
-    <div className="w-full px-8 pt-10 font-poppins">
-      <h1 style={{ fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold' }}>Previous Assignments</h1>
-      {Object.keys(homeworkSets).map((homeworkSet, index) => (
-        <Disclosure key={index}>
-          {({ open, close }) => (
-            <>
-              <Disclosure.Button
-                className={`flex w-full justify-between rounded-lg border-[1.5px] border-teal-500 px-4 py-4 text-left text-sm font-medium text-gray-900 bg-white focus:outline-none ${open ? 'border-b-1 ' : ''}`}
-              >
-                <span>Homework Set {homeworkSet}</span>
-                <ChevronUpIcon
-                  className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-black-500`}
-                />
-              </Disclosure.Button>
-              <Transition
-                show={open}
-                enter="transition-all duration-400 ease-out"
-                enterFrom="opacity-0 translate-y-[-30%]"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition-all duration-200 ease-out"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-[-30%]"
-              >
-                <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black text-center rounded-lg" style={{ background: '#f3f4f6' }}>
-                  {/* Display homework set data here */}
-                  {homeworkSets[homeworkSet].map((question, questionIndex) => (
-                    <div key={questionIndex} style={{ marginBottom: '30px', padding: '20px', border: '1px solid #20a7a1', borderRadius: '8px', background: 'none' }}>
-                      <h3 style={{ marginBottom: '10px' }}>Question {questionIndex + 1}</h3>
-                      {question.questionImage && (
-                        <img src={question.questionImage} alt={`Question ${questionIndex + 1}`} style={{ maxWidth: '100%', marginBottom: '15px', borderRadius: '8px' }} />
-                      )}
-                      <p><strong>Your Answer:</strong> {question.Answer}</p>
-                      <p><strong>Correct Answer:</strong> {question.CorrectAnswer}</p>
-                      {question.IsCorrect ? (
-                        <p style={{ color: 'green', marginTop: '10px' }}>Your answer is correct!</p>
-                      ) : (
-                        <p style={{ color: 'red', marginTop: '10px' }}>Your answer is incorrect.</p>
-                      )}
+    <>
+      <div className="flex justify-center items-start" style={{ margin: 'auto' }}>
+        <div className="loader"></div>
+        <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
+          <Card.Body>
+            {!questionData.imageUrl ? (
+              <div className="flex justify-center items-center h-64">
+                <div className="flex justify-center items-center h-64">
+                  {isLoading && (
+                    <div className="mt-3 md:mt-0 md:ml-2">
+                      <Oval color="#20a7a1" secondaryColor="#20a7a1" />
                     </div>
-                  ))}
-                  <button onClick={() => close()} className="bg-gray-500 text-white py-2 px-4 rounded-lg mt-4">Close tab</button>
-                </Disclosure.Panel>
-              </Transition>
-            </>
-          )}
-        </Disclosure>
-      ))}
-    </div>
+                  )}
+                </div>
+                <div className="pl-10">Question Image Loading ...</div>
+                
+              </div>
+            ) : (
+              <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
+            )}
+          </Card.Body>
+          {
+            ['A', 'B', 'C', 'D'].includes(questionData.answer) ? (
+              <ListGroup className="list-group-flush">
+                {question.options.map((option, index) => (
+                  <ListGroupItem
+                    key={index}
+                    action
+                    onClick={() => handleOptionClick(option)}
+                    style={{
+                      backgroundColor: selectedOption === option ? '#20a7a1' : '',
+                      border: selectedOption === option ? '2px solid #388E3C' : '',
+                      color: selectedOption === option ? 'white' : '',
+                      fontWeight: selectedOption === option ? 'bold' : '',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    {option}
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
+            ) : (
+              <input
+                type="text"
+                value={selectedOption || ''}
+                onChange={handleInputChange}
+                className="form-control mt-3"
+                placeholder="Enter your answer"
+              />
+            )
+          }
+        </Card>
+      </div>
+      <div className="flex flex-col alignItems-center">
+        <div className="flex flex-col items-center md:flex-row md:justify-center">
+          <button
+            style={{ width: '170px' }}
+            onClick={handlePreviousQuestionClick}
+            className="btn btn-dark mt-3 md:mt-0 md:ml-2"
+            disabled={currentQuestionIndex === 0}
+          >
+            Previous Question
+          </button>
+          <button
+            style={{ width: '150px' }}
+            onClick={handleNextQuestionClick}
+            className="btn btn-dark mt-3 md:mt-0 md:ml-2"
+            disabled={currentQuestionIndex === questionDataArray.length - 1}
+          >
+            Next Question
+          </button>
+          <button
+            style={{ backgroundColor: "#20a7a1", width: '150px' }}
+            onClick={handleSubmit}
+            className="btn btn-success mt-3 md:mt-0 md:ml-2 px-50"
+            disabled={!answers.every(answer => answer !== '')}
+          >
+            Submit
+          </button>
+          
+        </div>
+        {(isCorrect === "correct") && (
+          <div className="p-3 text-center">
+            <h2 className="text-xl font-bold">Correct!</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clipRule="evenodd" />
+            </svg>
+          </div>
+        )}
+        {(isCorrect === "incorrect") && (
+          <div className="p-3 text-center">
+            <h2 className="text-xl font-bold">Incorrect!</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06z" clipRule="evenodd" />
+            </svg>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
-export default ViewPreviousAssignments;
+export default Homework;
+
