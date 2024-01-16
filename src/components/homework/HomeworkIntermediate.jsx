@@ -8,15 +8,10 @@ const HomeworkIntermediate = () => {
   const { userData, updateUserData } = useAuth();
 
   const handleNavigateToSubject = (subject) => {
-    // Customize the routes based on your actual route structure
-    if (subject === 'Math') {
-      navigate('/homework');
-    } else if (subject === 'English') {
-      navigate('/homework');
-    } else if (subject === 'Both') {
-      navigate('/homework');
-    } else if (subject === 'PreviousAssignments') {
-      navigate('/homework');
+    if (subject === 'Math' || subject === 'English' || subject === 'Both' || subject === 'PreviousAssignments') {
+      navigate(`/homework`);
+    } else if (subject === 'ViewPreviousAssignments') {
+      navigate('/view-previous-practice');
     }
   };
 
@@ -137,7 +132,7 @@ const HomeworkIntermediate = () => {
             <button style={buttonStyle} onClick={() => handleNavigateToSubject('Both')}>
               Both
             </button>
-            <button style={buttonStyle} onClick={() => handleNavigateToSubject('PreviousAssignments')}>
+            <button style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
               Previous Assignments
             </button>
           </div>
