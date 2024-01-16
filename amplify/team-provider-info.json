@@ -15,27 +15,35 @@
       "function": {
         "createHomework": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/createHomework-70417330634b764c5a55-build.zip"
+          "s3Key": "amplify-builds/createHomework-7a56364c5369572f5478-build.zip"
         },
         "gradeHomework": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/gradeHomework-72504d58326a3743477a-build.zip"
+          "s3Key": "amplify-builds/gradeHomework-6d4b6a41796c4d35732b-build.zip"
         },
         "getNextQuestion": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/getNextQuestion-67726a53586e59576f72-build.zip"
+          "s3Key": "amplify-builds/getNextQuestion-4e534b452b355931706b-build.zip"
         },
         "addUser": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/addUser-5a714a30766f76685774-build.zip"
+          "s3Key": "amplify-builds/addUser-79717a4344685379524e-build.zip"
         },
         "updateUserProfile": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/updateUserProfile-5270546b56474a4e506c-build.zip"
+          "s3Key": "amplify-builds/updateUserProfile-356a52376d5165786442-build.zip"
         },
         "createCheckoutSessionSubscription": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/createCheckoutSessionSubscription-714c6e4d67653852414f-build.zip"
+          "s3Key": "amplify-builds/createCheckoutSessionSubscription-7474696b39544f696d2b-build.zip"
+        },
+        "ViewPreviousAssignments": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/ViewPreviousAssignments-48784b53314e62305568-build.zip"
+        },
+        "getUserDataFromUserDatabase": {
+          "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
+          "s3Key": "amplify-builds/getUserDataFromUserDatabase-41577167666468736945-build.zip"
         }
       },
       "auth": {
@@ -62,7 +70,8 @@
       "function": {
         "createHomework": {},
         "getNextQuestion": {},
-        "gradeHomework": {}
+        "gradeHomework": {},
+        "ViewPreviousAssignments": {}
       }
     }
   }

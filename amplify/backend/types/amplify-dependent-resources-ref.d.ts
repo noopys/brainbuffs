@@ -11,6 +11,13 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "ViewPreviousAssignments": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "addUser": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -33,6 +40,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     },
     "getNextQuestion": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "getUserDataFromUserDatabase": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

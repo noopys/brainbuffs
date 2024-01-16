@@ -28,6 +28,11 @@
     }
   },
   "function": {
+    "ViewPreviousAssignments": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "addUser": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -48,6 +53,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "getUserDataFromUserDatabase": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "gradeHomework": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -60,6 +70,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_ViewPreviousAssignments_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ViewPreviousAssignments"
+        }
+      ]
+    },
+    "AMPLIFY_function_ViewPreviousAssignments_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ViewPreviousAssignments"
+        }
+      ]
+    },
     "AMPLIFY_function_addUser_deploymentBucketName": {
       "usedBy": [
         {
@@ -121,6 +147,22 @@
         {
           "category": "function",
           "resourceName": "getNextQuestion"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserDataFromUserDatabase_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserDataFromUserDatabase"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserDataFromUserDatabase_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserDataFromUserDatabase"
         }
       ]
     },

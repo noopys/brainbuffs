@@ -122,7 +122,8 @@ const HomeworkIntermediate = () => {
         </div>
 
         {/* Content Container */}
-        <div style={contentContainerStyle} style={buttonContainerStyle}>
+        <div style={{ ...contentContainerStyle, ...buttonContainerStyle }}>
+
           <h2 className="text-2xl font-bold my-4">Select Subject to Study or Review Previous Assignments</h2>
 
           {/* Button Container */}

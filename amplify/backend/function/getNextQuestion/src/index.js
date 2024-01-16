@@ -22,58 +22,230 @@ async function alreadyDone(recordId, userId) {
     }
 }
 
-exports.handler = async (event) => {
-    const userId = JSON.parse(event.body).userId;
-    console.log("HELOOOO" + userId)
-    const userProfile = typeof event.body === 'string' ? JSON.parse(event.body).userProfile : event.body.userProfile;
-    const PAT = 'patSKk9n5NCk9gmDU.2dbbc7224b2d221d22a1e22881d14d12dbc05971d3bd977e8ff3168212e74cf6'; // Replace with your Airtable API key
-    const BASE = 'app3eoH3GhFhdwRCz'; // Replace with your Airtable Base ID
-    const TABLE = 'tblZEskudyolOx40P'; // Replace with your Airtable Table Name
-    const numOfQs = 1; // Number of questions to select
+async function updateUserInCurrSess(userId, currRecordIds) {
+    const updateParams = {
+        TableName: 'UserDatabase',
+        Key: {
+            'UserId': userId
+        },
+        UpdateExpression: 'SET InCurrSess = :inCurrSess, CurrHWNum = CurrHWNum + :increment, CurrRecordIds = :currRecordIds',
+        ExpressionAttributeValues: {
+            ':inCurrSess': true,
+            ':increment': 1,
+            ':currRecordIds': currRecordIds
+        },
+        ReturnValues: 'ALL_NEW'
+    };
 
     try {
-        // Fetch all records
-        const listUrl = `https://api.airtable.com/v0/${BASE}/${TABLE}`;
-        const listResponse = await axios.get(listUrl, {
-            headers: {
-                'Authorization': `Bearer ${PAT}`
-            }
-        });
-        const records = listResponse.data.records;
-        if (records.length === 0) {
-            throw new Error('No records found');
-        }
-        // Apply weighting algorithm
-        const selectedQuestion = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId); 
-        console.log(selectedQuestion)
-        // Replace 'STUDENT_ID' with the actual student ID
-        const selectedRecord = selectedQuestion.map(record => record.id).filter(id => id !== "0");
-        // Fetch details for selected records
-        const details = await Promise.all(selectedRecord.map(async (recordId) => {
-            const detailUrl = `https://api.airtable.com/v0/${BASE}/${TABLE}/${recordId}`;
-            const detailResponse = await axios.get(detailUrl, {
-                headers: {
-                    'Authorization': `Bearer ${PAT}`
+        const updatedData = await dynamoDb.update(updateParams).promise();
+        return updatedData.Attributes;
+    } catch (error) {
+        console.error('DynamoDB Update Error:', error);
+        return null;
+    }
+}
+
+async function getUserProfile(userId) {
+    const params = {
+        TableName: 'UserDatabase',
+        Key: {
+            'UserId': userId
+        },
+        ProjectionExpression: 'UserProfile, CurrHWNum, InCurrSess, CurrRecordIds'
+    };
+
+    try {
+        const data = await dynamoDb.get(params).promise();
+        return data.Item || null;
+    } catch (error) {
+        console.error('DynamoDB Error:', error);
+        return null;
+    }
+}
+
+async function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs, userId) {
+    let weightsArray = Array.from({ length: questions.length }, () => ({ weight: 0, id: "0" }));
+
+    for (let i = 0; i < questions.length; i++) {
+        let cons = questions[i].Concepts;
+        if (cons && cons.values && cons.values.length > 0) {
+            cons.values.forEach(value => {
+                if (typeof value === 'string' && value.trim() !== '' && value in conceptsToLookFor) {
+                    weightsArray[i].weight += conceptsToLookFor[value];
                 }
             });
-            return detailResponse.data;
-        }));
-        
-
-        const fields = details[0].fields;
-        const imageUrl = fields['questionImage'] && fields['questionImage'].length > 0 ? fields['questionImage'][0].url : null;
-        const answer = fields['Answer']; // Assuming 'Answer' is the correct field name
-        const recordId = details[0].id;
-        const response = {
-            recordId: recordId, 
-            imageUrl: imageUrl,
-            answer: answer
         }
-        console.log(response)
-        return {
-            statusCode: 200,
-            body: JSON.stringify(response)
+        weightsArray[i].id = questions[i].recordID || questions[i].id;
+    }
+
+    weightsArray.sort((a, b) => b.weight - a.weight);
+
+    let selectedQuestions = [];
+    let index = 0;
+
+    while (selectedQuestions.length < numOfQs && index < weightsArray.length) {
+        const nextQuestion = weightsArray[index];
+
+        if (!await alreadyDone(nextQuestion.id, userId)) {
+            selectedQuestions.push(nextQuestion);
+        }
+
+        index++;
+    }
+
+    console.log("Selected Questions:", selectedQuestions);
+    return selectedQuestions;
+}
+
+async function putQuestionsInDatabase(selectedQuestions, userId, nextHomeworkSet) {
+    await Promise.all(selectedQuestions.map(async (question) => {
+        const putParams = {
+            TableName: 'QuestionDatabase',
+            Item: {
+                'UserId': userId,
+                'RecordId': question.id,
+                'HomeworkSet': nextHomeworkSet,
+                // Add other attributes as needed
+            }
         };
+
+        await dynamoDb.put(putParams).promise();
+    }));
+}
+
+exports.handler = async (event) => {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+
+    const userId = JSON.parse(event.body).userId;
+    const numOfQs = 5;
+
+    const { UserProfile, CurrHWNum, InCurrSess, CurrRecordIds } = await getUserProfile(userId);
+
+    console.log("UserProfile: ", UserProfile);
+    console.log("CurrHWNum: ", CurrHWNum);
+    console.log("InCurrSess: ", InCurrSess);
+    console.log("CurrRecordIds: ", CurrRecordIds);
+
+    try {
+        console.log('Starting InCurrSess check...');
+        
+        if (InCurrSess) {
+            
+            console.log('User is in the current session.');
+
+            
+            const details = await Promise.all(CurrRecordIds.map(async (recordId) => {
+            const detailParams = {
+                TableName: 'SATQuestions',
+                Key: {
+                    'recordID': recordId
+                }
+            };
+            const detailData = await dynamoDb.get(detailParams).promise();
+            return detailData.Item;
+             }));
+
+            console.log('Details:', details);
+            
+            const responses = details.map(fields => {
+                const concepts = fields['Concepts'];
+                const imageUrl = fields['questionImage'] || null;
+                const answer = fields['Answer'];
+                const recordId = fields['recordID'];
+
+                return {
+                    recordId: recordId,
+                    imageUrl: imageUrl,
+                    answer: answer,
+                    concepts: concepts
+                };
+            });
+
+            console.log("Responses:", responses);
+
+            return {
+                statusCode: 200,
+                body: JSON.stringify(responses)
+            };
+        } else {
+            
+            const userProfile = await getUserProfile(userId);
+
+            if (!userProfile) {
+                console.error('User profile not found.');
+                return {
+                    statusCode: 404,
+                    body: JSON.stringify({ error: 'User profile not found.' })
+                };
+            }
+
+            const scanParams = {
+                TableName: 'SATQuestions',
+                FilterExpression: 'Field = :field',
+                ExpressionAttributeValues: {
+                    ':field': 'Math',
+                },
+            };
+
+            const scanResult = await dynamoDb.scan(scanParams).promise();
+            const records = scanResult.Items;
+
+            if (records.length === 0) {
+                console.log("No records found");
+                throw new Error('No records found');
+            }
+
+            console.log('Applying weighting algorithm...');
+
+            const selectedQuestion = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId);
+            
+            const updatedUser = await updateUserInCurrSess(userId, selectedQuestion.map(record => record.id).filter(id => id !== "0"));
+            if (!updatedUser) {
+                console.error('Failed to update InCurrSess.');
+                return {
+                    statusCode: 500,
+                    body: JSON.stringify({ error: 'Failed to update InCurrSess.' })
+                };
+            }
+
+            console.log('InCurrSess updated to true, along with currHwSet and recordIDs:', updatedUser);
+            await putQuestionsInDatabase(selectedQuestion, userId, CurrHWNum + 1);
+
+            const selectedRecord = selectedQuestion.map(record => record.id).filter(id => id !== "0");
+
+            const details = await Promise.all(selectedRecord.map(async (recordId) => {
+                const detailParams = {
+                    TableName: 'SATQuestions',
+                    Key: {
+                        'recordID': recordId
+                    }
+                };
+                const detailData = await dynamoDb.get(detailParams).promise();
+                return detailData.Item;
+            }));
+
+            const responses = details.map(fields => {
+                const concepts = fields['Concepts'];
+                const imageUrl = fields['questionImage'] || null;
+                const answer = fields['Answer'];
+                const recordId = fields['recordID'];
+
+                return {
+                    recordId: recordId,
+                    imageUrl: imageUrl,
+                    answer: answer,
+                    concepts: concepts
+                };
+            });
+
+            console.log("Responses:", responses);
+
+            return {
+                statusCode: 200,
+                body: JSON.stringify(responses)
+            };
+        }
     } catch (error) {
         console.error('Error:', error);
         return {
@@ -82,30 +254,3 @@ exports.handler = async (event) => {
         };
     }
 };
-async function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs, userId) {
-    let weightsArray = Array.from({ length: questions.length }, () => ({weight:0, id:"0"}));
-    for (let i = 0; i < questions.length; i++) {
-        let cons = questions[i].fields.Concepts
-        if (cons) {
-            //Nested Loops for now may improve time complexity 
-            for (let j = 0; j < cons.length; j++) {
-                //console.log("cycle" + cons[j] + "cons" + conceptsToLookFor[cons[j]])
-                if (cons[j] in conceptsToLookFor) {
-                    weightsArray[i].weight+=conceptsToLookFor[cons[j]]
-                }
-            }
-        }
-        weightsArray[i].id =questions[i].id
-    }
-    //Find the 20 most fitting questions 
-    console.log(weightsArray)
-    weightsArray.sort((a, b) => b.weight - a.weight);
-    let index = 0; 
-    let nextQuestion =  weightsArray[0]
-    
-    while(await alreadyDone(nextQuestion.id, userId)){
-        index++;
-        nextQuestion = weightsArray[index];
-    }
-    return [nextQuestion]
-}
