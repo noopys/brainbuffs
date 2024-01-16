@@ -100,8 +100,8 @@ const NavigationBar = () => {
         </div>
 
         {/* User dropdown for larger screens */}
-        <div className="relative hidden lg:block">
-          <div className="py-3 px-6 bg-transparent rounded-lg flex gap-2 items-center justify-end" onMouseEnter={() => setIsOpen(true)}>
+        <div className="relative hidden lg:block" onMouseLeave={() => setIsOpen(false)}>
+          <div className="py-3 px-6 bg-transparent rounded-lg flex gap-2 items-center justify-end" onMouseEnter={() => setIsOpen(true)} >
             <img className="w-3.5 h-3.5" alt="" src={DownArrow} />
             <div
               className="text-sm font-poppins text-light-theme-subheading-text"

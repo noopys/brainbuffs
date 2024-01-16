@@ -97,7 +97,7 @@ const ProfilePage = () => {
     // change the user profile into correct data form for chart
     useEffect(() => {
         if (userData[0]) {
-            setMissedConceptsChartData(Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours]));
+            setMissedConceptsChartData(Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, weight]) => [task, weight]));
             // console.log('chartData', missedConceptsChartData);
         }
     }, [userData]);
@@ -160,6 +160,7 @@ const ProfilePage = () => {
             
             <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px' }}>My Insights</h2>
   
+            {/* PIE CHART FOR MISSED CONCEPTS */}
             <div style={graphContainerStyles}>
                 <h2>Missed Concepts</h2>
                 <div style={graphStyles}>
@@ -195,6 +196,7 @@ const ProfilePage = () => {
                                 fontSize: 14, // Customize the font size of percentage values
                             },
                             colors: ["#2ECC71", "#3498DB", "#1ABC9C", "#27AE60", "#F1C40F", "#A5694F", "#9B59B6", "#FF5733"],
+                            maxRows: 8,
                         }}
                     />
                 </div>
