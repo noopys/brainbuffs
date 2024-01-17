@@ -1,5 +1,6 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "body": "{\"username\":\"d6f336da-c621-4eb8-8697-b1eeac358d6b\"}",
+  "headers": {
+    "Content-Type": "application/json"
+  }
 }
