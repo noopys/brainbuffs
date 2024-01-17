@@ -16,10 +16,6 @@ exports.handler = async (event) => {
         const dbRes = await dynamodb.query(params).promise();
         if (dbRes && dbRes.Items && dbRes.Items.length > 0) {
             console.log('Retrieved items from DynamoDB:', dbRes.Items);
-            console.log("RETURN: ", {
-                statusCode: 200,
-                body: JSON.stringify(dbRes.Items),
-            });
             // You can return the data as needed
             return {
                 statusCode: 200,

@@ -11,45 +11,66 @@ exports.handler = async (event) => {
             Key: { 'UserId': userId }
         }).promise();
 
-        let userProfile = userProfileResponse.Item ? userProfileResponse.Item.UserProfile : {};
-        userProfile = JSON.parse(userProfile);
+        // Extract user profiles from the response
+        let userProfileResponseItem = userProfileResponse.Item || {};
+        console.log('User Profile Response:', userProfileResponseItem);
+
+        let userProfile = userProfileResponseItem.UserProfile || {};
+        let englishUserProfile = userProfileResponseItem.EnglishUserProfile || {};
+
+        console.log('UserProfile:', userProfile);
+        console.log('EnglishUserProfile:', englishUserProfile);
 
         // Update the user profile for each question
         questions.forEach((question, index) => {
             const selectedOption = selectedOptions[index];
             const correct = selectedOption === question.answer;
-            console.log("update concepts for question");
+
+            // Determine which user profile to update based on the subject
+            const userToUpdate = question.subject === 'Math' ? userProfile : englishUserProfile;
+            console.log("user to Update: ", userToUpdate);
+
+            // Inside the forEach loop for concepts
             question.concepts.forEach(concept => {
+                // Log the values for debugging
+                console.log('Concept:', concept);
+                console.log('Correct:', correct);
+
+                // Check if the property exists in the map
+                const conceptProperties = userToUpdate[concept];
+                console.log("conceptProperties", conceptProperties);
+                const previousValue = conceptProperties !== undefined ? conceptProperties : 0;
+
+                console.log('Previous Value:', previousValue);
+
                 if (correct) {
-                    console.log("update correct concept: ", concept);
                     // If correct, subtract 0.5 (but not below 0)
-                    if (userProfile.hasOwnProperty(concept)) {
-                        userProfile[concept] = Math.max(userProfile[concept] - 0.5, 0);
-                    }
+                    userToUpdate[concept] = Math.max((parseFloat(previousValue) || 0) - 0.5, 0);
                 } else {
-                    console.log("update incorrect concept: ", concept);
                     // If incorrect, add 1 to the value for the concept
-                    userProfile[concept] = (userProfile[concept] || 0) + 1;
+                    userToUpdate[concept] = (parseFloat(previousValue) || 0) + 1;
                 }
+
+                // Log the updated value
+                console.log('Updated Value:', userToUpdate[concept]);
             });
         });
-
-        userProfile = JSON.stringify(userProfile);
 
         // Use update operation to modify specific attributes
         await dynamoDB.update({
             TableName: 'UserDatabase',
             Key: { 'UserId': userId },
-            UpdateExpression: 'SET UserProfile = :userProfile, InCurrSess = :inCurrSess',
+            UpdateExpression: 'SET UserProfile = :userProfile, EnglishUserProfile = :englishUserProfile, InCurrSess = :inCurrSess',
             ExpressionAttributeValues: {
                 ':userProfile': userProfile,
+                ':englishUserProfile': englishUserProfile,
                 ':inCurrSess': false
             }
         }).promise();
 
-        return { statusCode: 200, body: JSON.stringify('UserProfile and InCurrSess updated successfully') };
+        return { statusCode: 200, body: JSON.stringify('UserProfiles and InCurrSess updated successfully') };
     } catch (error) {
         console.error(error);
-        return { statusCode: 500, body: JSON.stringify('Error updating UserProfile and InCurrSess') };
+        return { statusCode: 500, body: JSON.stringify('Error updating UserProfiles and InCurrSess') };
     }
 };

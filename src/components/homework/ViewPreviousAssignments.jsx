@@ -4,9 +4,11 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
 function ViewPreviousAssignments() {
+  console.log("here");
   const { isLoggedIn, user } = useAuth();
+  console.log("here2");
   const [homeworkSets, setHomeworkSets] = useState({});
-
+  console.log("here3");
   useEffect(() => {
     const fetchPreviousAssignments = async () => {
       try {

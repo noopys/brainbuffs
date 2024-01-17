@@ -52,7 +52,7 @@ async function getUserProfile(userId) {
         Key: {
             'UserId': userId
         },
-        ProjectionExpression: 'UserProfile, CurrHWNum, InCurrSess, CurrRecordIds'
+        ProjectionExpression: 'UserProfile, EnglishUserProfile, CurrHWNum, InCurrSess, CurrRecordIds'
     };
 
     try {
@@ -71,7 +71,11 @@ async function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs
         let cons = questions[i].Concepts;
         if (cons && cons.values && cons.values.length > 0) {
             cons.values.forEach(value => {
+                //console.log('Checking value:', value);
+               // console.log('Concepts to look for:', conceptsToLookFor);
+                // if (typeof value === 'string' && value.trim() !== '' && conceptsToLookFor.includes(value)) {
                 if (typeof value === 'string' && value.trim() !== '' && value in conceptsToLookFor) {
+                   // console.log('Condition met for value:', value);
                     weightsArray[i].weight += conceptsToLookFor[value];
                 }
             });
@@ -80,7 +84,7 @@ async function weightingAlgorithm(conceptsToLookFor, questions, student, numOfQs
     }
 
     weightsArray.sort((a, b) => b.weight - a.weight);
-
+    console.log("The weights array sorted", weightsArray);
     let selectedQuestions = [];
     let index = 0;
 
@@ -114,37 +118,107 @@ async function putQuestionsInDatabase(selectedQuestions, userId, nextHomeworkSet
     }));
 }
 
+async function getQuestions(subject, numOfQs, userId, userProfile) {
+    if (!userProfile) {
+        console.error('User profile not found.');
+        throw new Error('User profile not found.');
+    }
+
+    const scanParams = {
+        TableName: 'SATQuestions',
+        FilterExpression: 'Field = :field',
+        ExpressionAttributeValues: {
+            ':field': subject,
+        },
+    };
+
+    const scanResult = await dynamoDb.scan(scanParams).promise();
+    const records = scanResult.Items;
+
+    if (records.length === 0) {
+        console.log(`No ${subject} records found`);
+        throw new Error(`No ${subject} records found`);
+    }
+
+    console.log(`Applying weighting algorithm for ${subject}...`);
+
+    const selectedQuestions = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId);
+
+    const updatedUser = await updateUserInCurrSess(userId, selectedQuestions.map(record => record.id).filter(id => id !== "0"));
+    if (!updatedUser) {
+        console.error('Failed to update InCurrSess.');
+        throw new Error('Failed to update InCurrSess.');
+    }
+
+    console.log(`InCurrSess updated to true, along with currHwSet and recordIDs for ${subject}:`, updatedUser);
+    await putQuestionsInDatabase(selectedQuestions, userId, updatedUser.CurrHWNum + 1);
+
+    const selectedRecordIds = selectedQuestions.map(record => record.id).filter(id => id !== "0");
+
+    const details = await Promise.all(selectedRecordIds.map(async (recordId) => {
+        const detailParams = {
+            TableName: 'SATQuestions',
+            Key: {
+                'recordID': recordId
+            }
+        };
+        const detailData = await dynamoDb.get(detailParams).promise();
+        return detailData.Item;
+    }));
+
+    const responses = details.map(fields => {
+        const concepts = fields['Concepts'];
+        const imageUrl = fields['questionImage'] || null;
+        const answer = fields['Answer'];
+        const recordId = fields['recordID'];
+
+        return {
+            recordId: recordId,
+            imageUrl: imageUrl,
+            answer: answer,
+            concepts: concepts,
+            subject: subject  // Add the subject field to each question
+        };
+    });
+
+    console.log(`${subject} Responses:`, responses);
+
+    return responses;
+}
+
 exports.handler = async (event) => {
     console.log('Received event:', JSON.stringify(event, null, 2));
+    console.log('Event Body:', event.body);
+    //const requestBody = event.body ? JSON.parse(event.body) : {};
 
-    const userId = JSON.parse(event.body).userId;
-    const numOfQs = 5;
+    const requestBody = JSON.parse(event.body);
+    const userId = requestBody.userId;
+    const numOfQs = 2;
 
-    const { UserProfile, CurrHWNum, InCurrSess, CurrRecordIds } = await getUserProfile(userId);
+    const { UserProfile, EnglishUserProfile, CurrHWNum, InCurrSess, CurrRecordIds } = await getUserProfile(userId);
 
     console.log("UserProfile: ", UserProfile);
     console.log("CurrHWNum: ", CurrHWNum);
     console.log("InCurrSess: ", InCurrSess);
     console.log("CurrRecordIds: ", CurrRecordIds);
+    console.log("EnglishUserProfile: ", EnglishUserProfile);
 
     try {
         console.log('Starting InCurrSess check...');
         
         if (InCurrSess) {
-            
             console.log('User is in the current session.');
 
-            
             const details = await Promise.all(CurrRecordIds.map(async (recordId) => {
-            const detailParams = {
-                TableName: 'SATQuestions',
-                Key: {
-                    'recordID': recordId
-                }
-            };
-            const detailData = await dynamoDb.get(detailParams).promise();
-            return detailData.Item;
-             }));
+                const detailParams = {
+                    TableName: 'SATQuestions',
+                    Key: {
+                        'recordID': recordId
+                    }
+                };
+                const detailData = await dynamoDb.get(detailParams).promise();
+                return detailData.Item;
+            }));
 
             console.log('Details:', details);
             
@@ -169,82 +243,44 @@ exports.handler = async (event) => {
                 body: JSON.stringify(responses)
             };
         } else {
-            
-            const userProfile = await getUserProfile(userId);
+            // Use the specified subject and user profile field
+            const subject = requestBody.subject;
+            const userProfileField = subject === 'Math' ? UserProfile : EnglishUserProfile;
 
-            if (!userProfile) {
-                console.error('User profile not found.');
-                return {
-                    statusCode: 404,
-                    body: JSON.stringify({ error: 'User profile not found.' })
-                };
-            }
+            if (subject === 'Both') {
+                // If subject is Both, retrieve half from Math and half from English
+                const numOfMathQs = Math.floor(numOfQs / 2);
+                const numOfEnglishQs = numOfQs - numOfMathQs;
 
-            const scanParams = {
-                TableName: 'SATQuestions',
-                FilterExpression: 'Field = :field',
-                ExpressionAttributeValues: {
-                    ':field': 'Math',
-                },
-            };
+                // Retrieve Math questions
+                const mathQuestions = await getQuestions('Math', numOfMathQs, userId, UserProfile);
 
-            const scanResult = await dynamoDb.scan(scanParams).promise();
-            const records = scanResult.Items;
+                // Retrieve English questions
+                const englishQuestions = await getQuestions('English', numOfEnglishQs, userId, EnglishUserProfile);
 
-            if (records.length === 0) {
-                console.log("No records found");
-                throw new Error('No records found');
-            }
-
-            console.log('Applying weighting algorithm...');
-
-            const selectedQuestion = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId);
-            
-            const updatedUser = await updateUserInCurrSess(userId, selectedQuestion.map(record => record.id).filter(id => id !== "0"));
-            if (!updatedUser) {
-                console.error('Failed to update InCurrSess.');
-                return {
-                    statusCode: 500,
-                    body: JSON.stringify({ error: 'Failed to update InCurrSess.' })
-                };
-            }
-
-            console.log('InCurrSess updated to true, along with currHwSet and recordIDs:', updatedUser);
-            await putQuestionsInDatabase(selectedQuestion, userId, CurrHWNum + 1);
-
-            const selectedRecord = selectedQuestion.map(record => record.id).filter(id => id !== "0");
-
-            const details = await Promise.all(selectedRecord.map(async (recordId) => {
-                const detailParams = {
-                    TableName: 'SATQuestions',
-                    Key: {
-                        'recordID': recordId
-                    }
-                };
-                const detailData = await dynamoDb.get(detailParams).promise();
-                return detailData.Item;
-            }));
-
-            const responses = details.map(fields => {
-                const concepts = fields['Concepts'];
-                const imageUrl = fields['questionImage'] || null;
-                const answer = fields['Answer'];
-                const recordId = fields['recordID'];
+                // Combine the responses
+                const responses = [
+                    ...mathQuestions.map(question => ({ ...question, subject: 'Math' })),
+                    ...englishQuestions.map(question => ({ ...question, subject: 'English' }))
+                ];
 
                 return {
-                    recordId: recordId,
-                    imageUrl: imageUrl,
-                    answer: answer,
-                    concepts: concepts
+                    statusCode: 200,
+                    body: JSON.stringify(responses)
                 };
-            });
+            } else {
+                // Retrieve questions based on the subject
+                console.log("userProfileField passed to getQuestions: ", userProfileField); 
+                const questions = await getQuestions(subject, numOfQs, userId, userProfileField);
 
-            console.log("Responses:", responses);
+                // Add subject field to each question in the responses
+                const responses = questions.map(question => ({ ...question, subject }));
 
-            return {
-                statusCode: 200,
-                body: JSON.stringify(responses)
-            };
+                return {
+                    statusCode: 200,
+                    body: JSON.stringify(responses)
+                };
+            }
         }
     } catch (error) {
         console.error('Error:', error);

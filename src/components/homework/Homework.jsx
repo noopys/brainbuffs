@@ -31,7 +31,8 @@ function Homework(props) {
 
   useEffect(() => {
     if (userData && userData.length > 0) {
-      const userProf = userData[0]["UserProfile"].S;
+      //const userProf = userData[0]["UserProfile"].S;
+      const userProf = userData[0].UserProfile; // Update this line
       setUserProfile(userProf);
     }
   }, [userData]);
@@ -67,13 +68,13 @@ function Homework(props) {
     if (user && user.username) {
       userTemp = user.username;
     }
-    let prof = JSON.parse(userProfile);
+    // let prof = JSON.parse(userProfile);
       
     const userId = userTemp;
     const requestData = {
       userId: userId,
       subject: subject,
-      userProfile: prof,
+      // userProfile: prof,
     };
 
     try {
@@ -132,15 +133,16 @@ function Homework(props) {
     if (user && user.username) {
       userTemp = user.username;
     }
-    let prof = JSON.parse(userProfile);
+    // let prof = JSON.parse(userProfile);
     const userId = userTemp;
     const requestData = {
       userId: userId,
-      userProfile: prof,
+      // userProfile: prof,
     };
 
     // Collect data for all questions
     const submitData = questionDataArray.map((question, index) => {
+      console.log('Question:', question); // Add this line for debugging
       const userCorrect = answers[index] === question.answer;
       return {
         UserId: user.username,
@@ -149,6 +151,7 @@ function Homework(props) {
         CorrectAnswer: question.answer,
         IsCorrect: userCorrect,
         imageUrl: question.imageUrl,
+        subject: question.subject,
       };
     });
     console.log('submitData:', submitData); // Add this line for debugging
