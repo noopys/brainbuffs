@@ -40,6 +40,7 @@ import Profile from './components/frontend/accounts/ProfilePage';
 import HomeworkAnswered from './components/homework/HomeworkAnswered';
 
 import HomeworkIntermediate from './components/homework/HomeworkIntermediate';
+import ViewPreviousAssignments from './components/homework/ViewPreviousAssignments';
 
 
 Amplify.configure(config);
@@ -88,6 +89,8 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/homework-answered" element={<HomeworkAnswered />} />
               <Route path="/homework-intermediate" element={<HomeworkIntermediate/>}/>
+              <Route path="/view-previous-practice" element={<ViewPreviousAssignments />} />
+
             </Routes>
           </div>
         </Router>

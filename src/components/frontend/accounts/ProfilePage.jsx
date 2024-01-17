@@ -11,7 +11,7 @@ const ProfilePage = () => {
     const [newGoalScore, setgoalScore] = useState(null);
     const [newNextTestDate, setNextDate] = useState(null);
 
-    // charts and instights
+    //charts and instights
     const [missedConceptsChartData, setMissedConceptsChartData] = useState([]);
     const [shouldShowLegend, setShouldShowLegend] = useState(true);
 
@@ -94,13 +94,12 @@ const ProfilePage = () => {
         };
     }, []);
 
-    // change the user profile into correct data form for chart
-    useEffect(() => {
-        if (userData[0]) {
-            setMissedConceptsChartData(Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, weight]) => [task, weight]));
-            // console.log('chartData', missedConceptsChartData);
-        }
-    }, [userData]);
+    // useEffect(() => {
+    //     if (userData[0]) {
+    //         setMissedConceptsChartData(Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours]));
+    //         // console.log('chartData', missedConceptsChartData);
+    //     }
+    // }, [userData]);
 
     useEffect(() => {
         if (newNextTestDate !== null) {
@@ -160,8 +159,7 @@ const ProfilePage = () => {
             
             <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px' }}>My Insights</h2>
   
-            {/* PIE CHART FOR MISSED CONCEPTS */}
-            <div style={graphContainerStyles}>
+            {/* <div style={graphContainerStyles}>
                 <h2>Missed Concepts</h2>
                 <div style={graphStyles}>
                     <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000',}}>
@@ -200,7 +198,7 @@ const ProfilePage = () => {
                         }}
                     />
                 </div>
-            </div>
+            </div> */}
             {/* POSSIBLE ADDITIONAL CHARTS */}
             {/* <div style={graphContainerStyles}>
                 <h2>Concepts that you nail</h2>

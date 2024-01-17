@@ -7,16 +7,19 @@ const HomeworkIntermediate = () => {
   const navigate = useNavigate();
   const { userData, updateUserData } = useAuth();
 
+  
   const handleNavigateToSubject = (subject) => {
-    // Customize the routes based on your actual route structure
-    if (subject === 'Math') {
-      navigate('/homework');
-    } else if (subject === 'English') {
-      navigate('/homework');
-    } else if (subject === 'Both') {
-      navigate('/homework');
-    } else if (subject === 'PreviousAssignments') {
-      navigate('/homework');
+    console.log('Subject before navigation:', subject);
+  
+    if (subject === 'Math' || subject === 'English' || subject === 'Both') {
+      // Update the navigate function to include the subject in the request body
+      setTimeout(() => {
+        navigate(`/homework`, {
+          state: { subject: subject }
+        });
+      }, 0);
+    } else if (subject === 'ViewPreviousAssignments') {
+      navigate('/view-previous-practice');
     }
   };
 
@@ -43,13 +46,13 @@ const HomeworkIntermediate = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (userData[0]) {
-      setMissedConceptsChartData(
-        Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours])
-      );
-    }
-  }, [userData]);
+  // useEffect(() => {
+  //   if (userData[0]) {
+  //     setMissedConceptsChartData(
+  //       Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours])
+  //     );
+  //   }
+  // }, [userData]);
 
   const containerStyle = {
     display: 'flex',
@@ -73,11 +76,11 @@ const HomeworkIntermediate = () => {
     marginBottom: '20px', // Add margin to separate from content
   };
 
-  const chartTitleStyle = {
-    textAlign: 'center',
-    fontSize: '2em',
-    fontWeight: 'bold',
-  };
+  // const chartTitleStyle = {
+  //   textAlign: 'center',
+  //   fontSize: '2em',
+  //   fontWeight: 'bold',
+  // };
 
   const contentContainerStyle = {
     display: 'flex',
@@ -114,12 +117,12 @@ const HomeworkIntermediate = () => {
 
       <div style={chartContainerStyle} className="lg:flex">
         {/* Include the MissedConceptsChart component with actual data */}
-        <div style={{ width: '95%', maxWidth: '700px' }}>
+        {/* <div style={{ width: '95%', maxWidth: '700px' }}>
           <h2 style={chartTitleStyle}>Missed Concepts</h2>
           <div style={{ width: '100%', height: '350px', backgroundColor: '#f3f3f3', border: '1px solid #ccc', borderRadius: '5px', paddingBottom: '30px' }}>
             <MissedConceptsChart chartData={missedConceptsChartData} shouldShowLegend={shouldShowLegend} />
           </div>
-        </div>
+        </div> */}
 
         {/* Content Container */}
         <div style={{ ...contentContainerStyle, ...buttonContainerStyle }}>
@@ -137,7 +140,7 @@ const HomeworkIntermediate = () => {
             <button style={buttonStyle} onClick={() => handleNavigateToSubject('Both')}>
               Both
             </button>
-            <button style={buttonStyle} onClick={() => handleNavigateToSubject('PreviousAssignments')}>
+            <button style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
               Previous Assignments
             </button> */}
           </div>

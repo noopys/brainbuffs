@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { Oval } from 'react-loader-spinner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { updateUser } from '../helpers/updateUser';
 
-function Homework() {
+function Homework(props) {
   const navigate = useNavigate();
+
+  const {state} = useLocation(); 
+  const {subject} = state; 
+  console.log('Subject received in Homework.jsx:', subject);
 
   const question = {
     options: ["A", "B", "C", "D"],
@@ -27,7 +31,8 @@ function Homework() {
 
   useEffect(() => {
     if (userData && userData.length > 0) {
-      const userProf = userData[0]["UserProfile"].S;
+      //const userProf = userData[0]["UserProfile"].S;
+      const userProf = userData[0].UserProfile; // Update this line
       setUserProfile(userProf);
     }
   }, [userData]);
@@ -63,11 +68,13 @@ function Homework() {
     if (user && user.username) {
       userTemp = user.username;
     }
-    let prof = JSON.parse(userProfile);
+    // let prof = JSON.parse(userProfile);
+      
     const userId = userTemp;
     const requestData = {
       userId: userId,
-      userProfile: prof,
+      subject: subject,
+      // userProfile: prof,
     };
 
     try {
@@ -126,15 +133,16 @@ function Homework() {
     if (user && user.username) {
       userTemp = user.username;
     }
-    let prof = JSON.parse(userProfile);
+    // let prof = JSON.parse(userProfile);
     const userId = userTemp;
     const requestData = {
       userId: userId,
-      userProfile: prof,
+      // userProfile: prof,
     };
 
     // Collect data for all questions
     const submitData = questionDataArray.map((question, index) => {
+      console.log('Question:', question); // Add this line for debugging
       const userCorrect = answers[index] === question.answer;
       return {
         UserId: user.username,
@@ -143,6 +151,7 @@ function Homework() {
         CorrectAnswer: question.answer,
         IsCorrect: userCorrect,
         imageUrl: question.imageUrl,
+        subject: question.subject,
       };
     });
     console.log('submitData:', submitData); // Add this line for debugging
