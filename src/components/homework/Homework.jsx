@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { Oval } from 'react-loader-spinner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { updateUser } from '../helpers/updateUser';
 
-function Homework() {
+function Homework(props) {
   const navigate = useNavigate();
+
+  const {state} = useLocation(); 
+  const {subject} = state; 
+  console.log('Subject received in Homework.jsx:', subject);
 
   const question = {
     options: ["A", "B", "C", "D"],
@@ -64,9 +68,11 @@ function Homework() {
       userTemp = user.username;
     }
     let prof = JSON.parse(userProfile);
+      
     const userId = userTemp;
     const requestData = {
       userId: userId,
+      subject: subject,
       userProfile: prof,
     };
 

@@ -7,9 +7,17 @@ const HomeworkIntermediate = () => {
   const navigate = useNavigate();
   const { userData, updateUserData } = useAuth();
 
+  
   const handleNavigateToSubject = (subject) => {
-    if (subject === 'Math' || subject === 'English' || subject === 'Both' || subject === 'PreviousAssignments') {
-      navigate(`/homework`);
+    console.log('Subject before navigation:', subject);
+  
+    if (subject === 'Math' || subject === 'English' || subject === 'Both') {
+      // Update the navigate function to include the subject in the request body
+      setTimeout(() => {
+        navigate(`/homework`, {
+          state: { subject: subject }
+        });
+      }, 0);
     } else if (subject === 'ViewPreviousAssignments') {
       navigate('/view-previous-practice');
     }
