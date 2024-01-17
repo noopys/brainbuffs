@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext'
-// import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 
 function SignUp() {
@@ -251,7 +251,7 @@ function SignUp() {
                       cursor: 'pointer',
                     }}
                   >
-                    {/* {showPassword ? <IoIosEyeOff /> : <IoIosEye />} */}
+                    {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
                   </button>
                 </div>
                 <input
