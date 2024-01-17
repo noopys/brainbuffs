@@ -134,7 +134,7 @@ const HomeworkIntermediate = () => {
             <button style={buttonStyle} onClick={() => handleNavigateToSubject('Math')}>
               Math
             </button>
-            {/* <button style={buttonStyle} onClick={() => handleNavigateToSubject('English')}>
+            <button style={buttonStyle} onClick={() => handleNavigateToSubject('English')}>
               English
             </button>
             <button style={buttonStyle} onClick={() => handleNavigateToSubject('Both')}>
@@ -142,7 +142,7 @@ const HomeworkIntermediate = () => {
             </button>
             <button style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
               Previous Assignments
-            </button> */}
+            </button>
           </div>
         </div>
       </div>
