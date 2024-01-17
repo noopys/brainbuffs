@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 import { useAuth } from './AuthContext';
-import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
+// import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 function SignIn() {
   const { isLoggedIn, user, login, logout } = useAuth();
@@ -139,7 +139,7 @@ function SignIn() {
                     cursor: 'pointer',
                   }}
                 >
-                  {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                  {/* {showPassword ? <IoIosEyeOff /> : <IoIosEye />} */}
                 </button>
               </div>
               <button type="submit" style={buttonStyle}>Sign In</button>
