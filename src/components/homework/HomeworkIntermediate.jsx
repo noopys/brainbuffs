@@ -5,7 +5,7 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 
 const HomeworkIntermediate = () => {
   const navigate = useNavigate();
-  const { userData, updateUserData } = useAuth();
+  const { isLoggedIn, userData, updateUserData } = useAuth();
 
   
   const handleNavigateToSubject = (subject) => {
@@ -125,6 +125,10 @@ const HomeworkIntermediate = () => {
     width: '300px',
     margin: '8px',
   };
+
+  if (!isLoggedIn) {
+    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please sign in to view the adaptive practice system.</div>;
+  }
 
   return (
     <div style={containerStyle}>
