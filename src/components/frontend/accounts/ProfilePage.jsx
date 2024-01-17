@@ -11,8 +11,9 @@ const ProfilePage = () => {
     const [newGoalScore, setgoalScore] = useState(null);
     const [newNextTestDate, setNextDate] = useState(null);
 
-    //charts and instights
-    const [missedConceptsChartData, setMissedConceptsChartData] = useState([]);
+    // charts and instights
+    const [missedMathConceptsChartData, setMissedMathConceptsChartData] = useState([]);
+    const [missedEnglishConceptsChartData, setMissedEnglishConceptsChartData] = useState([]);
     const [shouldShowLegend, setShouldShowLegend] = useState(true);
 
     // user messages
@@ -74,6 +75,28 @@ const ProfilePage = () => {
         paddingBottom: '30px'
     };
 
+    const chartOptions = {
+        chartArea: {
+            left: 10, // Adjust the left margin of the chart area
+            top: 20, // Adjust the top margin of the chart area
+            width: '90%', // Set the width of the chart area
+            height: '90%', // Set the height of the chart area
+        },
+        backgroundColor: '#f3f3f3',
+        is3D: true, // Enable a 3D effect for the pie chart
+        legend: shouldShowLegend ? {
+            position: 'left',
+            textStyle: {
+                fontSize: 14,
+            },
+        } : { position: 'none' }, // An empty object if shouldShowLegend is false
+        pieSliceText: 'percentage', // Display percentage values on pie slices
+        pieSliceTextStyle: {
+            fontSize: 14, // Customize the font size of percentage values
+        },
+        colors: ["#2ECC71", "#3498DB", "#1ABC9C", "#27AE60", "#F1C40F", "#A5694F", "#9B59B6", "#FF5733"],
+    }
+
     // handle resizing for smaller screens
     useEffect(() => {
         // Function to handle screen size changes and update shouldShowLegend
@@ -94,12 +117,28 @@ const ProfilePage = () => {
         };
     }, []);
 
-    // useEffect(() => {
-    //     if (userData[0]) {
-    //         setMissedConceptsChartData(Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours]));
-    //         // console.log('chartData', missedConceptsChartData);
-    //     }
-    // }, [userData]);
+    // change the user profile into correct data form for chart
+    useEffect(() => {
+        // console.log("USERDATA:", userData);
+        if (userData[0]) {
+            // format math
+            const formattedMathData = [['Concept', 'Weight']];
+            for (const category in userData[0].UserProfile.M) {
+                const value = parseInt(userData[0].UserProfile.M[category].N);
+                formattedMathData.push([category, value]);
+            }
+            setMissedMathConceptsChartData(formattedMathData);
+            // console.log('chartData', formattedData);
+
+            // format English
+            const formattedEnglishData = [['Concept', 'Weight']];
+            for (const category in userData[0].EnglishUserProfile.M) {
+                const value = parseInt(userData[0].EnglishUserProfile.M[category].N);
+                formattedEnglishData.push([category, value]);
+            }
+            setMissedEnglishConceptsChartData(formattedEnglishData);
+        }
+    }, [userData]);
 
     useEffect(() => {
         if (newNextTestDate !== null) {
@@ -159,8 +198,9 @@ const ProfilePage = () => {
             
             <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px' }}>My Insights</h2>
   
-            {/* <div style={graphContainerStyles}>
-                <h2>Missed Concepts</h2>
+            {/* PIE CHART FOR MISSED CONCEPTS */}
+            <div style={graphContainerStyles}>
+                <h2> Missed Math Concepts</h2>
                 <div style={graphStyles}>
                     <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000',}}>
                         {shouldShowLegend ? (
@@ -173,32 +213,30 @@ const ProfilePage = () => {
                         chartType="PieChart"
                         width='100%' // Ensure it uses 100% of container width
                         height='100%' // Set a fixed or appropriate height
-                        data={[['Concept', 'Weight'], ...missedConceptsChartData]}
-                        options={{
-                            chartArea: {
-                                left: 10, // Adjust the left margin of the chart area
-                                top: 20, // Adjust the top margin of the chart area
-                                width: '90%', // Set the width of the chart area
-                                height: '90%', // Set the height of the chart area
-                            },
-                            backgroundColor: '#f3f3f3',
-                            is3D: true, // Enable a 3D effect for the pie chart
-                            legend: shouldShowLegend ? {
-                                position: 'left',
-                                textStyle: {
-                                    fontSize: 14,
-                                },
-                            } : { position: 'none' }, // An empty object if shouldShowLegend is false
-                            pieSliceText: 'percentage', // Display percentage values on pie slices
-                            pieSliceTextStyle: {
-                                fontSize: 14, // Customize the font size of percentage values
-                            },
-                            colors: ["#2ECC71", "#3498DB", "#1ABC9C", "#27AE60", "#F1C40F", "#A5694F", "#9B59B6", "#FF5733"],
-                            maxRows: 8,
-                        }}
+                        data={missedMathConceptsChartData}
+                        options={chartOptions}
                     />
                 </div>
-            </div> */}
+            </div>
+            <div style={graphContainerStyles}>
+                <h2> Missed English Concepts</h2>
+                <div style={graphStyles}>
+                    <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
+                        {shouldShowLegend ? (
+                            <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
+                        ) : (
+                            <div >Click or hover to view categories</div>
+                        )}
+                    </div>
+                    <Chart
+                        chartType="PieChart"
+                        width='100%' // Ensure it uses 100% of container width
+                        height='100%' // Set a fixed or appropriate height
+                        data={missedEnglishConceptsChartData}
+                        options={chartOptions}
+                    />
+                </div>
+            </div>
             {/* POSSIBLE ADDITIONAL CHARTS */}
             {/* <div style={graphContainerStyles}>
                 <h2>Concepts that you nail</h2>

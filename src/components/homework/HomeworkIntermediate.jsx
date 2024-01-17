@@ -23,7 +23,8 @@ const HomeworkIntermediate = () => {
     }
   };
 
-  const [missedConceptsChartData, setMissedConceptsChartData] = useState([]);
+  const [missedMathConceptsChartData, setMissedMathConceptsChartData] = useState([]);
+  const [missedEnglishConceptsChartData, setMissedEnglishConceptsChartData] = useState([]);
   const [shouldShowLegend, setShouldShowLegend] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -46,13 +47,27 @@ const HomeworkIntermediate = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (userData[0]) {
-  //     setMissedConceptsChartData(
-  //       Object.entries(JSON.parse(userData[0].UserProfile.S)).map(([task, hours]) => [task, hours])
-  //     );
-  //   }
-  // }, [userData]);
+  useEffect(() => {
+    // console.log("USERDATA:", userData);
+    if (userData[0]) {
+      // format math
+      const formattedMathData = [['Concept', 'Weight']];
+      for (const category in userData[0].UserProfile.M) {
+        const value = parseInt(userData[0].UserProfile.M[category].N);
+        formattedMathData.push([category, value]);
+      }
+      setMissedMathConceptsChartData(formattedMathData);
+      console.log('chartData', formattedMathData);
+
+      // format English
+      const formattedEnglishData = [['Concept', 'Weight']];
+      for (const category in userData[0].EnglishUserProfile.M) {
+        const value = parseInt(userData[0].EnglishUserProfile.M[category].N);
+        formattedEnglishData.push([category, value]);
+      }
+      setMissedEnglishConceptsChartData(formattedEnglishData);
+    }
+  }, [userData]);
 
   const containerStyle = {
     display: 'flex',
@@ -76,11 +91,11 @@ const HomeworkIntermediate = () => {
     marginBottom: '20px', // Add margin to separate from content
   };
 
-  // const chartTitleStyle = {
-  //   textAlign: 'center',
-  //   fontSize: '2em',
-  //   fontWeight: 'bold',
-  // };
+  const chartTitleStyle = {
+    textAlign: 'center',
+    fontSize: '2em',
+    fontWeight: 'bold',
+  };
 
   const contentContainerStyle = {
     display: 'flex',
@@ -116,13 +131,7 @@ const HomeworkIntermediate = () => {
       <h1 className="font-poppins text-3xl font-bold capitalize">Welcome to Adaptive Practice</h1>
 
       <div style={chartContainerStyle} className="lg:flex">
-        {/* Include the MissedConceptsChart component with actual data */}
-        {/* <div style={{ width: '95%', maxWidth: '700px' }}>
-          <h2 style={chartTitleStyle}>Missed Concepts</h2>
-          <div style={{ width: '100%', height: '350px', backgroundColor: '#f3f3f3', border: '1px solid #ccc', borderRadius: '5px', paddingBottom: '30px' }}>
-            <MissedConceptsChart chartData={missedConceptsChartData} shouldShowLegend={shouldShowLegend} />
-          </div>
-        </div> */}
+        
 
         {/* Content Container */}
         <div style={{ ...contentContainerStyle, ...buttonContainerStyle }}>
@@ -145,6 +154,35 @@ const HomeworkIntermediate = () => {
             </button>
           </div>
         </div>
+
+        {/* Include the MissedConceptsChart component with actual data */}
+        <div style={{ width: '95%', maxWidth: '700px', margin: '20px auto', backgroundColor: '#20a7a1', color: '#fff', padding: '20px', borderRadius: '10px', }}>
+          <h2 style={chartTitleStyle}>Missed Math Concepts</h2>
+          <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
+            {shouldShowLegend ? (
+              <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
+            ) : (
+              <div >Click or hover to view categories</div>
+            )}
+          </div>
+          <div style={{ width: '100%', height: '350px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
+            <MissedConceptsChart chartData={missedMathConceptsChartData} shouldShowLegend={shouldShowLegend} />
+          </div>
+        </div>
+        <div style={{ width: '95%', maxWidth: '700px', margin: '20px auto', backgroundColor: '#20a7a1', color: '#fff', padding: '20px', borderRadius: '10px', }}>
+          <h2 style={chartTitleStyle}>Missed English Concepts</h2>
+          <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
+            {shouldShowLegend ? (
+              <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
+            ) : (
+              <div >Click or hover to view categories</div>
+            )}
+          </div>
+          <div style={{ width: '100%', height: '350px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
+            <MissedConceptsChart chartData={missedEnglishConceptsChartData} shouldShowLegend={shouldShowLegend} />
+          </div>
+        </div>
+
       </div>
     </div>
   );

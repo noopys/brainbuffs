@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 
 const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
-  const [chartOptions, setChartOptions] = useState({
+  const chartOptions = {
     chartArea: {
       left: 10,
       top: 20,
@@ -33,7 +33,7 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
       '#9B59B6',
       '#FF5733',
     ],
-  });
+  };
 
   useEffect(() => {
     // Additional logic or effects related to the chart options can be added here
@@ -44,7 +44,7 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
       chartType="PieChart"
       width="100%"
       height="100%"
-      data={[['Concept', 'Weight'], ...chartData]}
+      data={chartData}
       options={chartOptions}
     />
   );
