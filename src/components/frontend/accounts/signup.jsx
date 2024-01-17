@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext'
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 
 function SignUp() {
@@ -13,6 +14,7 @@ function SignUp() {
   const [phoneNumber, setPhone] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hearAboutUs, sethearAboutUs] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,31 +36,34 @@ function SignUp() {
     border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
-    width: '400px',
+    maxWidth: '400px',
+    width: '90%',
     margin: '30px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
   };
-  
+
   const buttonStyle = {
     backgroundColor: '#20a7a1',
     color: '#fff',
-    padding: '12px 24px',
+    padding: '12px 16px', // Adjust padding as needed
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
     margin: '10px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    width: '300px',
+    width: '90%',
+    maxWidth: '300px', 
     marginBottom: '20px'
   };
-  
+
   const inputStyle = {
     padding: '12px',
     border: '1px solid #ccc',
     borderRadius: '6px',
     fontSize: '16px',
-    width: '300px',
+    maxWidth: '300px',
+    width: '90%',
     marginBottom: '10px',
   };
 
@@ -90,7 +95,9 @@ function SignUp() {
     setPasswordsMatch(password === confirmPassword);
   }, [password, confirmPassword]);
 
-  const handleSignUp = async () => {
+  async function handleSignUp(event) {
+    event.preventDefault();
+
     try {
       if (!passwordsMatch) {
         setErrorMessage("Passwords don't match");
@@ -199,16 +206,9 @@ function SignUp() {
               </div>
             )
             ) : (
-            <div>
+            <form onSubmit={handleSignUp}>
               <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize'}}>Sign Up</h1>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                }}
-              >
+              <div>
                 <input
                   type="text"
                   placeholder="Full Name"
@@ -230,15 +230,32 @@ function SignUp() {
                   onChange={handleUsernameChange}
                   style={inputStyle}
                 />
+                <div style={{ position: 'relative', }}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    style={inputStyle}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '10%', // Adjust the position as needed
+                      top: '50%',
+                      transform: 'translateY(-60%)',
+                      border: 'none',
+                      background: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                  </button>
+                </div>
                 <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  style={inputStyle}
-                />
-                <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
@@ -252,10 +269,10 @@ function SignUp() {
                   style={inputStyle}
                 />
               </div>
-              <button onClick={handleSignUp} style={buttonStyle}>Sign Up</button>
+              <button type="submit" style={buttonStyle}>Sign Up</button>
               {errorMessage && <p>Error: {errorMessage}</p>}
               <p>Already have an account? <a href="./signin" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Sign In</a></p>
-            </div>
+            </form>
           )}
         </div>
       )}

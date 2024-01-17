@@ -39,6 +39,9 @@ import ResetPassword from './components/frontend/accounts/ResetPassword';
 import Profile from './components/frontend/accounts/ProfilePage';
 import HomeworkAnswered from './components/homework/HomeworkAnswered';
 
+import HomeworkIntermediate from './components/homework/HomeworkIntermediate';
+
+
 Amplify.configure(config);
 
 
@@ -84,6 +87,7 @@ function App() {
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/homework-answered" element={<HomeworkAnswered />} />
+              <Route path="/homework-intermediate" element={<HomeworkIntermediate/>}/>
             </Routes>
           </div>
         </Router>

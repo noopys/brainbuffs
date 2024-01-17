@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 import { useAuth } from './AuthContext';
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 function SignIn() {
   const { isLoggedIn, user, login, logout } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [currentUrl, setCurrentUrl] = useState('');
@@ -15,7 +17,8 @@ function SignIn() {
     border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
-    width: '400px',
+    maxWidth: '400px',
+    width: '90%',
     margin: '30px auto',
     fontFamily: 'poppins',
     borderBottom: '1px solid #20a7a1',
@@ -24,13 +27,14 @@ function SignIn() {
   const buttonStyle = {
     backgroundColor: '#20a7a1',
     color: '#fff',
-    padding: '12px 24px',
+    padding: '12px 16px', // Adjust padding as needed
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
     margin: '10px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    width: '300px',
+    width: '90%',
+    maxWidth: '300px'
   };
 
   const inputStyle = {
@@ -38,15 +42,17 @@ function SignIn() {
     border: '1px solid #ccc',
     borderRadius: '6px',
     fontSize: '16px',
-    width: '300px',
+    maxWidth: '300px',
+    width: '90%',
     marginBottom: '10px',
   };
 
   const lineStyle = {
     border: 'none',
     borderTop: '1px solid #20a7a1', // Match the border style
-    margin: '30px auto',
-    width: '400px',
+    margin: '30px auto 20px auto',
+    maxWidth: '400px',
+    width: '90%',
   };
 
   useEffect(() => {
@@ -61,7 +67,12 @@ function SignIn() {
     setPassword(e.target.value);
   };
 
-  const handleSignIn = async () => {
+  async function handleSignIn(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+      // If the Enter key was pressed, prevent the default form submission behavior
+      event.preventDefault();
+    }
     try {
       const userInfo = await Auth.signIn(username, password);
       // console.log("The USERINFO is:", userInfo.attributes['custom:FullName'], userInfo.attributes['custom:PhoneNumber']);
@@ -100,7 +111,7 @@ function SignIn() {
         <h1 style={{fontFamily: 'Poppins', fontSize: '3em', fontWeight: 'bold'}}>{isLoggedIn ? 'Sign In Successful' : 'Sign In'}</h1>
         {!isLoggedIn ? (
           <div>
-            <div>
+            <form onSubmit={handleSignIn}>
               <input
                 type="text"
                 placeholder="Email"
@@ -108,16 +119,35 @@ function SignIn() {
                 onChange={handleUsernameChange}
                 style={inputStyle}
               />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
-                style={inputStyle}
-              />
-            </div>
-            <button onClick={handleSignIn} style={buttonStyle}>Sign In</button>
-            {errorMessage && <p style={{ color: 'red' }}>Error: {errorMessage}</p>}
+              <div style={{ position: 'relative',  }}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  style={inputStyle}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '10%', // Adjust the position as needed
+                    top: '50%',
+                    transform: 'translateY(-60%)',
+                    background: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                </button>
+              </div>
+              <button type="submit" style={buttonStyle}>Sign In</button>
+              {errorMessage && <p style={{ color: 'red' }}>Error: {errorMessage}</p>}
+              
+            </form>
+            
+              
             <div>
               
               <div>

@@ -58,7 +58,7 @@ export default function FAQ() {
                 leaveTo="opacity-0 translate-y-[-30%]"
               >
               <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black bg-green-50 text-left rounded-lg">
-              We stand by our commitment with a robust money-back guarantee. If your SAT score doesn't improve, we offer a full refund.
+                  We stand by our commitment with a robust money-back guarantee. If your SAT score doesn't improve from our 1-on-1 tutoring, we offer a full refund.
               </Disclosure.Panel>
               </Transition>
             </>

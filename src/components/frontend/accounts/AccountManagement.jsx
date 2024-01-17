@@ -31,7 +31,6 @@ const AccountManagement = () => {
     width: '100%',
     margin: '20px auto',
     fontFamily: 'poppins',
-    borderBottom: '1px solid #20a7a1',
   };
 
   const inputStyle = {
