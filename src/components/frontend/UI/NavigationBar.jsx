@@ -147,7 +147,7 @@ const NavigationBar = () => {
         {/* Mobile navigation links */}
         <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}>
           <Link
-            to="/homework"
+            to="/homework-intermediate"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >

@@ -145,13 +145,14 @@ async function getQuestions(subject, numOfQs, userId, userProfile) {
     const selectedQuestions = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId);
 
     const updatedUser = await updateUserInCurrSess(userId, selectedQuestions.map(record => record.id).filter(id => id !== "0"));
+    console.log("the input param of updateUser: ", selectedQuestions.map(record => record.id).filter(id => id !== "0"));
     if (!updatedUser) {
         console.error('Failed to update InCurrSess.');
         throw new Error('Failed to update InCurrSess.');
     }
 
     console.log(`InCurrSess updated to true, along with currHwSet and recordIDs for ${subject}:`, updatedUser);
-    await putQuestionsInDatabase(selectedQuestions, userId, updatedUser.CurrHWNum + 1);
+    await putQuestionsInDatabase(selectedQuestions, userId, updatedUser.CurrHWNum);
 
     const selectedRecordIds = selectedQuestions.map(record => record.id).filter(id => id !== "0");
 
@@ -185,6 +186,69 @@ async function getQuestions(subject, numOfQs, userId, userProfile) {
 
     return responses;
 }
+
+async function getBothQuestions(subject, numOfQs, userId, userProfile, currHw) {
+    if (!userProfile) {
+        console.error('User profile not found.');
+        throw new Error('User profile not found.');
+    }
+
+    const scanParams = {
+        TableName: 'SATQuestions',
+        FilterExpression: 'Field = :field',
+        ExpressionAttributeValues: {
+            ':field': subject,
+        },
+    };
+
+    const scanResult = await dynamoDb.scan(scanParams).promise();
+    const records = scanResult.Items;
+
+    if (records.length === 0) {
+        console.log(`No ${subject} records found`);
+        throw new Error(`No ${subject} records found`);
+    }
+
+    console.log(`Applying weighting algorithm for ${subject}...`);
+
+    const selectedQuestions = await weightingAlgorithm(userProfile, records, 'STUDENT_ID', numOfQs, userId);
+
+
+    await putQuestionsInDatabase(selectedQuestions, userId, currHw + 1);
+
+    const selectedRecordIds = selectedQuestions.map(record => record.id).filter(id => id !== "0");
+
+    const details = await Promise.all(selectedRecordIds.map(async (recordId) => {
+        const detailParams = {
+            TableName: 'SATQuestions',
+            Key: {
+                'recordID': recordId
+            }
+        };
+        const detailData = await dynamoDb.get(detailParams).promise();
+        return detailData.Item;
+    }));
+
+    const responses = details.map(fields => {
+        const concepts = fields['Concepts'];
+        const imageUrl = fields['questionImage'] || null;
+        const answer = fields['Answer'];
+        const recordId = fields['recordID'];
+
+        return {
+            recordId: recordId,
+            imageUrl: imageUrl,
+            answer: answer,
+            concepts: concepts,
+            subject: subject  // Add the subject field to each question
+        };
+    });
+
+    console.log(`${subject} Responses:`, responses);
+
+    return responses;
+}
+
 
 exports.handler = async (event) => {
     console.log('Received event:', JSON.stringify(event, null, 2));
@@ -253,16 +317,17 @@ exports.handler = async (event) => {
                 const numOfEnglishQs = numOfQs - numOfMathQs;
 
                 // Retrieve Math questions
-                const mathQuestions = await getQuestions('Math', numOfMathQs, userId, UserProfile);
+                const mathQuestions = await getBothQuestions('Math', numOfMathQs, userId, UserProfile, CurrHWNum);
 
                 // Retrieve English questions
-                const englishQuestions = await getQuestions('English', numOfEnglishQs, userId, EnglishUserProfile);
+                const englishQuestions = await getBothQuestions('English', numOfEnglishQs, userId, EnglishUserProfile,CurrHWNum);
 
                 // Combine the responses
                 const responses = [
                     ...mathQuestions.map(question => ({ ...question, subject: 'Math' })),
                     ...englishQuestions.map(question => ({ ...question, subject: 'English' }))
                 ];
+                const updatedUser = await updateUserInCurrSess(userId, responses.map(record => record.recordId).filter(id => id !== "0"));
 
                 return {
                     statusCode: 200,
