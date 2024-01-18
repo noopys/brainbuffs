@@ -4,11 +4,9 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
 function ViewPreviousAssignments() {
-  console.log("here");
   const { isLoggedIn, user } = useAuth();
-  console.log("here2");
+  const [noAssignmentsFound, setNoAssignmentsFound] = useState({});
   const [homeworkSets, setHomeworkSets] = useState({});
-  console.log("here3");
   useEffect(() => {
     const fetchPreviousAssignments = async () => {
       try {
@@ -35,8 +33,11 @@ function ViewPreviousAssignments() {
           const data = await response.json();
           console.log('Fetched previous assignments data:', data);
 
-          // Set the homework sets data to state for rendering
           setHomeworkSets(data);
+
+          const noData = Object.keys(data).length === 0;
+          setNoAssignmentsFound(noData); 
+          // Set the homework sets data to state for rendering
         } else {
           // Handle case when the user is not logged in
           console.log('User is not logged in.');
@@ -52,6 +53,8 @@ function ViewPreviousAssignments() {
   return (
     <div className="w-full px-8 pt-10 font-poppins">
       <h1 style={{ fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold' }}>Previous Assignments</h1>
+      {/* Display message when no assignments are found */}
+      {noAssignmentsFound && <p>No Previous Assignments Found</p>}
       {Object.keys(homeworkSets).map((homeworkSet, index) => (
         <Disclosure key={index}>
           {({ open, close }) => (
