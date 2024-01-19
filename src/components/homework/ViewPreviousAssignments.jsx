@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
+import { Oval } from 'react-loader-spinner'; // Import the loader component
 
 function ViewPreviousAssignments() {
   const { isLoggedIn, user } = useAuth();
   const [noAssignmentsFound, setNoAssignmentsFound] = useState({});
   const [homeworkSets, setHomeworkSets] = useState({});
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchPreviousAssignments = async () => {
       try {
@@ -17,7 +20,7 @@ function ViewPreviousAssignments() {
             userId: userId,
             // ... other request data if needed
           };
-
+          setLoading(true); // Set loading to true before making the API call
           const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', {
             method: 'POST',
             headers: {
@@ -37,6 +40,7 @@ function ViewPreviousAssignments() {
 
           const noData = Object.keys(data).length === 0;
           setNoAssignmentsFound(noData); 
+          setLoading(false); // Set loading to false after data is fetched
           // Set the homework sets data to state for rendering
         } else {
           // Handle case when the user is not logged in
@@ -50,14 +54,22 @@ function ViewPreviousAssignments() {
     fetchPreviousAssignments();
   }, [isLoggedIn, user]);
 
+
   return (
     <div className="w-full px-8 pt-10 font-poppins">
       <h1 style={{ fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold' }}>Previous Assignments</h1>
-      {/* Display message when no assignments are found */}
-      {noAssignmentsFound && <p>No Previous Assignments Found</p>}
-      {Object.keys(homeworkSets).map((homeworkSet, index) => (
-        <Disclosure key={index}>
-          {({ open, close }) => (
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+        </div>
+      ) : (
+        <>
+          {/* Display message when no assignments are found */}
+          {noAssignmentsFound && <p>No Previous Assignments Found</p>}
+          {Object.keys(homeworkSets).map((homeworkSet, index) => (
+            <Disclosure key={index}>
+              {/* Rest of your code */}
+              {({ open, close }) => (
             <>
               <Disclosure.Button
                 className={`flex w-full justify-between rounded-lg border-[1.5px] border-teal-500 px-4 py-4 text-left text-sm font-medium text-gray-900 bg-white focus:outline-none ${open ? 'border-b-1 ' : ''}`}
@@ -98,8 +110,10 @@ function ViewPreviousAssignments() {
               </Transition>
             </>
           )}
-        </Disclosure>
-      ))}
+            </Disclosure>
+          ))}
+        </>
+      )}
     </div>
   );
 }

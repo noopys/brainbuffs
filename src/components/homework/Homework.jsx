@@ -29,6 +29,7 @@ function Homework(props) {
   const [questionDataArray, setQuestionDataArray] = useState([]);
   const [answers, setAnswers] = useState(Array(questionDataArray.length).fill(''));
   const [selectedOption, setSelectedOption] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (userData && userData.length > 0) {
@@ -134,6 +135,8 @@ function Homework(props) {
   };
 
   const handleSubmit = async () => {
+     // Set loading state to true
+     setIsSubmitting(true);
     let userTemp = '';
     if (user && user.username) {
       userTemp = user.username;
@@ -183,9 +186,13 @@ function Homework(props) {
       console.log('submitData2222:', submitData); // Add this line for debugging
       // Update InCurrSess to false
       updateInCurrSess(false);
+      // Set loading state to false once submission is complete
+      setIsSubmitting(false);
       navigate('/homework-answered', { state: { answeredQuestions: submitData } });
     } catch (error) {
       console.error('Failed to grade homework:', error);
+      // Set loading state to false once submission is complete
+      setIsSubmitting(false);
     }
   };
 
@@ -267,13 +274,17 @@ function Homework(props) {
             Next Question
           </button>
           <button
-            style={{ backgroundColor: "#20a7a1", width: '150px' }}
-            onClick={handleSubmit}
-            className="btn btn-success mt-3 md:mt-0 md:ml-2 px-50"
-            disabled={!answers.every(answer => answer !== '')}
-          >
-            Submit
-          </button>
+          style={{ backgroundColor: "#20a7a1", width: '150px' }}
+          onClick={handleSubmit}
+          className={`btn btn-success mt-3 md:mt-0 md:ml-2 px-50 ${isSubmitting ? 'disabled' : ''}`}
+          disabled={isSubmitting || !answers.every(answer => answer !== '')}
+        >
+          {isSubmitting ? (
+            <Oval color="#fff" secondaryColor="#fff" height={20} width={20} />
+          ) : (
+            'Submit'
+          )}
+        </button>
           
         </div>
         {(isCorrect === "correct") && (
