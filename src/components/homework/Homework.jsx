@@ -6,11 +6,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { updateUser } from '../helpers/updateUser';
 
 function Homework(props) {
+  const { updateInCurrSess } = useAuth();
   const navigate = useNavigate();
 
   const {state} = useLocation(); 
   const {subject} = state; 
-  console.log('Subject received in Homework.jsx:', subject);
+  // console.log('Subject received in Homework.jsx:', subject);
 
   const question = {
     options: ["A", "B", "C", "D"],
@@ -23,7 +24,7 @@ function Homework(props) {
   const [userProfile, setUserProfile] = useState(null);
   const [questionData, setQuestionData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  // console.log("USER DATA: ", userData);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questionDataArray, setQuestionDataArray] = useState([]);
   const [answers, setAnswers] = useState(Array(questionDataArray.length).fill(''));
@@ -100,6 +101,10 @@ function Homework(props) {
       setSelectedOption(answers[0]);
 
       setIsLoading(false);
+
+      // Update InCurrSess to true
+      updateInCurrSess(true);
+
     } catch (err) {
       console.error('Error fetching question:', err);
     }
@@ -156,6 +161,7 @@ function Homework(props) {
     });
     console.log('submitData:', submitData); // Add this line for debugging
     try {
+      
       // Update user profile for all questions
       await updateUser(userId, questionDataArray, answers);
 
@@ -175,6 +181,8 @@ function Homework(props) {
       setResponse(responseData);
       // Navigate to HomeworkAnswered page with the answered questions data
       console.log('submitData2222:', submitData); // Add this line for debugging
+      // Update InCurrSess to false
+      updateInCurrSess(false);
       navigate('/homework-answered', { state: { answeredQuestions: submitData } });
     } catch (error) {
       console.error('Failed to grade homework:', error);

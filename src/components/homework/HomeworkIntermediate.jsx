@@ -6,7 +6,7 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 const HomeworkIntermediate = () => {
   const navigate = useNavigate();
   const { isLoggedIn, userData, updateUserData } = useAuth();
-
+  const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
   
   const handleNavigateToSubject = (subject) => {
     console.log('Subject before navigation:', subject);
@@ -144,18 +144,40 @@ const HomeworkIntermediate = () => {
 
           {/* Button Container */}
           <div style={buttonContainerStyle}>
-            <button style={buttonStyle} onClick={() => handleNavigateToSubject('Math')}>
-              Math
-            </button>
-            <button style={buttonStyle} onClick={() => handleNavigateToSubject('English')}>
-              English
-            </button>
-            <button style={buttonStyle} onClick={() => handleNavigateToSubject('Both')}>
-              Both
-            </button>
-            <button style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
-              Previous Assignments
-            </button>
+            {isInCurrSess ? (
+              <>
+                <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }} onClick={() => handleNavigateToSubject('Math')}>
+                  Continue Previous Practice
+                </button>
+                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
+                  Math
+                </button>
+                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
+                  English
+                </button>
+                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
+                  Both
+                </button>
+                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
+                  Previous Assignments
+                </button>
+              </>
+            ) : (
+              <>
+                <button style={buttonStyle} onClick={() => handleNavigateToSubject('Math')}>
+                  Math
+                </button>
+                <button style={buttonStyle} onClick={() => handleNavigateToSubject('English')}>
+                  English
+                </button>
+                <button style={buttonStyle} onClick={() => handleNavigateToSubject('Both')}>
+                  Both
+                </button>
+                <button style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
+                  Previous Assignments
+                </button>
+              </>
+            )}
           </div>
         </div>
 

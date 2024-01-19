@@ -111,9 +111,17 @@ export const AuthProvider = ({ children }) => {
     setUserData(newValue);
     localStorage.setItem('userData', JSON.stringify(newValue));
   };
+  const updateInCurrSess = (newValue) => {
+    // Update the InCurrSess value in userData
+    const updatedUserData = [...userData];
+    updatedUserData[0].InCurrSess.BOOL = newValue;
+    setUserData(updatedUserData);
 
+    // You might also want to update the user data in localStorage
+    localStorage.setItem('userData', JSON.stringify(updatedUserData));
+  };
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, userData, updateUser, updateUserData, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, userData, updateUser, updateUserData, login, logout, updateInCurrSess}}>
       {children}
     </AuthContext.Provider>
   );
