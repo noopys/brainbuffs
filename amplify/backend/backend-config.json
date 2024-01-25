@@ -63,6 +63,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "handleSubscriptionEvent": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "updateUserProfile": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -179,6 +184,22 @@
         {
           "category": "function",
           "resourceName": "gradeHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_handleSubscriptionEvent_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handleSubscriptionEvent"
+        }
+      ]
+    },
+    "AMPLIFY_function_handleSubscriptionEvent_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handleSubscriptionEvent"
         }
       ]
     },

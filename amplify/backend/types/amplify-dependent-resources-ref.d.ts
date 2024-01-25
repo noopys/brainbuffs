@@ -60,6 +60,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "handleSubscriptionEvent": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "updateUserProfile": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
