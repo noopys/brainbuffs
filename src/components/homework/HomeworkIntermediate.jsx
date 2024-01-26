@@ -6,6 +6,7 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 const HomeworkIntermediate = () => {
   const navigate = useNavigate();
   const { isLoggedIn, userData, updateUserData } = useAuth();
+  console.log("USER DATAAAAAAAAAAAA", userData);
   const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
   
   const handleNavigateToSubject = (subject) => {
@@ -49,15 +50,15 @@ const HomeworkIntermediate = () => {
 
   useEffect(() => {
     console.log("HEEEEEEEEEEEEERRRRRRRRREEEEEEEEEEEEE");
-    console.log("EnglishUserprof: ", userData[0].EnglishUserProfile);
+    // console.log("EnglishUserprof: ", userData[0].EnglishUserProfile);
     // console.log("Userprof: ", userData[0].userProfile);
-    console.log("OldUserProf: ", userData[0].UserProfile);
-    // console.log("USERDATA:", userData);
+    //  console.log("OldUserProf: ", userData[0].UserProfile);
+     console.log("USERDATA:", userData);
     if (userData[0]) {
       // format math
       const formattedMathData = [['Concept', 'Weight']];
-      for (const category in userData[0].userProfile.M) {
-        const value = parseInt(userData[0].userProfile.M[category].N);
+      for (const category in userData[0].UserProfile.M) {
+        const value = parseInt(userData[0].UserProfile.M[category].N);
         formattedMathData.push([category, value]);
 
         // const rawValue = userData[0].UserProfile.M[category].N;
