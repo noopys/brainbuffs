@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
     const updatedUserData = [...userData];
     updatedUserData[0].InCurrSess.BOOL = newValue;
     setUserData(updatedUserData);
-
+// console.log("Updating incurrsess in Auth to ", newValue);
     // You might also want to update the user data in localStorage
     localStorage.setItem('userData', JSON.stringify(updatedUserData));
   };
