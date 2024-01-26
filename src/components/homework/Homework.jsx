@@ -31,7 +31,7 @@ function Homework(props) {
   const [answers, setAnswers] = useState(Array(questionDataArray.length).fill(''));
   const [selectedOption, setSelectedOption] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [shouldFetchQuestions, setShouldFetchQuestions] = useState(true);
   useEffect(() => {
     if (userData && userData.length > 0) {
       //const userProf = userData[0]["UserProfile"].S;
@@ -41,7 +41,7 @@ function Homework(props) {
   }, [userData]);
 
   useEffect(() => {
-    if (userProfile) {
+    if (userProfile && shouldFetchQuestions) {
       fetchQuestion().then(() => {
         setSelectedOption(answers[currentQuestionIndex]);
       });
@@ -106,7 +106,8 @@ function Homework(props) {
 
       // Update InCurrSess to true
       updateInCurrSess(true);
-
+// Set shouldFetchQuestions to false after successful fetch
+setShouldFetchQuestions(false);
     } catch (err) {
       console.error('Error fetching question:', err);
     }
@@ -151,7 +152,7 @@ function Homework(props) {
 
     // Collect data for all questions
     const submitData = questionDataArray.map((question, index) => {
-      console.log('Question:', question); // Add this line for debugging
+      // console.log('Question:', question); // Add this line for debugging
       const userCorrect = answers[index] === question.answer;
       return {
         UserId: user.username,
@@ -163,10 +164,9 @@ function Homework(props) {
         subject: question.subject,
       };
     });
-    console.log('submitData:', submitData); // Add this line for debugging
+    // console.log('submitData:', submitData); // Add this line for debugging
     try {
-      // Update InCurrSess to false
-      updateInCurrSess(false);
+      
       // Update user profile for all questions
       await updateUser(userId, questionDataArray, answers,updateUserData, userData);
 
@@ -192,6 +192,8 @@ function Homework(props) {
       
       // Set loading state to false once submission is complete
       setIsSubmitting(false);
+      // Update InCurrSess to false
+      updateInCurrSess(false);
       navigate('/homework-answered', { state: { answeredQuestions: submitData } });
     } catch (error) {
       console.error('Failed to grade homework:', error);

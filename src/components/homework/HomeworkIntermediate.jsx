@@ -6,11 +6,11 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 const HomeworkIntermediate = () => {
   const navigate = useNavigate();
   const { isLoggedIn, userData, updateUserData } = useAuth();
-  console.log("USER DATAAAAAAAAAAAA", userData);
+  // console.log("USER DATAAAAAAAAAAAA", userData);
   const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
   
   const handleNavigateToSubject = (subject) => {
-    console.log('Subject before navigation:', subject);
+    // console.log('Subject before navigation:', subject);
   
     if (subject === 'Math' || subject === 'English' || subject === 'Both') {
       // Update the navigate function to include the subject in the request body
@@ -49,11 +49,11 @@ const HomeworkIntermediate = () => {
   }, []);
 
   useEffect(() => {
-    console.log("HEEEEEEEEEEEEERRRRRRRRREEEEEEEEEEEEE");
+    // console.log("HEEEEEEEEEEEEERRRRRRRRREEEEEEEEEEEEE");
     // console.log("EnglishUserprof: ", userData[0].EnglishUserProfile);
     // console.log("Userprof: ", userData[0].userProfile);
     //  console.log("OldUserProf: ", userData[0].UserProfile);
-     console.log("USERDATA:", userData);
+    //  console.log("USERDATA:", userData);
     if (userData[0]) {
       // format math
       const formattedMathData = [['Concept', 'Weight']];
@@ -66,7 +66,7 @@ const HomeworkIntermediate = () => {
         // console.log(`Data type for UserProfile - ${category}: ${dataType}`);
       }
       setMissedMathConceptsChartData(formattedMathData);
-      console.log('chartData', formattedMathData);
+      // console.log('chartData', formattedMathData);
 
       // format English
       const formattedEnglishData = [['Concept', 'Weight']];

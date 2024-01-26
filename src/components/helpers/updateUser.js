@@ -38,7 +38,7 @@ export const updateUser = async (userId, questions, selectedOptions, updateUserD
         const firstUserData = updatedUserData[0]; // Assuming the user data is stored in the first element of the array 
         // firstUserData.userProfile = responseData.userProfile;
         // firstUserData.EnglishUserProfile = responseData.englishUserProfile;
-        firstUserData.userProfile = transformData(responseData.userProfile);
+        firstUserData.UserProfile = transformData(responseData.userProfile);
         firstUserData.EnglishUserProfile = transformData(responseData.englishUserProfile);
 
         

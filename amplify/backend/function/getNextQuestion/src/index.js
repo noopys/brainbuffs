@@ -257,7 +257,7 @@ exports.handler = async (event) => {
 
     const requestBody = JSON.parse(event.body);
     const userId = requestBody.userId;
-    const numOfQs = 10;
+    const numOfQs = 2;
 
     const { UserProfile, EnglishUserProfile, CurrHWNum, InCurrSess, CurrRecordIds } = await getUserProfile(userId);
 
@@ -291,12 +291,14 @@ exports.handler = async (event) => {
                 const imageUrl = fields['questionImage'] || null;
                 const answer = fields['Answer'];
                 const recordId = fields['recordID'];
-
+                const subject = fields['Field'];  // Extract subject from "Field" column
+                
                 return {
                     recordId: recordId,
                     imageUrl: imageUrl,
                     answer: answer,
-                    concepts: concepts
+                    concepts: concepts,
+                     subject: subject
                 };
             });
 
