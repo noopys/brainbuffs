@@ -67,8 +67,14 @@ exports.handler = async (event) => {
                 ':inCurrSess': false
             }
         }).promise();
+        // Include userProfile and englishUserProfile in the success response body
+        const responseBody = {
+            message: 'UserProfiles and InCurrSess updated successfully',
+            userProfile,
+            englishUserProfile
+        };
 
-        return { statusCode: 200, body: JSON.stringify('UserProfiles and InCurrSess updated successfully') };
+        return { statusCode: 200, body: JSON.stringify(responseBody) };
     } catch (error) {
         console.error(error);
         return { statusCode: 500, body: JSON.stringify('Error updating UserProfiles and InCurrSess') };

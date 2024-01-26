@@ -48,13 +48,21 @@ const HomeworkIntermediate = () => {
   }, []);
 
   useEffect(() => {
+    console.log("HEEEEEEEEEEEEERRRRRRRRREEEEEEEEEEEEE");
+    console.log("EnglishUserprof: ", userData[0].EnglishUserProfile);
+    // console.log("Userprof: ", userData[0].userProfile);
+    console.log("OldUserProf: ", userData[0].UserProfile);
     // console.log("USERDATA:", userData);
     if (userData[0]) {
       // format math
       const formattedMathData = [['Concept', 'Weight']];
-      for (const category in userData[0].UserProfile.M) {
-        const value = parseInt(userData[0].UserProfile.M[category].N);
+      for (const category in userData[0].userProfile.M) {
+        const value = parseInt(userData[0].userProfile.M[category].N);
         formattedMathData.push([category, value]);
+
+        // const rawValue = userData[0].UserProfile.M[category].N;
+        // const dataType = typeof rawValue;
+        // console.log(`Data type for UserProfile - ${category}: ${dataType}`);
       }
       setMissedMathConceptsChartData(formattedMathData);
       console.log('chartData', formattedMathData);
@@ -64,6 +72,10 @@ const HomeworkIntermediate = () => {
       for (const category in userData[0].EnglishUserProfile.M) {
         const value = parseInt(userData[0].EnglishUserProfile.M[category].N);
         formattedEnglishData.push([category, value]);
+
+        // const rawValue = userData[0].UserProfile.M[category].N;
+        // const dataType = typeof rawValue;
+        // console.log(`Data type for EnglishUserProfile - ${category}: ${dataType}`);
       }
       setMissedEnglishConceptsChartData(formattedEnglishData);
     }
@@ -215,3 +227,4 @@ const HomeworkIntermediate = () => {
 };
 
 export default HomeworkIntermediate;
+

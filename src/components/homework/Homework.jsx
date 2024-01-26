@@ -7,6 +7,7 @@ import { updateUser } from '../helpers/updateUser';
 
 function Homework(props) {
   const { updateInCurrSess } = useAuth();
+  const { updateUserData } = useAuth();
   const navigate = useNavigate();
 
   const {state} = useLocation(); 
@@ -164,10 +165,14 @@ function Homework(props) {
     });
     console.log('submitData:', submitData); // Add this line for debugging
     try {
-      
+      // Update InCurrSess to false
+      updateInCurrSess(false);
       // Update user profile for all questions
-      await updateUser(userId, questionDataArray, answers);
+      await updateUser(userId, questionDataArray, answers,updateUserData, userData);
 
+          // Log the updated user profiles
+    //console.log('Updated userProfile:', userData[0].userProfile);
+    //console.log('Updated EnglishUserProfile:', userData[0].EnglishUserProfile);
       const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/gradeHomework', {
         method: 'POST',
         headers: {
@@ -183,9 +188,8 @@ function Homework(props) {
       const responseData = await response.json();
       setResponse(responseData);
       // Navigate to HomeworkAnswered page with the answered questions data
-      console.log('submitData2222:', submitData); // Add this line for debugging
-      // Update InCurrSess to false
-      updateInCurrSess(false);
+      // console.log('submitData2222:', submitData); // Add this line for debugging
+      
       // Set loading state to false once submission is complete
       setIsSubmitting(false);
       navigate('/homework-answered', { state: { answeredQuestions: submitData } });
