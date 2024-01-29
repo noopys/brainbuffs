@@ -1,5 +1,6 @@
 {
-  "body": "{\"username\":\"d6f336da-c621-4eb8-8697-b1eeac358d6b\"}",
+  "func": "getData",
+  "body": "{\"username\":\"abab2166-bde1-45be-9328-83c112b6f172\"}",
   "headers": {
     "Content-Type": "application/json"
   }
