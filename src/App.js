@@ -27,7 +27,9 @@ import Pricing from './components/frontend/UI/Pricing';
 import { CheckoutForm, Return } from './components/frontend/UI/PaymentPage';
 import Contact from './components/frontend/UI/Contact';
 import Success from './components/frontend/UI/Success';
+//School pages for group classes
 import Develyn from './components/frontend/UI/Develyn';
+import BearCreek from './components/frontend/UI/BearCreek'
 import Homework from './components/homework/Homework'
 import Slideshow from './components/frontend/UI/Slideshow';
 import SignIn from './components/frontend/accounts/signin';
@@ -78,6 +80,7 @@ function App() {
               <Route path="/checkout" element={<CheckoutForm />} />
               <Route path="/return" element={<Return />} />
               <Route path="/develyn" element={<Develyn />} />
+              <Route path="/bearcreek" element={<BearCreek/>}/>
               <Route path="/homework" element={<Homework/>}/>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/success" element={<Success/>}/>
