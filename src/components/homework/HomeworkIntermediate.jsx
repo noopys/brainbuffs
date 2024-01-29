@@ -191,7 +191,7 @@ const HomeworkIntermediate = () => {
               <div >Click or hover to view categories</div>
             )}
           </div>
-          <div style={{ width: '100%', height: '350px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
+          <div style={{ width: '100%', height: '450px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
             <MissedConceptsChart chartData={missedMathConceptsChartData} shouldShowLegend={shouldShowLegend} />
           </div>
         </div>
@@ -204,7 +204,7 @@ const HomeworkIntermediate = () => {
               <div >Click or hover to view categories</div>
             )}
           </div>
-          <div style={{ width: '100%', height: '350px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
+          <div style={{ width: '100%', height: '450px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
             <MissedConceptsChart chartData={missedEnglishConceptsChartData} shouldShowLegend={shouldShowLegend} />
           </div>
         </div>
