@@ -57,19 +57,19 @@ const Frame = () => {
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2">
                       <div className="xl:w-full bg-gray-100 xl:flex xl:flex-row xl:items-start xl:justify-end xl:pt-2 xl:pb-2">
-                        <h1 className="self-stretch xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl pl-12 pt-3 pr-10">
+                        <h1 className="self-stretch xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl pl-8 pt-3 pr-10">
                           <b>Personalized SAT Prep to get into your Dream School</b>
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-row xl:items-start xl:justify-start xl:py-2">
-                        <div style={{ fontSize: "20px" }} className=" mx-auto self-stretch  leading-24 text-whitesmoke-200 mt-1 pl-12 pt-3 pr-10">
+                        <div style={{ fontSize: "20px" }} className=" mx-auto self-stretch  leading-24 text-whitesmoke-200 mt-1 pl-8 pt-3 pr-10">
                           We leverage proprietary AI and advanced big data tools to craft custom SAT practice. By analyzing over 500 data points per student, we create unique practice tailored to you.
                         </div>
                       </div>
                       <div className="self-stretch xl:h-146.4px flex flex-row items-start justify-start px-0 box-border xl:gap-21px text-base text-gray-300">
                         <div className="xl:w-6 xl:h-6 overflow-hidden shrink-0 ml-134px" />
                       </div>
-                      <div className="pt-1 pl-12 pb-4">
+                      <div className="pt-1 pl-8 pb-4">
                         <Link as={Link} to="/signup" style={{ textDecoration: 'none' }}>
                           <button
                             className="hover:bg-transparent text-white text-sm font-bold py-4 px-6 rounded-lg mt-4"
@@ -82,7 +82,7 @@ const Frame = () => {
                     </div>
 
                     {/* Section 1.2: Image */}
-                    <div className="xl:w-full bg-gray-300 xl:flex xl:flex-col xl:items-center xl:justify-center p-12">
+                    <div className="xl:w-full bg-gray-300 xl:flex xl:flex-col xl:items-center xl:justify-center p-8">
                       <video
                         className="w-full h-auto object-cover rounded-lg"
                         autoPlay
@@ -130,7 +130,7 @@ const Frame = () => {
               {/* Content for Section 5 */}
               {/* <div className="absolute w-full top-[2066px] right-[-4px] left-[4px] bg-white flex flex-col items-start justify-start py-[68px] px-[171px] box-border gap-[85px] text-[48px] text-darkslategray-200 font-roboto"> */}
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start gap-[50px] lg:flex-col lg:items-center">
-                <div className="font-small flex items-center h-14 shrink-0">
+                <div className="font-small flex items-center h-14 shrink-0 pt-5 pb-5">
                   <b>Meet the Team</b>
                 </div>
                 <div className="self-stretch grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[42px] text-5xl text-gray-200">
@@ -171,17 +171,16 @@ const Frame = () => {
             {/* Section 6 */}
             <div className="flex items-center justify-center p-4">
               {/* Content for Section 6 */}
-              <div className="flex-1  leading-[48px] font-medium font-poppins" style={{ paddingRight: '20px' }}>
+              <div className="flex-1 font-medium font-poppins " style={{ paddingRight: '10px' }}>
                 Try BrainBuffs for yourself and see what's possible.
               </div>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 <button
-                  className="flex-1 rounded-[10px] bg-teal-500 shadow-[0px_0px_1px_rgba(0,_0,_0,_0.32),_0px_0px_2px_rgba(0,_0,_0,_0.08),_0px_1px_3px_rgba(45,_127,_249,_0.28),_0px_0px_0px_0.5px_rgba(0,_0,_0,_0.06)_inset] 
-               h-[43px] overflow-hidden flex flex-col items-center justify-center text-center text-[20px] text-white"
-                  style={{ maxWidth: '300px' }}
+                  className="self-stretch flex-1 rounded-[10px] bg-teal-500 flex flex-col items-center justify-center text-center text-lg text-white font-bold"
+                  style={{ maxWidth: '300px', height: '80px', width: '100%'}}
                 >
-                  <div className=" tracking-[0.1px] leading-[27px] font-medium flex items-center justify-center w-[149.1px] h-6 shrink-0" >
-                    Sign Up
+                  <div className=" flex items-center justify-center h-6 px-3" >
+                    <span>Sign Up</span>
                   </div>
                 </button>
               </Link>

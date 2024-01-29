@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
 
     const requestData = {
       username: usernamelocal,
+      func: "getData",
     };
 
     try {
@@ -63,6 +64,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         setUserData(data);
+        console.log("retreived items from Dynamo: ", data);
         // console.log('Retrieved USERdata from API Gateway:', JSON.stringify(data));
         // Handle the retrieved data as needed
         
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }) => {
 
     // Fetch data from DynamoDB upon login
     const username = credentials.username; // Assuming username is available in userData
-    console.log("fetching username", username);
+    // console.log("fetching username", username);
     if (username) {
       await fetchDataFromDynamoDB(username);
     }

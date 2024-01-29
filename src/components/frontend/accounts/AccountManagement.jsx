@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 
 const AccountManagement = () => {
   // get info from local auth session
-  const { isLoggedIn, logout, user, updateUser } = useAuth();
+  const { isLoggedIn, logout, user, userData, updateUser } = useAuth();
 
   // const for change phone# or full name
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
@@ -240,11 +240,8 @@ const AccountManagement = () => {
                 <br></br>
                 <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Subscription Information </h2>
                 <div>
-                  <div>
-                    Coming Soon!
-                  </div>
-                  <div>
-                    Current Plan:
+                  <div style={{ fontSize: '1em', fontWeight: 'bold' }}>
+                    Current Plan: {(userData.length > 0 && userData[0].SubscriptionLevel !== undefined) ? (userData[0].SubscriptionLevel.S) : ("Free")}
                   </div>
                   <div>
                     Next Due Date:
