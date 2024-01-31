@@ -291,12 +291,14 @@ exports.handler = async (event) => {
                 const imageUrl = fields['questionImage'] || null;
                 const answer = fields['Answer'];
                 const recordId = fields['recordID'];
-
+                const subject = fields['Field'];  // Extract subject from "Field" column
+                
                 return {
                     recordId: recordId,
                     imageUrl: imageUrl,
                     answer: answer,
-                    concepts: concepts
+                    concepts: concepts,
+                     subject: subject
                 };
             });
 

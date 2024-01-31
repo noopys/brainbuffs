@@ -6,10 +6,11 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 const HomeworkIntermediate = () => {
   const navigate = useNavigate();
   const { isLoggedIn, userData, updateUserData } = useAuth();
+  // console.log("USER DATAAAAAAAAAAAA", userData);
   const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
   
   const handleNavigateToSubject = (subject) => {
-    console.log('Subject before navigation:', subject);
+    // console.log('Subject before navigation:', subject);
   
     if (subject === 'Math' || subject === 'English' || subject === 'Both') {
       // Update the navigate function to include the subject in the request body
@@ -48,22 +49,34 @@ const HomeworkIntermediate = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("USERDATA:", userData);
+    // console.log("HEEEEEEEEEEEEERRRRRRRRREEEEEEEEEEEEE");
+    // console.log("EnglishUserprof: ", userData[0].EnglishUserProfile);
+    // console.log("Userprof: ", userData[0].userProfile);
+    //  console.log("OldUserProf: ", userData[0].UserProfile);
+    //  console.log("USERDATA:", userData);
     if (userData[0]) {
       // format math
       const formattedMathData = [['Concept', 'Weight']];
       for (const category in userData[0].UserProfile.M) {
         const value = parseInt(userData[0].UserProfile.M[category].N);
         formattedMathData.push([category, value]);
+
+        // const rawValue = userData[0].UserProfile.M[category].N;
+        // const dataType = typeof rawValue;
+        // console.log(`Data type for UserProfile - ${category}: ${dataType}`);
       }
       setMissedMathConceptsChartData(formattedMathData);
-      console.log('chartData', formattedMathData);
+      // console.log('chartData', formattedMathData);
 
       // format English
       const formattedEnglishData = [['Concept', 'Weight']];
       for (const category in userData[0].EnglishUserProfile.M) {
         const value = parseInt(userData[0].EnglishUserProfile.M[category].N);
         formattedEnglishData.push([category, value]);
+
+        // const rawValue = userData[0].UserProfile.M[category].N;
+        // const dataType = typeof rawValue;
+        // console.log(`Data type for EnglishUserProfile - ${category}: ${dataType}`);
       }
       setMissedEnglishConceptsChartData(formattedEnglishData);
     }
@@ -215,3 +228,4 @@ const HomeworkIntermediate = () => {
 };
 
 export default HomeworkIntermediate;
+

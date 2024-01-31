@@ -18,10 +18,11 @@ export const CheckoutForm = () => {
   useEffect(() => {
     let url = '';
     let mode = '';
-    if (plan === "develyn") {
+    if (plan === "develyn" || plan === "bearcreek") {
       url = "https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/create-checkout-session";
       mode="payment";
-    } else if (plan === "pro" || plan === "practice") {
+    } 
+    else if (plan === "pro" || plan === "practice") {
       url = "https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/createCheckoutSessionSubscription";
       mode="subscription";
     }

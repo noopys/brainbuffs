@@ -1,0 +1,7 @@
+{
+  "func": "updateData",
+  "body": "{\"username\":\"abab2166-bde1-45be-9328-83c112b6f172\", \"goalScore\":\"9999\", \"nextTestDate\":\"10-25-2025\"}",
+  "headers": {
+    "Content-Type": "application/json"
+  }
+}
