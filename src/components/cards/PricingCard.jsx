@@ -83,18 +83,19 @@ function PricingCard({ rows, price, title, plan }) {
                             borderWidth: '1px',
                             borderRadius: '10px', // Border radius
                             gap: '10px', // Gap between elements inside the button (if any),
-                            backgroundColor: "white",
+                            //backgroundColor: "white",
                         }}
-                        className="flex justify-center items-center p-2"
+                        className="flex justify-center items-center p-2 bg-whitesmoke-100 hover:bg-main-teal"
                     >
-                        <p style={{
-                            color: '#20a7a1', // Black color
-                            fontFamily: 'Inter',
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            margin: 0, // Removes default margin to aid in centering
-                        }}
-                            className="p-2"
+                        <p 
+                        // style={{
+                        //     color: '#20a7a1', // Black color
+                        //     fontFamily: 'Inter',
+                        //     fontSize: '16px',
+                        //     fontWeight: '600',
+                        //     margin: 0, // Removes default margin to aid in centering
+                        // }}
+                            className="text-main-teal font-Inter font-semibold text-lg m-0 p-2 hover:text-whitesmoke-100"
                         >
                             Choose Plan
                         </p>

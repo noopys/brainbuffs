@@ -28,9 +28,26 @@ module.exports = {
     extend: {
       colors: {
         white: "#fff",
-        whitesmoke: {
+        whitetext: {
           "100": "#faf9f7",
           "200": "#f7f5f2",
+        },
+        whitesmoke: {
+          "100": "#ffffff",
+          "200": "#fffff",
+        },
+        'main-teal': {
+          DEFAULT: '#20a7a1', // The default shade you can use with the class `bg-custom-teal`
+          '50': '#e0f2f1',    // Lighter shade
+          '100': '#b2dfdb',
+          '200': '#80cbc4',
+          '300': '#4db6ac',
+          '400': '#4CB8B3',
+          '500': '#20a7a1', // The same as DEFAULT, for consistency
+          '600': '#00897b',
+          '700': '#00796b',
+          '800': '#00695c',
+          '900': '#004d40',
         },
         mediumslateblue: "#0061fe",
         gray: {

@@ -25,7 +25,6 @@ function SignIn() {
   };
 
   const buttonStyle = {
-    backgroundColor: '#20a7a1',
     color: '#fff',
     padding: '12px 16px', // Adjust padding as needed
     border: 'none',
@@ -142,7 +141,7 @@ function SignIn() {
                   {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
                 </button>
               </div>
-              <button type="submit" style={buttonStyle}>Sign In</button>
+              <button type="submit" style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold">Sign In</button>
               {errorMessage && <p style={{ color: 'red' }}>Error: {errorMessage}</p>}
               
             </form>

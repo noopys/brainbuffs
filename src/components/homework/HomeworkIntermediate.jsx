@@ -8,10 +8,10 @@ const HomeworkIntermediate = () => {
   const { isLoggedIn, userData, updateUserData } = useAuth();
   // console.log("USER DATAAAAAAAAAAAA", userData);
   const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
-  
+
   const handleNavigateToSubject = (subject) => {
     // console.log('Subject before navigation:', subject);
-  
+
     if (subject === 'Math' || subject === 'English' || subject === 'Both') {
       // Update the navigate function to include the subject in the request body
       setTimeout(() => {
@@ -128,7 +128,6 @@ const HomeworkIntermediate = () => {
   };
 
   const buttonStyle = {
-    backgroundColor: '#20a7a1',
     color: '#fff',
     padding: '12px 24px',
     border: 'none',
@@ -148,7 +147,7 @@ const HomeworkIntermediate = () => {
       <h1 className="font-poppins text-3xl font-bold capitalize">Welcome to Adaptive Practice</h1>
 
       <div style={chartContainerStyle} className="lg:flex">
-        
+
 
         {/* Content Container */}
         <div style={{ ...contentContainerStyle, ...buttonContainerStyle }}>
@@ -159,7 +158,7 @@ const HomeworkIntermediate = () => {
           <div style={buttonContainerStyle}>
             {isInCurrSess ? (
               <>
-                <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }} onClick={() => handleNavigateToSubject('Math')}>
+                <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 text-white font-bold" onClick={() => handleNavigateToSubject('Math')}>
                   Continue Previous Practice
                 </button>
                 <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
@@ -177,16 +176,16 @@ const HomeworkIntermediate = () => {
               </>
             ) : (
               <>
-                <button style={buttonStyle} onClick={() => handleNavigateToSubject('Math')}>
+                <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('English')}>
                   Math
                 </button>
-                <button style={buttonStyle} onClick={() => handleNavigateToSubject('English')}>
+                <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('English')}>
                   English
                 </button>
-                <button style={buttonStyle} onClick={() => handleNavigateToSubject('Both')}>
+                <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('Both')}>
                   Both
                 </button>
-                <button style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
+                <button  className="bg-main-teal hover:bg-main-teal-400 font-bold" style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
                   Previous Assignments
                 </button>
               </>

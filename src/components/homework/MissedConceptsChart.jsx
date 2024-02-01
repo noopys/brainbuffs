@@ -1,12 +1,30 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Pie } from '@visx/shape';
 import { Group } from '@visx/group';
 import { Text } from '@visx/text';
 
 const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
   const [active, setActive] = useState(null);
-  const width = 400;
-  const half = width / 2;
+  const pieSize = 500; // Fixed size of the pie chart
+  const halfPieSize = pieSize / 2;
+  const ref = useRef(null);
+  const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
+  const minAngleThreshold = 30; // Minimum angle (in degrees) to display label
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      if (entries.length === 0 || entries[0].target !== ref.current) {
+        return;
+      }
+
+      const { width, height } = entries[0].contentRect;
+      setSvgSize({ width, height });
+    });
+
+    resizeObserver.observe(ref.current);
+
+    return () => resizeObserver.disconnect();
+  }, []);
 
   const colors = [
     'rgba(32, 167, 161, 1.0)', 
@@ -18,7 +36,6 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
   ];
 
   const data = useMemo(() => {
-    // Filter out data points with value of zero
     return chartData.slice(1).filter(([, value]) => Number(value) > 0).map(([label, value], index) => ({
       label,
       value: Number(value),
@@ -31,20 +48,25 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
   }, [data]);
 
   const getFontSize = (label) => {
-    return label.length >= 20 ? 14 : 20;
+    return label.length >= 20 ? 20 : 24;
+  };
+
+  // Function to calculate the angle of an arc
+  const getArcAngle = (arc) => {
+    return ((arc.endAngle - arc.startAngle) / (2 * Math.PI)) * 360;
   };
 
   return (
-    <main>
-      <svg width={width} height={width}>
-        <Group top={half} left={half}>
+    <main ref={ref}>
+      <svg width="500px" height="500px" viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}>
+        <Group top={svgSize.height / 2} left={svgSize.width / 2}>
           <Pie
             data={data}
             pieValue={dataItem => dataItem.value}
-            outerRadius={half}
+            outerRadius={halfPieSize}
             innerRadius={({ data }) => {
               const size = active && data.label === active.label ? 68 : 50;
-              return half - size;
+              return halfPieSize - size;
             }}
             cornerRadius={3}
             padAngle={0.005}
@@ -52,6 +74,8 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
             {pie => {
               return pie.arcs.map(arc => {
                 const [centroidX, centroidY] = pie.path.centroid(arc);
+                const arcAngle = getArcAngle(arc);
+
                 return (
                   <g
                     key={arc.data.label}
@@ -60,14 +84,14 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
                     style={{ cursor: 'pointer' }}
                   >
                     <path d={pie.path(arc)} fill={arc.data.color}></path>
-                    {arc.data.label.length <= 15 && (
+                    {arc.data.label.length <= 15 && arcAngle > minAngleThreshold && (
                       <Text
                         fill="black"
                         fontWeight="bolder"
                         x={centroidX}
                         y={centroidY}
                         dy=".33em"
-                        fontSize={15}
+                        fontSize={20}
                         textAnchor="middle"
                         pointerEvents="none"
                       >
@@ -79,7 +103,6 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
               });
             }}
           </Pie>
-
           {active ? (
             <>
               <Text textAnchor="middle" fill="#111" fontSize={getFontSize(active.label)} dy={0}>
@@ -95,7 +118,7 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
               </Text>
             </>
           ) : (
-            <Text textAnchor="middle" fill="#111" fontSize={14} fontWeight="bold">
+            <Text textAnchor="middle" fill="#111" fontSize={20} fontWeight="bold">
               {"Hover over a section for more info"}
             </Text>
           )}

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export default function BearCreek() {
     const buttonStyle = {
-        backgroundColor: '#20a7a1',
         color: '#fff',
         padding: '12px 24px',
         border: 'none',
@@ -57,7 +56,7 @@ export default function BearCreek() {
                             </li>
                         </ul>
                         <div className="d-flex justify-content-center mt-4">
-                            <Link to="/checkout?plan=bearcreek" className="btn btn-primary btn-lg" style={buttonStyle}>
+                            <Link to="/checkout?plan=bearcreek" className="btn btn-primary btn-lg bg-main-teal hover:bg-main-teal-400 font-bold" style={buttonStyle}>
                                 Sign Up Now
                             </Link>
                         </div>
