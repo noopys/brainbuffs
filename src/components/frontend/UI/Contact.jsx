@@ -39,7 +39,6 @@ const Contact = () => {
   };
 
   const buttonStyle = {
-    backgroundColor: '#20a7a1',
     color: '#fff',
     padding: '12px 24px',
     border: 'none',
@@ -146,7 +145,7 @@ const Contact = () => {
               <div className="form-group">
                 <textarea name="message" value={formData.message} onChange={handleInputChange} style={inputStyle} className="form-control" rows="5" placeholder="Your Message"></textarea>
               </div>
-              <button type="submit" style={buttonStyle}>Submit</button>
+              <button className="bg-main-teal hover:bg-main-teal-400 font-bold" type="submit" style={buttonStyle}>Submit</button>
             </form>
           )}
         </div>

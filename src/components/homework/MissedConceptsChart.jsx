@@ -1,17 +1,42 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Pie } from '@visx/shape';
 import { Group } from '@visx/group';
 import { Text } from '@visx/text';
 
 const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
   const [active, setActive] = useState(null);
-  const width = 400;
-  const half = width / 2;
+  const pieSize = 500; // Fixed size of the pie chart
+  const halfPieSize = pieSize / 2;
+  const ref = useRef(null);
+  const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
+  const minAngleThreshold = 30; // Minimum angle (in degrees) to display label
 
-  const colors = ['#2ECC71', '#3498DB', '#1ABC9C', '#27AE60', '#F1C40F', '#A5694F', '#9B59B6', '#FF5733'];
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      if (entries.length === 0 || entries[0].target !== ref.current) {
+        return;
+      }
+
+      const { width, height } = entries[0].contentRect;
+      setSvgSize({ width, height });
+    });
+
+    resizeObserver.observe(ref.current);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  const colors = [
+    'rgba(32, 167, 161, 1.0)', 
+    'rgba(241, 218, 196, 0.8)',
+    'rgba(96, 108, 56, 0.8)',
+    'rgba(91, 48, 0, 0.8)',
+    'rgba(109, 69, 76, 0.8)',
+    'rgba(109, 69, 76, 0.8)'
+  ];
 
   const data = useMemo(() => {
-    return chartData.slice(1).map(([label, value], index) => ({
+    return chartData.slice(1).filter(([, value]) => Number(value) > 0).map(([label, value], index) => ({
       label,
       value: Number(value),
       color: colors[index % colors.length]
@@ -22,23 +47,26 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
     return data.reduce((acc, item) => acc + item.value, 0);
   }, [data]);
 
-  //Get font size
-  // Function to determine the font size based on label length
   const getFontSize = (label) => {
-    return label.length >= 20 ? 14 : 20; // Smaller font size for longer labels
+    return label.length >= 20 ? 20 : 24;
+  };
+
+  // Function to calculate the angle of an arc
+  const getArcAngle = (arc) => {
+    return ((arc.endAngle - arc.startAngle) / (2 * Math.PI)) * 360;
   };
 
   return (
-    <main>
-      <svg width={width} height={width}>
-        <Group top={half} left={half}>
+    <main ref={ref}>
+      <svg width="500px" height="500px" viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}>
+        <Group top={svgSize.height / 2} left={svgSize.width / 2}>
           <Pie
             data={data}
             pieValue={dataItem => dataItem.value}
-            outerRadius={half-20}
+            outerRadius={halfPieSize}
             innerRadius={({ data }) => {
               const size = active && data.label === active.label ? 68 : 50;
-              return half - size;
+              return halfPieSize - size;
             }}
             cornerRadius={3}
             padAngle={0.005}
@@ -46,6 +74,8 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
             {pie => {
               return pie.arcs.map(arc => {
                 const [centroidX, centroidY] = pie.path.centroid(arc);
+                const arcAngle = getArcAngle(arc);
+
                 return (
                   <g
                     key={arc.data.label}
@@ -54,14 +84,14 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
                     style={{ cursor: 'pointer' }}
                   >
                     <path d={pie.path(arc)} fill={arc.data.color}></path>
-                    {arc.data.label.length <= 10 && (
+                    {arc.data.label.length <= 15 && arcAngle > minAngleThreshold && (
                       <Text
-                        fill="black" // Font color is black
-                        fontWeight="bold"
+                        fill="black"
+                        fontWeight="bolder"
                         x={centroidX}
                         y={centroidY}
                         dy=".33em"
-                        fontSize={15}
+                        fontSize={20}
                         textAnchor="middle"
                         pointerEvents="none"
                       >
@@ -73,23 +103,24 @@ const MissedConceptsChart = ({ chartData, shouldShowLegend }) => {
               });
             }}
           </Pie>
-
-          {active && (
+          {active ? (
             <>
               <Text textAnchor="middle" fill="#111" fontSize={getFontSize(active.label)} dy={0}>
                 {`${active.label} (${((active.value / totalValue) * 100).toFixed(1)}%)`}
               </Text>
               <Text
                 textAnchor="middle"
-                fill="#111" // Different color for weight
-                fontSize={16} // Smaller font size for weight
-                //x={half}
-                //y={half + 20} // Position below the label
+                fill="#111"
+                fontSize={16}
                 dy="1.5em"
               >
                 {`Questions Missed: ${active.value}`}
               </Text>
             </>
+          ) : (
+            <Text textAnchor="middle" fill="#111" fontSize={20} fontWeight="bold">
+              {"Hover over a section for more info"}
+            </Text>
           )}
         </Group>
       </svg>

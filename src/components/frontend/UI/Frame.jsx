@@ -51,19 +51,19 @@ const Frame = () => {
             {/* Section 1 */}
             <div className="flex items-center justify-center">
               {/* Content for Section 1 */}
-              <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:gap-48 xl:text-whitesmoke-200">
+              <div className="self-stretch xl:flex xl:flex-col xl:items-start xl:justify-start xl:gap-48 xl:text-whitetext-200">
                 <div className="self-stretch overflow-hidden flex flex-col items-center justify-start">
                   <div className="self-stretch bg-gray-300 flex flex-col xl:flex-row justify-start xl:h-[560px]">
 
                     {/* Section 1.1: Top SAT tutoring program text */}
                     <div className="xl:w-full xl:h-full bg-gray-100 xl:flex xl:flex-col xl:items-start xl:justify-start xl:pt-10 xl:px-12 xl:pb-2">
                       <div className="xl:w-full bg-gray-100 xl:flex xl:flex-row xl:items-start xl:justify-end xl:pt-2 xl:pb-2">
-                        <h1 className="self-stretch xl:h-full text-whitesmoke-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl pl-8 pt-3 pr-10">
+                        <h1 className="self-stretch xl:h-full text-whitetext-200 text-12xl md:text-6xl lg:text-7xl xl:text-16xl pl-8 pt-3 pr-10">
                           <b>Personalized SAT Prep to get into your Dream School</b>
                         </h1>
                       </div>
                       <div className="self-stretch xl:flex xl:flex-row xl:items-start xl:justify-start xl:py-2">
-                        <div style={{ fontSize: "20px" }} className=" mx-auto self-stretch  leading-24 text-whitesmoke-200 mt-1 pl-8 pt-3 pr-10">
+                        <div style={{ fontSize: "20px" }} className=" mx-auto self-stretch  leading-24 text-whitetext-200 mt-1 pl-8 pt-3 pr-10">
                           We leverage proprietary AI and advanced big data tools to craft custom SAT practice. By analyzing over 500 data points per student, we create unique practice tailored to you.
                         </div>
                       </div>
@@ -73,8 +73,8 @@ const Frame = () => {
                       <div className="pt-1 pl-8 pb-4">
                         <Link as={Link} to="/signup" style={{ textDecoration: 'none' }}>
                           <button
-                            className="hover:bg-transparent text-white text-sm font-bold py-4 px-6 rounded-lg mt-4"
-                            style={{ backgroundColor: '#20a7a1' }}
+                            className="text-white text-sm font-bold py-4 px-6 rounded-lg mt-4 bg-main-teal hover:bg-teal-400"
+                           
                           >
                             <span style={{ fontSize: "18px" }}>Sign Up &nbsp; &rarr;</span>
                           </button>
@@ -98,10 +98,10 @@ const Frame = () => {
                   </div>
 
                   {/* Section 1.3: "All the SAT tools you need in one plan" */}
-                  <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitesmoke-200 mt-0">
-                    <div className="self-stretch  bg-whitesmoke-200 xl:h-72px" />
+                  <div className="self-stretch bg-whitetext-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-whitetext-200 mt-0">
+                    <div className="self-stretch  bg-whitetext-200 xl:h-72px" />
                     <div className=" xl:w-full lg:w-full sm:w-full mt-6 mb-6">
-                      <div className="self-stretch bg-whitesmoke-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
+                      <div className="self-stretch bg-whitetext-200 flex flex-col items-center justify-start gap-16px text-center text-13xl text-black xl:mt-0">
                         <div className="leading-36.4 text-center font-poppins pl-5 pr-5">
                           All the SAT tools you need in one place
                         </div>
@@ -177,7 +177,7 @@ const Frame = () => {
               </div>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 <button
-                  className="self-stretch flex-1 rounded-[10px] bg-teal-500 flex flex-col items-center justify-center text-center text-lg text-white font-bold"
+                  className="self-stretch flex-1 rounded-[10px] flex flex-col items-center justify-center text-center text-lg text-white  bg-main-teal hover:bg-main-teal-400 font-bold"
                   style={{ maxWidth: '300px', height: '80px', width: '100%'}}
                 >
                   <div className=" flex items-center justify-center h-6 px-3" >
