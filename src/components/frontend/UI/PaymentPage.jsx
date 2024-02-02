@@ -46,10 +46,10 @@ export const CheckoutForm = () => {
           const updatedUserData = [...userData];
           updatedUserData[0] = updatedContext;
           updateUserData(updatedUserData);
-        }
-          
-
-      )
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
   }, [plan]);
 
