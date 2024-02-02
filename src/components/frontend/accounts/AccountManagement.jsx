@@ -196,7 +196,7 @@ const AccountManagement = () => {
       email: user.email,
     };
 
-    const apiEndpoint = 'https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/endSubcription';
+    const apiEndpoint = 'https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/endSubscription';
     const response = await fetch(apiEndpoint, {
       method: 'POST',
       headers: {
