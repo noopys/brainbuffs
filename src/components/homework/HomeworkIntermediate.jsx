@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MissedConceptsChart from './MissedConceptsChart'; // Import the MissedConceptsChart component
 import { useAuth } from '../frontend/accounts/AuthContext';
+import { Link } from 'react-router-dom';
 
 const HomeworkIntermediate = () => {
+  /*------------------------------------------------------
+  Constants
+  --------------------------------------------------------*/
+  // Import auth
+  const { isLoggedIn, userData } = useAuth();
+
+  // Const for naviagtion
   const navigate = useNavigate();
-  const { isLoggedIn, userData, updateUserData } = useAuth();
-  // console.log("USER DATAAAAAAAAAAAA", userData);
-  const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
-  
   const handleNavigateToSubject = (subject) => {
     // console.log('Subject before navigation:', subject);
-  
     if (subject === 'Math' || subject === 'English' || subject === 'Both') {
       // Update the navigate function to include the subject in the request body
       setTimeout(() => {
@@ -24,24 +27,44 @@ const HomeworkIntermediate = () => {
     }
   };
 
+  // Page Functionality
+  const isInCurrSess = userData[0]?.InCurrSess?.BOOL;
   const [missedMathConceptsChartData, setMissedMathConceptsChartData] = useState([]);
   const [missedEnglishConceptsChartData, setMissedEnglishConceptsChartData] = useState([]);
+
+  // Conditional Rendering
   const [shouldShowLegend, setShouldShowLegend] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isProSubscription, setIsProSubscription] = useState(false);
 
+  /*------------------------------------------------------
+    UseEffects
+    --------------------------------------------------------*/
+
+  // Function to see if they should have access to homework system
   useEffect(() => {
-    // Function to handle screen size changes and update shouldShowLegend
+    // Your logic to check if SubscriptionLevel is "pro" or "practice"
+    // For demonstration purposes, I'm assuming your data is stored in a variable called "data"
+    if (userData && userData.length > 0) {
+      const subscriptionLevel = userData[0]?.SubscriptionLevel?.S;
+      if (subscriptionLevel === 'pro' || subscriptionLevel === 'practice') {
+        setIsProSubscription(true);
+      } else {
+        setIsProSubscription(false);
+      }
+    }
+  }, [userData]);
+
+  // Function to handle screen size changes and update shouldShowLegend
+  useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
       setShouldShowLegend(window.innerWidth >= 960);
     };
-
     // Add event listener to track window resize
     window.addEventListener('resize', handleResize);
-
     // Initial check and set shouldShowLegend
     handleResize();
-
     // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -81,6 +104,10 @@ const HomeworkIntermediate = () => {
       setMissedEnglishConceptsChartData(formattedEnglishData);
     }
   }, [userData]);
+
+  /*------------------------------------------------------
+    STYLING
+  --------------------------------------------------------*/
 
   const containerStyle = {
     display: 'flex',
@@ -139,9 +166,20 @@ const HomeworkIntermediate = () => {
     margin: '8px',
   };
 
-  if (!isLoggedIn) {
-    return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please sign in to view the adaptive practice system.</div>;
-  }
+  /*------------------------------------------------------
+    HTML
+  --------------------------------------------------------*/
+
+  if (!isLoggedIn || isProSubscription===false) {
+    return (
+      <div>
+        <div style={{ paddingBottom: "50px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please choose one of our plans to use the adaptive practice system.</div>
+        <Link to="/#PricingCards" >
+          <button style={buttonStyle}>Check out our Plans</button>
+        </Link>
+      </div>
+    );
+  };
 
   return (
     <div style={containerStyle}>

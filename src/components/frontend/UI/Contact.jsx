@@ -126,7 +126,7 @@ const Contact = () => {
         <div style={promptsCardStyle}>
           <h2 style={{ textAlign: 'left' }}>How can we help?</h2>
           <ul style={promptListStyle}>
-            <li>Learn more about one of our <Link to="/#PricingCards" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>3 plans</Link>.</li>
+            <li>Learn more about one of our <Link to="/#PricingCards" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>plans</Link>.</li>
             <li>Describe an issue you're facing.</li>
             <li>Suggest an improvement.</li>
             <li>Leave your thoughts.</li>

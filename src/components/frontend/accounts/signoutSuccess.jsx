@@ -2,7 +2,7 @@ import React from 'react';
 import brainbuffs from "../../../resources/brainbuffs.png"
 
 function SignOutSuccess() {
-    console.log("sign out page rendered")
+    // console.log("sign out page rendered")
 
     const buttonStyle = {
       backgroundColor: '#20a7a1',

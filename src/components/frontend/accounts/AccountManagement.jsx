@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 
 const AccountManagement = () => {
   // get info from local auth session
-  const { isLoggedIn, logout, user, userData, updateUser } = useAuth();
+  const { isLoggedIn, logout, user, userData, updateUser, updateUserData } = useAuth();
 
   // const for change phone# or full name
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
@@ -22,6 +22,7 @@ const AccountManagement = () => {
   const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [endSubMessage, setEndSubMessage] = useState('');
 
   const containerStyle = {
     border: '1px solid #20a7a1',
@@ -80,7 +81,7 @@ const AccountManagement = () => {
 
     // Add a 'beforeunload' event listener to show a confirmation dialog
     window.addEventListener('beforeunload', handleBeforeUnload);
-    console.log('changesMade has chaged to', changesMade);
+    // console.log('changesMade has chaged to', changesMade);
 
     return () => {
       // Remove the event listener when the component unmounts
@@ -190,6 +191,45 @@ const AccountManagement = () => {
     }
   };
 
+  const handleEndSubscription= async() => {
+    const requestBody = {
+      email: user.email,
+    };
+
+    const apiEndpoint = 'https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/endSubcription';
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    // For development purposes
+    if (response.ok) {
+      console.log('Subscription ended successfully');
+      setEndSubMessage("Subscription ended successfully");
+
+      // Update the context
+      const updatedContext = { ...userData[0], SubscriptionLevel: { S: "Free" } };
+      const updatedUserData = [...userData];
+      updatedUserData[0] = updatedContext;
+      updateUserData(updatedUserData);
+
+      const messageDelay = 5000; // 5 seconds delay (adjust as needed)
+      const messageTimer = setTimeout(() => {
+        setEndSubMessage('');
+      }, messageDelay);
+
+      return () => clearTimeout(messageTimer);
+
+    } else {
+      console.log('There was an error ending your subscription.');
+      setEndSubMessage("There was an error ending your subscription.");
+    }
+  }
+  
+
   const confirmDelete = () => {
     setShowConfirmation(true);
   };
@@ -247,7 +287,8 @@ const AccountManagement = () => {
                     Next Due Date:
                   </div>
 
-                  <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }} >Manage Subscription</button>
+                  <button style={buttonStyle} onClick={() => handleEndSubscription()}>End Subscription</button>
+                  {endSubMessage && <p>{endSubMessage}</p>}
 
                 </div>
 

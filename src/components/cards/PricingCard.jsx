@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TickSquare from '../../resources/icons/tick_square.svg';
+import { useAuth } from '../frontend/accounts/AuthContext';
 
-function PricingCard({ rows, price, title, plan }) {
+function PricingCard({ rows, price, title, plan, desc }) {
+    const { isLoggedIn, userData } = useAuth();
+    const [isProSubscription, setIsProSubscription] = useState(false);
+
+    useEffect(() => {
+        // Your logic to check if SubscriptionLevel is "pro" or "practice"
+        // For demonstration purposes, I'm assuming your data is stored in a variable called "data"
+        if (userData && userData.length > 0) {
+            const subscriptionLevel = userData[0]?.SubscriptionLevel?.S;
+            if (subscriptionLevel === 'pro' || subscriptionLevel === 'practice') {
+                setIsProSubscription(true);
+            } else {
+                setIsProSubscription(false);
+            }
+        }
+    }, [userData]);
+
     //Add plan argument to url 
     const signupUrl = `/signup?plan=${plan}`;
     return (
@@ -44,15 +61,15 @@ function PricingCard({ rows, price, title, plan }) {
                     </span>
                 </div>
                 <div className="pt-1">
-                    <p style={{
+                    <div style={{
                         color: '#606F7B', // Grey color
                         fontFamily: 'poppins',
                         fontSize: '16px',
                         fontWeight: '400',
                         lineHeight: '24px', // 150%
                     }}>
-                        Revolutionize your SAT
-                    </p>
+                        {desc}
+                    </div>
                 </div>
 
                 <div className="pt-4">
@@ -74,7 +91,7 @@ function PricingCard({ rows, price, title, plan }) {
                     ))}
                 </div>
             </div>
-            <Link to={signupUrl} style={{textDecoration:"none"}}>
+            <Link to={isLoggedIn ? (isProSubscription ? '/homework-intermediate' : '/checkout?plan=practice') : signupUrl} style={{textDecoration:"none"}}>
                 <div className="flex justify-center items-center pt-1 pb-5">
                     {/*Plan Sign up Buttons*/}
                     <button
@@ -96,7 +113,7 @@ function PricingCard({ rows, price, title, plan }) {
                         }}
                             className="p-2"
                         >
-                            Choose Plan
+                            {isLoggedIn ? (isProSubscription ? "Go To Homework" : "Choose Plan") : "Choose Plan"}
                         </p>
                     </button>
                 </div>

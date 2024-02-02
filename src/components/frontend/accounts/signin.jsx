@@ -169,7 +169,7 @@ function SignIn() {
       {isLoggedIn ? ("") : (
         <div>
           <div style={lineStyle}></div>
-          <p classname='font-poppins'>New to Brain Buffs? <a href="./signUp" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Create an Account</a></p>
+          <p className='font-poppins'>New to Brain Buffs? <a href="./signUp" style={{textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold'}}>Create an Account</a></p>
         </div>
       )}
       
