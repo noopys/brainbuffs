@@ -72,7 +72,7 @@ const Frame = () => {
                       <div className="pt-1 pl-8 pb-4">
                         <Link as={Link} to="/signup" style={{ textDecoration: 'none' }}>
                           <button
-                            className="hover:bg-transparent text-white text-sm font-bold py-4 px-6 rounded-lg mt-4 bg-main-teal hover:bg-teal-400"
+                            className="text-white text-sm font-bold py-4 px-6 rounded-lg mt-4 bg-main-teal hover:bg-teal-400"
                            
                           >
                             <span style={{ fontSize: "18px" }}>Sign Up &nbsp; &rarr;</span>
