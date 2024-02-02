@@ -43,6 +43,7 @@ exports.handler = async (event) => {
             // Define your product IDs for pro and practice
             const proProductId = 'prod_PKeDdDmvyGUQWV';  // Replace with your actual product ID for pro
             const practiceProductId = 'prod_PKeD6Cu98sj1Fy'; // Replace with your actual product ID for practice
+            const practiceDiscountedProductId= 'prod_PURlyNh9A3oabZ';
 
             let subscriptionLevel;
             // Check the product ID and assign subscription level
@@ -50,7 +51,10 @@ exports.handler = async (event) => {
                 subscriptionLevel = 'pro';
             } else if (subscription.items.data[0].price.product === practiceProductId) {
                 subscriptionLevel = 'practice';
-            } else {
+            }else if (subscription.items.data[0].price.product === practiceDiscountedProductId) {
+                subscriptionLevel = 'practice';
+            }
+            else {
                 console.log('Product ID does not match known products');
                 return;
             }

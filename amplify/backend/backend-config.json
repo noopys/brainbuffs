@@ -48,6 +48,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "endSubscription": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getNextQuestion": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -136,6 +141,22 @@
         {
           "category": "function",
           "resourceName": "createHomework"
+        }
+      ]
+    },
+    "AMPLIFY_function_endSubscription_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "endSubscription"
+        }
+      ]
+    },
+    "AMPLIFY_function_endSubscription_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "endSubscription"
         }
       ]
     },

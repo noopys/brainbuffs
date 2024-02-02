@@ -25,7 +25,7 @@ exports.handler = async (event) => {
   const product = requestBody.product
   //Price ID Map 
   const priceIdMap = {
-    practice:"price_1OVyunKQZlfQBbZSHk9dLA1F" ,
+    practice:"price_1OfSsWKQZlfQBbZS8b2JlHrs" ,
     pro:"price_1OVyvKKQZlfQBbZSLFVjZtRx",
   }
   
@@ -65,17 +65,21 @@ exports.handler = async (event) => {
   try {
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      mode: "subscription",
-      success_url: `https://www.brainbuffstutoring.com/`,
-      cancel_url: `https://www.brainbuffstutoring.com/`,
-      automatic_tax: { enabled: true },
-    });
+    line_items: [
+      {
+        price: priceId,
+        quantity: 1,
+      },
+    ],
+    mode: "subscription",
+    success_url: `https://www.brainbuffstutoring.com/`,
+    cancel_url: `https://www.brainbuffstutoring.com/`,
+    automatic_tax: { enabled: true },
+    subscription_data: {
+      // Add a 7-day free trial period before the subscription starts
+      trial_period_days: 7,
+    },
+  });
 
     return {
       statusCode: 200,
