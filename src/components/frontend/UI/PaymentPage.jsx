@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from '../accounts/AuthContext';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   EmbeddedCheckoutProvider,
@@ -11,6 +12,7 @@ import {
 // This is your test public API key.
 //API Key omitted here
 export const CheckoutForm = () => {
+  const { userData, updateUserData } = useAuth();
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const plan = urlParams.get('plan');
@@ -38,7 +40,16 @@ export const CheckoutForm = () => {
         .then(res => res.json())
         .then(data => {
           window.location.href = data.url;
-        });
+        })
+        .then(() => {
+          const updatedContext = { ...userData[0], SubscriptionLevel: { S: "practice" } };
+          const updatedUserData = [...userData];
+          updatedUserData[0] = updatedContext;
+          updateUserData(updatedUserData);
+        }
+          
+
+      )
     }
   }, [plan]);
 
