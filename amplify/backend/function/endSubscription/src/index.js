@@ -35,14 +35,19 @@ exports.handler = async (event) => {
                 body: JSON.stringify({ message: 'Customer not found.' }),
             };
         }
-
+        // console.log(customers);
         const customerId = customers.data[0].id;
+
+        // console.log("customer ID found for user", email, customerId);
 
         // Step 2: Find Active Subscriptions for the Customer
         const subscriptions = await stripe.subscriptions.list({
             customer: customerId,
             status: 'active',
+            status: 'trialing',
         });
+
+        // console.log("subscriptions", subscriptions);
 
         if (subscriptions.data.length === 0) {
             return {

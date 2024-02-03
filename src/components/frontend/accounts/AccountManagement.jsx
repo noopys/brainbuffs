@@ -22,6 +22,7 @@ const AccountManagement = () => {
   const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmationEndSub, setShowConfirmationEndSub] = useState(false);
   const [endSubMessage, setEndSubMessage] = useState('');
 
   const containerStyle = {
@@ -229,6 +230,13 @@ const AccountManagement = () => {
     }
   }
   
+  const confirmEndSub = () => {
+    setShowConfirmationEndSub(true);
+  };
+
+  const cancelEndSub = () => {
+    setShowConfirmationEndSub(false);
+  };
 
   const confirmDelete = () => {
     setShowConfirmation(true);
@@ -280,14 +288,40 @@ const AccountManagement = () => {
                 <br></br>
                 <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Subscription Information </h2>
                 <div>
-                  <div style={{ fontSize: '1em', fontWeight: 'bold' }}>
-                    Current Plan: {(userData.length > 0 && userData[0].SubscriptionLevel !== undefined) ? (userData[0].SubscriptionLevel.S) : ("Free")}
-                  </div>
-                  <div>
-                    Next Due Date:
-                  </div>
+                  
 
-                  <button style={buttonStyle} onClick={() => handleEndSubscription()}>End Subscription</button>
+                  {/* Extension to confirm end sub*/}
+                  {showConfirmationEndSub ? (
+                    <div>
+                      <div className="confirmation-popup">
+                        <div style={{ padding: '0px ' }}>Are you sure you want to end your subscription?</div>
+                        <div>Note: This cannot be undone.</div>
+                      </div>
+                      <div>
+                        <button onClick={cancelEndSub} style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>
+                          Cancel
+                        </button>
+                      </div>
+                      <div>
+                        <button onClick={handleEndSubscription} style={buttonStyle}>
+                          END SUBSCRIPTION
+                        </button>
+                      </div>
+                    </div>
+
+
+                  ) : (
+                    <div>
+                      <div style={{ fontSize: '1em', fontWeight: 'bold' }}>
+                        Current Plan: {(userData.length > 0 && userData[0].SubscriptionLevel !== undefined) ? (userData[0].SubscriptionLevel.S) : ("Free")}
+                      </div>
+                      <div>
+                        Next Due Date:
+                      </div>
+                    <button style={buttonStyle} onClick={confirmEndSub}>End Subscription</button>
+                  </div>
+                  )} 
+                  {/* End end sub extension*/}
                   {endSubMessage && <p>{endSubMessage}</p>}
 
                 </div>
@@ -295,21 +329,14 @@ const AccountManagement = () => {
                 <br></br><br></br>
 
                 <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Manage Account </h2>
-                <button onClick={() => setShowChangePassword(true)} style={buttonStyle}>
-                  Change My Password
-                </button>
-                <br /> <br />
-                <button onClick={confirmDelete} style={buttonStyle}>
-                  Delete My Account
-                </button>
 
 
                 {/* Extension to confirm delete account*/}
-                {showConfirmation && (
+                {showConfirmation ? (
                   <div>
                     <div className="confirmation-popup">
-                      <p style={{ padding: '8px 10px' }}>Are you sure you want to delete your account?</p>
-                      <p>Note: All of your data will be lost. This cannot be undone.</p>
+                      <div>Are you sure you want to delete your account?</div>
+                      <div>Note: All of your data will be lost. This cannot be undone.</div>
                     </div>
                     <div>
                       <button onClick={cancelDelete} style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>
@@ -318,12 +345,23 @@ const AccountManagement = () => {
                     </div>
                     <div>
                       <button onClick={handleDelete} style={buttonStyle}>
-                        I am sure. Delete My account.
+                        DELETE MY ACCOUNT
                       </button>
                     </div>
                   </div>
 
 
+                ) : (
+                  <div>
+                    
+                    <button onClick={() => setShowChangePassword(true)} style={buttonStyle}>
+                      Change My Password
+                    </button>
+                    <br /> 
+                    <button onClick={confirmDelete} style={buttonStyle}>
+                      Delete My Account
+                    </button>
+                  </div>
                 )} {/* End delete account extension*/}
               </div>
             )}

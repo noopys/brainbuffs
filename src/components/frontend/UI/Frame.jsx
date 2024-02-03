@@ -22,14 +22,15 @@ const Frame = () => {
   const freePlan = [
     "Diagnostic Test",
     "Full Test Breakdown",
-    "Consultation from an Expert Tutor",
+    "Consultation From An Expert Tutor",
   ];
   const practicePlan = [
+    "7 Day Free Trial- No Initial Payment, Cancel Anytime", 
     "Diagnostic Test",
-    "Full test breakdown",
-    "Consultation from an expert tutor",
-    "Access to our Adaptive Homework System",
-    "Free for 7 days"
+    "Full Test Breakdown",
+    "Consultation From An Expert Tutor",
+    "Access To Our Adaptive Homework System",
+    "Best Value"
   ];
   const proPlan = [
     "Diagnostic Test",
@@ -117,8 +118,8 @@ const Frame = () => {
               {/* Content for Section 2 */}
               <div className=" bg-white">
                 <div className="flex flex-col md:flex-row container mx-auto px-4 pt-2 pb-5 lg:py-12 xl:py-16">
-                  <PricingCard plan="free" rows={freePlan} title="Free" price="0" desc="Try it out"/>
-                  <PricingCard plan="practice" rows={practicePlan} title="Practice" price={<span><span style={{ textDecoration: 'line-through' }}>50</span> 10</span>} desc={<div>       <div style={{ display: 'inline-block' }}>Best Value:</div>       <div style={{ color: 'red', fontWeight: 'bold', display: 'inline-block', marginLeft: '5px' }}>7 day free trial</div>     </div>} />
+                  <PricingCard plan="free" rows={freePlan} title="Free" price="0" desc="Try it out" showBanner={false} buttonDesc="Start for Free" />
+                  <PricingCard plan="practice" rows={practicePlan} title="Practice" showBanner={true} buttonDesc="Start 1-week free trial" price={<span style={{display: 'flex', alignItems: 'flex-end', }}><span style={{ textDecoration: 'line-through' }}>50 </span> <span style={{ fontSize: '24px', marginBottom: '6px', paddingLeft: '8px' }}>$</span>10</span>} desc={<div>    Most Popular </div>}  />
                   {/* <PricingCard plan="pro" rows={proPlan} title="Pro" price="200" desc="All the Features" /> */}
                 </div>
                 <div className=" bg-white h-16 mt-[-16px]" />

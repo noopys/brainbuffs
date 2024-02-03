@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import TickSquare from '../../resources/icons/tick_square.svg';
 import { useAuth } from '../frontend/accounts/AuthContext';
 
-function PricingCard({ rows, price, title, plan, desc }) {
+function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) {
     const { isLoggedIn, userData } = useAuth();
     const [isProSubscription, setIsProSubscription] = useState(false);
 
@@ -23,19 +23,28 @@ function PricingCard({ rows, price, title, plan, desc }) {
     //Add plan argument to url 
     const signupUrl = `/signup?plan=${plan}`;
     return (
-        <div className="flex flex-col gap-10 m-4 w-[380px] bg-white border border-gray-300 rounded-lg shadow-lg">
-            <div className="pl-8 pt-8 justify-start items-start flex-grow">
-                <p style={{
+        <div className="flex flex-col m-4 gap-2 w-[380px] bg-white border border-gray-300 rounded-lg shadow-lg font-poppins">
+            {showBanner ? (
+                <div className="bg-red-500 text-white py-1 px-4 rounded-t-lg flex justify-center items-center font-poppins">
+                    <div className="text-center" style={{ fontSize: '22px' }}>SALE</div>
+                </div>
+            ): (
+                <div className="bg-white text-white py-1 px-4 rounded-t-lg">
+                        <div className="text-center" style={{ fontSize: '22px' }}>.</div>
+                </div>
+            )}
+            <div className="pl-8 pb-4 justify-start items-start flex-grow">
+                <div style={{
                     color: '#222', // Using the provided color code
                     fontFamily: 'poppins', // Specifying the font-family
-                    fontSize: '22px', // Setting font-size
-                    fontWeight: '400', // Normal font weight
+                    fontSize: '30px', // Setting font-size
+                    fontWeight: '500', // Normal font weight
                     lineHeight: 'normal', // Normal line-height
+                    paddingBottom: '4px', 
                 }}
-
                 >
                     {title}
-                </p>
+                </div>
                 <div className="flex flex-row items-center">
                     <span style={{
                         color: '#000',
@@ -43,10 +52,12 @@ function PricingCard({ rows, price, title, plan, desc }) {
                         fontSize: '42px',
                         fontWeight: '600',
                         lineHeight: '48px', // Custom line height
+                        display: 'flex', // Use flexbox to align items vertically
+                        alignItems: 'flex-end', // Align items to the bottom
                     }}
                         className="text-center"
                     >
-                        ${price}
+                        <span style={{ fontSize: '24px', marginBottom: '6px' }}>$</span>{price}
                     </span>
                     <span style={{
                         color: '#606F7B', // Grey color
@@ -67,6 +78,7 @@ function PricingCard({ rows, price, title, plan, desc }) {
                         fontSize: '16px',
                         fontWeight: '400',
                         lineHeight: '24px', // 150%
+                        paddingLeft: '4px'
                     }}>
                         {desc}
                     </div>
@@ -114,7 +126,7 @@ function PricingCard({ rows, price, title, plan, desc }) {
                         // }}
                             className="text-main-teal font-Inter font-semibold text-lg m-0 p-2 hover:text-whitesmoke-100"
                         >
-                            {isLoggedIn ? (isProSubscription ? "Go To Homework" : "Choose Plan") : "Choose Plan"}
+                            {isLoggedIn ? (isProSubscription ? "Go To Homework" : buttonDesc) : buttonDesc}
                         </p>
                     </button>
                 </div>
