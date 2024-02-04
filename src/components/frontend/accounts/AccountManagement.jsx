@@ -25,6 +25,12 @@ const AccountManagement = () => {
   const [showConfirmationEndSub, setShowConfirmationEndSub] = useState(false);
   const [endSubMessage, setEndSubMessage] = useState('');
 
+  // const for checking that payment was successful
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const token = urlParams.get('token');
+  const plan = urlParams.get('plan');
+
   const containerStyle = {
     border: '1px solid #20a7a1',
     padding: '20px',
@@ -68,6 +74,16 @@ const AccountManagement = () => {
     width: '300px',
   };
 
+  // If the token is correct, change the local context
+  useEffect(() => {
+    if (token ==="CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA") {
+      const updatedContext = { ...userData[0], SubscriptionLevel: { S: plan } };
+      const updatedUserData = [...userData];
+      updatedUserData[0] = updatedContext;
+      updateUserData(updatedUserData);
+    }
+  }, [token]);
+
   // If there are changes on the screen, notify them before naviagting away
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -83,7 +99,6 @@ const AccountManagement = () => {
     // Add a 'beforeunload' event listener to show a confirmation dialog
     window.addEventListener('beforeunload', handleBeforeUnload);
     // console.log('changesMade has chaged to', changesMade);
-
     return () => {
       // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);

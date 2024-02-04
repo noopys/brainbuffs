@@ -72,7 +72,7 @@ exports.handler = async (event) => {
       },
     ],
     mode: "subscription",
-    success_url: `https://www.brainbuffstutoring.com/`,
+    success_url: `https://www.brainbuffstutoring.com/manageAccount?token=CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA&plan=practice`,
     cancel_url: `https://www.brainbuffstutoring.com/`,
     automatic_tax: { enabled: true },
     subscription_data: {
