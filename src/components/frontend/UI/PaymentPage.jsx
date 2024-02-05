@@ -43,41 +43,6 @@ export const CheckoutForm = () => {
           console.error('Error:', error);
         });
     }
-    // const fetchData = async () => {
-    //   let url = '';
-    //   let mode = '';
-    //   if (plan === "develyn" || plan === "bearcreek") {
-    //     url = "https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/create-checkout-session";
-    //     mode = "payment";
-    //   } else if (plan === "pro" || plan === "practice") {
-    //     url = "https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/createCheckoutSessionSubscription";
-    //     mode = "subscription";
-    //   }
-
-    //   if (url) {
-    //     try {
-    //       const response = await fetch(url, {
-    //         method: "POST",
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ product: plan }),
-    //       });
-    //       const data = await response.json();
-    //       window.location.href = data.url;
-
-    //       // Update user data after successful redirection
-    //       const updatedContext = { ...userData[0], SubscriptionLevel: { S: "practice" } };
-    //       const updatedUserData = [...userData];
-    //       updatedUserData[0] = updatedContext;
-    //       updateUserData(updatedUserData);
-    //     } catch (error) {
-    //       console.error('Error:', error);
-    //     }
-    //   }
-    // };
-
-    // fetchData(); // Call the async function
   }, [plan]);
 
 //console.log(clientSecret);

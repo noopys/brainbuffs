@@ -21,7 +21,10 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    loadSessionToken();
+    const fetchData = async () => {
+      await loadSessionToken();
+    };
+    fetchData();
   }, []);
 
   const loadSessionToken = async () => {
@@ -123,7 +126,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('userData', JSON.stringify(updatedUserData));
   };
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, userData, updateUser, updateUserData, login, logout, updateInCurrSess}}>
+    <AuthContext.Provider value={{ isLoggedIn, user, userData, updateUser, updateUserData, login, logout, updateInCurrSess, fetchDataFromDynamoDB }}>
       {children}
     </AuthContext.Provider>
   );

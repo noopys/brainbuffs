@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext';
+import { Link } from 'react-router-dom';
 
 const AccountManagement = () => {
   // get info from local auth session
-  const { isLoggedIn, logout, user, userData, updateUser, updateUserData } = useAuth();
+  const { isLoggedIn, logout, user, userData, updateUser, updateUserData, fetchDataFromDynamoDB } = useAuth();
 
   // const for change phone# or full name
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
@@ -21,15 +22,17 @@ const AccountManagement = () => {
   const [error, setError] = useState('');
   const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [endSubMessage, setEndSubMessage] = useState('');
+
+  // const for conditional Rendering  
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showConfirmationEndSub, setShowConfirmationEndSub] = useState(false);
-  const [endSubMessage, setEndSubMessage] = useState('');
+  const [isProSubscription, setIsProSubscription] = useState(false);
 
   // const for checking that payment was successful
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const token = urlParams.get('token');
-  const plan = urlParams.get('plan');
 
   const containerStyle = {
     border: '1px solid #20a7a1',
@@ -76,13 +79,25 @@ const AccountManagement = () => {
 
   // If the token is correct, change the local context
   useEffect(() => {
-    if (token ==="CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA") {
-      const updatedContext = { ...userData[0], SubscriptionLevel: { S: plan } };
-      const updatedUserData = [...userData];
-      updatedUserData[0] = updatedContext;
-      updateUserData(updatedUserData);
+    // console.log("printing the token", token);
+    if (user && user.username && token ==="CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA") {
+      console.log("context before:", userData);
+      fetchDataFromDynamoDB(user.username);
+      console.log("Updated local context plan to", userData);
     }
-  }, [token]);
+  }, [user, token]);
+
+  // Your logic to check if SubscriptionLevel is "pro" or "practice"
+  useEffect(() => {
+    if (userData && userData.length > 0) {
+      const subscriptionLevel = userData[0]?.SubscriptionLevel?.S;
+      if (subscriptionLevel === 'pro' || subscriptionLevel === 'practice') {
+        setIsProSubscription(true);
+      } else {
+        setIsProSubscription(false);
+      }
+    }
+  }, [userData]);
 
   // If there are changes on the screen, notify them before naviagting away
   useEffect(() => {
@@ -235,6 +250,7 @@ const AccountManagement = () => {
       const messageDelay = 5000; // 5 seconds delay (adjust as needed)
       const messageTimer = setTimeout(() => {
         setEndSubMessage('');
+        setShowConfirmationEndSub(false);
       }, messageDelay);
 
       return () => clearTimeout(messageTimer);
@@ -330,11 +346,22 @@ const AccountManagement = () => {
                       <div style={{ fontSize: '1em', fontWeight: 'bold' }}>
                         Current Plan: {(userData.length > 0 && userData[0].SubscriptionLevel !== undefined) ? (userData[0].SubscriptionLevel.S) : ("Free")}
                       </div>
+                      {isProSubscription ? (
                       <div>
-                        Next Due Date:
+                        {/* <div>
+                          Next Due Date:
+                        </div> */}
+                        <button style={buttonStyle} onClick={confirmEndSub}>End Subscription</button>
                       </div>
-                    <button style={buttonStyle} onClick={confirmEndSub}>End Subscription</button>
-                  </div>
+                      ) : (
+                        <div>
+                          <Link to="/#PricingCards" >
+                                <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans&nbsp; &rarr; </button>
+                          </Link>
+                        </div>
+                      )}
+                      
+                    </div>
                   )} 
                   {/* End end sub extension*/}
                   {endSubMessage && <p>{endSubMessage}</p>}
