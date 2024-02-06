@@ -26,7 +26,7 @@ function Homework(props) {
   const [userProfile, setUserProfile] = useState(null);
   const [questionData, setQuestionData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   // console.log("USER DATA: ", userData);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questionDataArray, setQuestionDataArray] = useState([]);
