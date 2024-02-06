@@ -214,7 +214,7 @@ const HomeworkIntermediate = () => {
               </>
             ) : (
               <>
-                <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('English')}>
+                <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('Math')}>
                   Math
                 </button>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('English')}>

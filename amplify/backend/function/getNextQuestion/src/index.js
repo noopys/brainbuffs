@@ -257,7 +257,7 @@ exports.handler = async (event) => {
 
     const requestBody = JSON.parse(event.body);
     const userId = requestBody.userId;
-    const numOfQs = 2;
+    const numOfQs = 10;
 
     const { UserProfile, EnglishUserProfile, CurrHWNum, InCurrSess, CurrRecordIds } = await getUserProfile(userId);
 
