@@ -26,7 +26,7 @@ function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) 
         <div className="flex flex-col m-4 gap-2 w-[380px] bg-white border border-gray-300 rounded-lg shadow-lg font-poppins">
             {showBanner ? (
                 <div className="bg-red-500 text-white py-1 px-4 rounded-t-lg flex justify-center items-center font-poppins">
-                    <div className="text-center" style={{ fontSize: '22px' }}>SALE</div>
+                    <div className="text-center" style={{ fontSize: '22px' }}>DISCOUNT</div>
                 </div>
             ): (
                 <div className="bg-white text-white py-1 px-4 rounded-t-lg">
