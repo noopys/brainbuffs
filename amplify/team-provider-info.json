@@ -23,7 +23,7 @@
         },
         "getNextQuestion": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/getNextQuestion-6e5568444b494f626843-build.zip"
+          "s3Key": "amplify-builds/getNextQuestion-6f75766a787771395857-build.zip"
         },
         "addUser": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
@@ -35,7 +35,7 @@
         },
         "createCheckoutSessionSubscription": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/createCheckoutSessionSubscription-52424a6e635570336879-build.zip"
+          "s3Key": "amplify-builds/createCheckoutSessionSubscription-70396259653969685a69-build.zip"
         },
         "ViewPreviousAssignments": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
@@ -47,12 +47,12 @@
         },
         "handleSubscriptionEvent": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/handleSubscriptionEvent-6c2f546a4e7172336134-build.zip"
+          "s3Key": "amplify-builds/handleSubscriptionEvent-746b4f316c777a686b63-build.zip"
         },
         "cancelSubscription": {},
         "endSubscription": {
           "deploymentBucketName": "amplify-brainbuffs-staging-171706-deployment",
-          "s3Key": "amplify-builds/endSubscription-33687774444b3237574b-build.zip"
+          "s3Key": "amplify-builds/endSubscription-44507636684b55666a38-build.zip"
         }
       },
       "auth": {
