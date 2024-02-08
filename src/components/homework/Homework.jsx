@@ -350,12 +350,12 @@ function Homework(props) {
               {isSubmitting ? <Oval color="#fff" secondaryColor="#fff" height={20} width={20} /> : 'Submit'}
             </button>
             {/* AI Assisted Tutor button spanning across all columns on larger screens */}
-            {/* <button
+            <button
               onClick={toggleChat}
               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
             >
               AI Assisted Tutor
-            </button> */}
+            </button> 
           </div>
         </div>
 
