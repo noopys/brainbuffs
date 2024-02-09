@@ -34,6 +34,7 @@ const HomeworkIntermediate = () => {
 
   // Conditional Rendering
   const [shouldShowLegend, setShouldShowLegend] = useState(true);
+  const [shouldStack, setShouldStack] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isProSubscription, setIsProSubscription] = useState(false);
 
@@ -60,6 +61,7 @@ const HomeworkIntermediate = () => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
       setShouldShowLegend(window.innerWidth >= 960);
+      setShouldStack(window.innerWidth <= 600);
     };
     // Add event listener to track window resize
     window.addEventListener('resize', handleResize);
@@ -117,7 +119,7 @@ const HomeworkIntermediate = () => {
     borderRadius: '10px',
     margin: '20px auto',
     fontFamily: 'poppins',
-    borderBottom: '1px solid #20a7a1',
+    // borderBottom: '1px solid #20a7a1',
     maxWidth: '1920px', // Set the max width to 1920px
     width: '100%', // Make the width 100% for responsiveness
   };
@@ -161,7 +163,8 @@ const HomeworkIntermediate = () => {
     borderRadius: '0', // Set to 0 for rectangle shape
     cursor: 'pointer',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    width: '300px',
+    width: '100%',
+    maxWidth: '400px',
     margin: '8px',
   };
 
@@ -182,24 +185,27 @@ const HomeworkIntermediate = () => {
 
   return (
     <div style={containerStyle}>
-      <h1 className="font-poppins text-3xl font-bold capitalize">Welcome to Adaptive Practice</h1>
-
+      <h1 className="font-poppins font-bold ">My Practice Dashboard</h1>
+      <h4 className="font-bold">Select a subject to study or review previous practice.</h4>
       <div style={chartContainerStyle} className="lg:flex">
 
 
         {/* Content Container */}
-        <div style={{ ...contentContainerStyle, ...buttonContainerStyle }}>
+        <div style={{ ...contentContainerStyle }}>
 
-          <h2 className="text-2xl font-bold my-4">Select Subject to Study or Review Previous Assignments</h2>
+          
 
           {/* Button Container */}
           <div style={buttonContainerStyle}>
             {isInCurrSess ? (
               <>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 text-white font-bold" onClick={() => handleNavigateToSubject('Math')}>
-                  Continue Previous Practice
+                  Resume Previous Session
                 </button>
-                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
+                <div>
+                  Please finish your previous assignment before starting a new one
+                </div>
+                {/* <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
                   Math
                 </button>
                 <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
@@ -210,10 +216,10 @@ const HomeworkIntermediate = () => {
                 </button>
                 <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
                   Previous Assignments
-                </button>
+                </button> */}
               </>
             ) : (
-              <>
+                <div style={{ display: shouldStack ? 'flex' : 'grid', gridTemplateColumns: shouldStack ? '': 'repeat(2, 1fr)', gap: '10px', flexDirection: 'column' }}>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('Math')}>
                   Math
                 </button>
@@ -221,14 +227,18 @@ const HomeworkIntermediate = () => {
                   English
                 </button>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('Both')}>
-                  Both
+                  Math and English
                 </button>
                 <button  className="bg-main-teal hover:bg-main-teal-400 font-bold" style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
-                  Previous Assignments
+                  Review Previous Practice
                 </button>
-              </>
+              </div>
             )}
           </div>
+        </div>
+        
+        <div>
+          <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2>
         </div>
 
         {/* Include the MissedConceptsChart component with actual data */}
@@ -258,7 +268,6 @@ const HomeworkIntermediate = () => {
             <MissedConceptsChart chartData={missedEnglishConceptsChartData} shouldShowLegend={shouldShowLegend} />
           </div>
         </div>
-
       </div>
     </div>
   );
