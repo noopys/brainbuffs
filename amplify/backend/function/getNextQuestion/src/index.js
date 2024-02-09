@@ -172,13 +172,15 @@ async function getQuestions(subject, numOfQs, userId, userProfile) {
         const imageUrl = fields['questionImage'] || null;
         const answer = fields['Answer'];
         const recordId = fields['recordID'];
+        const questionText = fields['questionText'];
 
         return {
             recordId: recordId,
             imageUrl: imageUrl,
             answer: answer,
             concepts: concepts,
-            subject: subject  // Add the subject field to each question
+            subject: subject,  // Add the subject field to each question
+            questionText: questionText,
         };
     });
 
@@ -234,13 +236,15 @@ async function getBothQuestions(subject, numOfQs, userId, userProfile, currHw) {
         const imageUrl = fields['questionImage'] || null;
         const answer = fields['Answer'];
         const recordId = fields['recordID'];
+        const questionText = fields['questionText'];
 
         return {
             recordId: recordId,
             imageUrl: imageUrl,
             answer: answer,
             concepts: concepts,
-            subject: subject  // Add the subject field to each question
+            subject: subject,  // Add the subject field to each question
+            questionText: questionText,
         };
     });
 
@@ -292,13 +296,15 @@ exports.handler = async (event) => {
                 const answer = fields['Answer'];
                 const recordId = fields['recordID'];
                 const subject = fields['Field'];  // Extract subject from "Field" column
+                const questionText = fields['questionText'];
                 
                 return {
                     recordId: recordId,
                     imageUrl: imageUrl,
                     answer: answer,
                     concepts: concepts,
-                     subject: subject
+                    subject: subject,
+                    questionText: questionText,
                 };
             });
 
