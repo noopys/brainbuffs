@@ -10,6 +10,7 @@ exports.handler = async (event) => {
     // Parse the incoming event to get the user's question
     // Assuming the question is sent as a query string parameter or part of the body in a POST request
     const userQuestion = event.queryStringParameters?.question || JSON.parse(event.body)?.question;
+    const threadId = event.queryStringParameters?.threadId || JSON.parse(event.body)?.threadId;
 
     // Create an assistant
     const assistantResponse = await openai.beta.assistants.create({
@@ -18,9 +19,14 @@ exports.handler = async (event) => {
       model: "gpt-4-1106-preview",
     });
 
-    // Create a thread
-    const threadResponse = await openai.beta.threads.create();
-    console.log(threadResponse)
+    let threadResponse;
+    // Create a new thread if threadId is empty
+    if (!threadId) {
+      threadResponse = await openai.beta.threads.create();
+    } else {
+      threadResponse = { id: threadId }; // Use the provided threadId
+    }
+
     // Add the user's question to the thread
     await openai.beta.threads.messages.create(threadResponse.id, {
       role: "user",
@@ -38,13 +44,9 @@ exports.handler = async (event) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         runStatus = await openai.beta.threads.runs.retrieve(threadResponse.id, runResponse.id);
      }
-    // Simplification: Directly using the status without a polling loop due to Lambda execution time and cost considerations
-    //await new Promise(r => setTimeout(r, 10000));
+
     // Retrieve the messages, assuming the run completes quickly
     const messages = await openai.beta.threads.messages.list(threadResponse.id);
-    console.log("HEREEER")
-    console.log(messages.data[0].content)
-    console.log(messages.data[1].content)
 
     // Find the last assistant message
     const lastMessageForRun = messages.data
