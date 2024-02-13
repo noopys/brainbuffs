@@ -42,18 +42,43 @@ function Homework(props) {
 
   const handleUserInput = (e) => setUserInput(e.target.value);
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault(); // Prevent the form from submitting in a traditional way
     if (!userInput.trim()) return;
 
     // Add user message to messages array
-    setMessages([...messages, { sender: 'user', text: userInput }]);
+    setMessages(prevMessages => [...prevMessages, { sender: 'user', text: userInput }]);
     setUserInput(''); // Clear input field
 
-    // Simulate a bot response
-    setTimeout(() => {
-      setMessages(messages => [...messages, { sender: 'bot', text: "This is a response from the chatbot." }]);
-    }, 500);
+    //Call for response
+    const apiEndpoint = 'https://vwbn1svuug.execute-api.us-west-2.amazonaws.com/invokeAIAssistant-staging';
+
+    const threadId = sessionStorage.getItem('threadId');
+
+    // Set up the fetch options
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        question: userInput, 
+        threadId: threadId
+      })
+    };
+
+    // Use the fetch API to send the question to your Lambda function
+    const response = await fetch(apiEndpoint, fetchOptions)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const answer = data.answer
+    const threadIdToSet = data.threadId
+    sessionStorage.setItem('threadId', threadIdToSet);
+    setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
+
   };
 
   useEffect(() => {
@@ -289,9 +314,9 @@ function Homework(props) {
             {isChatOpen && (
               <div className="md:absolute ml-14 w-96" style={{ paddingTop: "20px" }}> {/* Adjusted positioning styles */}
                 <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
-                  <div className="p-4 border-b bg-blue-500 text-white rounded-t-lg flex justify-between items-center">
-                    <p className="text-lg font-semibold">Admin Bot</p>
-                    <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400">
+                  <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
+                    <p className="text-lg font-semibold">AI Assisted Tutor</p>
+                    <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
                       {/* Close icon */}
                     </button>
                   </div>
@@ -299,7 +324,7 @@ function Homework(props) {
                     {/* Display messages */}
                     {messages.map((message, index) => (
                       <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : ''}`}>
-                        <p className={`rounded-lg py-2 px-4 inline-block ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}>
+                        <p className={`rounded-lg py-2 px-4 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
                           {message.text}
                         </p>
                       </div>
@@ -313,7 +338,7 @@ function Homework(props) {
                       placeholder="Type a message"
                       className="w-full px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <button onClick={handleSendMessage} className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">
+                    <button onClick={handleSendMessage} className="bg-main-teal text-white px-4 py-2 rounded-r-md hover:bg-main-teal-400 transition duration-300">
                       Send
                     </button>
                   </div>
@@ -352,10 +377,10 @@ function Homework(props) {
             {/* AI Assisted Tutor button spanning across all columns on larger screens */}
             <button
               onClick={toggleChat}
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
+              className="bg-main-teal text-white py-2 px-4 rounded-md hover:bg-main-teal-400 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
             >
               AI Assisted Tutor
-            </button> 
+            </button>
           </div>
         </div>
 
