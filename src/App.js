@@ -43,7 +43,7 @@ import HomeworkAnswered from './components/homework/HomeworkAnswered';
 
 import HomeworkIntermediate from './components/homework/HomeworkIntermediate';
 import ViewPreviousAssignments from './components/homework/ViewPreviousAssignments';
-
+import RenderLatex from './components/homework/RenderLatex';
 
 Amplify.configure(config);
 
@@ -93,6 +93,7 @@ function App() {
               <Route path="/homework-answered" element={<HomeworkAnswered />} />
               <Route path="/homework-intermediate" element={<HomeworkIntermediate/>}/>
               <Route path="/view-previous-practice" element={<ViewPreviousAssignments />} />
+              <Route path="/viewAllLatex" element={<RenderLatex />} />
 
             </Routes>
           </div>
