@@ -28,11 +28,26 @@ function RenderLatex() {
         fetchQuestions();
     }, []);
 
+    // return (
+    //     <div>
+    //         <h1>Hello!</h1>
+    //         {questions.map(question => (
+    //             <div key={question.recordID}>
+    //                 {question.questionText && (
+    //                     <div>
+    //                         <InlineMath math={question.questionText} />
+    //                     </div>
+    //                 )}
+    //                 {question.questionImage && <img src={question.questionImage} alt="Question" />}
+    //             </div>
+    //         ))}
+    //     </div>
+    // );
     return (
         <div>
-            <h1>Hello!</h1>
             {questions.map(question => (
-                <div key={question.recordID}>
+                <div key={question.recordID} style={{ border: '2px solid green', padding: '10px', marginBottom: '10px' }}>
+                    <div>Record ID: {question.recordID}</div>
                     {question.questionText && (
                         <div>
                             <InlineMath math={question.questionText} />
