@@ -43,7 +43,7 @@ import HomeworkAnswered from './components/homework/HomeworkAnswered';
 
 import HomeworkIntermediate from './components/homework/HomeworkIntermediate';
 import ViewPreviousAssignments from './components/homework/ViewPreviousAssignments';
-import RenderLatex from './components/homework/RenderLatex';
+import RenderLatex from './components/test/RenderLatex';
 
 Amplify.configure(config);
 
