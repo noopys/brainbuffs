@@ -4,6 +4,7 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { updateUser } from '../helpers/updateUser';
+import { Discuss } from 'react-loader-spinner';
 import Chat from './Chat.jsx'
 
 function Homework(props) {
@@ -27,7 +28,7 @@ function Homework(props) {
   const [questionData, setQuestionData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  // console.log("USER DATA: ", userData);
+  const [isLoadingChat, setIsLoadingChat] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questionDataArray, setQuestionDataArray] = useState([]);
   const [answers, setAnswers] = useState(Array(questionDataArray.length).fill(''));
@@ -46,6 +47,9 @@ function Homework(props) {
     e.preventDefault(); // Prevent the form from submitting in a traditional way
     if (!userInput.trim()) return;
 
+    //start loading spinner 
+    setIsLoadingChat(true);
+
     // Add user message to messages array
     setMessages(prevMessages => [...prevMessages, { sender: 'user', text: userInput }]);
     setUserInput(''); // Clear input field
@@ -53,7 +57,11 @@ function Homework(props) {
     //Call for response
     const apiEndpoint = 'https://vwbn1svuug.execute-api.us-west-2.amazonaws.com/invokeAIAssistant-staging';
 
-    const threadId = sessionStorage.getItem('threadId');
+    //
+    let threadId = sessionStorage.getItem('threadId');
+    if (threadId == "undefined") {
+      threadId = null;
+    }
 
     // Set up the fetch options
     const fetchOptions = {
@@ -62,23 +70,28 @@ function Homework(props) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        question: userInput, 
+        question: userInput,
         threadId: threadId
       })
     };
 
     // Use the fetch API to send the question to your Lambda function
     const response = await fetch(apiEndpoint, fetchOptions)
+    //Stop loading spinner 
+    setIsLoadingChat(false);
+    //Problem in response 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      console.log("Error in the response format")
+      setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: "Our AI bot is currently having issues. Please check back later. We appreciate your patience" }]);
     }
-
-    const data = await response.json();
-    const answer = data.answer
-    const threadIdToSet = data.threadId
-    sessionStorage.setItem('threadId', threadIdToSet);
-    setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
-
+    //Response looks good
+    else {
+      const data = await response.json();
+      const answer = data.answer
+      const threadIdToSet = data.threadId
+      sessionStorage.setItem('threadId', threadIdToSet);
+      setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
+    }
   };
 
   useEffect(() => {
@@ -320,21 +333,34 @@ function Homework(props) {
                       {/* Close icon */}
                     </button>
                   </div>
-                  <div className="p-4 h-80 overflow-y-auto">
-                    {/* Display messages */}
+                  {/* Display messages */}
+                  <div style={{overflowY: "auto",  maxHeight: "300px"}}>
                     {messages.map((message, index) => (
-                      <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : ''}`}>
-                        <p className={`rounded-lg py-2 px-4 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
+                      <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right mr-4' : 'ml-6'}`}>
+                        <p className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
                           {message.text}
                         </p>
                       </div>
                     ))}
+                    <div className="pr-52">
+                      <Discuss
+                        visible={isLoadingChat}
+                        height="80"
+                        width="80"
+                        ariaLabel="discuss-loading"
+                        wrapperStyle={{ maxHeight: '200px', overflowY: 'auto' }} // Add this style
+                        wrapperClass="align-right"
+                        colors={['#20a7a1', '#20a7a1']}
+                        backgroundColor="#11111"
+                      />
+                    </div>
                   </div>
                   <div className="p-4 border-t flex">
                     <input
                       type="text"
                       value={userInput}
                       onChange={handleUserInput}
+                      onKeyDown={(e) => e.key === 'Enter' ? handleSendMessage(e) : null}
                       placeholder="Type a message"
                       className="w-full px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
