@@ -45,13 +45,37 @@ function Homework(props) {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
 
-  const toggleChat = () => {
-    if(!isChatOpen){
+  const toggleChat = async () => {
+    //Save old state so can open quickly
+    let prevState = isChatOpen
+    setIsChatOpen(!isChatOpen);
+    if (!prevState) {
       //Send initial message with the contents of the question
       setIsLoadingChat(true);
-      const response = await sendMessageToAI()
+      let messageToSend;
+      if (questionData.questionText) {
+        messageToSend = "THIS IS BACKGROUND INFO FOR THE AI BOT IT IS NOT THE STUDENTS ANSWER USE IT TO HELP THE STUDENT BUT DONT TELL THEM THIS ANSWER ITS JUST THE QUESTION AND ANSWER SO YOU CAN HELP THEM ALSO NEVER RESPOND WITH LATEX: The quesiton is " + questionData.questionText + "and the answer is " + questionData.answer;
+      }
+      else {
+        messageToSend = "THIS IS BACKGROUND INFO TO HELP YOU HELP STUDENT THIS IS NOT THEIR ANSWER ALSO NEVER RESPOND WITH LATEX: The answer is " + questionData.answer
+      }
+      const response = await sendMessageToAI(messageToSend);
+
+      setIsLoadingChat(false);
+      //Problem in response 
+      if (!response || !response.answer) {
+        console.log("Error in the response format")
+        setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: "Our AI bot is currently having issues. Please check back later. We appreciate your patience" }]);
+      }
+      //Response looks good
+      else {
+        //const data = await response.json();
+        const answer = response.answer
+        const threadIdToSet = response.threadId
+        sessionStorage.setItem('threadId', threadIdToSet);
+        setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
+      }
     }
-    setIsChatOpen(!isChatOpen);
   };
 
   const handleUserInput = (e) => setUserInput(e.target.value);
@@ -268,27 +292,27 @@ function Homework(props) {
           <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
             <Card.Body>
               {questionData.questionText ? (
-                  <div>
-                    <InlineMath math={questionData.questionText} />
-                  </div>
-                ) : (
-                  <div>
-                    {!questionData.imageUrl ? (
+                <div>
+                  <InlineMath math={questionData.questionText} />
+                </div>
+              ) : (
+                <div>
+                  {!questionData.imageUrl ? (
+                    <div className="flex justify-center items-center h-64">
                       <div className="flex justify-center items-center h-64">
-                        <div className="flex justify-center items-center h-64">
-                          {isLoading && (
-                            <div className="mt-3 md:mt-0 md:ml-2">
-                              <Oval color="#20a7a1" secondaryColor="#20a7a1" />
-                            </div>
-                          )}
-                        </div>
-                        <div className="pl-10">Question Image Loading ...</div>
-
+                        {isLoading && (
+                          <div className="mt-3 md:mt-0 md:ml-2">
+                            <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
-                    )}
-                  </div>
+                      <div className="pl-10">Question Image Loading ...</div>
+
+                    </div>
+                  ) : (
+                    <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
+                  )}
+                </div>
               )}
             </Card.Body>
             {
@@ -334,10 +358,10 @@ function Homework(props) {
                     </button>
                   </div>
                   {/* Display messages */}
-                  <div style={{overflowY: "auto",  maxHeight: "300px"}}>
+                  <div style={{ overflowY: "auto", maxHeight: "300px" }}>
                     {messages.map((message, index) => (
                       <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right mr-4' : 'ml-6'}`}>
-                        <p className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
+                        <p  style={{textAlign:"left"}} className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
                           {message.text}
                         </p>
                       </div>
@@ -407,6 +431,12 @@ function Homework(props) {
             >
               AI Assisted Tutor
             </button>
+            <div
+              onClick={toggleChat}
+              className="bg-main-teal text-white py-2 px-4 rounded-md hover:bg-main-teal-400 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
+            >
+              Found an issue with a question? 
+            </div>
           </div>
         </div>
 
