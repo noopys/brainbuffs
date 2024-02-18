@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 // latex
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
+import { Link } from 'react-router-dom'
 // helper files
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { updateUser } from '../helpers/updateUser';
@@ -361,7 +362,7 @@ function Homework(props) {
                   <div style={{ overflowY: "auto", maxHeight: "300px" }}>
                     {messages.map((message, index) => (
                       <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right mr-4' : 'ml-6'}`}>
-                        <p  style={{textAlign:"left"}} className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
+                        <p style={{ textAlign: "left" }} className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
                           {message.text}
                         </p>
                       </div>
@@ -431,12 +432,9 @@ function Homework(props) {
             >
               AI Assisted Tutor
             </button>
-            <div
-              onClick={toggleChat}
-              className="bg-main-teal text-white py-2 px-4 rounded-md hover:bg-main-teal-400 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
-            >
-              Found an issue with a question? 
-            </div>
+          </div>
+          <div className="w-72 align-center pt-4">
+            Found an issue with a question? Click <Link to="/contact">here</Link> and report it.
           </div>
         </div>
 
