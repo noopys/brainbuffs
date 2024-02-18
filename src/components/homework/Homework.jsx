@@ -4,6 +4,7 @@ import { useAuth } from '../frontend/accounts/AuthContext';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { updateUser } from '../helpers/updateUser';
+import { sendMessageToAI } from './helpers/sendMessageToAI.js';
 import { Discuss } from 'react-loader-spinner';
 import Chat from './Chat.jsx'
 
@@ -39,7 +40,14 @@ function Homework(props) {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
 
-  const toggleChat = () => setIsChatOpen(!isChatOpen);
+  const toggleChat = () => {
+    if(!isChatOpen){
+      //Send initial message with the contents of the question
+      setIsLoadingChat(true);
+      const response = await sendMessageToAI()
+    }
+    setIsChatOpen(!isChatOpen);
+  };
 
   const handleUserInput = (e) => setUserInput(e.target.value);
 
@@ -54,41 +62,19 @@ function Homework(props) {
     setMessages(prevMessages => [...prevMessages, { sender: 'user', text: userInput }]);
     setUserInput(''); // Clear input field
 
-    //Call for response
-    const apiEndpoint = 'https://vwbn1svuug.execute-api.us-west-2.amazonaws.com/invokeAIAssistant-staging';
-
-    //
-    let threadId = sessionStorage.getItem('threadId');
-    if (threadId == "undefined") {
-      threadId = null;
-    }
-
-    // Set up the fetch options
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        question: userInput,
-        threadId: threadId
-      })
-    };
-
-    // Use the fetch API to send the question to your Lambda function
-    const response = await fetch(apiEndpoint, fetchOptions)
+    const response = await sendMessageToAI(userInput);
     //Stop loading spinner 
     setIsLoadingChat(false);
     //Problem in response 
-    if (!response.ok) {
+    if (!response || !response.answer) {
       console.log("Error in the response format")
       setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: "Our AI bot is currently having issues. Please check back later. We appreciate your patience" }]);
     }
     //Response looks good
     else {
-      const data = await response.json();
-      const answer = data.answer
-      const threadIdToSet = data.threadId
+      //const data = await response.json();
+      const answer = response.answer
+      const threadIdToSet = response.threadId
       sessionStorage.setItem('threadId', threadIdToSet);
       setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
     }
