@@ -146,7 +146,7 @@ const Frame = () => {
                   <PersonCard
                     name="Sandy Dinegar"
                     role="Chief Business Officer and Cofounder"
-                    description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
+                    description="Sandy, a double major in Economics and Philosophy at the University of Colorado Boulder, brings a unique approach to SAT tutoring with strong adaptability and refined problem-solving skills. He leads our team of tutors to deliver a high quality tutoring experience to all of our students. Notably, Sandy excelled on the basketball court, achieving 1st Team All-Conference honors in high school. Applying this dedication to SAT tutoring, he guides students with analytical skills for success."
                     imageSrc="/sandy-headshot-1@2x.png"
                   />
 
@@ -160,7 +160,7 @@ const Frame = () => {
                   <PersonCard
                     name="Isaac Li"
                     role="Lead Software Developer"
-                    description="Isaac, a Cybersecurity graduate student at University of Colorado Boulder, holds a B.S. in Computer Science and holds a remarkable 98th percentile SAT score. His proficiency in web development for students is a result of his unique fusion of academic depth and hands-on expertise, ensuring user-friendly platforms through a blend of theoretical understanding and practical application."
+                    description="Isaac, a Cybersecurity graduate student at University of Colorado Boulder, holds a B.S. in Computer Science and holds a remarkable 98th percentile SAT score. He leads our team of software engineers to deliver an exceptional online platform. His proficiency in web development for students is a result of his unique fusion of academic depth and hands-on expertise, ensuring user-friendly platforms through a blend of theoretical understanding and practical application."
                     imageSrc="/isaac.jpg"
                   />
                 </div>

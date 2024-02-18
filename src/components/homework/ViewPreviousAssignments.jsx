@@ -4,6 +4,10 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 import { Oval } from 'react-loader-spinner'; // Import the loader component
 
+// latex
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
+
 function ViewPreviousAssignments() {
   const { isLoggedIn, user } = useAuth();
   const [noAssignmentsFound, setNoAssignmentsFound] = useState({});
@@ -91,17 +95,33 @@ function ViewPreviousAssignments() {
                 <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black text-center rounded-lg" style={{ background: '#f3f4f6' }}>
                   {/* Display homework set data here */}
                   {homeworkSets[homeworkSet].map((question, questionIndex) => (
-                    <div key={questionIndex} style={{ marginBottom: '30px', padding: '20px', border: '1px solid #20a7a1', borderRadius: '8px', background: 'none' }}>
-                      <h3 style={{ marginBottom: '10px' }}>Question {questionIndex + 1}</h3>
-                      {question.questionImage && (
-                        <img src={question.questionImage} alt={`Question ${questionIndex + 1}`} style={{ maxWidth: '100%', marginBottom: '15px', borderRadius: '8px' }} />
-                      )}
-                      <p><strong>Your Answer:</strong> {question.Answer}</p>
-                      <p><strong>Correct Answer:</strong> {question.CorrectAnswer}</p>
-                      {question.IsCorrect ? (
-                        <p style={{ color: 'green', marginTop: '10px' }}>Your answer is correct!</p>
+                    <div key={questionIndex} style={{ paddingTop: '20px', borderBottom: '1px solid #20a7a1', borderRadius: '0px', width: '100%' }}>
+                      <h3 style={{ marginBottom: '10px', textDecoration: 'underline' }}>Question {questionIndex + 1}</h3>
+                      {/* If there is a text version of the question */}
+                      {question.questionText ? (
+                        <div>
+                          <InlineMath math={question.questionText} />
+                        </div>
                       ) : (
-                        <p style={{ color: 'red', marginTop: '10px' }}>Your answer is incorrect.</p>
+                        <div>
+                          {question.questionImage && (
+                            <img src={question.questionImage} alt={`Question ${questionIndex + 1}`} style={{ maxWidth: '100%', marginBottom: '15px', borderRadius: '8px' }} />
+                          )}
+                        </div>
+                      )}
+                      
+                      {question.IsCorrect ? (
+                        <div style={{ backgroundColor: 'lightgreen', borderRadius: '5px'}}>
+                          <div style={{ marginTop: '15px', fontSize: '18px' }}><strong>Your Answer:</strong> {question.Answer}</div>
+                          <div style={{ fontSize: '18px' }}><strong>Correct Answer:</strong> {question.CorrectAnswer}</div>
+                          <p style={{ color: 'darkgreen', marginTop: '10px', fontSize: '24px' }}>Your answer is correct!</p>
+                        </div>
+                      ) : (
+                        <div style={{ backgroundColor: 'red' , borderRadius: '5px'}}>
+                          <div style={{ marginTop: '15px', fontSize: '18px' }}><strong>Your Answer:</strong> {question.Answer}</div>
+                          <div style={{ fontSize: '18px' }}><strong>Correct Answer:</strong> {question.CorrectAnswer}</div>
+                          <p style={{ color: 'black', marginTop: '10px', fontSize: '24px' }}>Your answer is incorrect.</p>
+                        </div>
                       )}
                     </div>
                   ))}

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+// UI
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { useAuth } from '../frontend/accounts/AuthContext';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate, useLocation } from 'react-router-dom';
+// latex
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
+// helper files
+import { useAuth } from '../frontend/accounts/AuthContext';
 import { updateUser } from '../helpers/updateUser';
 import { sendMessageToAI } from './helpers/sendMessageToAI.js';
 import { Discuss } from 'react-loader-spinner';
@@ -210,6 +215,7 @@ function Homework(props) {
         IsCorrect: userCorrect,
         imageUrl: question.imageUrl,
         subject: question.subject,
+        questionText: question.questionText,
       };
     });
     // console.log('submitData:', submitData); // Add this line for debugging
@@ -261,20 +267,28 @@ function Homework(props) {
         <div className="flex flex-col md:flex-row justify-center items-start">
           <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
             <Card.Body>
-              {!questionData.imageUrl ? (
-                <div className="flex justify-center items-center h-64">
-                  <div className="flex justify-center items-center h-64">
-                    {isLoading && (
-                      <div className="mt-3 md:mt-0 md:ml-2">
-                        <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+              {questionData.questionText ? (
+                  <div>
+                    <InlineMath math={questionData.questionText} />
+                  </div>
+                ) : (
+                  <div>
+                    {!questionData.imageUrl ? (
+                      <div className="flex justify-center items-center h-64">
+                        <div className="flex justify-center items-center h-64">
+                          {isLoading && (
+                            <div className="mt-3 md:mt-0 md:ml-2">
+                              <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="pl-10">Question Image Loading ...</div>
+
                       </div>
+                    ) : (
+                      <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
                     )}
                   </div>
-                  <div className="pl-10">Question Image Loading ...</div>
-
-                </div>
-              ) : (
-                <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
               )}
             </Card.Body>
             {

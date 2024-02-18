@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import TickSquare from '../../resources/icons/tick_square.svg';
 import { useAuth } from '../frontend/accounts/AuthContext';
 
-function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) {
+function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc }) {
     const { isLoggedIn, userData } = useAuth();
     const [isProSubscription, setIsProSubscription] = useState(false);
 
@@ -25,12 +25,18 @@ function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) 
     return (
         <div className="flex flex-col m-4 gap-2 w-[380px] bg-white border border-gray-300 rounded-lg shadow-lg font-poppins">
             {showBanner ? (
-                <div className="bg-red-500 text-white py-1 px-4 rounded-t-lg flex justify-center items-center font-poppins">
-                    <div className="text-center" style={{ fontSize: '22px' }}>DISCOUNT</div>
-                </div>
-            ): (
+                <>
+                    <div className="bg-main-teal text-white py-1 px-4 rounded-t-lg flex justify-center items-center font-poppins">
+                        <div className="text-center" style={{ fontSize: '22px' }}>EARLY ACCESS</div>
+                    </div>
+                    <div className="bg-red-500 text-white py-1 px-4 shadow-xl flex justify-center items-center font-poppins" style={{ marginTop: '-8px' }}>
+                        <div className="text-center" style={{ fontSize: '22px' }}>DISCOUNT</div>
+                    </div>
+                </>
+
+            ) : (
                 <div className="bg-white text-white py-1 px-4 rounded-t-lg">
-                        <div className="text-center" style={{ fontSize: '22px' }}>.</div>
+                    <div className="text-center" style={{ fontSize: '22px' }}>.</div>
                 </div>
             )}
             <div className="pl-8 pb-4 justify-start items-start flex-grow">
@@ -40,7 +46,7 @@ function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) 
                     fontSize: '30px', // Setting font-size
                     fontWeight: '500', // Normal font weight
                     lineHeight: 'normal', // Normal line-height
-                    paddingBottom: '4px', 
+                    paddingBottom: '4px',
                 }}
                 >
                     {title}
@@ -103,7 +109,7 @@ function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) 
                     ))}
                 </div>
             </div>
-            <Link to={isLoggedIn ? (isProSubscription ? '/homework-intermediate' : '/checkout?plan=practice') : signupUrl} style={{textDecoration:"none"}}>
+            <Link to={isLoggedIn ? (isProSubscription ? '/homework-intermediate' : '/checkout?plan=practice') : signupUrl} style={{ textDecoration: "none" }}>
                 <div className="flex justify-center items-center pt-1 pb-5">
                     {/*Plan Sign up Buttons*/}
                     <button
@@ -116,14 +122,14 @@ function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc}) 
                         }}
                         className="flex justify-center items-center p-2 bg-whitesmoke-100 hover:bg-main-teal"
                     >
-                        <p 
-                        // style={{
-                        //     color: '#20a7a1', // Black color
-                        //     fontFamily: 'Inter',
-                        //     fontSize: '16px',
-                        //     fontWeight: '600',
-                        //     margin: 0, // Removes default margin to aid in centering
-                        // }}
+                        <p
+                            // style={{
+                            //     color: '#20a7a1', // Black color
+                            //     fontFamily: 'Inter',
+                            //     fontSize: '16px',
+                            //     fontWeight: '600',
+                            //     margin: 0, // Removes default margin to aid in centering
+                            // }}
                             className="text-main-teal font-Inter font-semibold text-lg m-0 p-2 hover:text-whitesmoke-100"
                         >
                             {isLoggedIn ? (isProSubscription ? "Go To Homework" : buttonDesc) : buttonDesc}

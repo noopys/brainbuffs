@@ -43,6 +43,7 @@ exports.handler = async (event) => {
 
             const satQuestionResponse = await docClient.get(satQuestionParams).promise();
             const imageUrl = satQuestionResponse.Item ? satQuestionResponse.Item.questionImage : null;
+            const questionText = satQuestionResponse.Item ? satQuestionResponse.Item.questionText : null;
 
             return {
                 Answer: question.Answer,
@@ -51,12 +52,13 @@ exports.handler = async (event) => {
                 RecordId: question.RecordId,
                 questionImage: imageUrl,
                 IsCorrect: question.IsCorrect,
+                questionText: questionText,
             };
         }));
 
         // Organize the data by HomeworkSet
         const organizedData = questionsWithImages.reduce((acc, question) => {
-            const { HomeworkSet, Answer, CorrectAnswer, RecordId, questionImage, IsCorrect } = question;
+            const { HomeworkSet, Answer, CorrectAnswer, RecordId, questionImage, IsCorrect, questionText } = question;
 
             if (!acc[HomeworkSet]) {
                 acc[HomeworkSet] = [];
@@ -68,6 +70,7 @@ exports.handler = async (event) => {
                 RecordId,
                 questionImage,
                 IsCorrect,
+                questionText,
             });
 
             return acc;

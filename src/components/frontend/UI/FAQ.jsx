@@ -14,11 +14,11 @@ export default function FAQ() {
     <div className="w-full px-8 pt-10 font-poppins">
       <h1 style={{fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold'}}>Frequently Asked Questions</h1>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white p-2">
-      <Disclosure>
+        <Disclosure>
           {({ open }) => (
             <>
               <Disclosure.Button className={`flex w-full justify-between rounded-lg border-[1.5px] border-teal-500 px-4 py-4 text-left text-sm font-medium text-gray-900 bg-white focus:outline-none ${open ? 'border-b-1 ' : ''}`}>
-                <span>Are virtual sessions available?</span>
+                <span>Is there a free trial for your adaptive homework?</span>
                 <ChevronUpIcon
                   className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-black-500`}
                 />
@@ -33,8 +33,58 @@ export default function FAQ() {
                 leaveTo="opacity-0 translate-y-[-30%]"
               >
                 <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black bg-green-50 text-left rounded-lg">
-                    Yes! We proudly provide a versatile range of learning opportunities, offering both virtual and in-person sessions within the Boulder area.
+                  We offer a 7-day free trial that includes our custom adaptive practice. Feel free to cancel anytime before your free trial expires, and you won't incur any charges.
                 </Disclosure.Panel>
+              </Transition>
+            </>
+          )}
+        </Disclosure>
+        <Disclosure as="div" className="mt-2">
+          {({ open }) => (
+            <>
+              <Disclosure.Button className={`flex w-full justify-between rounded-lg border-[1.5px] border-teal-500 px-4 py-4 text-left text-sm font-medium text-gray-900 bg-white focus:outline-none ${open ? 'border-b-1 ' : ''}`}>
+                <span>How does the AI adaptive practice system work?</span>
+                <ChevronUpIcon
+                  className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-black-500`}
+                />
+              </Disclosure.Button>
+              <Transition
+                show={open}
+                enter="transition-all duration-400 ease-out"
+                enterFrom="opacity-0 translate-y-[-30%]"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition-all duration-200 ease-out"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-[-30%]"
+              >
+                <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black bg-green-50 text-left rounded-lg">
+                Our one of a kind AI practice system enhances your SAT preparation by analyzing your performance on practice questions to identify areas where you're struggling. It then customizes your practice to focus on these areas, helping you improve efficiently. This adaptive platform allows ours students to improve much faster than average and consistently outperform their peers. Still not convinced? Give this platform a free trial today and don't pay unless you love it. 
+                </Disclosure.Panel>
+              </Transition>
+            </>
+          )}
+        </Disclosure>
+        <Disclosure as="div" className="mt-2">
+          {({ open }) => (
+            <>
+              <Disclosure.Button className={`flex w-full justify-between rounded-lg border-[1.5px] border-teal-500 px-4 py-4 text-left text-sm font-medium text-gray-900 bg-white focus:outline-none ${open ? 'border-b-1' : ''}`}>
+                <span>Are virtual sessions available?</span>
+                <ChevronUpIcon
+                  className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-black-500`}
+                />
+              </Disclosure.Button>
+              <Transition
+                show={open}
+                enter="transition-all duration-400 ease-out"
+                enterFrom="opacity-0 translate-y-[-30%]"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition-all duration-200 ease-out"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-[-30%]"
+              >
+              <Disclosure.Panel className="px-4 pb-3 pt-3 text-sm text-black bg-green-50 text-left rounded-lg">
+              Yes! We proudly provide a versatile range of learning opportunities, offering both virtual and in-person sessions within the Boulder area.
+              </Disclosure.Panel>
               </Transition>
             </>
           )}
