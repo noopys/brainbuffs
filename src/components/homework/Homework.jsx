@@ -6,9 +6,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 // latex
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
+import { Link } from 'react-router-dom'
 // helper files
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { updateUser } from '../helpers/updateUser';
+import { sendMessageToAI } from './helpers/sendMessageToAI.js';
+import { Discuss } from 'react-loader-spinner';
 import Chat from './Chat.jsx'
 
 function Homework(props) {
@@ -32,7 +35,7 @@ function Homework(props) {
   const [questionData, setQuestionData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  // console.log("USER DATA: ", userData);
+  const [isLoadingChat, setIsLoadingChat] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questionDataArray, setQuestionDataArray] = useState([]);
   const [answers, setAnswers] = useState(Array(questionDataArray.length).fill(''));
@@ -43,22 +46,68 @@ function Homework(props) {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
 
-  const toggleChat = () => setIsChatOpen(!isChatOpen);
+  const toggleChat = async () => {
+    //Save old state so can open quickly
+    let prevState = isChatOpen
+    setIsChatOpen(!isChatOpen);
+    if (!prevState) {
+      //Send initial message with the contents of the question
+      setIsLoadingChat(true);
+      let messageToSend;
+      if (questionData.questionText) {
+        messageToSend = "THIS IS BACKGROUND INFO FOR THE AI BOT IT IS NOT THE STUDENTS ANSWER USE IT TO HELP THE STUDENT BUT DONT TELL THEM THIS ANSWER ITS JUST THE QUESTION AND ANSWER SO YOU CAN HELP THEM ALSO NEVER RESPOND WITH LATEX THE NEXT MESSAGE YOU SEND IS TO THE STUDENT THEY HAVENT SEEN THIS: The quesiton is " + questionData.questionText + "and the answer is " + questionData.answer;
+      }
+      else {
+        messageToSend = "RESPOND TO THIS MESSAGE WITH A MESSAGE UNRELATED TO THIS TO INITIATE CONVO WITH STUDENT THIS IS BACKGROUND SO YOU HAVE THE ANSWER: The answer is " + questionData.answer
+      }
+      const response = await sendMessageToAI(messageToSend);
+
+      setIsLoadingChat(false);
+      //Problem in response 
+      if (!response || !response.answer) {
+        console.log("Error in the response format")
+        setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: "Our AI bot is currently having issues. Please check back later. We appreciate your patience" }]);
+      }
+      //Response looks good
+      else {
+        //const data = await response.json();
+        const answer = response.answer
+        const threadIdToSet = response.threadId
+        sessionStorage.setItem('threadId', threadIdToSet);
+        setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
+      }
+    }
+  };
 
   const handleUserInput = (e) => setUserInput(e.target.value);
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault(); // Prevent the form from submitting in a traditional way
     if (!userInput.trim()) return;
 
+    //start loading spinner 
+    setIsLoadingChat(true);
+
     // Add user message to messages array
-    setMessages([...messages, { sender: 'user', text: userInput }]);
+    setMessages(prevMessages => [...prevMessages, { sender: 'user', text: userInput }]);
     setUserInput(''); // Clear input field
 
-    // Simulate a bot response
-    setTimeout(() => {
-      setMessages(messages => [...messages, { sender: 'bot', text: "This is a response from the chatbot." }]);
-    }, 500);
+    const response = await sendMessageToAI(userInput);
+    //Stop loading spinner 
+    setIsLoadingChat(false);
+    //Problem in response 
+    if (!response || !response.answer) {
+      console.log("Error in the response format")
+      setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: "Our AI bot is currently having issues. Please check back later. We appreciate your patience" }]);
+    }
+    //Response looks good
+    else {
+      //const data = await response.json();
+      const answer = response.answer
+      const threadIdToSet = response.threadId
+      sessionStorage.setItem('threadId', threadIdToSet);
+      setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: answer }]);
+    }
   };
 
   useEffect(() => {
@@ -144,7 +193,7 @@ function Homework(props) {
 
   const handleNextQuestionClick = () => {
     const nextIndex = currentQuestionIndex + 1;
-
+    setIsChatOpen(false);
     if (nextIndex < questionDataArray.length) {
       setCurrentQuestionIndex(nextIndex);
       setQuestionData(questionDataArray[nextIndex]);
@@ -244,27 +293,27 @@ function Homework(props) {
           <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
             <Card.Body>
               {questionData.questionText ? (
-                  <div>
-                    <InlineMath math={questionData.questionText} />
-                  </div>
-                ) : (
-                  <div>
-                    {!questionData.imageUrl ? (
+                <div>
+                  <InlineMath math={questionData.questionText} />
+                </div>
+              ) : (
+                <div>
+                  {!questionData.imageUrl ? (
+                    <div className="flex justify-center items-center h-64">
                       <div className="flex justify-center items-center h-64">
-                        <div className="flex justify-center items-center h-64">
-                          {isLoading && (
-                            <div className="mt-3 md:mt-0 md:ml-2">
-                              <Oval color="#20a7a1" secondaryColor="#20a7a1" />
-                            </div>
-                          )}
-                        </div>
-                        <div className="pl-10">Question Image Loading ...</div>
-
+                        {isLoading && (
+                          <div className="mt-3 md:mt-0 md:ml-2">
+                            <Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
-                    )}
-                  </div>
+                      <div className="pl-10">Question Image Loading ...</div>
+
+                    </div>
+                  ) : (
+                    <Card.Img variant="top" src={questionData.imageUrl} alt="Question Image" />
+                  )}
+                </div>
               )}
             </Card.Body>
             {
@@ -303,31 +352,44 @@ function Homework(props) {
             {isChatOpen && (
               <div className="md:absolute ml-14 w-96" style={{ paddingTop: "20px" }}> {/* Adjusted positioning styles */}
                 <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
-                  <div className="p-4 border-b bg-blue-500 text-white rounded-t-lg flex justify-between items-center">
-                    <p className="text-lg font-semibold">Admin Bot</p>
-                    <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400">
+                  <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
+                    <p className="text-lg font-semibold">AI Assisted Tutor (Beta)</p>
+                    <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
                       {/* Close icon */}
                     </button>
                   </div>
-                  <div className="p-4 h-80 overflow-y-auto">
-                    {/* Display messages */}
+                  {/* Display messages */}
+                  <div style={{ overflowY: "auto", maxHeight: "300px" }}>
                     {messages.map((message, index) => (
-                      <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : ''}`}>
-                        <p className={`rounded-lg py-2 px-4 inline-block ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}>
+                      <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right mr-4' : 'ml-6'}`}>
+                        <p style={{ textAlign: "left" }} className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
                           {message.text}
                         </p>
                       </div>
                     ))}
+                    <div className="pr-52">
+                      <Discuss
+                        visible={isLoadingChat}
+                        height="80"
+                        width="80"
+                        ariaLabel="discuss-loading"
+                        wrapperStyle={{ maxHeight: '200px', overflowY: 'auto' }} // Add this style
+                        wrapperClass="align-right"
+                        colors={['#20a7a1', '#20a7a1']}
+                        backgroundColor="#11111"
+                      />
+                    </div>
                   </div>
                   <div className="p-4 border-t flex">
                     <input
                       type="text"
                       value={userInput}
                       onChange={handleUserInput}
+                      onKeyDown={(e) => e.key === 'Enter' ? handleSendMessage(e) : null}
                       placeholder="Type a message"
                       className="w-full px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <button onClick={handleSendMessage} className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">
+                    <button onClick={handleSendMessage} className="bg-main-teal text-white px-4 py-2 rounded-r-md hover:bg-main-teal-400 transition duration-300">
                       Send
                     </button>
                   </div>
@@ -364,12 +426,15 @@ function Homework(props) {
               {isSubmitting ? <Oval color="#fff" secondaryColor="#fff" height={20} width={20} /> : 'Submit'}
             </button>
             {/* AI Assisted Tutor button spanning across all columns on larger screens */}
-            {/* <button
+            <button
               onClick={toggleChat}
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
+              className="bg-main-teal text-white py-2 px-4 rounded-md hover:bg-main-teal-400 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
             >
               AI Assisted Tutor
-            </button> */}
+            </button>
+          </div>
+          <div className="w-84 align-center pt-4">
+            Found an issue with a question? Click <Link to="/contact">here</Link> and report it. Please give details on the exact question and what is wrong
           </div>
         </div>
 

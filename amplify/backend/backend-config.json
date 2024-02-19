@@ -73,6 +73,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "invokeAIAssistant": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "updateUserProfile": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -221,6 +226,22 @@
         {
           "category": "function",
           "resourceName": "handleSubscriptionEvent"
+        }
+      ]
+    },
+    "AMPLIFY_function_invokeAIAssistant_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "invokeAIAssistant"
+        }
+      ]
+    },
+    "AMPLIFY_function_invokeAIAssistant_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "invokeAIAssistant"
         }
       ]
     },

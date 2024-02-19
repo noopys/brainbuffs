@@ -49,6 +49,9 @@ module.exports = {
           '800': '#00695c',
           '900': '#004d40',
         },
+        'mint-cream': {
+          DEFAULT: '#F0F7F4', // The default shade you can use with the class `bg-custom-teal`
+        },
         mediumslateblue: "#0061fe",
         gray: {
           "100": "#2b2929",
