@@ -1,35 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import Chart from 'react-google-charts';
+// import { Pie } from 'react-chartjs-2';
+import { Oval } from 'react-loader-spinner'; // Import the loader component
+import { Chart } from 'react-google-charts';
 
 const ProfilePage = () => {
-    const { user, userData, updateUserData } = useAuth();
-
-    // for changing fields 
-    const [newGoalScore, setgoalScore] = useState(null);
-    const [newNextTestDate, setNextDate] = useState(null);
-    const [changesMade, setChangesMade] = useState(false);
+    const { user, userData, updateUserData, isLoggedIn } = useAuth();
 
     // charts and insights
     const [missedMathConceptsChartData, setMissedMathConceptsChartData] = useState([]);
     const [missedEnglishConceptsChartData, setMissedEnglishConceptsChartData] = useState([]);
     const [shouldShowLegend, setShouldShowLegend] = useState(true);
+    const [noAssignmentsFound, setNoAssignmentsFound] = useState({});
+    const [homeworkSets, setHomeworkSets] = useState({});
+
+    const [percentageCorrect, setPercentageCorrect] = useState([]);
 
     // user messages
-    const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
+
 
     // Style
-    const inputStyle = {
-        padding: '12px',
-        border: '1px solid #ccc',
-        borderRadius: '6px',
-        fontSize: '16px',
-        maxWidth: '300px',
-        width: '80%',
-        marginBottom: '10px',
-        fontFamily: 'poppins',
-        alignItems: 'flex-end', 
-    };
 
     const buttonStyle = {
         backgroundColor: '#20a7a1',
@@ -45,20 +35,21 @@ const ProfilePage = () => {
     };
 
     const containerStyle = {
-        border: '1px solid #20a7a1',
-        maxWidth:'800px',
-        padding: '20px',
-        borderRadius: '10px',
+        // border: '1px solid #20a7a1',
+        // maxWidth: '800px',//'100%',
+        padding: '20px 0px',
+        // borderRadius: '10px',
         margin: '20px auto',
         fontFamily: 'poppins',
-        borderBottom: '1px solid #20a7a1',
+        backgroundColor: '#fff',
     };
 
     const graphContainerStyles = {
         width: '95%',
+        minHeight: '300px',
         maxWidth: '700px',
         margin: '20px auto',
-        backgroundColor: '#20a7a1',
+        backgroundColor: '#000',//'#20a7a1',
         color: '#fff',
         padding: '20px',
         borderRadius: '10px',
@@ -68,8 +59,8 @@ const ProfilePage = () => {
         width: '100%',
         height: '350px',
         // minHeight: '350px',
-        backgroundColor: 'f3f3f3',
-        border: '1px solid #ccc',
+        backgroundColor: '#f3f3f3',
+        // border: '1px solid #ccc',
         borderRadius: '5px',
         paddingBottom: '30px'
     };
@@ -82,18 +73,18 @@ const ProfilePage = () => {
             height: '90%', // Set the height of the chart area
         },
         backgroundColor: '#f3f3f3',
-        is3D: true, // Enable a 3D effect for the pie chart
+        // is3D: true, // Enable a 3D effect for the pie chart
         legend: shouldShowLegend ? {
             position: 'left',
             textStyle: {
                 fontSize: 14,
             },
         } : { position: 'none' }, // An empty object if shouldShowLegend is false
-        pieSliceText: 'percentage', // Display percentage values on pie slices
+        pieSliceText: 'none', // Display percentage values on pie slices
         pieSliceTextStyle: {
             fontSize: 14, // Customize the font size of percentage values
         },
-        colors: ["#2ECC71", "#3498DB", "#1ABC9C", "#27AE60", "#F1C40F", "#A5694F", "#9B59B6", "#FF5733"],
+        colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
     }
 
     // handle resizing for smaller screens
@@ -124,155 +115,157 @@ const ProfilePage = () => {
             const formattedMathData = [['Concept', 'Weight']];
             for (const category in userData[0].UserProfile.M) {
                 const value = parseInt(userData[0].UserProfile.M[category].N);
-                formattedMathData.push([category, value]);
+                if (!(category === "Easy" || category === "Medium" || category === "Hard" || category === "Foundations" )) {
+                    formattedMathData.push([category, value]);
+                }
             }
-            setMissedMathConceptsChartData(formattedMathData);
+            formattedMathData.sort((a, b) => b[1] - a[1]);
+            const limitedMathData = formattedMathData.slice(0, 8);
+            setMissedMathConceptsChartData(limitedMathData);
             // console.log('chartData', formattedData);
 
             // format English
             const formattedEnglishData = [['Concept', 'Weight']];
             for (const category in userData[0].EnglishUserProfile.M) {
                 const value = parseInt(userData[0].EnglishUserProfile.M[category].N);
-                formattedEnglishData.push([category, value]);
+                if (!(category === "easy" || category === "medium" || category === "hard" || category === "very hard" || category === "Long")){
+                    formattedEnglishData.push([category, value]);
+                }
             }
-            setMissedEnglishConceptsChartData(formattedEnglishData);
+            formattedEnglishData.sort((a, b) => b[1] - a[1]);
+            // Limit to the top 8 elements
+            const limitedEnglishData = formattedEnglishData.slice(0, 8);
+            setMissedEnglishConceptsChartData(limitedEnglishData);
         }
     }, [userData]);
 
-    // If there are changes on the screen, notify them before naviagting away
     useEffect(() => {
-        const handleBeforeUnload = (e) => {
-            console.log('inside event handler');
-            if (changesMade) {
-                // Display the confirmation message when there are unsaved changes
-                console.log('changesMade is true');
-                e.preventDefault();
-                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+        const fetchPreviousAssignments = async () => {
+            try {
+                if (isLoggedIn && user && user.username) {
+                    const userId = user.username;
+
+                    const requestData = {
+                        userId: userId,
+                        // ... other request data if needed
+                    };
+                    // setLoading(true); // Set loading to true before making the API call
+                    const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestData),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log('Fetched previous assignments data:', data);
+
+                    // Calculate percentageCorrect based on the updated homeworkSets state
+                    const newPercentageCorrect = [];
+                    for (const key in data) {
+                        if (Object.prototype.hasOwnProperty.call(data, key)) {
+                            const array = data[key];
+                            let correctCount = 0;
+                            let totalCount = array.length;
+
+                            array.forEach(item => {
+                                if (item.IsCorrect) {
+                                    correctCount++;
+                                }
+                            });
+
+                            const perCorr = (correctCount / totalCount) * 100;
+                            newPercentageCorrect.push(perCorr);
+                            // console.log(`Percentage of correct answers for array ${key}: ${perCorr}%`);
+                        }
+                    }
+
+                    // Update states with the new data
+                    setHomeworkSets(data);
+                    setPercentageCorrect(newPercentageCorrect);
+                    console.log(percentageCorrect);
+
+                    const noData = Object.keys(data).length === 0;
+                    setNoAssignmentsFound(noData);
+                    // setLoading(false); // Set loading to false after data is fetched
+                    // Set the homework sets data to state for rendering
+                } else {
+                    // Handle case when the user is not logged in
+                    console.log('User is not logged in.');
+                }
+            } catch (error) {
+                console.error('Error fetching previous assignments:', error);
             }
         };
 
-        // Add a 'beforeunload' event listener to show a confirmation dialog
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        // console.log('changesMade has chaged to', changesMade);
+        fetchPreviousAssignments();
+    }, [isLoggedIn, user]);
 
-        return () => {
-            // Remove the event listener when the component unmounts
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [changesMade]); // Listen to changesMade state changes
-
-    // Whenever the 'newPhoneNumber' variable changes, update the context
-    useEffect(() => {
-        if (newGoalScore !== null) {
-            const updatedContext = { ...userData[0], GoalScore: { N: newGoalScore } };
-            const updatedUserData = [...userData];
-            updatedUserData[0] = updatedContext;
-
-            updateUserData(updatedUserData);
-            setChangesMade(true);
-            setupdateInfoSuccessMessage('');
-            // console.log('updated goal score', updatedUserData);
-        }
-    }, [newGoalScore]);
-
-    useEffect(() => {
-        if (newNextTestDate !== null) {
-            const updatedContext = { ...userData[0], NextTestDate: { S: newNextTestDate } };
-            const updatedUserData = [...userData];
-            updatedUserData[0] = updatedContext;
-
-            updateUserData(updatedUserData);
-            setChangesMade(true);
-            setupdateInfoSuccessMessage('');
-            // console.log('updated newNextTestDate', updatedUserData);
-        }
-    }, [newNextTestDate]);
-
+    /*---------------------------------------
     
+    CIRCLE GRAPH COMPONENT
 
-    // Handle submit changes to Dynamo database
-    const updateUserAttributesDynamo = async () => {
-        if (!/^[0-9]*$/.test(userData[0].GoalScore.N)) {
-            setupdateInfoSuccessMessage('Goal Score can only contain numbers. (No spaces, hyphens, or parenthesis)');
-            return;
-        }
-        if (!/^[a-zA-Z0-9 /]*$/.test(userData[0].NextTestDate.S)) {
-            setupdateInfoSuccessMessage('Next Test Date can only contain letters, forward slash (/), apostrophe (\'), dashes (—), and spaces.');
-            return;
-        }
+    ---------------------------------------*/
 
-        const apiGatewayEndpoint = 'https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getUserData'; // Replace with your API Gateway endpoint
+    const CircleGraph = ({ percentage }) => {
+        // Calculate the remaining percentage for the empty space
+        const remainingPercentage = 100 - percentage;
 
-        const requestData = {
-            username: user.username,
-            goalScore: userData[0].GoalScore.N,
-            nextTestDate: userData[0].NextTestDate.S,
-            func: "updateData",
+        // Define data for the pie chart
+        const data = [
+            ['Category', 'Percentage'],
+            ['Correct', percentage],
+            ['Incorrect', remainingPercentage],
+        ];
+
+        // Define options for the pie chart
+        const options = {
+            legend: 'none', // Hide the legend
+            backgroundColor: '#000000',
+            pieSliceText: 'none', // Disable percentage labels on pie slices
+            pieSliceTextStyle: {
+                color: 'white',
+            },
+            pieStartAngle: 0, // Rotate the pie chart to center the 'Correct' slice
+            slices: {
+                0: { color: '#20a7a1' }, // Color for 'Correct' slice
+                1: { color: '#d45087' }, // Color for 'Incorrect' slice
+            },
+            pieHole: 0.7, // Adjust the size of the center hole
+            chartArea: { left: '5%', top: '5%', width: '90%', height: '90%' }, // Expand the chart area to allow space for custom text
         };
 
-        try {
-            const response = await fetch(apiGatewayEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json' // Specify that you're sending JSON data
-                },
-                body: JSON.stringify(requestData), // Convert the data object to a JSON string
-            });
-            // console.log(response);
-
-            if (response.ok) {
-                setChangesMade(false);
-                console.log("changes made:", newGoalScore, newNextTestDate);
-                setupdateInfoSuccessMessage('Statistics updated successfully!');
-            } else {
-                console.error('Failed to fetch data from API Gateway');
-                // Handle the error case
-                setupdateInfoSuccessMessage('Make sure none of the fields are empty');
-            }
-        } catch (error) {
-            console.error('Error putting data to API Gateway:', error);
-            setupdateInfoSuccessMessage('Error putting data to API Gateway');
-        }
-
-        const messageDelay = 5000; // 5 seconds delay (adjust as needed)
-        const messageTimer = setTimeout(() => {
-            setupdateInfoSuccessMessage('');
-        }, messageDelay);
-
-        return () => clearTimeout(messageTimer); // Clear timeout if component unmounts
+        return (
+            <Chart
+                chartType="PieChart"
+                width={'100%'}
+                height={'100%'}
+                data={data}
+                options={options}
+                // chartEvents={chartEvents}
+                loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
+            />
+        );
     };
+
 
     return (
         <div style={containerStyle}>
-            <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>My Dashboard</h2>
-            {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
+            <div style={{ backgroundColor: '#fff', padding: '0px'}}>
+                <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>My Dashboard</h2>
+                {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
 
-            {/* <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br> */}
+                {/* <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br> */}
 
-            <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Statistics</h2>
-            <h5 style={{ fontSize: '1em' }}> View and edit your statistics</h5>
-            <div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingRight: '20%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                        <label htmlFor="MRDS" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}> Diagnostic Score out of 1600: </label>
-                        <input type="text" name="MRDS" defaultValue={userData.MRDS} style={{ ...inputStyle, backgroundColor: 'lightgray' }} placeholder="Most recent Score" readOnly />
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                        <label htmlFor="goalScore" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}>  Goal Score out of 1600: </label>
-                        <input type="text" defaultValue={(userData.length > 0 && userData[0].GoalScore !== undefined) ? (userData[0].GoalScore.N || '') : ('')} name="goalScore" onChange={(e) => setgoalScore(e.target.value)} style={inputStyle} placeholder="Goal Score" />
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                        <label htmlFor="nextTest" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}>  Date of Next Test: </label>
-                        <input type="text" name="nextTest" defaultValue={(userData.length > 0 && userData[0].NextTestDate !== undefined) ? (userData[0].NextTestDate.S || '') : ('')} onChange={(e) => setNextDate(e.target.value)} style={inputStyle} placeholder="MM/DD/YYYY" />
-                    </div>
-                </div>
-                <button style={{ ...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px' }} onClick={() => updateUserAttributesDynamo()}>Update my Info</button>
-                {changesMade ? (<p style={{ color: '#dd0000' }}>*There are some changes that are not yet saved.* </p>) : ('')}
-                {updateInfoSuccessMessage && <p style={{ color: '#20a7a1' }}> {updateInfoSuccessMessage}</p>}
+                {/* <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2> */}
+                <h5 style={{ fontSize: '1em' }}> Detailed analytics to help you improve faster</h5>
             </div>
             
-            <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2>
-            <h5 style={{ fontSize: '1em' }}> Detailed analytics to help you improve faster</h5>
   
             {/* PIE CHART FOR MISSED CONCEPTS */}
             <div style={graphContainerStyles}>
@@ -291,6 +284,7 @@ const ProfilePage = () => {
                         height='100%' // Set a fixed or appropriate height
                         data={missedMathConceptsChartData}
                         options={chartOptions}
+                        loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
                     />
                 </div>
             </div>
@@ -310,9 +304,57 @@ const ProfilePage = () => {
                         height='100%' // Set a fixed or appropriate height
                         data={missedEnglishConceptsChartData}
                         options={chartOptions}
+                        loader={<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: '100%', }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
                     />
                 </div>
             </div>
+
+            {/* HORIZONTAL BAR CHART */}
+            {/* <HorizontalBarChart /> */}
+
+            <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <h1>Most Recent Homework Accuracy</h1>
+                <div style={{ marginTop: '10px', backgroundColor: '#ffffff'}}>
+                    {/* Render the CircleGraph component with the percentage */}
+                    {(percentageCorrect.length > 0) ? 
+                        (
+                            <div style={{...graphStyles, paddingBottom: '0px'}}><CircleGraph percentage={percentageCorrect[percentageCorrect.length - 1]} /></div>
+                        // 0
+                        ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                < Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                            </div>
+                        )}
+                </div>
+            </div>
+
+            {/* <div style={graphContainerStyles}>
+                <h2> Missed English Concepts</h2>
+                <Chart
+                    width={'100%'}
+                    height={'100%'}
+                    chartType="Bar"
+                    loader={<div>Loading Chart...</div>}
+                    data={chartData}
+                    options={{
+                        title: 'Horizontal Bar Chart',
+                        legend: { position: 'none' },
+                        colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
+                        chartArea: {
+                            width: '70%',
+                            height: '80%',
+                            backgroundColor: '#000000' // black background color
+                        },
+                        hAxis: {
+                            title: 'Value',
+                            textStyle: { color: '#ffffff' } // white text color
+                        },
+                        vAxis: {
+                            textStyle: { color: '#ffffff' } // white text color
+                        }
+                    }}
+                />
+            </div> */}
             {/* POSSIBLE ADDITIONAL CHARTS */}
             {/* <div style={graphContainerStyles}>
                 <h2>Concepts that you nail</h2>

@@ -10,7 +10,10 @@ const AccountManagement = () => {
   // const for change phone# or full name
   const [newPhoneNumber, setNewPhoneNumber] = useState(null);
   const [newFullName, setNewFullName] = useState(null);
-  const [changesMade, setChangesMade] = useState(false);
+  const [newGoalScore, setgoalScore] = useState(null);
+  const [newNextTestDate, setNextDate] = useState(null);
+  const [changesMadePersonal, setChangesMadePersonal] = useState(false);
+  const [changesMadeStats, setChangesMadeStats] = useState(false);
 
   // const for changing password
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -21,6 +24,7 @@ const AccountManagement = () => {
   // const for user messages
   const [error, setError] = useState('');
   const [updateInfoSuccessMessage, setupdateInfoSuccessMessage] = useState('');
+  const [updateStatsSuccessMessage, setupdateStatsSuccessMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [endSubMessage, setEndSubMessage] = useState('');
 
@@ -34,8 +38,14 @@ const AccountManagement = () => {
   const urlParams = new URLSearchParams(queryString);
   const token = urlParams.get('token');
 
+  /*-----------------------------------------
+
+  STYLE
+
+  --------------------------------------------*/
+
   const containerStyle = {
-    border: '1px solid #20a7a1',
+    // border: '1px solid #20a7a1',
     padding: '20px',
     borderRadius: '10px',
     maxWidth: '800px',
@@ -77,7 +87,13 @@ const AccountManagement = () => {
     width: '300px',
   };
 
-  // If the token is correct, change the local context
+  /*-----------------------------------------
+
+  USE EFFECTS
+
+  --------------------------------------------*/
+
+  // If the token is correct, change the fetch from backend to change local context again
   useEffect(() => {
     // console.log("printing the token", token);
     if (user && user.username && token ==="CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA") {
@@ -103,14 +119,13 @@ const AccountManagement = () => {
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       console.log('inside event handler');
-      if (changesMade) {
+      if (changesMadePersonal||changesMadeStats) {
         // Display the confirmation message when there are unsaved changes
-        console.log('changesMade is true');
+        console.log('changesMadePersonal is true');
         e.preventDefault();
         e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
       }
     };
-
     // Add a 'beforeunload' event listener to show a confirmation dialog
     window.addEventListener('beforeunload', handleBeforeUnload);
     // console.log('changesMade has chaged to', changesMade);
@@ -118,14 +133,14 @@ const AccountManagement = () => {
       // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [changesMade]); // Listen to changesMade state changes
+  }, [changesMadePersonal, changesMadeStats]); // Listen to changesMade state changes
 
   // Whenever the 'newFullName' variable changes, update the context
   useEffect(() => {
     if (newFullName !== null) {
       const updatedContext = { ...user, fullName: newFullName };
       updateUser(updatedContext);
-      setChangesMade(true);
+      setChangesMadePersonal(true);
       setupdateInfoSuccessMessage('');
       // console.log('updated Fullname', user);
     }
@@ -136,11 +151,45 @@ const AccountManagement = () => {
     if (newPhoneNumber !== null) {
       const updatedContext = { ...user, phoneNumber: newPhoneNumber };
       updateUser(updatedContext);
-      setChangesMade(true);
+      setChangesMadePersonal(true);
       setupdateInfoSuccessMessage('');
       // console.log('updated phone #', user);
     }
   }, [newPhoneNumber]);
+
+  // Whenever the 'newGoalScore' variable changes, update the context
+  useEffect(() => {
+    if (newGoalScore !== null) {
+      const updatedContext = { ...userData[0], GoalScore: { N: newGoalScore } };
+      const updatedUserData = [...userData];
+      updatedUserData[0] = updatedContext;
+
+      updateUserData(updatedUserData);
+      setChangesMadeStats(true);
+      setupdateStatsSuccessMessage('');
+      // console.log('updated goal score', updatedUserData);
+    }
+  }, [newGoalScore]);
+
+  // Whenever the 'newNextTestDate' variable changes, update the context
+  useEffect(() => {
+    if (newNextTestDate !== null) {
+      const updatedContext = { ...userData[0], NextTestDate: { S: newNextTestDate } };
+      const updatedUserData = [...userData];
+      updatedUserData[0] = updatedContext;
+
+      updateUserData(updatedUserData);
+      setChangesMadeStats(true);
+      setupdateStatsSuccessMessage('');
+      // console.log('updated newNextTestDate', updatedUserData);
+    }
+  }, [newNextTestDate]);
+
+  /*-----------------------------------------
+
+  Functions
+
+  --------------------------------------------*/
 
   // Handle submit changes to cognito database
   const updateUserAttributes = async () => {
@@ -164,7 +213,7 @@ const AccountManagement = () => {
       console.log('User attributes updated successfully', user.fullName, user.phoneNumber);
       setupdateInfoSuccessMessage('User attributes updated successfully!');
 
-      setChangesMade(false);
+      setChangesMadePersonal(false);
 
       const messageDelay = 5000; // 5 seconds delay (adjust as needed)
       const messageTimer = setTimeout(() => {
@@ -177,6 +226,58 @@ const AccountManagement = () => {
       console.error('Error updating user attributes:', error);
       setupdateInfoSuccessMessage(error.message);
     }
+  };
+
+  // Handle submit changes to Dynamo database
+  const updateUserAttributesDynamo = async () => {
+    if (!/^[0-9]*$/.test(userData[0].GoalScore.N)) {
+      setupdateStatsSuccessMessage('Goal Score can only contain numbers. (No spaces, hyphens, or parenthesis)');
+      return;
+    }
+    if (!/^[a-zA-Z0-9 /]*$/.test(userData[0].NextTestDate.S)) {
+      setupdateStatsSuccessMessage('Next Test Date can only contain letters, forward slash (/), apostrophe (\'), dashes (—), and spaces.');
+      return;
+    }
+
+    const apiGatewayEndpoint = 'https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getUserData'; // Replace with your API Gateway endpoint
+
+    const requestData = {
+      username: user.username,
+      goalScore: userData[0].GoalScore.N,
+      nextTestDate: userData[0].NextTestDate.S,
+      func: "updateData",
+    };
+
+    try {
+      const response = await fetch(apiGatewayEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // Specify that you're sending JSON data
+        },
+        body: JSON.stringify(requestData), // Convert the data object to a JSON string
+      });
+      // console.log(response);
+
+      if (response.ok) {
+        setChangesMadeStats(false);
+        console.log("changes made:", newGoalScore, newNextTestDate);
+        setupdateStatsSuccessMessage('Statistics updated successfully!');
+      } else {
+        console.error('Failed to fetch data from API Gateway');
+        // Handle the error case
+        setupdateStatsSuccessMessage('Make sure none of the fields are empty');
+      }
+    } catch (error) {
+      console.error('Error putting data to API Gateway:', error);
+      setupdateStatsSuccessMessage('Error putting data to API Gateway');
+    }
+
+    const messageDelay = 5000; // 5 seconds delay (adjust as needed)
+    const messageTimer = setTimeout(() => {
+      setupdateStatsSuccessMessage('');
+    }, messageDelay);
+
+    return () => clearTimeout(messageTimer); // Clear timeout if component unmounts
   };
 
   // Handle delete account
@@ -209,7 +310,6 @@ const AccountManagement = () => {
       const currentUser = await Auth.currentAuthenticatedUser();
       await Auth.changePassword(currentUser, oldPassword, newPassword);
       console.log('Password changed successfully');
-      // Handle successful password change, e.g., show a success message
       setSuccessMessage('Password changed successfully, you will be redirected to the sign in screen');
 
       const logoutDelay = 5000; // 2 seconds delay (adjust as needed)
@@ -222,6 +322,7 @@ const AccountManagement = () => {
     }
   };
 
+  // called when ending subscription
   const handleEndSubscription= async() => {
     const requestBody = {
       email: user.email,
@@ -260,6 +361,12 @@ const AccountManagement = () => {
       setEndSubMessage("There was an error ending your subscription.");
     }
   }
+
+  /*-----------------------------------------
+
+  Conditional Rendering
+
+  --------------------------------------------*/
   
   const confirmEndSub = () => {
     setShowConfirmationEndSub(true);
@@ -281,6 +388,12 @@ const AccountManagement = () => {
     deleteUserAccount();
     setShowConfirmation(false);
   };
+
+  /*-----------------------------------------
+
+  HTML
+
+  --------------------------------------------*/
 
   return (
     <div>
@@ -309,14 +422,36 @@ const AccountManagement = () => {
                     <input name="phoneNumber" defaultValue={user.phoneNumber} onChange={(e) => setNewPhoneNumber(e.target.value)} style={inputStyle} placeholder="Phone Number" />
                   </div>
 
-                  <button style={{ ...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px' }} onClick={() => updateUserAttributes()}>Update my Info</button>
+                  <button style={{ ...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px' }} onClick={() => updateUserAttributes()}>Update Personal Info</button>
                   <div>
-                    {changesMade ? (<p style={{ color: '#dd0000' }}>*There are some changes that are not yet saved.* </p>) : ('')}
+                    {changesMadePersonal ? (<p style={{ color: '#dd0000' }}>*There are some changes that are not yet saved.* </p>) : ('')}
                     {updateInfoSuccessMessage && <p style={{ color: '#20a7a1' }}> {updateInfoSuccessMessage}</p>}
                   </div>
                 </div>
 
+                <h2 style={{ fontSize: '2em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Statistics</h2>
+                <h5 style={{ fontSize: '1em' }}> View and edit your statistics</h5>
+                <div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingRight: '20%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                      <label htmlFor="MRDS" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}> Diagnostic Score out of 1600: </label>
+                      <input type="text" name="MRDS" defaultValue={userData.MRDS} style={{ ...inputStyle, backgroundColor: 'lightgray' }} placeholder="Most recent Score" readOnly />
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                      <label htmlFor="goalScore" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}>  Goal Score out of 1600: </label>
+                      <input type="text" defaultValue={(userData.length > 0 && userData[0].GoalScore !== undefined) ? (userData[0].GoalScore.N || '') : ('')} name="goalScore" onChange={(e) => setgoalScore(e.target.value)} style={inputStyle} placeholder="Goal Score" />
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                      <label htmlFor="nextTest" style={{ minWidth: '120px', marginRight: '10px', textAlign: 'right' }}>  Date of Next Test: </label>
+                      <input type="text" name="nextTest" defaultValue={(userData.length > 0 && userData[0].NextTestDate !== undefined) ? (userData[0].NextTestDate.S || '') : ('')} onChange={(e) => setNextDate(e.target.value)} style={inputStyle} placeholder="MM/DD/YYYY" />
+                    </div>
+                  </div>
+                  <button style={{ ...buttonStyle, backgroundColor: '#20a7a1', marginBottom: '10px' }} onClick={() => updateUserAttributesDynamo()}>Update Statistics</button>
+                  {changesMadeStats ? (<p style={{ color: '#dd0000' }}>*There are some changes that are not yet saved.* </p>) : ('')}
+                  {updateStatsSuccessMessage && <p style={{ color: '#20a7a1' }}> {updateStatsSuccessMessage}</p>}
+                </div>
                 <br></br>
+
                 <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Subscription Information </h2>
                 <div>
                   

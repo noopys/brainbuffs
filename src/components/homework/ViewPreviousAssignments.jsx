@@ -56,7 +56,7 @@ function ViewPreviousAssignments() {
     };
 
     fetchPreviousAssignments();
-  }, [isLoggedIn, user]);
+  }, [isLoggedIn]);
 
 
   return (

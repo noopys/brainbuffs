@@ -198,7 +198,7 @@ const HomeworkIntermediate = () => {
           {/* Button Container */}
           <div style={buttonContainerStyle}>
             {isInCurrSess ? (
-              <>
+              <div>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 text-white font-bold" onClick={() => handleNavigateToSubject('Math')}>
                   Resume Previous Session
                 </button>
@@ -217,7 +217,7 @@ const HomeworkIntermediate = () => {
                 <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
                   Previous Assignments
                 </button> */}
-              </>
+              </div>
             ) : (
                 <div style={{ display: shouldStack ? 'flex' : 'grid', gridTemplateColumns: shouldStack ? '': 'repeat(2, 1fr)', gap: '10px', flexDirection: 'column' }}>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('Math')}>
