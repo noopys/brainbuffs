@@ -55,10 +55,10 @@ function Homework(props) {
       setIsLoadingChat(true);
       let messageToSend;
       if (questionData.questionText) {
-        messageToSend = "THIS IS BACKGROUND INFO FOR THE AI BOT IT IS NOT THE STUDENTS ANSWER USE IT TO HELP THE STUDENT BUT DONT TELL THEM THIS ANSWER ITS JUST THE QUESTION AND ANSWER SO YOU CAN HELP THEM ALSO NEVER RESPOND WITH LATEX: The quesiton is " + questionData.questionText + "and the answer is " + questionData.answer;
+        messageToSend = "THIS IS BACKGROUND INFO FOR THE AI BOT IT IS NOT THE STUDENTS ANSWER USE IT TO HELP THE STUDENT BUT DONT TELL THEM THIS ANSWER ITS JUST THE QUESTION AND ANSWER SO YOU CAN HELP THEM ALSO NEVER RESPOND WITH LATEX THE NEXT MESSAGE YOU SEND IS TO THE STUDENT THEY HAVENT SEEN THIS: The quesiton is " + questionData.questionText + "and the answer is " + questionData.answer;
       }
       else {
-        messageToSend = "THIS IS BACKGROUND INFO TO HELP YOU HELP STUDENT THIS IS NOT THEIR ANSWER ALSO NEVER RESPOND WITH LATEX: The answer is " + questionData.answer
+        messageToSend = "RESPOND TO THIS MESSAGE WITH A MESSAGE UNRELATED TO THIS TO INITIATE CONVO WITH STUDENT THIS IS BACKGROUND SO YOU HAVE THE ANSWER: The answer is " + questionData.answer
       }
       const response = await sendMessageToAI(messageToSend);
 
@@ -353,7 +353,7 @@ function Homework(props) {
               <div className="md:absolute ml-14 w-96" style={{ paddingTop: "20px" }}> {/* Adjusted positioning styles */}
                 <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
                   <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
-                    <p className="text-lg font-semibold">AI Assisted Tutor</p>
+                    <p className="text-lg font-semibold">AI Assisted Tutor (Beta)</p>
                     <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
                       {/* Close icon */}
                     </button>
@@ -433,8 +433,8 @@ function Homework(props) {
               AI Assisted Tutor
             </button>
           </div>
-          <div className="w-72 align-center pt-4">
-            Found an issue with a question? Click <Link to="/contact">here</Link> and report it.
+          <div className="w-84 align-center pt-4">
+            Found an issue with a question? Click <Link to="/contact">here</Link> and report it. Please give details on the exact question and what is wrong
           </div>
         </div>
 
