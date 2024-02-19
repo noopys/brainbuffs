@@ -193,7 +193,7 @@ function Homework(props) {
 
   const handleNextQuestionClick = () => {
     const nextIndex = currentQuestionIndex + 1;
-
+    setIsChatOpen(false);
     if (nextIndex < questionDataArray.length) {
       setCurrentQuestionIndex(nextIndex);
       setQuestionData(questionDataArray[nextIndex]);
