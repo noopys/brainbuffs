@@ -11,10 +11,12 @@ const ProfilePage = () => {
     const [missedMathConceptsChartData, setMissedMathConceptsChartData] = useState([]);
     const [missedEnglishConceptsChartData, setMissedEnglishConceptsChartData] = useState([]);
     const [shouldShowLegend, setShouldShowLegend] = useState(true);
-    const [noAssignmentsFound, setNoAssignmentsFound] = useState({});
+    const [noAssignmentsFound, setNoAssignmentsFound] = useState(false);
     const [homeworkSets, setHomeworkSets] = useState({});
 
     const [percentageCorrect, setPercentageCorrect] = useState([]);
+    const [percentage10Correct, setPercentage10Correct] = useState(0);
+    const [percentageAllCorrect, setPercentageAllCorrect] = useState(0);
 
     // user messages
 
@@ -37,7 +39,7 @@ const ProfilePage = () => {
     const containerStyle = {
         // border: '1px solid #20a7a1',
         // maxWidth: '800px',//'100%',
-        padding: '20px 0px',
+        padding: '20px 0px 0px 0px',
         // borderRadius: '10px',
         margin: '20px auto',
         fontFamily: 'poppins',
@@ -59,7 +61,7 @@ const ProfilePage = () => {
         width: '100%',
         height: '350px',
         // minHeight: '350px',
-        backgroundColor: '#f3f3f3',
+        backgroundColor: '#4B0082',//'#f3f3f3',
         // border: '1px solid #ccc',
         borderRadius: '5px',
         paddingBottom: '30px'
@@ -85,6 +87,10 @@ const ProfilePage = () => {
             fontSize: 14, // Customize the font size of percentage values
         },
         colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
+        animation: {
+            duration: 1000, // Animation duration in milliseconds
+            easing: 'out', // Animation easing function
+        },
     }
 
     // handle resizing for smaller screens
@@ -185,10 +191,22 @@ const ProfilePage = () => {
                         }
                     }
 
+                    // Previous 10
+                    const lastTenEntries = newPercentageCorrect.slice(-10); // Get the last 10 entries from the array
+                    const sum10 = lastTenEntries.reduce((acc, val) => acc + val, 0);
+                    const average10 = sum10 / lastTenEntries.length;
+                    // console.log("average:", average10);
+
+                    // All time
+                    const sumAll = newPercentageCorrect.reduce((acc, val) => acc + val, 0);
+                    const averageAll = sumAll / newPercentageCorrect.length;
+
                     // Update states with the new data
                     setHomeworkSets(data);
                     setPercentageCorrect(newPercentageCorrect);
-                    console.log(percentageCorrect);
+                    setPercentage10Correct(parseInt(average10.toFixed(2), 10)); // Optional: Round to 2 decimal places
+                    setPercentageAllCorrect(parseInt(averageAll.toFixed(2), 10));
+                    // console.log(percentageCorrect);
 
                     const noData = Object.keys(data).length === 0;
                     setNoAssignmentsFound(noData);
@@ -222,6 +240,7 @@ const ProfilePage = () => {
             ['Correct', percentage],
             ['Incorrect', remainingPercentage],
         ];
+        // console.log(data);
 
         // Define options for the pie chart
         const options = {
@@ -233,31 +252,56 @@ const ProfilePage = () => {
             },
             pieStartAngle: 0, // Rotate the pie chart to center the 'Correct' slice
             slices: {
-                0: { color: '#20a7a1' }, // Color for 'Correct' slice
-                1: { color: '#d45087' }, // Color for 'Incorrect' slice
+                0: { color: '#6cd4c5' }, // Color for 'Correct' slice
+                1: { color: '#e27c7c' }, // Color for 'Incorrect' slice
             },
             pieHole: 0.7, // Adjust the size of the center hole
-            chartArea: { left: '5%', top: '5%', width: '90%', height: '90%' }, // Expand the chart area to allow space for custom text
+            chartArea: { left: 10, top: 10, width: '90%', height: '90%' }, // Expand the chart area to allow space for custom text
+            animation: {
+                duration: 1000, // Animation duration in milliseconds
+                easing: 'out', // Animation easing function
+            },
         };
 
         return (
-            <Chart
-                chartType="PieChart"
-                width={'100%'}
-                height={'100%'}
-                data={data}
-                options={options}
-                // chartEvents={chartEvents}
-                loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
-            />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                <Chart
+                    chartType="PieChart"
+                    width={'300px'}
+                    height={'100%'}
+                    data={data}
+                    options={options}
+                    loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
+                />
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#6cd4c5', fontSize: '35px', fontWeight: 'bold',  }}>
+                    {percentage}% 
+                </div>
+            </div>
         );
     };
+
+    if (noAssignmentsFound) {
+        return (
+            <div style={containerStyle}>
+                <div style={{ backgroundColor: '#fff', padding: '0px' }}>
+                    <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>Insights</h2>
+                    {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
+
+                    {/* <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br> */}
+
+                    {/* <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2> */}
+                    <h5 style={{ fontSize: '1em' }}> Detailed analytics to help you improve faster</h5>
+                    <div>Please Complete homeworks to view analytics</div>
+                </div>
+            </div>
+        )
+    }
 
 
     return (
         <div style={containerStyle}>
             <div style={{ backgroundColor: '#fff', padding: '0px'}}>
-                <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>My Dashboard</h2>
+                <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>Insights</h2>
                 {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
 
                 {/* <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br> */}
@@ -268,63 +312,98 @@ const ProfilePage = () => {
             
   
             {/* PIE CHART FOR MISSED CONCEPTS */}
-            <div style={graphContainerStyles}>
-                <h2> Missed Math Concepts</h2>
-                <div style={graphStyles}>
-                    <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000',}}>
-                        {shouldShowLegend ? (
-                            <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
-                            ): (
-                            <div >Click or hover to view categories</div> 
-                        ) }
+            <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor: '#808080' }}>
+                <div style={graphContainerStyles}>
+                    <h2> Missed Math Concepts</h2>
+                    <div style={graphStyles}>
+                        <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000',}}>
+                            {shouldShowLegend ? (
+                                <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
+                                ): (
+                                <div >Click or hover to view categories</div> 
+                            ) }
+                        </div>
+                        <Chart
+                            chartType="PieChart"
+                            width='100%' // Ensure it uses 100% of container width
+                            height='100%' // Set a fixed or appropriate height
+                            data={missedMathConceptsChartData}
+                            options={chartOptions}
+                            loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
+                        />
                     </div>
-                    <Chart
-                        chartType="PieChart"
-                        width='100%' // Ensure it uses 100% of container width
-                        height='100%' // Set a fixed or appropriate height
-                        data={missedMathConceptsChartData}
-                        options={chartOptions}
-                        loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
-                    />
                 </div>
-            </div>
-            <div style={graphContainerStyles}>
-                <h2> Missed English Concepts</h2>
-                <div style={graphStyles}>
-                    <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
-                        {shouldShowLegend ? (
-                            <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
-                        ) : (
-                            <div >Click or hover to view categories</div>
-                        )}
+                <div style={graphContainerStyles}>
+                    <h2> Missed English Concepts</h2>
+                    <div style={graphStyles}>
+                        <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
+                            {shouldShowLegend ? (
+                                <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
+                            ) : (
+                                <div >Click or hover to view categories</div>
+                            )}
+                        </div>
+                        <Chart
+                            chartType="PieChart"
+                            width='100%' // Ensure it uses 100% of container width
+                            height='100%' // Set a fixed or appropriate height
+                            data={missedEnglishConceptsChartData}
+                            options={chartOptions}
+                            loader={<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: '100%', }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
+                        />
                     </div>
-                    <Chart
-                        chartType="PieChart"
-                        width='100%' // Ensure it uses 100% of container width
-                        height='100%' // Set a fixed or appropriate height
-                        data={missedEnglishConceptsChartData}
-                        options={chartOptions}
-                        loader={<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: '100%', }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
-                    />
                 </div>
             </div>
 
             {/* HORIZONTAL BAR CHART */}
             {/* <HorizontalBarChart /> */}
+            <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor: '#555555' }}>
+                <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '400px', }}>
+                    <h1>Most Recent Homework Accuracy</h1>
+                    <div style={{ marginTop: '10px'}}>
+                        {/* Render the CircleGraph component with the percentage */}
+                        {(percentageCorrect.length > 0) ? 
+                            (
+                                <div style={{ ...graphStyles, paddingBottom: '0px' }}><CircleGraph percentage={(percentageCorrect[percentageCorrect.length - 1] === 0 && percentageCorrect.length > 1) ? (percentageCorrect[percentageCorrect.length - 2]) : (percentageCorrect[percentageCorrect.length - 1])} /></div>
+                            // 0
+                            ) : (
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                    < Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                                </div>
+                            )}
+                    </div>
+                </div>
 
-            <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <h1>Most Recent Homework Accuracy</h1>
-                <div style={{ marginTop: '10px', backgroundColor: '#ffffff'}}>
-                    {/* Render the CircleGraph component with the percentage */}
-                    {(percentageCorrect.length > 0) ? 
-                        (
-                            <div style={{...graphStyles, paddingBottom: '0px'}}><CircleGraph percentage={percentageCorrect[percentageCorrect.length - 1]} /></div>
-                        // 0
-                        ) : (
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                                < Oval color="#20a7a1" secondaryColor="#20a7a1" />
-                            </div>
-                        )}
+                <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '400px', }}>
+                    <h1>Previous 10 Homework Accuracy</h1>
+                    <div style={{ marginTop: '10px' }}>
+                        {/* Render the CircleGraph component with the percentage */}
+                        {(percentage10Correct > 0) ?
+                            (
+                                <div style={{ ...graphStyles, paddingBottom: '0px' }}><CircleGraph percentage={percentage10Correct} /></div>
+                                // 0
+                            ) : (
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                    < Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                                </div>
+                            )}
+                    </div>
+                </div>
+
+                <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '400px', }}>
+                    <h1>All Time Homework Accuracy</h1>
+                    <div style={{ marginTop: '10px'}}>
+                        {/* Render the CircleGraph component with the percentage */}
+                        {(percentage10Correct > 0) ?
+                            (
+                                <div style={{ ...graphStyles, paddingBottom: '0px' }}><CircleGraph percentage={percentageAllCorrect} /></div>
+                                // 0
+                            ) : (
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                    < Oval color="#20a7a1" secondaryColor="#20a7a1" />
+                                </div>
+                            )}
+                    </div>
                 </div>
             </div>
 

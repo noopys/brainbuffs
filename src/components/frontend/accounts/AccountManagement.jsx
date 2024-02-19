@@ -210,8 +210,8 @@ const AccountManagement = () => {
         'custom:FullName': user.fullName,
         'custom:PhoneNumber': user.phoneNumber,
       });
-      console.log('User attributes updated successfully', user.fullName, user.phoneNumber);
-      setupdateInfoSuccessMessage('User attributes updated successfully!');
+      console.log('User Information Updated Successfully', user.fullName, user.phoneNumber);
+      setupdateInfoSuccessMessage('User Information Updated Successfully!');
 
       setChangesMadePersonal(false);
 
@@ -261,7 +261,7 @@ const AccountManagement = () => {
       if (response.ok) {
         setChangesMadeStats(false);
         console.log("changes made:", newGoalScore, newNextTestDate);
-        setupdateStatsSuccessMessage('Statistics updated successfully!');
+        setupdateStatsSuccessMessage('Statistics Updated Successfully!');
       } else {
         console.error('Failed to fetch data from API Gateway');
         // Handle the error case

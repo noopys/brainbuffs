@@ -434,7 +434,7 @@ function Homework(props) {
             </button>
           </div>
           <div className="w-84 align-center pt-4">
-            Found an issue with a question? Click <Link to="/contact">here</Link> and report it. Please give details on the exact question and what is wrong
+            Found an issue with a question? Click <a href="./contact" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>here</a> to report it. Please give details on the exact question and what is wrong.
           </div>
         </div>
 

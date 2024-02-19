@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MissedConceptsChart from './MissedConceptsChart'; // Import the MissedConceptsChart component
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { Link } from 'react-router-dom';
+import ProfilePage from '../frontend/accounts/ProfilePage'
 
 const HomeworkIntermediate = () => {
   /*------------------------------------------------------
@@ -160,7 +161,7 @@ const HomeworkIntermediate = () => {
     color: '#fff',
     padding: '12px 24px',
     border: 'none',
-    borderRadius: '0', // Set to 0 for rectangle shape
+    borderRadius: '10px', // Set to 0 for rectangle shape
     cursor: 'pointer',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
     width: '100%',
@@ -202,7 +203,7 @@ const HomeworkIntermediate = () => {
                   Resume Previous Session
                 </button>
                 <div>
-                  Please finish your previous assignment before starting a new one
+                  Please finish your previous assignment before starting a new one.
                 </div>
                 {/* <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
                   Math
@@ -236,12 +237,12 @@ const HomeworkIntermediate = () => {
           </div>
         </div>
         
-        <div>
+        {/* <div>
           <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2>
-        </div>
+        </div> */}
 
         {/* Include the MissedConceptsChart component with actual data */}
-        <div style={{ width: '95%', maxWidth: '700px', margin: '20px auto', backgroundColor: '#20a7a1', color: '#fff', padding: '20px', borderRadius: '10px', }}>
+        {/* <div style={{ width: '95%', maxWidth: '700px', margin: '20px auto', backgroundColor: '#20a7a1', color: '#fff', padding: '20px', borderRadius: '10px', }}>
           <h2 style={chartTitleStyle}>Missed Math Concepts</h2>
           <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
             {shouldShowLegend ? (
@@ -266,7 +267,8 @@ const HomeworkIntermediate = () => {
           <div style={{ width: '100%', height: '450px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
             <MissedConceptsChart chartData={missedEnglishConceptsChartData} shouldShowLegend={shouldShowLegend} />
           </div>
-        </div>
+        </div> */}
+        <ProfilePage/>
       </div>
     </div>
   );
