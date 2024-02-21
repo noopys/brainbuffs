@@ -81,7 +81,7 @@ const adjustLatexFontSize = () => {
     } else {
       // console.log('Latex text is smaller than the card width');
       // Increase font size until LaTeX text is close to the card border
-      fontSize = 4; // Default font size for extra small screens
+      fontSize = 2; // Default font size for extra small screens
       while (latexWidth < cardWidth - 10 && fontSize < 18) { // 10px buffer
         fontSize += 1;
         // console.log('Increasing font size to:', fontSize);
