@@ -224,10 +224,10 @@ const HomeworkIntermediate = () => {
                   Math
                 </button>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('English')}>
-                  English
+                  Reading
                 </button>
                 <button style={buttonStyle} className="bg-main-teal hover:bg-main-teal-400 font-bold" onClick={() => handleNavigateToSubject('Both')}>
-                  Math and English
+                  Math and Reading
                 </button>
                 <button  className="bg-main-teal hover:bg-main-teal-400 font-bold" style={buttonStyle} onClick={() => handleNavigateToSubject('ViewPreviousAssignments')}>
                   Review Previous Practice
