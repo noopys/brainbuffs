@@ -18,7 +18,6 @@ function Homework(props) {
 
   // Ref for the LaTeX container
   const latexContainerRef = useRef(null);
-  const [needsLineBreak, setNeedsLineBreak] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -411,6 +410,7 @@ useEffect(() => {
     return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please sign in to view the adaptive practice system.</div>;
   }
 
+  
   return (
     <>
         <div style={{ margin: 'auto' }}>
@@ -487,16 +487,16 @@ useEffect(() => {
           </Card>
           <div>
             {isChatOpen && (
-              <div className="md:absolute ml-14 w-96" style={{ paddingTop: "20px" }}> {/* Adjusted positioning styles */}
-                <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
-                  <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
-                    <p className="text-lg font-semibold">AI Assisted Tutor</p>
-                    <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
-                      {/* Close icon */}
-                    </button>
-                  </div>
-                  {/* Display messages */}
-                  <div style={{ overflowY: "auto", maxHeight: "300px" }}>
+              <div className="w-full md:w-auto md:ml-6 mt-3 md:mt-0" style={{ maxWidth: '65rem', margin: 'auto' }}> {/* Adjusted positioning styles */}
+              <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
+                <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
+                  <p className="text-lg font-semibold">AI Assisted Tutor</p>
+                  <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
+                    {/* Close icon */}
+                  </button>
+                </div>
+                {/* Display messages */}
+                <div style={{ overflowY: "auto", maxHeight: "300px" }}>
                     {messages.map((message, index) => (
                       <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right mr-4' : 'ml-6'}`}>
                         <p style={{ textAlign: "left" }} className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
@@ -504,7 +504,7 @@ useEffect(() => {
                         </p>
                       </div>
                     ))}
-                    <div className="pr-52">
+                     <div className="p-4 border-t flex">
                       <Discuss
                         visible={isLoadingChat}
                         height="80"
@@ -577,6 +577,7 @@ useEffect(() => {
       </div>
     </>
   );
+  
 }
 
 export default Homework;
