@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 // UI
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Oval } from 'react-loader-spinner';
@@ -15,6 +15,12 @@ import { Discuss } from 'react-loader-spinner';
 import Chat from './Chat.jsx'
 
 function Homework(props) {
+
+  // Ref for the LaTeX container
+  const latexContainerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+
   const { updateInCurrSess } = useAuth();
   const { updateUserData } = useAuth();
   const navigate = useNavigate();
@@ -33,7 +39,7 @@ function Homework(props) {
   const [isCorrect, setIsCorrect] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const [questionData, setQuestionData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isLoadingChat, setIsLoadingChat] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -45,6 +51,125 @@ function Homework(props) {
 
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
+
+
+  // Function to adjust LaTeX font size
+// const adjustLatexFontSize = () => {
+//   if (latexContainerRef.current) {
+//     const containerWidth = latexContainerRef.current.offsetWidth;
+//     const scaleFactor = containerWidth / 30; // Adjust scale factor as needed
+//     const fontSize = Math.max(Math.min(scaleFactor * 10, 20), 10); // Adjust font size dynamically
+//     latexContainerRef.current.style.fontSize = `${fontSize}px`;
+//   }
+// };
+
+// // Function to adjust LaTeX font size dynamically
+// const adjustLatexFontSize = () => {
+//   if (latexContainerRef.current) {
+//     const containerWidth = latexContainerRef.current.offsetWidth;
+//     let fontSize;
+    
+//     // Adjust font size based on screen width
+//     if (containerWidth < 400) {
+//       fontSize = 6; // Extra small screens
+//     } else if (containerWidth >= 400 && containerWidth < 600) {
+//       fontSize = 10; // Small screens
+//     } else if (containerWidth >= 600 && containerWidth < 800) {
+//       fontSize = 12; // Medium screens
+//     } else if (containerWidth >= 800 && containerWidth < 1000) {
+//       fontSize = 14; // Large screens
+//     } else {
+//       fontSize = 18; // Extra large screens
+//     }
+    
+//     latexContainerRef.current.style.fontSize = `${fontSize}px`;
+//   }
+// };
+
+
+
+
+// const adjustLatexFontSize = () => {
+//   if (latexContainerRef.current) {
+//     const containerWidth = latexContainerRef.current.offsetWidth;
+//     const cardWidth = latexContainerRef.current.parentElement.clientWidth;
+//     const latexWidth = latexContainerRef.current.scrollWidth;
+
+//     let fontSize;
+
+//     // Decrease font size if LaTeX text is larger than the card width
+//     if (latexWidth > cardWidth) {
+//       fontSize = 18; // Default font size for extra large screens
+//       while (latexWidth > cardWidth && fontSize > 6) { // Minimum font size 6
+//         fontSize -= 1;
+//         latexContainerRef.current.style.fontSize = `${fontSize}px`;
+//         // Recalculate the LaTeX width after font size change
+//         const updatedLatexWidth = latexContainerRef.current.scrollWidth;
+//         if (updatedLatexWidth <= cardWidth) break; // Exit loop if text no longer larger than card width
+//       }
+//     } else {
+//       // Increase font size until LaTeX text is close to the card border
+//       fontSize = 6; // Default font size for extra small screens
+//       while (latexWidth < cardWidth - 10 && fontSize < 18) { // 10px buffer
+//         fontSize += 1;
+//         latexContainerRef.current.style.fontSize = `${fontSize}px`;
+//         // Recalculate the LaTeX width after font size change
+//         const updatedLatexWidth = latexContainerRef.current.scrollWidth;
+//         if (updatedLatexWidth >= cardWidth - 10) break; // Exit loop if text touches border
+//       }
+//     }
+//   }
+// };
+const adjustLatexFontSize = () => {
+  if (latexContainerRef.current) {
+    const containerWidth = latexContainerRef.current.offsetWidth;
+    const cardWidth = latexContainerRef.current.parentElement.clientWidth;
+    // const latexWidth = latexContainerRef.current.scrollWidth;
+    const latexWidth = latexContainerRef.current.getBoundingClientRect().width;
+
+    // console.log('Container Width:', containerWidth);
+    // console.log('Card Width:', cardWidth);
+    // console.log('Latex Width:', latexWidth);
+
+    let fontSize;
+
+    // Decrease font size if LaTeX text is larger than the card width
+    if (latexWidth > cardWidth) {
+      // console.log('Latex text is larger than the card width');
+      fontSize = 18; // Default font size for extra large screens
+      while (latexWidth > cardWidth && fontSize > 6) { // Minimum font size 6
+        fontSize -= 1;
+        // console.log('Decreasing font size to:', fontSize);
+        latexContainerRef.current.style.fontSize = `${fontSize}px`;
+        // Recalculate the LaTeX width after font size change
+        const updatedLatexWidth = latexContainerRef.current.scrollWidth;
+        // console.log('Updated Latex Width:', updatedLatexWidth);
+        if (updatedLatexWidth <= cardWidth) break; // Exit loop if text no longer larger than card width
+      }
+    } else {
+      // console.log('Latex text is smaller than the card width');
+      // Increase font size until LaTeX text is close to the card border
+      fontSize = 6; // Default font size for extra small screens
+      while (latexWidth < cardWidth - 10 && fontSize < 18) { // 10px buffer
+        fontSize += 1;
+        // console.log('Increasing font size to:', fontSize);
+        latexContainerRef.current.style.fontSize = `${fontSize}px`;
+        // Recalculate the LaTeX width after font size change
+        const updatedLatexWidth = latexContainerRef.current.scrollWidth;
+        // console.log('Updated Latex Width:', updatedLatexWidth);
+        if (updatedLatexWidth >= cardWidth - 10) break; // Exit loop if text touches border
+      }
+    }
+  }
+};
+
+
+useEffect(() => {
+  adjustLatexFontSize(); // Call on mount and when the window is resized
+  window.addEventListener('resize', adjustLatexFontSize);
+  return () => window.removeEventListener('resize', adjustLatexFontSize);
+}, []);
+
 
   const toggleChat = async () => {
     //Save old state so can open quickly
@@ -285,16 +410,28 @@ function Homework(props) {
     return <div style={{ paddingBottom: "100px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please sign in to view the adaptive practice system.</div>;
   }
 
+  
   return (
     <>
-      <div style={{ margin: 'auto' }}>
+        <div style={{ margin: 'auto' }}>
         <div className="loader"></div>
         <div className="flex flex-col md:flex-row justify-center items-start">
-          <Card className="bg-light" style={{ width: '30rem', marginTop: '20px' }}>
+          {/* <Card className="bg-light" style={{ maxWidth: '65rem', marginTop: '20px' }}> */}
+          <Card className="bg-light" style={{ maxWidth: '65rem', width: '90%', margin: 'auto', marginTop: '20px' }}>
+
             <Card.Body>
               {questionData.questionText ? (
-                <div>
-                  <InlineMath math={questionData.questionText} />
+                <div style={{ width: '100%', overflowX: 'auto' }}>
+                  <div
+                    ref={latexContainerRef}
+                    style={{
+                      whiteSpace: 'pre-wrap', // Allow wrapping within words
+                      wordWrap: 'break-word', // Break words when necessary
+                      maxWidth: '100%', // Adjust maximum width as needed
+                    }}
+                  >
+                    <InlineMath math={questionData.questionText} />
+                  </div>
                 </div>
               ) : (
                 <div>
@@ -350,16 +487,16 @@ function Homework(props) {
           </Card>
           <div>
             {isChatOpen && (
-              <div className="md:absolute ml-14 w-96" style={{ paddingTop: "20px" }}> {/* Adjusted positioning styles */}
-                <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
-                  <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
-                    <p className="text-lg font-semibold">AI Assisted Tutor (Beta)</p>
-                    <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
-                      {/* Close icon */}
-                    </button>
-                  </div>
-                  {/* Display messages */}
-                  <div style={{ overflowY: "auto", maxHeight: "300px" }}>
+              <div className="w-full md:w-auto md:ml-6 mt-3 md:mt-0" style={{ maxWidth: '65rem', margin: 'auto' }}> {/* Adjusted positioning styles */}
+              <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
+                <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
+                  <p className="text-lg font-semibold">AI Assisted Tutor</p>
+                  <button onClick={toggleChat} className="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400 m-2">
+                    {/* Close icon */}
+                  </button>
+                </div>
+                {/* Display messages */}
+                <div style={{ overflowY: "auto", maxHeight: "300px" }}>
                     {messages.map((message, index) => (
                       <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right mr-4' : 'ml-6'}`}>
                         <p style={{ textAlign: "left" }} className={`rounded-lg m-1 py-2 px-2 inline-block ${message.sender === 'user' ? 'bg-main-teal text-white' : 'bg-mint-cream text-gray-700'}`}>
@@ -367,7 +504,7 @@ function Homework(props) {
                         </p>
                       </div>
                     ))}
-                    <div className="pr-52">
+                     <div className="p-4 border-t flex">
                       <Discuss
                         visible={isLoadingChat}
                         height="80"
@@ -437,28 +574,10 @@ function Homework(props) {
             Found an issue with a question? Click <a href="./contact" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>here</a> to report it. Please give details on the exact question and what is wrong.
           </div>
         </div>
-
-
-        {/* {(isCorrect === "correct") && (
-          <div className="p-3 text-center">
-            <h2 className="text-xl font-bold">Correct!</h2>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-              <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clipRule="evenodd" />
-            </svg>
-          </div>
-        )}
-        {(isCorrect === "incorrect") && (
-          <div className="p-3 text-center">
-            <h2 className="text-xl font-bold">Incorrect!</h2>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06z" clipRule="evenodd" />
-            </svg>
-          </div>
-        )} */}
       </div>
     </>
   );
+  
 }
 
 export default Homework;
-
