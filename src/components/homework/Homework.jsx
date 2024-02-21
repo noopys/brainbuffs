@@ -52,74 +52,6 @@ function Homework(props) {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
 
-
-  // Function to adjust LaTeX font size
-// const adjustLatexFontSize = () => {
-//   if (latexContainerRef.current) {
-//     const containerWidth = latexContainerRef.current.offsetWidth;
-//     const scaleFactor = containerWidth / 30; // Adjust scale factor as needed
-//     const fontSize = Math.max(Math.min(scaleFactor * 10, 20), 10); // Adjust font size dynamically
-//     latexContainerRef.current.style.fontSize = `${fontSize}px`;
-//   }
-// };
-
-// // Function to adjust LaTeX font size dynamically
-// const adjustLatexFontSize = () => {
-//   if (latexContainerRef.current) {
-//     const containerWidth = latexContainerRef.current.offsetWidth;
-//     let fontSize;
-    
-//     // Adjust font size based on screen width
-//     if (containerWidth < 400) {
-//       fontSize = 6; // Extra small screens
-//     } else if (containerWidth >= 400 && containerWidth < 600) {
-//       fontSize = 10; // Small screens
-//     } else if (containerWidth >= 600 && containerWidth < 800) {
-//       fontSize = 12; // Medium screens
-//     } else if (containerWidth >= 800 && containerWidth < 1000) {
-//       fontSize = 14; // Large screens
-//     } else {
-//       fontSize = 18; // Extra large screens
-//     }
-    
-//     latexContainerRef.current.style.fontSize = `${fontSize}px`;
-//   }
-// };
-
-
-
-
-// const adjustLatexFontSize = () => {
-//   if (latexContainerRef.current) {
-//     const containerWidth = latexContainerRef.current.offsetWidth;
-//     const cardWidth = latexContainerRef.current.parentElement.clientWidth;
-//     const latexWidth = latexContainerRef.current.scrollWidth;
-
-//     let fontSize;
-
-//     // Decrease font size if LaTeX text is larger than the card width
-//     if (latexWidth > cardWidth) {
-//       fontSize = 18; // Default font size for extra large screens
-//       while (latexWidth > cardWidth && fontSize > 6) { // Minimum font size 6
-//         fontSize -= 1;
-//         latexContainerRef.current.style.fontSize = `${fontSize}px`;
-//         // Recalculate the LaTeX width after font size change
-//         const updatedLatexWidth = latexContainerRef.current.scrollWidth;
-//         if (updatedLatexWidth <= cardWidth) break; // Exit loop if text no longer larger than card width
-//       }
-//     } else {
-//       // Increase font size until LaTeX text is close to the card border
-//       fontSize = 6; // Default font size for extra small screens
-//       while (latexWidth < cardWidth - 10 && fontSize < 18) { // 10px buffer
-//         fontSize += 1;
-//         latexContainerRef.current.style.fontSize = `${fontSize}px`;
-//         // Recalculate the LaTeX width after font size change
-//         const updatedLatexWidth = latexContainerRef.current.scrollWidth;
-//         if (updatedLatexWidth >= cardWidth - 10) break; // Exit loop if text touches border
-//       }
-//     }
-//   }
-// };
 const adjustLatexFontSize = () => {
   if (latexContainerRef.current) {
     const containerWidth = latexContainerRef.current.offsetWidth;
@@ -149,7 +81,7 @@ const adjustLatexFontSize = () => {
     } else {
       // console.log('Latex text is smaller than the card width');
       // Increase font size until LaTeX text is close to the card border
-      fontSize = 6; // Default font size for extra small screens
+      fontSize = 4; // Default font size for extra small screens
       while (latexWidth < cardWidth - 10 && fontSize < 18) { // 10px buffer
         fontSize += 1;
         // console.log('Increasing font size to:', fontSize);
@@ -170,6 +102,13 @@ useEffect(() => {
   return () => window.removeEventListener('resize', adjustLatexFontSize);
 }, []);
 
+useEffect(() => {
+  // Call adjustLatexFontSize after the loader is gone
+  if (!isLoading) {
+    adjustLatexFontSize();
+    // console.log("here"); 
+  }
+}, [isLoading]);
 
   const toggleChat = async () => {
     //Save old state so can open quickly
