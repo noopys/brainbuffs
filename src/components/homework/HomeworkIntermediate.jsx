@@ -121,7 +121,7 @@ const HomeworkIntermediate = () => {
     margin: '20px auto',
     fontFamily: 'poppins',
     // borderBottom: '1px solid #20a7a1',
-    maxWidth: '1920px', // Set the max width to 1920px
+    // maxWidth: '1920px', // Set the max width to 1920px
     width: '100%', // Make the width 100% for responsiveness
   };
 
@@ -172,18 +172,19 @@ const HomeworkIntermediate = () => {
     HTML
   --------------------------------------------------------*/
 
-  if (!isLoggedIn || isProSubscription===false) {
-    return (
-      <div>
-        <div style={{ paddingBottom: "50px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please choose one of our plans to use the adaptive practice system.</div>
-        <Link to="/#PricingCards" >
-          <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans &nbsp; &rarr;</button>
-        </Link>
-      </div>
-    );
-  };
+  // if (!isLoggedIn || isProSubscription===false) {
+  //   return (
+  //     <div>
+  //       <div style={{ paddingBottom: "50px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please choose one of our plans to use the adaptive practice system.</div>
+  //       <Link to="/#PricingCards" >
+  //         <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans &nbsp; &rarr;</button>
+  //       </Link>
+  //     </div>
+  //   );
+  // };
 
   return (
+    <div>
     <div style={containerStyle}>
       <h1 className="font-poppins font-bold ">My Practice Dashboard</h1>
       <h4 className="font-bold">Select a subject to study or review previous practice.</h4>
@@ -191,7 +192,7 @@ const HomeworkIntermediate = () => {
 
 
         {/* Content Container */}
-        <div style={{ ...contentContainerStyle }}>
+        <div >
 
           
 
@@ -268,8 +269,11 @@ const HomeworkIntermediate = () => {
             <MissedConceptsChart chartData={missedEnglishConceptsChartData} shouldShowLegend={shouldShowLegend} />
           </div>
         </div> */}
-        <ProfilePage/>
+        
       </div>
+      
+    </div>
+      <div><ProfilePage /></div>
     </div>
   );
 };

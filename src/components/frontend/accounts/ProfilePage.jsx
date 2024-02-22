@@ -30,7 +30,7 @@ const ProfilePage = () => {
         border: 'none',
         borderRadius: '6px',
         cursor: 'pointer',
-        margin: '10px',
+        margin: '20px',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
         width: '50%',
         maxWidth: '300px'
@@ -41,7 +41,7 @@ const ProfilePage = () => {
         // maxWidth: '800px',//'100%',
         padding: '20px 0px 0px 0px',
         // borderRadius: '10px',
-        margin: '20px auto',
+        margin: '20px auto 0px',
         fontFamily: 'poppins',
         backgroundColor: '#fff',
     };
@@ -50,9 +50,9 @@ const ProfilePage = () => {
         width: '95%',
         minHeight: '300px',
         maxWidth: '700px',
-        margin: '20px auto',
-        backgroundColor: '#000',//'#20a7a1',
-        color: '#fff',
+        margin: '20px',
+        backgroundColor: '#dddddd',//'#20a7a1',
+        color: '#000',
         padding: '20px',
         borderRadius: '10px',
     };
@@ -74,7 +74,7 @@ const ProfilePage = () => {
             width: '90%', // Set the width of the chart area
             height: '90%', // Set the height of the chart area
         },
-        backgroundColor: '#f3f3f3',
+        backgroundColor: '#dddddd',
         // is3D: true, // Enable a 3D effect for the pie chart
         legend: shouldShowLegend ? {
             position: 'left',
@@ -245,15 +245,15 @@ const ProfilePage = () => {
         // Define options for the pie chart
         const options = {
             legend: 'none', // Hide the legend
-            backgroundColor: '#000000',
+            backgroundColor: '#dddddd',
             pieSliceText: 'none', // Disable percentage labels on pie slices
             pieSliceTextStyle: {
                 color: 'white',
             },
             pieStartAngle: 0, // Rotate the pie chart to center the 'Correct' slice
             slices: {
-                0: { color: '#6cd4c5' }, // Color for 'Correct' slice
-                1: { color: '#e27c7c' }, // Color for 'Incorrect' slice
+                0: { color: '#003f5c' }, // Color for 'Correct' slice '#6cd4c5'
+                1: { color: '#f95d6a' }, // Color for 'Incorrect' slice '#e27c7c'
             },
             pieHole: 0.7, // Adjust the size of the center hole
             chartArea: { left: 10, top: 10, width: '90%', height: '90%' }, // Expand the chart area to allow space for custom text
@@ -273,7 +273,7 @@ const ProfilePage = () => {
                     options={options}
                     loader={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}><Oval color="#20a7a1" secondaryColor="#20a7a1" /></div>}
                 />
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#6cd4c5', fontSize: '35px', fontWeight: 'bold',  }}>
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#003f5c', fontSize: '35px', fontWeight: 'bold',  }}>
                     {percentage}% 
                 </div>
             </div>
@@ -312,11 +312,12 @@ const ProfilePage = () => {
             
   
             {/* PIE CHART FOR MISSED CONCEPTS */}
-            <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor: '#808080' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', backgroundColor: '#ffffff'}}> 
+                {/* '#808080'*/}
                 <div style={graphContainerStyles}>
                     <h2> Missed Math Concepts</h2>
                     <div style={graphStyles}>
-                        <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000',}}>
+                        <div style={{ backgroundColor: '#dddddd', zIndex: '9999', color: '#000',}}>
                             {shouldShowLegend ? (
                                 <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
                                 ): (
@@ -336,7 +337,7 @@ const ProfilePage = () => {
                 <div style={graphContainerStyles}>
                     <h2> Missed English Concepts</h2>
                     <div style={graphStyles}>
-                        <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
+                        <div style={{ backgroundColor: '#dddddd', zIndex: '9999', color: '#000', }}>
                             {shouldShowLegend ? (
                                 <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
                             ) : (
@@ -353,14 +354,15 @@ const ProfilePage = () => {
                         />
                     </div>
                 </div>
+                
             </div>
 
             {/* HORIZONTAL BAR CHART */}
             {/* <HorizontalBarChart /> */}
-            <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', backgroundColor: '#555555' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', backgroundColor: '#ffffff' }}>
                 <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '400px', }}>
                     <h1>Most Recent Homework Accuracy</h1>
-                    <div style={{ marginTop: '10px'}}>
+                    <div style={{ margin: '10px'}}>
                         {/* Render the CircleGraph component with the percentage */}
                         {(percentageCorrect.length > 0) ? 
                             (
@@ -376,7 +378,7 @@ const ProfilePage = () => {
 
                 <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '400px', }}>
                     <h1>Previous 10 Homework Accuracy</h1>
-                    <div style={{ marginTop: '10px' }}>
+                    <div style={{ margin: '10px' }}>
                         {/* Render the CircleGraph component with the percentage */}
                         {(percentage10Correct > 0) ?
                             (
@@ -392,7 +394,7 @@ const ProfilePage = () => {
 
                 <div style={{ ...graphContainerStyles, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: '400px', }}>
                     <h1>All Time Homework Accuracy</h1>
-                    <div style={{ marginTop: '10px'}}>
+                    <div style={{ margin: '10px'}}>
                         {/* Render the CircleGraph component with the percentage */}
                         {(percentage10Correct > 0) ?
                             (
@@ -443,7 +445,9 @@ const ProfilePage = () => {
                 <h2>Progress Towards your goal</h2>
                 <div style={graphStyles}>Maybe a simple bar graph that shows progress from 0-1600 and then has markers from their first diagnostic test, the bar shows "projected score", and the end shows goal score</div>
             </div> */}
-            <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br>
+            <div style={{ justifyContent: 'center', backgroundColor: '#ffffff' }}>
+                <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br>
+            </div>
         </div>
     );
 };
