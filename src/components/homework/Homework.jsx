@@ -522,12 +522,22 @@ console.log("Answers after trimming:", trimmedAnswers);
               {isSubmitting ? <Oval color="#fff" secondaryColor="#fff" height={20} width={20} /> : 'Submit'}
             </button>
             {/* AI Assisted Tutor button spanning across all columns on larger screens */}
-            <button
+            {/* <button
               onClick={toggleChat}
               className="bg-main-teal text-white py-2 px-4 rounded-md hover:bg-main-teal-400 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12"
             >
               AI Assisted Tutor
+            </button> */}
+            <button
+              onClick={toggleChat}
+              className={`py-2 px-4 rounded-md hover:bg-main-teal-400 transition duration-300 md:col-span-3 mt-3 md:mt-0 h-12 ${
+                !questionData.questionText ? 'bg-gray-300 cursor-not-allowed' : 'bg-main-teal text-white'
+              }`}
+              disabled={!questionData.questionText}
+            >
+              AI Assisted Tutor
             </button>
+
           </div>
           <div className="w-84 align-center pt-4">
             Found an issue with a question? Click <a href="./contact" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>here</a> to report it. Please give details on the exact question and what is wrong.
