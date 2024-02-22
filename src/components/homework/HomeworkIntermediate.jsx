@@ -172,7 +172,8 @@ const HomeworkIntermediate = () => {
     HTML
   --------------------------------------------------------*/
 
-  if (!isLoggedIn || isProSubscription===false) {
+  // if (!isLoggedIn || isProSubscription===false) {
+  if (!isLoggedIn) {
     return (
       <div>
         <div style={{ paddingBottom: "50px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please choose one of our plans to use the adaptive practice system.</div>
