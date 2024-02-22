@@ -292,14 +292,34 @@ useEffect(() => {
       // userProfile: prof,
     };
 
+// Strip leading and trailing whitespace from answers array
+// Trim leading and trailing whitespace from answers array
+// console.log("Answers before trimming:", answers);
+const trimmedAnswers = answers.map(answer => answer.trim());
+console.log("Answers after trimming:", trimmedAnswers);
+// Update state with the trimmed answers
+// setAnswers(trimmedAnswers);
+
     // Collect data for all questions
     const submitData = questionDataArray.map((question, index) => {
-      // console.log('Question:', question); // Add this line for debugging
-      const userCorrect = answers[index] === question.answer;
+       // console.log('Question:', question); // Add this line for debugging
+       let userCorrect = false;
+       const userAnswer = trimmedAnswers[index];
+       const correctAnswer = question.answer;
+       // Check if the correct answer contains "or"
+       if (correctAnswer.includes('or')) {
+           const [firstOption, secondOption] = correctAnswer.split('or').map(option => option.trim());
+           if (userAnswer === firstOption || userAnswer === secondOption) {
+               userCorrect = true;
+           }
+       } else {
+           // For single-option answers, compare directly
+           userCorrect = userAnswer === correctAnswer;
+       }
       return {
         UserId: user.username,
         RecordId: question.recordId,
-        Answer: answers[index],
+        Answer: trimmedAnswers[index],
         CorrectAnswer: question.answer,
         IsCorrect: userCorrect,
         imageUrl: question.imageUrl,
@@ -307,11 +327,11 @@ useEffect(() => {
         questionText: question.questionText,
       };
     });
-    // console.log('submitData:', submitData); // Add this line for debugging
+    console.log('submitData:', submitData); // Add this line for debugging
     try {
 
       // Update user profile for all questions
-      await updateUser(userId, questionDataArray, answers, updateUserData, userData);
+      await updateUser(userId, questionDataArray, trimmedAnswers, updateUserData, userData);
 
       // Log the updated user profiles
       //console.log('Updated userProfile:', userData[0].userProfile);
