@@ -24,8 +24,19 @@ exports.handler = async (event) => {
         // Update the user profile for each question
         questions.forEach((question, index) => {
             const selectedOption = selectedOptions[index];
-            const correct = selectedOption === question.answer;
-
+            let correct = selectedOption === question.answer;
+            console.log('selectedOption:', selectedOption);
+            console.log('correctBefore:', correct);
+            
+            // Check if the answer contains the 'or' keyword
+            if (question.answer.includes('or')) {
+                // Split the answer by the 'or' keyword
+                const answerOptions = question.answer.split('or').map(option => option.trim());
+                // Check if the selectedOption matches any of the answer options
+                correct = answerOptions.includes(selectedOption);
+                console.log('IN THE CONDITIONAL');
+            }
+            
             // Determine which user profile to update based on the subject
             const userToUpdate = question.subject === 'Math' ? userProfile : englishUserProfile;
             console.log("user to Update: ", userToUpdate);
