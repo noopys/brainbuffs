@@ -172,16 +172,16 @@ const HomeworkIntermediate = () => {
     HTML
   --------------------------------------------------------*/
 
-  // if (!isLoggedIn || isProSubscription===false) {
-  //   return (
-  //     <div>
-  //       <div style={{ paddingBottom: "50px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please choose one of our plans to use the adaptive practice system.</div>
-  //       <Link to="/#PricingCards" >
-  //         <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans &nbsp; &rarr;</button>
-  //       </Link>
-  //     </div>
-  //   );
-  // };
+  if (!isLoggedIn || isProSubscription===false) {
+    return (
+      <div>
+        <div style={{ paddingBottom: "50px", paddingTop: "50px", fontSize: "30px", fontFamily: 'poppins' }}>Please choose one of our plans to use the adaptive practice system.</div>
+        <Link to="/#PricingCards" >
+          <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans &nbsp; &rarr;</button>
+        </Link>
+      </div>
+    );
+  };
 
   return (
     <div>
