@@ -446,7 +446,7 @@ console.log("Answers after trimming:", trimmedAnswers);
           </Card>
           <div>
             {isChatOpen && (
-              <div className="w-full md:w-auto md:ml-6 mt-3 md:mt-0" style={{ maxWidth: '65rem', margin: 'auto' }}> {/* Adjusted positioning styles */}
+              <div className="w-full md:w-auto md:ml-6 mt-3 md:mt-0" style={{ maxWidth: '65rem', margin: 'auto' , padding: '10px'}}> {/* Adjusted positioning styles */}
               <div className="bg-white shadow-md rounded-lg max-w-lg w-full">
                 <div className="p-4 border-b bg-main-teal text-white rounded-t-lg flex justify-between items-center">
                   <p className="text-lg font-semibold">AI Assisted Tutor</p>
