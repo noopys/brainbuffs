@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useAuth } from './AuthContext';
-// import { Pie } from 'react-chartjs-2';
-import { Oval } from 'react-loader-spinner'; // Import the loader component
+import { Oval } from 'react-loader-spinner'; 
 import { Chart } from 'react-google-charts';
 
 const ProfilePage = () => {
@@ -153,22 +153,15 @@ const ProfilePage = () => {
 
                     const requestData = {
                         userId: userId,
-                        // ... other request data if needed
                     };
-                    // setLoading(true); // Set loading to true before making the API call
-                    const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', {
-                        method: 'POST',
+                    const response = await axios.post('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', requestData, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(requestData),
                     });
 
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
+                    const data = response.data;
 
-                    const data = await response.json();
                     console.log('Fetched previous assignments data:', data);
 
                     // Calculate percentageCorrect based on the updated homeworkSets state
@@ -187,15 +180,13 @@ const ProfilePage = () => {
 
                             const perCorr = (correctCount / totalCount) * 100;
                             newPercentageCorrect.push(perCorr);
-                            // console.log(`Percentage of correct answers for array ${key}: ${perCorr}%`);
                         }
                     }
 
                     // Previous 10
-                    const lastTenEntries = newPercentageCorrect.slice(-10); // Get the last 10 entries from the array
+                    const lastTenEntries = newPercentageCorrect.slice(-10); 
                     const sum10 = lastTenEntries.reduce((acc, val) => acc + val, 0);
                     const average10 = sum10 / lastTenEntries.length;
-                    // console.log("average:", average10);
 
                     // All time
                     const sumAll = newPercentageCorrect.reduce((acc, val) => acc + val, 0);
@@ -204,13 +195,11 @@ const ProfilePage = () => {
                     // Update states with the new data
                     setHomeworkSets(data);
                     setPercentageCorrect(newPercentageCorrect);
-                    setPercentage10Correct(parseInt(average10.toFixed(2), 10)); // Optional: Round to 2 decimal places
+                    setPercentage10Correct(parseInt(average10.toFixed(2), 10)); 
                     setPercentageAllCorrect(parseInt(averageAll.toFixed(2), 10));
-                    // console.log(percentageCorrect);
 
                     const noData = Object.keys(data).length === 0;
                     setNoAssignmentsFound(noData);
-                    // setLoading(false); // Set loading to false after data is fetched
                     // Set the homework sets data to state for rendering
                 } else {
                     // Handle case when the user is not logged in

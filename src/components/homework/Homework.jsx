@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
+import axios from 'axios'
 // UI
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Oval } from 'react-loader-spinner';
@@ -223,20 +224,14 @@ useEffect(() => {
     };
 
     try {
-      const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getNextQuestion', {
-        method: 'POST',
+      const response = await axios.post('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getNextQuestion', requestData, {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(requestData),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      const data = response.data;
 
-      const data = await response.json();
-      console.log('Fetched question data:', data); // Add this line for debugging
       setCurrentQuestionIndex(0);
       setRecordId(data[0].recordId);
       setQuestionDataArray(data);
@@ -336,22 +331,16 @@ console.log("Answers after trimming:", trimmedAnswers);
       // Log the updated user profiles
       //console.log('Updated userProfile:', userData[0].userProfile);
       //console.log('Updated EnglishUserProfile:', userData[0].EnglishUserProfile);
-      const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/gradeHomework', {
-        method: 'POST',
+      
+      const response = await axios.post('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/gradeHomework', { requestData, submitData }, {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ requestData, submitData })
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      setResponse(responseData);
+      const data = response.data;
+      setResponse(data);
       // Navigate to HomeworkAnswered page with the answered questions data
-      // console.log('submitData2222:', submitData); // Add this line for debugging
 
       // Set loading state to false once submission is complete
       setIsSubmitting(false);

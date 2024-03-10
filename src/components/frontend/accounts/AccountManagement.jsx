@@ -325,45 +325,45 @@ const AccountManagement = () => {
     }
   };
 
-  // called when ending subscription
-  const handleEndSubscription = async () => {
-    const requestBody = {
-      email: user.email,
-    };
+// called when ending subscription
+const handleEndSubscription = async () => {
+  const requestBody = {
+    email: user.email,
+  };
 
-    const apiEndpoint = 'https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/endSubscription';
-    const response = await fetch(apiEndpoint, {
-      method: 'POST',
+  const apiEndpoint = 'https://90n4q5y1l2.execute-api.us-west-2.amazonaws.com/endSubscription';
+
+  try {
+    const response = await axios.post(apiEndpoint, requestBody, {
       headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody)
+      }
     });
 
-    // For development purposes
-    if (response.ok) {
-      console.log('Subscription ended successfully');
-      setEndSubMessage("Subscription ended successfully");
+    // Axios automatically checks for status code in the 2xx range
+    console.log('Subscription ended successfully');
+    setEndSubMessage("Subscription ended successfully");
 
-      // Update the context
-      const updatedContext = { ...userData[0], SubscriptionLevel: { S: "Free" } };
-      const updatedUserData = [...userData];
-      updatedUserData[0] = updatedContext;
-      updateUserData(updatedUserData);
+    // Update the context
+    const updatedContext = { ...userData[0], SubscriptionLevel: { S: "Free" } };
+    const updatedUserData = [...userData];
+    updatedUserData[0] = updatedContext;
+    updateUserData(updatedUserData);
 
-      const messageDelay = 5000; // 5 seconds delay (adjust as needed)
-      const messageTimer = setTimeout(() => {
-        setEndSubMessage('');
-        setShowConfirmationEndSub(false);
-      }, messageDelay);
+    const messageDelay = 5000; // 5 seconds delay (adjust as needed)
+    const messageTimer = setTimeout(() => {
+      setEndSubMessage('');
+      setShowConfirmationEndSub(false);
+    }, messageDelay);
 
-      return () => clearTimeout(messageTimer);
+    // Cleanup timeout if the component unmounts
+    return () => clearTimeout(messageTimer);
 
-    } else {
-      console.log('There was an error ending your subscription.');
-      setEndSubMessage("There was an error ending your subscription.");
-    }
+  } catch (error) {
+    console.error('There was an error ending your subscription:', error);
+    setEndSubMessage("There was an error ending your subscription.");
   }
+};
 
   /*-----------------------------------------
 

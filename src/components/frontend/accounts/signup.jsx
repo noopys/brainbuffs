@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
@@ -110,25 +111,21 @@ function SignUp() {
       // Handle successful sign-up, such as showing a success message or redirecting the user
       //Add user to database 
       //endpoint
+
       const apiEndpoint = 'https://fm407nxajh.execute-api.us-west-2.amazonaws.com/addUser';
+      //Packaging up user data
+      const requestData = {UserId: UserId,  UserProfile: '{"Hard":1}'}
       //request
       try {
-        const result = await fetch(apiEndpoint, {
-          method: 'POST',
+        const response = await axios.post(apiEndpoint, requestData, {
           headers: {
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ UserId: UserId, UserProfile: '{"Hard":1}' }),
+          }
         });
   
-        if (!result.ok) {
-          throw new Error('Network response was not ok: ' + result.statusText);
-        }
-  
-        const data = await result.json();
-        //setResponse('Success: ' + JSON.stringify(data));
+        const data = response.data;
       } catch (error) {
-        //setResponse('Error: ' + error.message);
+        setErrorMessage('Error: ' + error.message);
       }
 
       setVer(true);

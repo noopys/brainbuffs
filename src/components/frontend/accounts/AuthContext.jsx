@@ -1,5 +1,6 @@
 // AuthContext.js
 import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios'
 import { Auth } from 'aws-amplify';
 
 const AuthContext = React.createContext();
@@ -56,27 +57,13 @@ export const AuthProvider = ({ children }) => {
     };
 
     try {
-      const response = await fetch(apiGatewayEndpoint, {
-        method: 'POST',
+      const response = await axios.post(apiGatewayEndpoint, requestData, {
         headers: {
-          'Content-Type': 'application/json' // Specify that you're sending JSON data
-        },
-        body: JSON.stringify( requestData ), // Convert the data object to a JSON string
+          'Content-Type': 'application/json'
+        } 
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setUserData(data);
-        console.log("retreived items from Dynamo: ", data);
-        // console.log('Retrieved USERdata from API Gateway:', JSON.stringify(data));
-        // Handle the retrieved data as needed
-        
-        // Store user data in local storage
-        localStorage.setItem('userData', JSON.stringify(data));
-      } else {
-        console.error('Failed to fetch data from API Gateway');
-        // Handle the error case
-      }
+      const data = response.data;
     } catch (error) {
       console.error('Error fetching data from API Gateway:', error);
     }

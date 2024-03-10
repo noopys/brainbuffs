@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios'
 import { Link } from 'react-router-dom';
 
 const Contact = () => {
@@ -97,27 +98,36 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const apiEndpoint = 'https://hat4m94c1j.execute-api.us-east-2.amazonaws.com/Prod/send-email';
-    const response = await fetch(apiEndpoint, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    });
+    try {
+      const response = await axios.post(apiEndpoint, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
 
-    // For development purposes
-    if (response) {
-      console.log('Message sent successfully!');
-      setIsMessageSent(true);
-    } else {
-      console.log('There was an error sending the message.');
+      console.log(response.data);
+
+    } catch (error) {
+      // Error handling
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
     }
   };
 
   return (
     <div style={containerStyle}>
-      <div style={{ textAlign: 'center'}}>
+      <div style={{ textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'poppins', fontSize: '3em', fontWeight: 'bold', textTransform: 'capitalize' }}>Contact Us</h1>
         <p>Explore our <a href="./faq" style={{ textDecoration: 'none', color: '#20a7a1', fontWeight: 'bold' }}>FAQ</a> or contact our team</p>
       </div>
