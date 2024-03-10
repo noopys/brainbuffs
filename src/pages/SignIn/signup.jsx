@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { useAuth } from './AuthContext'
+import { useAuth } from '../../components/frontend/accounts/AuthContext'
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 

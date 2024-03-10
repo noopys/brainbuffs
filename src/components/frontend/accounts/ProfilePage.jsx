@@ -285,11 +285,6 @@ const ProfilePage = () => {
             <div style={containerStyle}>
                 <div style={{ backgroundColor: '#fff', padding: '0px' }}>
                     <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>Insights</h2>
-                    {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
-
-                    {/* <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br> */}
-
-                    {/* <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2> */}
                     <h5 style={{ fontSize: '1em' }}> Detailed analytics to help you improve faster</h5>
                     <div>Please Complete homeworks to view analytics</div>
                 </div>
@@ -302,11 +297,6 @@ const ProfilePage = () => {
         <div style={containerStyle}>
             <div style={{ backgroundColor: '#fff', padding: '0px'}}>
                 <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>Insights</h2>
-                {/* <p>Note: This page is a work in progress. Some items may not be fully functional yet. This does not impact the performance of the adaptive practice.</p> */}
-
-                {/* <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br><br></br> */}
-
-                {/* <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2> */}
                 <h5 style={{ fontSize: '1em' }}> Detailed analytics to help you improve faster</h5>
             </div>
             
@@ -446,7 +436,7 @@ const ProfilePage = () => {
                 <div style={graphStyles}>Maybe a simple bar graph that shows progress from 0-1600 and then has markers from their first diagnostic test, the bar shows "projected score", and the end shows goal score</div>
             </div> */}
             <div style={{ justifyContent: 'center', backgroundColor: '#ffffff' }}>
-                <a href="./homework-intermediate"><button style={buttonStyle}>Go Practice!</button></a><br></br>
+                <a href="./student-dashboard"><button style={buttonStyle}>Go Practice!</button></a><br></br>
             </div>
         </div>
     );

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../resources/flatirons.png';
-import HomeIcon from '../../../resources/icons/home.svg';
-import FAQIcon from '../../../resources/icons/faq.svg';
-import Contact from '../../../resources/icons/contact.svg';
-import Homework from '../../../resources/icons/homework.svg';
-import DownArrow from '../../../resources/icons/downarrow.svg';
-import Hamburger from '../../../resources/icons/hamburger.svg';
-import newlogo from '../../../resources/revisedlogo.png';
+import logo from '../../../assets/flatirons.png';
+import HomeIcon from '../../../assets/icons/home.svg';
+import FAQIcon from '../../../assets/icons/faq.svg';
+import Contact from '../../../assets/icons/contact.svg';
+import Homework from '../../../assets/icons/homework.svg';
+import DownArrow from '../../../assets/icons/downarrow.svg';
+import Hamburger from '../../../assets/icons/hamburger.svg';
+import newlogo from '../../../assets/revisedlogo.png';
 import { useAuth } from '../accounts/AuthContext';
 
 
@@ -69,7 +69,7 @@ const NavigationBar = () => {
 
         {/* Navigation links for larger screens */}
         <div className="hidden lg:flex items-center gap-[1px] justify-start w-full">
-          <Link to="/homework-intermediate" style={{ textDecoration: 'none' }}>
+          <Link to="/student-dashboard" style={{ textDecoration: 'none' }}>
             <button className="cursor-pointer py-2.5 px-3 bg-[transparent] rounded-lg flex flex-row items-center justify-center gap-[12px]">
               <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left">
                 Adaptive Practice
@@ -127,7 +127,7 @@ const NavigationBar = () => {
                 {isLoggedIn ? (
                   <>
                     <li><Link to="/profile" onMouseEnter={() => handleMouseEnter('ins')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'ins' ? hoverStyle : {}) }}>
-                      Dashboard
+                      Analytics
                     </Link></li>
                     <li><Link to="/manageAccount" onMouseEnter={() => handleMouseEnter('acc')} onMouseLeave={handleMouseLeave} style={{ ...dropdownStyle, padding: '8px 16px', color: 'teal', ...(hoveredItem === 'acc' ? hoverStyle : {}) }}>
                       Account
@@ -154,7 +154,7 @@ const NavigationBar = () => {
         {/* Mobile navigation links */}
         <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden`}>
           <Link
-            to="/homework-intermediate"
+            to="/student-dashboard"
             style={{ textDecoration: 'none' }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -220,7 +220,7 @@ const NavigationBar = () => {
                 <button className="cursor-pointer py-2.5 px-4 bg-[transparent] rounded-lg flex flex-row items-center justify-start gap-[12px]">
                   <img className="relative w-5 h-5" alt="" src={DownArrow} />
                   <div className="relative text-sm leading-[20px] font-poppins text-light-theme-subheading-text text-left" style={{ color: 'teal' }}>
-                    Dashboard
+                    Analytics
                   </div>
                 </button>
               </Link>

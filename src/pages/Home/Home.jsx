@@ -1,9 +1,9 @@
 import { React, useEffect } from 'react';
-import PricingCard from '../../cards/PricingCard';
+import PricingCard from '../../components/cards/PricingCard';
 import { Link, useLocation } from 'react-router-dom';
-import PersonCard from '../../cards/PersonCard';
+import PersonCard from '../../components/cards/PersonCard';
 
-const Frame = () => {
+const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -196,4 +196,4 @@ const Frame = () => {
   );
 };
 
-export default Frame;
+export default Home;

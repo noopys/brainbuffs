@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MissedConceptsChart from './MissedConceptsChart'; // Import the MissedConceptsChart component
-import { useAuth } from '../frontend/accounts/AuthContext';
+import MissedConceptsChart from '../../components/homework/MissedConceptsChart'; // Import the MissedConceptsChart component
+import { useAuth } from '../../components/frontend/accounts/AuthContext';
 import { Link } from 'react-router-dom';
-import ProfilePage from '../frontend/accounts/ProfilePage'
+import ProfilePage from '../../components/frontend/accounts/ProfilePage'
 
-const HomeworkIntermediate = () => {
+const StudentDashboard = () => {
   /*------------------------------------------------------
   Constants
   --------------------------------------------------------*/
@@ -75,21 +75,12 @@ const HomeworkIntermediate = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("HEEEEEEEEEEEEERRRRRRRRREEEEEEEEEEEEE");
-    // console.log("EnglishUserprof: ", userData[0].EnglishUserProfile);
-    // console.log("Userprof: ", userData[0].userProfile);
-    //  console.log("OldUserProf: ", userData[0].UserProfile);
-    //  console.log("USERDATA:", userData);
     if (userData[0]) {
       // format math
       const formattedMathData = [['Concept', 'Weight']];
       for (const category in userData[0].UserProfile.M) {
         const value = parseInt(userData[0].UserProfile.M[category].N);
         formattedMathData.push([category, value]);
-
-        // const rawValue = userData[0].UserProfile.M[category].N;
-        // const dataType = typeof rawValue;
-        // console.log(`Data type for UserProfile - ${category}: ${dataType}`);
       }
       setMissedMathConceptsChartData(formattedMathData);
       // console.log('chartData', formattedMathData);
@@ -99,10 +90,6 @@ const HomeworkIntermediate = () => {
       for (const category in userData[0].EnglishUserProfile.M) {
         const value = parseInt(userData[0].EnglishUserProfile.M[category].N);
         formattedEnglishData.push([category, value]);
-
-        // const rawValue = userData[0].UserProfile.M[category].N;
-        // const dataType = typeof rawValue;
-        // console.log(`Data type for EnglishUserProfile - ${category}: ${dataType}`);
       }
       setMissedEnglishConceptsChartData(formattedEnglishData);
     }
@@ -207,18 +194,6 @@ const HomeworkIntermediate = () => {
                 <div>
                   Please finish your previous assignment before starting a new one.
                 </div>
-                {/* <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
-                  Math
-                </button>
-                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
-                  English
-                </button>
-                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
-                  Both
-                </button>
-                <button style={{ ...buttonStyle, backgroundColor: '#ccc', cursor: 'not-allowed' }} disabled>
-                  Previous Assignments
-                </button> */}
               </div>
             ) : (
                 <div style={{ display: shouldStack ? 'flex' : 'grid', gridTemplateColumns: shouldStack ? '': 'repeat(2, 1fr)', gap: '10px', flexDirection: 'column' }}>
@@ -238,39 +213,6 @@ const HomeworkIntermediate = () => {
             )}
           </div>
         </div>
-        
-        {/* <div>
-          <h2 style={{ fontSize: '2.3em', fontWeight: 'bold', margin: '30px', marginBottom: '10px' }}>Insights</h2>
-        </div> */}
-
-        {/* Include the MissedConceptsChart component with actual data */}
-        {/* <div style={{ width: '95%', maxWidth: '700px', margin: '20px auto', backgroundColor: '#20a7a1', color: '#fff', padding: '20px', borderRadius: '10px', }}>
-          <h2 style={chartTitleStyle}>Missed Math Concepts</h2>
-          <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
-            {shouldShowLegend ? (
-              <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
-            ) : (
-              <div >Click or hover to view categories</div>
-            )}
-          </div>
-          <div style={{ width: '100%', height: '450px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
-            <MissedConceptsChart chartData={missedMathConceptsChartData} shouldShowLegend={shouldShowLegend} />
-          </div>
-        </div>
-        <div style={{ width: '95%', maxWidth: '700px', margin: '20px auto', backgroundColor: '#20a7a1', color: '#fff', padding: '20px', borderRadius: '10px', }}>
-          <h2 style={chartTitleStyle}>Missed English Concepts</h2>
-          <div style={{ backgroundColor: '#f3f3f3', zIndex: '9999', color: '#000', }}>
-            {shouldShowLegend ? (
-              <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: '10px', paddingTop: '5px' }}>Concepts</div>
-            ) : (
-              <div >Click or hover to view categories</div>
-            )}
-          </div>
-          <div style={{ width: '100%', height: '450px', backgroundColor: '#f3f3f3', border: '1px solid #f3f3f3', borderRadius: '5px', paddingBottom: '30px' }}>
-            <MissedConceptsChart chartData={missedEnglishConceptsChartData} shouldShowLegend={shouldShowLegend} />
-          </div>
-        </div> */}
-        
       </div>
       
     </div>
@@ -279,5 +221,5 @@ const HomeworkIntermediate = () => {
   );
 };
 
-export default HomeworkIntermediate;
+export default StudentDashboard;
 

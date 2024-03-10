@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import TickSquare from '../../resources/icons/tick_square.svg';
+import TickSquare from '../../assets/icons/tick_square.svg';
 import { useAuth } from '../frontend/accounts/AuthContext';
 
 function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc }) {
@@ -109,7 +109,7 @@ function PricingCard({ rows, price, title, plan, desc, showBanner, buttonDesc })
                     ))}
                 </div>
             </div>
-            <Link to={isLoggedIn ? (isProSubscription ? '/homework-intermediate' : '/checkout?plan=practice') : signupUrl} style={{ textDecoration: "none" }}>
+            <Link to={isLoggedIn ? (isProSubscription ? '/student-dashboard' : '/checkout?plan=practice') : signupUrl} style={{ textDecoration: "none" }}>
                 <div className="flex justify-center items-center pt-1 pb-5">
                     {/*Plan Sign up Buttons*/}
                     <button

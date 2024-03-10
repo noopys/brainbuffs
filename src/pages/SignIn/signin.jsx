@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../../components/frontend/accounts/AuthContext';
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 function SignIn() {
