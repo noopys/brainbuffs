@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../frontend/accounts/AuthContext';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import { Oval } from 'react-loader-spinner'; // Import the loader component
+import { Oval } from 'react-loader-spinner'; 
+import axios from 'axios';
 
 // latex
 import 'katex/dist/katex.min.css';
@@ -57,29 +58,20 @@ function ViewPreviousAssignments() {
       try {
         if (isLoggedIn && user && user.username) {
           const userId = user.username;
-
-          const requestData = {
-            userId: userId,
-          };
+          const requestData = { userId: userId };
           setLoading(true);
-          const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', {
-            method: 'POST',
+  
+          const response = await axios.post('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/getPreviousAssignments', requestData, {
             headers: {
               'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData),
+            }
           });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log('Fetched previous assignments data:', data);
-
-          setHomeworkSets(data);
-
-          const noData = Object.keys(data).length === 0;
+  
+          console.log('Fetched previous assignments data:', response.data);
+  
+          setHomeworkSets(response.data);
+  
+          const noData = Object.keys(response.data).length === 0;
           setNoAssignmentsFound(noData);
           setLoading(false);
         } else {
@@ -87,11 +79,23 @@ function ViewPreviousAssignments() {
         }
       } catch (error) {
         console.error('Error fetching previous assignments:', error);
+        setLoading(false);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error(`HTTP error! Status: ${error.response.status}`);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('No response received:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error setting up the request:', error.message);
+        }
       }
     };
-
+  
     fetchPreviousAssignments();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user, setLoading, setHomeworkSets, setNoAssignmentsFound]);
 
   return (
     <div className="w-full px-8 pt-10 font-poppins">

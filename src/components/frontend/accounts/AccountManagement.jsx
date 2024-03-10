@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
@@ -96,7 +97,7 @@ const AccountManagement = () => {
   // If the token is correct, change the fetch from backend to change local context again
   useEffect(() => {
     // console.log("printing the token", token);
-    if (user && user.username && token ==="CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA") {
+    if (user && user.username && token === "CjVcwY0dOoNyJf1nIDrJ8nMZpjf4cMAd1POrADNbGo1iCPINy0Vt34aETa4hbMg8AwqT51ugxF6V42oYzlM13aZco4Cf4r2uQuW88K7dkE3NU9b4DVqZ1YjEvDIXhNGA") {
       console.log("context before:", userData);
       fetchDataFromDynamoDB(user.username);
       console.log("Updated local context plan to", userData);
@@ -119,7 +120,7 @@ const AccountManagement = () => {
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       console.log('inside event handler');
-      if (changesMadePersonal||changesMadeStats) {
+      if (changesMadePersonal || changesMadeStats) {
         // Display the confirmation message when there are unsaved changes
         console.log('changesMadePersonal is true');
         e.preventDefault();
@@ -249,26 +250,28 @@ const AccountManagement = () => {
     };
 
     try {
-      const response = await fetch(apiGatewayEndpoint, {
-        method: 'POST',
+      // Use axios.post for making a POST request. The first argument is the URL, 
+      // the second is the requestData, and the third is an optional configuration object.
+      const response = await axios.post(apiGatewayEndpoint, requestData, {
         headers: {
-          'Content-Type': 'application/json' // Specify that you're sending JSON data
-        },
-        body: JSON.stringify(requestData), // Convert the data object to a JSON string
+          'Content-Type': 'application/json'
+        }
       });
-      // console.log(response);
-
-      if (response.ok) {
-        setChangesMadeStats(false);
-        console.log("changes made:", newGoalScore, newNextTestDate);
-        setupdateStatsSuccessMessage('Statistics Updated Successfully!');
-      } else {
-        console.error('Failed to fetch data from API Gateway');
-        // Handle the error case
-        setupdateStatsSuccessMessage('Make sure none of the fields are empty');
-      }
+      setChangesMadeStats(false);
+      console.log("changes made:", newGoalScore, newNextTestDate);
+      setupdateStatsSuccessMessage('Statistics Updated Successfully!');
     } catch (error) {
-      console.error('Error putting data to API Gateway:', error);
+      if (error.response) {
+        // The request was made and the server responded with a status code that falls out of the range of 2xx
+        console.error('Failed to fetch data from API Gateway:', error.response);
+        setupdateStatsSuccessMessage('Error updating statistics. Please try again.');
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error putting data to API Gateway:', error.message);
+      }
       setupdateStatsSuccessMessage('Error putting data to API Gateway');
     }
 
@@ -323,7 +326,7 @@ const AccountManagement = () => {
   };
 
   // called when ending subscription
-  const handleEndSubscription= async() => {
+  const handleEndSubscription = async () => {
     const requestBody = {
       email: user.email,
     };
@@ -367,7 +370,7 @@ const AccountManagement = () => {
   Conditional Rendering
 
   --------------------------------------------*/
-  
+
   const confirmEndSub = () => {
     setShowConfirmationEndSub(true);
   };
@@ -454,7 +457,7 @@ const AccountManagement = () => {
 
                 <h2 style={{ fontSize: '2em', fontWeight: 'bold' }}>Subscription Information </h2>
                 <div>
-                  
+
 
                   {/* Extension to confirm end sub*/}
                   {showConfirmationEndSub ? (
@@ -482,22 +485,22 @@ const AccountManagement = () => {
                         Current Plan: {(userData.length > 0 && userData[0].SubscriptionLevel !== undefined) ? (userData[0].SubscriptionLevel.S) : ("Free")}
                       </div>
                       {isProSubscription ? (
-                      <div>
-                        {/* <div>
+                        <div>
+                          {/* <div>
                           Next Due Date:
                         </div> */}
-                        <button style={buttonStyle} onClick={confirmEndSub}>End Subscription</button>
-                      </div>
+                          <button style={buttonStyle} onClick={confirmEndSub}>End Subscription</button>
+                        </div>
                       ) : (
                         <div>
                           <Link to="/#PricingCards" >
-                                <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans&nbsp; &rarr; </button>
+                            <button style={{ ...buttonStyle, backgroundColor: '#20a7a1' }}>Check out our Plans&nbsp; &rarr; </button>
                           </Link>
                         </div>
                       )}
-                      
+
                     </div>
-                  )} 
+                  )}
                   {/* End end sub extension*/}
                   {endSubMessage && <p>{endSubMessage}</p>}
 
@@ -530,11 +533,11 @@ const AccountManagement = () => {
 
                 ) : (
                   <div>
-                    
+
                     <button onClick={() => setShowChangePassword(true)} style={buttonStyle}>
                       Change My Password
                     </button>
-                    <br /> 
+                    <br />
                     <button onClick={confirmDelete} style={buttonStyle}>
                       Delete My Account
                     </button>

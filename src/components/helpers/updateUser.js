@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const updateUser = async (userId, questions, selectedOptions, updateUserData, userData) => {
     const data = {
         userId: userId,
@@ -6,19 +8,14 @@ export const updateUser = async (userId, questions, selectedOptions, updateUserD
     };
 
     try {
-        const response = await fetch('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/updateUser', {
-            method: 'POST',
+        const response = await axios.post('https://fm407nxajh.execute-api.us-west-2.amazonaws.com/updateUser', data, {
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const responseData = await response.json();
+        // Axios automatically parses the JSON response, so you can directly access `response.data`
+        const responseData = response.data;
 
         function transformData(originalData) {
             const newData = { M: {} };
@@ -31,17 +28,14 @@ export const updateUser = async (userId, questions, selectedOptions, updateUserD
             }
           
             return newData;
-          }
+        }
 
         // Update user data in React application state using the passed updateUserData function
         const updatedUserData = [...userData]; // Create a copy of the array
         const firstUserData = updatedUserData[0]; // Assuming the user data is stored in the first element of the array 
-        // firstUserData.userProfile = responseData.userProfile;
-        // firstUserData.EnglishUserProfile = responseData.englishUserProfile;
         firstUserData.UserProfile = transformData(responseData.userProfile);
         firstUserData.EnglishUserProfile = transformData(responseData.englishUserProfile);
 
-        
         // Update the state
         updateUserData(updatedUserData);
 
