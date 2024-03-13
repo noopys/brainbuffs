@@ -10,9 +10,9 @@ export default function BearCreek() {
         cursor: 'pointer',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
         width: '300px',
-      };
+    };
 
-      const containerStyle = {
+    const containerStyle = {
         border: '1px solid #20a7a1',
         backgroundColor: '#000000',
         padding: '20px',
@@ -23,10 +23,22 @@ export default function BearCreek() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center', // Center horizontally
-      };
+    };
+
+    const bannerStyle = {
+        backgroundColor: '#ff0000', // Bright red background
+        color: '#ffffff', // White text color
+        width: '100%', // Full width
+        textAlign: 'center', // Center the text
+        padding: '10px 0', // Padding top and bottom
+        fontSize: '24px', // Larger font size
+        fontWeight: 'bold', // Bold font weight
+    };
 
     return (
         <div className="d-flex flex-column bg-light" style={containerStyle}>
+            <div style={bannerStyle}>Class tomorrow 3/14 cancelled due to snow day</div>
+            <div style={bannerStyle}>Rescheduled to 4/4 at 8-9AM</div>
             <div className="container py-5">
                 <h1 className="text-center fw-bold mb-3">Welcome to the Bear Creek Group SAT Program</h1>
                 
