@@ -8,11 +8,11 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 import { Link } from 'react-router-dom'
 // helper files
-import { useAuth } from '../frontend/accounts/AuthContext';
-import { updateUser } from '../helpers/updateUser';
-import { sendMessageToAI } from './helpers/sendMessageToAI.js';
+import { useAuth } from '../../components/frontend/accounts/AuthContext.jsx';
+import { updateUser } from '../../helpers/updateUser.js';
+import { sendMessageToAI } from '../../helpers/sendMessageToAI.js';
 import { Discuss } from 'react-loader-spinner';
-import Chat from './Chat.jsx'
+import Chat from '../../components/Chat/Chat.jsx'
 
 function Homework(props) {
 
@@ -350,8 +350,6 @@ console.log("Answers after trimming:", trimmedAnswers);
 
       const responseData = await response.json();
       setResponse(responseData);
-      // Navigate to HomeworkAnswered page with the answered questions data
-      // console.log('submitData2222:', submitData); // Add this line for debugging
 
       // Set loading state to false once submission is complete
       setIsSubmitting(false);

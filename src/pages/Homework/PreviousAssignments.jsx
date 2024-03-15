@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useAuth } from '../frontend/accounts/AuthContext';
+import { useAuth } from '../../components/frontend/accounts/AuthContext';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import { Oval } from 'react-loader-spinner'; // Import the loader component
+import { Oval } from 'react-loader-spinner'; 
+import ReviewQuestion from '../../components/homework/ReviewQuestion';
 
 // latex
 import 'katex/dist/katex.min.css';
@@ -131,38 +132,7 @@ function ViewPreviousAssignments() {
                       style={{ background: '#f3f4f6' }}
                     >
                       {homeworkSets[homeworkSet].map((question, questionIndex) => (
-                        <div key={questionIndex} style={{ paddingTop: '20px', borderBottom: '1px solid #20a7a1', borderRadius: '0px', width: '100%' }}>
-                          <h3 style={{ marginBottom: '10px', textDecoration: 'underline' }}>Question {questionIndex + 1}</h3>
-                          {question.questionText ? (
-                            <div style={{width: '100%',overflowX: 'auto'}}>
-                              <div
-                                className="latex-container" // Add class for LaTeX container
-                                ref={latexContainerRef} // Ref for LaTeX container
-                              >
-                                <InlineMath math={question.questionText} />
-                              </div>
-                            </div>
-                          ) : (
-                            <div>
-                              {question.questionImage && (
-                                <img src={question.questionImage} alt={`Question ${questionIndex + 1}`} style={{ maxWidth: '100%', marginBottom: '15px', borderRadius: '8px' }} />
-                              )}
-                            </div>
-                          )}
-                          {question.IsCorrect ? (
-                            <div style={{ backgroundColor: 'lightgreen', borderRadius: '5px' }}>
-                              <div style={{ marginTop: '15px', fontSize: '18px' }}><strong>Your Answer:</strong> {question.Answer}</div>
-                              <div style={{ fontSize: '18px' }}><strong>Correct Answer:</strong> {question.CorrectAnswer}</div>
-                              <p style={{ color: 'darkgreen', marginTop: '10px', fontSize: '24px' }}>Your answer is correct!</p>
-                            </div>
-                          ) : (
-                            <div style={{ backgroundColor: 'red', borderRadius: '5px' }}>
-                              <div style={{ marginTop: '15px', fontSize: '18px' }}><strong>Your Answer:</strong> {question.Answer}</div>
-                              <div style={{ fontSize: '18px' }}><strong>Correct Answer:</strong> {question.CorrectAnswer}</div>
-                              <p style={{ color: 'darkred', marginTop: '10px', fontSize: '24px' }}>Your answer is incorrect!</p>
-                            </div>
-                          )}
-                        </div>
+                        <ReviewQuestion key={questionIndex} question={question} questionIndex={questionIndex} />
                       ))}
                     </Disclosure.Panel>
                   </Transition>

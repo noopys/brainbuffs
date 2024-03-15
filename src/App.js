@@ -25,7 +25,7 @@ import Success from './components/frontend/UI/Success';
 //School pages for group classes
 import Develyn from './components/frontend/UI/Develyn';
 import BearCreek from './components/frontend/UI/BearCreek'
-import Homework from './components/homework/Homework'
+import Homework from './pages/Homework/Homework'
 import Slideshow from './components/frontend/UI/Slideshow';
 import SignIn from './pages/SignIn/signin';
 import SignUp from './pages/SignIn/signup';
@@ -34,10 +34,10 @@ import VerificationCodeEntry from './pages/SignIn/verificationCode';
 import AccountManagement from './components/frontend/accounts/AccountManagement';
 import ResetPassword from './components/frontend/accounts/ResetPassword';
 import Profile from './components/frontend/accounts/ProfilePage';
-import HomeworkAnswered from './components/homework/HomeworkAnswered';
 
 import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
-import ViewPreviousAssignments from './components/homework/ViewPreviousAssignments';
+import ViewPreviousAssignments from './pages/Homework/PreviousAssignments';
+import HomeworkReview from "./pages/Homework/HomeworkReview";
 
 
 Amplify.configure(config);
@@ -72,9 +72,9 @@ function App() {
               <Route path="/manageAccount" element={<AccountManagement />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/homework-answered" element={<HomeworkAnswered />} />
               <Route path="/student-dashboard" element={<StudentDashboard/>}/>
               <Route path="/view-previous-practice" element={<ViewPreviousAssignments />} />
+              <Route path="/homework-answered" element={<HomeworkReview/>}/>
 
             </Routes>
           </div>
