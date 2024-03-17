@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../../components/frontend/accounts/AuthContext';
 // import { Pie } from 'react-chartjs-2';
 import { Oval } from 'react-loader-spinner'; // Import the loader component
 import { Chart } from 'react-google-charts';
@@ -398,43 +398,6 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>
-
-            {/* <div style={graphContainerStyles}>
-                <h2> Missed English Concepts</h2>
-                <Chart
-                    width={'100%'}
-                    height={'100%'}
-                    chartType="Bar"
-                    loader={<div>Loading Chart...</div>}
-                    data={chartData}
-                    options={{
-                        title: 'Horizontal Bar Chart',
-                        legend: { position: 'none' },
-                        colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
-                        chartArea: {
-                            width: '70%',
-                            height: '80%',
-                            backgroundColor: '#000000' // black background color
-                        },
-                        hAxis: {
-                            title: 'Value',
-                            textStyle: { color: '#ffffff' } // white text color
-                        },
-                        vAxis: {
-                            textStyle: { color: '#ffffff' } // white text color
-                        }
-                    }}
-                />
-            </div> */}
-            {/* POSSIBLE ADDITIONAL CHARTS */}
-            {/* <div style={graphContainerStyles}>
-                <h2>Concepts that you nail</h2>
-                <div style={graphStyles}>Insert Graph Component Here</div>
-            </div> */}
-            {/* <div style={graphContainerStyles}>
-                <h2>Progress Towards your goal</h2>
-                <div style={graphStyles}>Maybe a simple bar graph that shows progress from 0-1600 and then has markers from their first diagnostic test, the bar shows "projected score", and the end shows goal score</div>
-            </div> */}
             <div style={{ justifyContent: 'center', backgroundColor: '#ffffff' }}>
                 <a href="./student-dashboard"><button style={buttonStyle}>Go Practice!</button></a><br></br>
             </div>

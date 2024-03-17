@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/flatirons.png';
-import HomeIcon from '../../../assets/icons/home.svg';
-import FAQIcon from '../../../assets/icons/faq.svg';
-import Contact from '../../../assets/icons/contact.svg';
-import Homework from '../../../assets/icons/homework.svg';
-import DownArrow from '../../../assets/icons/downarrow.svg';
-import Hamburger from '../../../assets/icons/hamburger.svg';
-import newlogo from '../../../assets/revisedlogo.png';
-import { useAuth } from '../accounts/AuthContext';
+import logo from '../../assets/flatirons.png';
+import HomeIcon from '../../assets/icons/home.svg';
+import FAQIcon from '../../assets/icons/faq.svg';
+import Contact from '../../assets/icons/contact.svg';
+import Homework from '../../assets/icons/homework.svg';
+import DownArrow from '../../assets/icons/downarrow.svg';
+import Hamburger from '../../assets/icons/hamburger.svg';
+import newlogo from '../../assets/revisedlogo.png';
+import { useAuth } from '../frontend/accounts/AuthContext';
 
 
 const NavigationBar = () => {

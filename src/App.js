@@ -14,26 +14,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 // Frontend Pages
-import NavigationBar from './components/frontend/UI/NavigationBar';
-import TutorPage from './components/frontend/UI/TutorPage';
+import NavigationBar from './components/Navbar/NavigationBar';
 import Home from './pages/Home/Home';
-import FAQ from './components/frontend/UI/FAQ';
-import Pricing from './components/frontend/UI/Pricing';
-import { CheckoutForm, Return } from './components/frontend/UI/PaymentPage';
-import Contact from './components/frontend/UI/Contact';
-import Success from './components/frontend/UI/Success';
+import FAQ from './pages/FAQ/FAQ';
+import { CheckoutForm, Return } from './pages/GroupClasses/PaymentPage';
+import Contact from './pages/Contact/Contact';
+import Success from './pages/GroupClasses/Success';
 //School pages for group classes
-import Develyn from './components/frontend/UI/Develyn';
-import BearCreek from './components/frontend/UI/BearCreek'
+import Develyn from './pages/GroupClasses/Develyn';
+import BearCreek from './pages/GroupClasses/BearCreek'
 import Homework from './pages/Homework/Homework'
-import Slideshow from './components/frontend/UI/Slideshow';
 import SignIn from './pages/SignIn/signin';
 import SignUp from './pages/SignIn/signup';
 import SignOutSuccess from './pages/SignIn/signoutSuccess';
 import VerificationCodeEntry from './pages/SignIn/verificationCode';
 import AccountManagement from './components/frontend/accounts/AccountManagement';
 import ResetPassword from './components/frontend/accounts/ResetPassword';
-import Profile from './components/frontend/accounts/ProfilePage';
+import Profile from './pages/StudentDashboard/ProfilePage';
 
 import StudentDashboard from './pages/StudentDashboard/StudentDashboard';
 import ViewPreviousAssignments from './pages/Homework/PreviousAssignments';

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MissedConceptsChart from '../../components/homework/MissedConceptsChart'; // Import the MissedConceptsChart component
 import { useAuth } from '../../components/frontend/accounts/AuthContext';
 import { Link } from 'react-router-dom';
-import ProfilePage from '../../components/frontend/accounts/ProfilePage'
+import ProfilePage from './ProfilePage'
 
 const StudentDashboard = () => {
   /*------------------------------------------------------
